@@ -1,6 +1,8 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\OrderProductsRequest;
+use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersOrderFidProductsEndpoint extends ApiEndpoint
@@ -28,5 +30,27 @@ class OrdersOrderFidProductsEndpoint extends ApiEndpoint
     );
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
+  }
+
+  /**
+   * @summary Retrieve order products
+   *
+   * @return OrderProductsRequest
+   */
+  public function products()
+  {
+    $request = new OrderProductsRequest();
+    $request->setConnection($this->_getConnection());
+    $detail = new ApiRequestDetail();
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/products'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 }
