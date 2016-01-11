@@ -37,7 +37,7 @@ class OrdersOrderFidProductsEndpoint extends ApiEndpoint
    *
    * @return OrderProductsRequest
    */
-  public function products()
+  public function all()
   {
     $request = new OrderProductsRequest();
     $request->setConnection($this->_getConnection());
