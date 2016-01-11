@@ -36,7 +36,7 @@ class VisitorsVisitorIdEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function all()
+  public function pixels()
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
