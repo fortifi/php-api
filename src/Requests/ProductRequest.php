@@ -12,6 +12,8 @@ class ProductRequest
   public function jsonSerialize()
   {
     return [
+      "displayName" => $this->getDisplayName(),
+      "description" => $this->getDescription(),
       "productType" => $this->getProductType(),
       "parentFid" => $this->getParentFid(),
       "statementDescription" => $this->getStatementDescription(),
@@ -27,6 +29,26 @@ class ProductRequest
       "reactivateUrl" => $this->getReactivateUrl(),
       "deleteUrl" => $this->getDeleteUrl(),
     ];
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string
+   */
+  public function getDisplayName($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'displayName', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string
+   */
+  public function getDescription($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'description', $default);
   }
 
   /**

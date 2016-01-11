@@ -1044,6 +1044,10 @@ definitions:
 
   Product:
     properties:
+      displayName:
+        type: string
+      description:
+        type: string
       productType:
         type: string
       parentFid:
