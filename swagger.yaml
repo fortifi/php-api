@@ -721,6 +721,20 @@ paths:
         200:
           description: Card Updated
 
+  /products:
+    get:
+      summary: List all products
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      responses:
+        200:
+          description: Products retrieved
+          schema:
+            $ref: '#/definitions/Products'
+
   /orders:
     post:
       summary: Create a new order
@@ -1021,6 +1035,44 @@ definitions:
       value:
         type: string
 
+  Products:
+    properties:
+      products:
+        type: array
+        items:
+          $ref: "#/definitions/Product"
+
+  Product:
+    properties:
+      productType:
+        type: string
+      parentFid:
+        type: string
+      statementDescription:
+        type: string
+      trialDays:
+        type: string
+      defaultPriceFid:
+        type: string
+      taxable:
+        type: string
+      taxGroupFid:
+        type: string
+      maxQuantity:
+        type: string
+      configVerifyUrl:
+        type: string
+      setupUrl:
+        type: string
+      cancelUrl:
+        type: string
+      suspendUrl:
+        type: string
+      reactivateUrl:
+        type: string
+      deleteUrl:
+        type: string
+
   Order:
     properties:
       fid:
@@ -1090,18 +1142,6 @@ definitions:
           $ref: "#/definitions/OrderProduct"
 
   OrderProduct:
-    properties:
-      fid:
-        type: string
-
-  OrderOffers:
-    properties:
-      products:
-        type: array
-        items:
-          $ref: "#/definitions/OrderOffer"
-
-  OrderOffer:
     properties:
       fid:
         type: string
