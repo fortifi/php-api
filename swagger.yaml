@@ -1,0 +1,1394 @@
+swagger: '2.0'
+info:
+  title: Fortifi API
+  version: "1.0"
+  termsOfService: 'http://fortifi.co/legal/terms/api'
+  description: >
+    The second version of the Fortifi API is an exciting step forward towards
+
+    making it easier for businesses to have open access to their data. We created it
+
+    so that you can improve your business flows, and interact with your customers
+
+    and data in more innovative ways.
+
+
+
+    Build something great!
+
+
+
+    Once you've
+
+    [registered your service account](http://yourdomain.fortifi.it/developers/service-accounts/) it's easy
+
+    to start requesting and posting data to and from Fortifi.
+
+
+
+    All endpoints are only accessible via https and are located at
+
+    `api.fortifi.io`. For instance: you can grab a list of all your companies
+
+    by accessing the following URL with your Access Token
+
+    (replace ACCESS_TOKEN with your own):
+
+    ```
+      https://api.fortifi.io/v1/companies?access_token=ACCESS_TOKEN
+
+    ```
+
+
+    ## Limits
+
+    Be nice. If you're sending too many requests too quickly, we'll send back a
+
+    `503` error code (server unavailable).
+
+    You are limited to 5000 requests per hour per `access_token`.
+
+
+
+    ## Request Methods
+
+    We do our best to have all URLs
+
+    [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer).
+
+    Every endpoint (URL) may support one of four different http verbs. GET
+
+    requests fetch information about an object, POST requests create objects,
+
+    PUT requests update objects, and finally DELETE requests will delete
+
+    objects.
+
+
+
+    ## Structure
+
+
+
+    ### The Envelope
+
+    Every response is contained by an envelope. That is, each response has a
+
+    predictable set of keys with which you can expect to interact:
+
+    ```json
+
+    {
+        "meta": {
+            "code": 200
+        },
+        "data": {
+            ...
+        }
+    }
+
+    ```
+
+
+
+    #### META
+
+    The meta key is used to communicate extra information about the response to
+
+    the developer. If all goes well, you'll only ever see a code key with
+
+    value 200.
+
+    However, sometimes things go wrong, and in that case you might see a
+
+    response like:
+
+    ```json
+
+    {
+        "meta": {
+            "type": "OAuthException",
+            "code": 400,
+            "message": "..."
+        }
+    }
+
+    ```
+
+
+    #### DATA
+
+    The data key is the meat of the response. It may be a list or dictionary,
+
+    but either way this is where you'll find the data you requested.
+
+    #### JSONP
+
+    If you're writing an AJAX application, and you'd like to wrap our response
+
+    with a callback, all you have to do is specify a callback parameter with
+
+    any API call:
+
+    ```
+
+    https://api.fortifi.io/v1/companies?access_token=ACCESS_TOKEN&callback=callbackFunction
+
+    ```
+
+    Would respond with:
+
+    ```js
+
+    callbackFunction({
+        ...
+    });
+
+    ```
+host: lapi.fortifi.io:9090
+schemes:
+  - http
+basePath: /v1
+produces:
+  - application/json
+consumes:
+  - application/json
+externalDocs:
+  description: Find out more about the Fortifi api
+  url: http://developers.fortifi.io/
+
+
+tags:
+  - name: Marketing
+  - name: Customers
+  - name: Entities
+  - name: Orders
+  - name: Custom Properties
+
+securityDefinitions:
+  OAuth:
+    type: oauth2
+    authorizationUrl: 'http://api.fortifi.io/oauth/authorize'
+    tokenUrl: 'http://api.fortifi.io/oauth/token'
+    flow: accessCode
+    scopes:
+      "basic": Basic Read Access
+      "visitor": Read/Write On Visitors
+      "customer": Read/Write On Customers
+      "customer.readonly": Read Only on Customers
+      "entity.properties": Read/Write On Entity Properties
+      "orders": Read/Write On Orders
+      "paymentMethods": Read/Write On Payment Methods
+
+  accessToken:
+    type: apiKey
+    in: query
+    name: access_token
+
+paths:
+  /version:
+    get:
+      security:
+        - OAuth:
+          - basic
+        - accessToken: []
+      summary: Current Version
+      operationId: getVersion
+      description: |
+        Retrieve the current version of the Fortifi api
+      responses:
+        200:
+          description: Version
+          schema:
+            type: string
+
+  /me:
+    get:
+      security:
+        - OAuth:
+          - basic
+        - accessToken: []
+      summary: Current User
+      operationId: getMe
+      description: |
+        Retrieve information about the current connected user (you)
+      responses:
+        200:
+          description: User Information
+          schema:
+              $ref: '#/definitions/User'
+
+  /organisation:
+    get:
+      security:
+        - OAuth:
+          - basic
+        - accessToken: []
+      summary: Current Organisation
+      operationId: getOrganisation
+      description: |
+        Retrieve information about the current organisation
+      responses:
+        200:
+          description: Organisation Information
+          schema:
+              $ref: '#/definitions/Organisation'
+
+  /companies:
+    get:
+      security:
+        - OAuth:
+          - basic
+        - accessToken: []
+      summary: Your Companies
+      operationId: getCompanies
+      description: |
+        Retrieve a list of all the companies within your Fortifi account
+      responses:
+        200:
+          description: Company Information
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Company'
+
+  "/visitors/{visitorId}/pixels":
+    get:
+      security:
+        - OAuth:
+          - visitor
+        - accessToken: []
+      tags:
+        - marketing
+      summary: Retrieve pending pixels for this visitor
+      description: This call will release pixels from the pending queue on read
+      parameters:
+        - $ref: '#/parameters/visitorId'
+      responses:
+        200:
+          description: Pixels
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AdvertiserPixel'
+
+  "/visitors/{visitorId}/actions/{actionKey}":
+    post:
+      summary: Track an action
+      tags:
+        - marketing
+      description: |
+        Track an action such as a lead or acquisition
+      security:
+        - OAuth:
+          - visitor
+      parameters:
+        - $ref: '#/parameters/visitorId'
+        - name: actionKey
+          description: Action key of the action to track e.g. lead
+          in: path
+          required: true
+          type: string
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PostActionPayload'
+
+      responses:
+        200:
+          description: Action Tracked
+          schema:
+            $ref: '#/definitions/VisitorPostAction'
+        409:
+          description: |
+            The transaction ID specified has already been used for this action
+        400:
+          description: |
+            Not enough information was provided to complete your request
+            e.g. Missing Visitor ID and/or Client IP
+        404:
+          description: |
+            The actionKey specified does not exist
+
+  "/visitors/{visitorId}/actions/{actionKey}/reverse":
+    post:
+      summary: Reverse a previously tracked action
+      tags:
+        - marketing
+      description: |
+        When an action has been reversed, e.g. cancelled, refunded
+      security:
+        - OAuth:
+          - visitor
+      parameters:
+        - $ref: '#/parameters/visitorId'
+        - name: actionKey
+          description: Action key of the action to reverse e.g. lead
+          in: path
+          required: true
+          type: string
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ReverseActionPayload'
+
+      responses:
+        200:
+          description: Action Reversed
+          schema:
+            $ref: '#/definitions/VisitorReversalAction'
+        404:
+          description: |
+            The action you are trying to reverse cannot be found
+        409:
+          description: |
+            The action specified has already been reversed
+
+  /pay/publicKey:
+    get:
+      summary: Get the public key needed to encrypt a credit card number
+      security:
+        - OAuth:
+          - paymentMethods
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/PubKey'
+          description: RSA Public Key
+
+  /customers:
+    post:
+      summary: Create a new customer
+      security:
+        - OAuth:
+          - customer
+      tags:
+       - customers
+      parameters:
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateCustomerPayload'
+      responses:
+       200:
+         description: Customer Created
+         schema:
+           $ref: '#/definitions/Customer'
+       404:
+         description: |
+           The company Fid you are trying to add a customer to does not exist
+       409:
+         description: |
+           The external reference has already been used to create a customer
+
+  /customers/findByReference:
+    get:
+      security:
+        - OAuth:
+          - customer
+          - customer.readonly
+      tags:
+        - customers
+      summary: Find a customer by your reference
+      parameters:
+        - name: reference
+          in: query
+          description: Your reference for the customer
+          type: string
+      responses:
+        200:
+          description: Located Customer
+          schema:
+            $ref: '#/definitions/Customer'
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}":
+    get:
+      security:
+        - OAuth:
+          - customer
+          - customer.readonly
+      tags:
+        - customers
+      summary: Retrieve a customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Loaded Customer
+          schema:
+            $ref: '#/definitions/Customer'
+        404:
+          description: Customer not found
+    delete:
+      security:
+        - OAuth:
+          - customer
+      tags:
+        - customers
+      summary: Archive a customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Customer Archived
+        403:
+          description: It is not possible to archive this customer
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/accountStatus":
+    put:
+      summary: Update a customers status
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetAccountStatusPayload'
+      responses:
+        200:
+          description: Customer Status Updated
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/accountType":
+    put:
+      summary: Update a customers status
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetAccountTypePayload'
+      responses:
+        200:
+          description: Customer Status Updated
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/subscriptionType":
+    put:
+      summary: Update a customers status
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetSubscriptionTypePayload'
+      responses:
+        200:
+          description: Customer Status Updated
+        404:
+          description: Customer not found
+
+  "/entities/{entityFid}/properties/values/{propertyName}":
+    delete:
+      summary: Remove a value property from a datanode
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyValuePayload'
+
+      responses:
+        200:
+          description: Property Deleted
+
+    put:
+      summary: Write a datanode value property
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyValuePayload'
+
+      responses:
+        200:
+          description: Property Saved
+        400:
+          description: Invalid Entity
+
+  "/entities/{entityFid}/properties/flags/{propertyName}":
+    delete:
+      summary: Remove a flag from a datanode
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+
+      responses:
+        200:
+          description: Property Deleted
+
+    put:
+      summary: Write a datanode flag
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyFlagPayload'
+
+      responses:
+        200:
+          description: Flag Saved
+        400:
+          description: Invalid Entity
+
+
+  "/entities/{entityFid}/properties/counters/{propertyName}":
+    delete:
+      summary: Remove a counter from a datanode
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+
+      responses:
+        200:
+          description: Property Deleted
+
+  "/entities/{entityFid}/properties/counters/{propertyName}/increment":
+    put:
+      summary: Increment a datanode counter
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyCounterPayload'
+
+      responses:
+        200:
+          description: Counter Incremented
+        400:
+          description: Invalid Entity
+
+  "/entities/{entityFid}/properties/counters/{propertyName}/decrement":
+    put:
+      summary: Decrement a datanode counter
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyCounterPayload'
+
+      responses:
+        200:
+          description: Counter Decremented
+        400:
+          description: Invalid Entity
+
+  "/entities/{entityFid}/events":
+    post:
+      summary: Trigger a new event
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TriggerActionPayload'
+      responses:
+        200:
+          description: Event Triggered
+
+  "/customers/{customerFid}/paymentMethods/cards":
+    post:
+      summary: Add a new card
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+          - paymentMethods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CardDataPayload'
+
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Fid'
+          description: Credit card added to the customers account
+
+  "/customers/{customerFid}/paymentMethods/cards/{cardFid}":
+    delete:
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+          - paymentMethods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/cardFid'
+      responses:
+        200:
+          description: Card Removed
+
+    put:
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+          - paymentMethods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/cardFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CardUpdatePayload'
+
+      summary: Update a card
+      responses:
+        200:
+          description: Card Updated
+
+  /orders:
+    post:
+      summary: Create a new order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateOrderPayload'
+      responses:
+        200:
+          description: Order created successfully
+          schema:
+            $ref: '#/definitions/Fid'
+
+  "/orders/{orderFid}/products":
+    post:
+      summary: Add a product to an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/OrderProductPayload'
+      responses:
+        200:
+          description: Product added to the order successfully
+  "/orders/{orderFid}/products/{productFid}":
+    delete:
+      summary: Add a product to an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/OrderProductPayload'
+      responses:
+        200:
+          description: Product added to the order successfully
+
+parameters:
+  visitorId:
+    name: visitorId
+    in: path
+    type: string
+    required: true
+    description: |
+      "Visitor ID from the cookie.
+      If providing a pre-linked external reference, should be set to 'byref'.
+      If no visitor ID is known, client IP should be provided and visitorId should be set to 'unknown'"
+  customerFid:
+    name: customerFid
+    in: path
+    type: string
+    required: true
+    description: Customer FID to use
+  entityFid:
+    name: entityFid
+    in: path
+    type: string
+    required: true
+    description: Entity FID to use
+  propertyName:
+    name: propertyName
+    in: path
+    required: true
+    type: string
+    description: Property Name
+  orderFid:
+    name: orderFid
+    in: path
+    required: true
+    type: string
+  cardFid:
+    name: cardFid
+    in: path
+    required: true
+    type: string
+definitions:
+#Responses
+  Fid:
+    properties:
+      fid:
+        type: string
+        description: Object FID
+
+  PubKey:
+    properties:
+      key:
+        type: string
+        description: RSA Public Key
+
+  User:
+    properties:
+      fid:
+        type: string
+        description: Campaign FID
+      username:
+        type: string
+        description: Username
+      language:
+        type: string
+        description: Language
+      timezone:
+        type: string
+        description: Timezone for this user
+
+  Organisation:
+    properties:
+      orgName:
+        type: string
+      orgFid:
+        type: string
+      orgDomain:
+        type: string
+
+  Company:
+    properties:
+      companyName:
+        type: string
+      primaryDomain:
+        type: string
+      companyFid:
+        type: string
+
+  Customer:
+    properties:
+      fid:
+        type: string
+      name:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      externalReference:
+        type: string
+
+  AdvertiserPixel:
+    properties:
+      url:
+        type: string
+      method:
+        type: string
+        enum:
+          - iframe
+          - img
+          - js
+          - curl
+          - html
+      content:
+        type: string
+
+  VisitorPostAction:
+    properties:
+      visitorId:
+       type: string
+      eventId:
+        type: string
+      sid1:
+        type: string
+      sid2:
+        type: string
+      sid3:
+        type: string
+      advertiserFid:
+        type: string
+      campaignFid:
+        type: string
+      commission:
+        type: number
+        format: float
+      commissionCurrency:
+        type: string
+      pixels:
+        type: array
+        items:
+          $ref: '#/definitions/AdvertiserPixel'
+
+
+  VisitorReversalAction:
+    properties:
+      visitorId:
+       type: string
+      eventId:
+        type: string
+      advertiserFid:
+        type: string
+      campaignFid:
+        type: string
+      reversedCommission:
+        type: number
+        format: float
+      feeCharged:
+        type: number
+        format: float
+      commissionCurrency:
+        type: string
+
+  keyValue:
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+
+
+#Payloads
+  PostActionPayload:
+    properties:
+      transactionId:
+        description: Your unique transaction ID for this event e.g. Order ID
+        type: string
+      transactionValue:
+        description: Your unique transaction ID for this event
+        type: number
+        format: float
+      couponCode:
+        description: Coupon code used for the transaction
+        type: string
+      returnPixels:
+        description: |
+          Setting to true will return advertiser pixels for this event
+        type: boolean
+        default: true
+      productCode:
+        type: string
+        description: Product Code linked to this action
+      productTerm:
+        type: string
+        description: Product Term
+      paymentMethod:
+        type: string
+        description: Payment method used on this transaction
+      userAgent:
+        $ref: '#/definitions/userAgent'
+      encoding:
+        $ref: '#/definitions/encoding'
+      language:
+        $ref: '#/definitions/language'
+      clientIp:
+        $ref: '#/definitions/clientIp'
+      externalReference:
+        $ref: '#/definitions/visitorExternalReference'
+      companyFid:
+        required: true
+        $ref: '#/definitions/companyFid'
+      campaignHash:
+        $ref: '#/definitions/campaignHash'
+      sid1:
+        $ref: '#/definitions/sid1'
+      sid2:
+        $ref: '#/definitions/sid2'
+      sid3:
+        $ref: '#/definitions/sid3'
+      metaData:
+        $ref: '#/definitions/metaData'
+      time:
+        $ref: '#/definitions/isoTime'
+
+  ReverseActionPayload:
+    properties:
+      userAgent:
+        $ref: '#/definitions/userAgent'
+      encoding:
+        $ref: '#/definitions/encoding'
+      language:
+        $ref: '#/definitions/language'
+      clientIp:
+        $ref: '#/definitions/clientIp'
+      externalReference:
+        $ref: '#/definitions/visitorExternalReference'
+      time:
+        $ref: '#/definitions/isoTime'
+      metaData:
+        $ref: '#/definitions/metaData'
+      sourceTransactionId:
+        $ref: '#/definitions/sourceTransactionId'
+      reason:
+        $ref: '#/definitions/reversalReason'
+      reversalAmount:
+        $ref: '#/definitions/reversalAmount'
+      reversalId:
+        $ref: '#/definitions/reversalId'
+      eventId:
+        $ref: '#/definitions/eventId'
+
+  CreateCustomerPayload:
+    description: Payload for creating a customer
+    properties:
+      visitorId:
+        $ref: '#/definitions/visitorId'
+      clientIp:
+        $ref: '#/definitions/clientIp'
+      externalReference:
+        $ref: '#/definitions/externalReference'
+      time:
+        $ref: '#/definitions/isoTime'
+      companyFid:
+        required: true
+        $ref: '#/definitions/companyFid'
+      currency:
+        $ref: '#/definitions/currency'
+      phoneNumber:
+        $ref: '#/definitions/phoneNumber'
+      email:
+        $ref: '#/definitions/email'
+      firstName:
+        $ref: '#/definitions/firstName'
+      lastName:
+        $ref: '#/definitions/lastName'
+      accountManagerFid:
+        $ref: '#/definitions/accountManagerFid'
+      accountType:
+        $ref: '#/definitions/customerAccountType'
+      accountStatus:
+        $ref: '#/definitions/customerAccountStatus'
+      lifecycle:
+        $ref: '#/definitions/customerLifecycle'
+      subscriptionType:
+        $ref: '#/definitions/customerSubscriptionType'
+
+  SetAccountStatusPayload:
+    properties:
+      accountStatus:
+        $ref: '#/definitions/customerAccountStatus'
+
+  SetAccountTypePayload:
+    properties:
+      accountType:
+        $ref: '#/definitions/customerAccountType'
+
+  SetSubscriptionTypePayload:
+    properties:
+      subscriptionType:
+        $ref: '#/definitions/customerSubscriptionType'
+
+  PropertyValuePayload:
+    properties:
+      propertyValue:
+        description: Property Value
+        type: string
+
+  PropertyFlagPayload:
+    properties:
+      propertyValue:
+        description: Property Flag Value
+        type: boolean
+
+  PropertyCounterPayload:
+    properties:
+      propertyValue:
+        description: Property Counter Adjustment
+        type: integer
+        format: int32
+
+  TriggerActionPayload:
+    properties:
+      metaData:
+        $ref: '#/definitions/metaData'
+      time:
+        $ref: '#/definitions/isoTime'
+      alias:
+        type: string
+        description: Your alias for the event to be triggered
+      triggerMessenger:
+        type: boolean
+        description: If set to true, transactional messenger chains will be triggered
+
+  CardDataPayload:
+    properties:
+      encryptedCardNumber:
+        $ref: '#/definitions/cardEncryptedNumber'
+      startMonth:
+        $ref: '#/definitions/cardStartMonth'
+      startYear:
+        $ref: '#/definitions/cardStartYear'
+      expiryMonth:
+        $ref: '#/definitions/cardExpiryMonth'
+      expiryYear:
+        $ref: '#/definitions/cardExpiryYear'
+      last4:
+        $ref: '#/definitions/cardLast4'
+      issue:
+        $ref: '#/definitions/cardIssue'
+      cardHolder:
+        $ref: '#/definitions/cardCardHolder'
+      addressFid:
+        $ref: '#/definitions/cardAddressFid'
+      addressLine1:
+        $ref: '#/definitions/cardAddressLine1'
+      addressLine2:
+        $ref: '#/definitions/cardAddressLine2'
+      addressLine3:
+        $ref: '#/definitions/cardAddressLine3'
+      addressCity:
+        $ref: '#/definitions/cardAddressCity'
+      addressState:
+        $ref: '#/definitions/cardAddressState'
+      addressCountry:
+        $ref: '#/definitions/cardAddressCountry'
+      addressPostal:
+        $ref: '#/definitions/cardAddressPostal'
+      isDefault:
+        $ref: '#/definitions/cardIsDefault'
+
+  CardUpdatePayload:
+    properties:
+      cardHolder:
+        $ref: '#/definitions/cardCardHolder'
+      startMonth:
+        $ref: '#/definitions/cardStartMonth'
+      startYear:
+        $ref: '#/definitions/cardStartYear'
+      expiryMonth:
+        $ref: '#/definitions/cardExpiryMonth'
+      expiryYear:
+        $ref: '#/definitions/cardExpiryYear'
+      issue:
+        $ref: '#/definitions/cardIssue'
+      cardHolder:
+        $ref: '#/definitions/cardCardHolder'
+      addressFid:
+        $ref: '#/definitions/cardAddressFid'
+      addressLine1:
+        $ref: '#/definitions/cardAddressLine1'
+      addressLine2:
+        $ref: '#/definitions/cardAddressLine2'
+      addressLine3:
+        $ref: '#/definitions/cardAddressLine3'
+      addressCity:
+        $ref: '#/definitions/cardAddressCity'
+      addressState:
+        $ref: '#/definitions/cardAddressState'
+      addressCountry:
+        $ref: '#/definitions/cardAddressCountry'
+      addressPostal:
+        $ref: '#/definitions/cardAddressPostal'
+
+  CreateOrderPayload:
+    properties:
+      paymentAccountFid:
+        $ref: '#/definitions/paymentAccountFid'
+      companyFid:
+        $ref: '#/definitions/companyFid'
+      customerFid:
+        $ref: '#/definitions/customerFid'
+      clientIp:
+        $ref: '#/definitions/clientIp'
+      userAgent:
+        $ref: '#/definitions/userAgent'
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/OrderProductPayload'
+
+  OrderProductPayload:
+    properties:
+      productPriceFid:
+        type: string
+        description: Product price FID to add
+      offerFid:
+        type: string
+        description: Offer FID to apply
+      couponCode:
+        type: string
+        description: Coupon Code for the Offer
+      configuration:
+        type: array
+        items:
+          $ref: '#/definitions/keyValue'
+        description: Product configuration
+      termFid:
+        type: string
+        description: Term FID
+
+#Properties
+  isoTime:
+    description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+    type: string
+    format: date-time
+  userAgent:
+    description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+    type: string
+  language:
+    description: Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
+    type: string
+  encoding:
+    description: Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
+    type: string
+  clientIp:
+    description: IP Address of the visitor
+    type: string
+  visitorExternalReference:
+    description: External (to Fortifi) Reference for this visitor e.g. a user ID
+    type: string
+  companyFid:
+    description: Company FID to track this event to
+    type: string
+  campaignHash:
+    description: |
+      Advertiser Campaign to track this action to (if not already locked)
+    type: string
+  sid1:
+    type: string
+    description: Advertised sub tracking ID 1
+  sid2:
+    type: string
+    description: Advertised sub tracking ID 2
+  sid3:
+    type: string
+    description: Advertised sub tracking ID 3
+  metaData:
+    type: array
+    description: Additional information to store
+    items:
+      $ref: '#/definitions/keyValue'
+  sourceTransactionId:
+    description: Your unique transaction ID for the event to be reversed
+    type: string
+  reversalReason:
+    description: The reason for reversing the action
+    type: string
+    enum:
+    - chargeback
+    - cancel
+    - fraud
+  reversalAmount:
+    description: Amount of revene refunded to the client from the original transaction / chargeback amount
+    type: number
+    format: float
+  reversalId:
+    description: Your unique transaction ID for this event e.g. Refund ID
+    type: string
+  eventId:
+    description: If known, the Fortifi event ID for this visitors action
+    type: string
+  visitorId:
+    description: Visitor ID of the visitor
+    type: string
+  currency:
+    description: Currency
+    type: string
+  phoneNumber:
+    description: Phone Number
+    type: string
+  firstName:
+    description: First Name
+    type: string
+  lastName:
+    description: Last Name
+    type: string
+  email:
+    type: string
+    description: Email Address
+  accountManagerFid:
+    description: FID of the account manager for this customer
+    type: string
+  customerAccountType:
+    description: Account Type
+    type: string
+    enum:
+    - unknown
+    - business
+    - residential
+    - student
+  customerAccountStatus:
+    description: Account Status
+    type: string
+    enum:
+    - setup
+    - active
+    - suspended
+    - expired
+    - cancelled
+  customerLifecycle:
+    description: Customer Lifecycle Stage
+    type: string
+    enum:
+    - prospect
+    - customer
+    - closed
+  customerSubscriptionType:
+    description: Customer Subscription Status
+    type: string
+    enum:
+    - none
+    - trial
+    - free
+    - paid
+  externalReference:
+    description: External (to Fortifi) Reference e.g. your internal Unique ID
+    type: string
+  cardEncryptedNumber:
+    description: Card number encrypted using your public key
+    type: string
+  cardStartMonth:
+    description: Start Month of the card
+    type: integer
+  cardStartYear:
+    description: Start Year of the card
+    type: integer
+  cardExpiryMonth:
+    description: Expiration Month of the card
+    type: integer
+  cardExpiryYear:
+    description: Expiration Year of the card
+    type: integer
+  cardLast4:
+    description: Last 4 digits of the credit card number
+    type: integer
+  cardIssue:
+    description: Issue number of the card
+    type: integer
+  cardCardHolder:
+    description: Name as appears on card
+    type: string
+  cardAddressFid:
+    description: FID of an existing address to use with the card
+    type: string
+  cardAddressCity:
+    description: City for the card
+    type: string
+  cardAddressCountry:
+    description: Country of the card
+    type: string
+  cardAddressLine1:
+    description: Address Line 1 of the card
+    type: string
+  cardAddressLine2:
+    description: Address Line 2 of the card
+    type: string
+  cardAddressLine3:
+    description: Address Line 3 of the card
+    type: string
+  cardAddressState:
+    description: State/County of the card
+    type: string
+  cardAddressPostal:
+    description:  Postal/Zip Code of the card
+    type: string
+  cardIsDefault:
+    description: Is this card should be used as the primary card on the account
+    type: boolean
+  paymentAccountFid:
+    description: FID for the payment account you wish to charge the customer through
+    type: string
+  customerFid:
+    type: string
+    description: FID for the customer placing the order
