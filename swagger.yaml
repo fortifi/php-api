@@ -178,6 +178,7 @@ securityDefinitions:
       "customer.readonly": Read Only on Customers
       "entity.properties": Read/Write On Entity Properties
       "orders": Read/Write On Orders
+      "products": Read/Write On Products
       "paymentMethods": Read/Write On Payment Methods
 
   accessToken:
@@ -725,10 +726,10 @@ paths:
     get:
       summary: List all products
       tags:
-        - orders
+        - products
       security:
         - OAuth:
-          - orders
+          - products
       responses:
         200:
           description: Products retrieved
