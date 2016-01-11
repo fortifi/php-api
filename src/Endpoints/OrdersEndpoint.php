@@ -1,0 +1,52 @@
+<?php
+namespace Fortifi\Api\V1\Endpoints;
+
+use Fortifi\Api\V1\Payloads\CreateOrderPayload;
+use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\Core\ApiRequest;
+use Fortifi\Api\Core\ApiEndpoint;
+
+class OrdersEndpoint extends ApiEndpoint
+{
+  protected $_baseUrl = 'http://lapi.fortifi.io:9090';
+  protected $_basePath = '/v1';
+  protected $_path = 'orders';
+  protected $_replacements = [];
+
+  public function __construct()
+  {
+  }
+
+  /**
+   * @param $orderFid
+   *
+   * @return OrdersOrderFidEndpoint
+   */
+  public function with($orderFid)
+  {
+    $endpoint = new OrdersOrderFidEndpoint(
+      $orderFid
+    );
+    $endpoint->setConnection($this->_getConnection());
+    return $endpoint;
+  }
+
+  /**
+   * @summary Create a new order
+   *
+   * @param CreateOrderPayload $payload
+   *
+   * @return ApiRequest
+   */
+  public function create(CreateOrderPayload $payload)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $detail = new ApiRequestDetail();
+    $detail->setUrl($this->_buildUrl('orders'));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('POST');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+}
