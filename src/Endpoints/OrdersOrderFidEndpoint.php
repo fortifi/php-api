@@ -1,6 +1,8 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\OrderRequest;
+use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersOrderFidEndpoint extends ApiEndpoint
@@ -25,5 +27,27 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
     );
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
+  }
+
+  /**
+   * @summary Retrieve an order
+   *
+   * @return OrderRequest
+   */
+  public function retrieve()
+  {
+    $request = new OrderRequest();
+    $request->setConnection($this->_getConnection());
+    $detail = new ApiRequestDetail();
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 }

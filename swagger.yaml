@@ -741,9 +741,9 @@ paths:
           schema:
             $ref: '#/definitions/Fid'
 
-  "/orders/{orderFid}/products":
-    post:
-      summary: Add a product to an order
+  "/orders/{orderFid}":
+    get:
+      summary: Retrieve an order
       tags:
         - orders
       security:
@@ -751,14 +751,13 @@ paths:
           - orders
       parameters:
         - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/OrderProductPayload'
       responses:
         200:
-          description: Product added to the order successfully
+          description: Order retrieved
+          schema:
+            $ref: '#/definitions/Order'
+        404:
+          description: Order not found
   "/orders/{orderFid}/products/{productFid}":
     delete:
       summary: Add a product to an order
@@ -948,6 +947,66 @@ definitions:
       value:
         type: string
 
+  Order:
+    properties:
+      fid:
+        type: string
+      orderHash:
+        type: string
+      state:
+        type: string
+      queueFid:
+        type: string
+      offerFid:
+        type: string
+      couponCode:
+        type: string
+      amount:
+        type: number
+        format: float
+      setupAmount:
+        type: number
+        format: float
+      taxAmount:
+        type: number
+        format: float
+      totalAmount:
+        type: number
+        format: float
+      currency:
+        type: string
+      country:
+        type: string
+      discountAmount:
+        type: number
+        format: float
+      discountType:
+        type: string
+      approvedByFid:
+        type: string
+      userAgent:
+        type: string
+      userIp:
+        type: string
+      paymentAccountFid:
+        type: string
+      paymentServiceType:
+        type: string
+      lastPaymentFid:
+        type: string
+      companyFid:
+        type: string
+      customerFid:
+        type: string
+      fraudFid:
+        type: string
+      invoiceFid:
+        type: string
+      amountPaid:
+        type: number
+        format: float
+      authorizeId:
+        type: string
 
 #Payloads
   PostActionPayload:
