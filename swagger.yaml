@@ -805,6 +805,41 @@ paths:
       responses:
         200:
           description: Product removed from the order successfully
+  "/orders/{orderFid}/offers":
+    post:
+      summary: Add an offer to an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: offerFid
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Offer added to the order successfully
+        404:
+          description: Order not found
+  "/orders/{orderFid}/offers/{offerFid}":
+    delete:
+      summary: Remove an offer from an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - $ref: '#/parameters/offerFid'
+      responses:
+        200:
+          description: Offer removed from the order successfully
+        404:
+          description: Order not found
 
 parameters:
   visitorId:
@@ -836,6 +871,11 @@ parameters:
     description: Property Name
   orderFid:
     name: orderFid
+    in: path
+    required: true
+    type: string
+  offerFid:
+    name: offerFid
     in: path
     required: true
     type: string
@@ -1050,6 +1090,18 @@ definitions:
           $ref: "#/definitions/OrderProduct"
 
   OrderProduct:
+    properties:
+      fid:
+        type: string
+
+  OrderOffers:
+    properties:
+      products:
+        type: array
+        items:
+          $ref: "#/definitions/OrderOffer"
+
+  OrderOffer:
     properties:
       fid:
         type: string

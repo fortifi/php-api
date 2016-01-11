@@ -1,15 +1,15 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class OrdersOrderFidEndpoint extends ApiEndpoint
+class OrdersOrderFidOffersEndpoint extends ApiEndpoint
 {
   protected $_baseUrl = 'http://lapi.fortifi.io:9090';
   protected $_basePath = '/v1';
-  protected $_path = 'orders/{orderFid}';
+  protected $_path = 'orders/{orderFid}/offers';
   protected $_replacements = [];
 
   public function __construct($orderFid)
@@ -18,47 +18,41 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return OrdersOrderFidProductsEndpoint
-   */
-  public function products()
-  {
-    $endpoint = new OrdersOrderFidProductsEndpoint(
-      $this->_replacements['{orderFid}']
-    );
-    $endpoint->setConnection($this->_getConnection());
-    return $endpoint;
-  }
-
-  /**
-   * @return OrdersOrderFidOffersEndpoint
-   */
-  public function offers()
-  {
-    $endpoint = new OrdersOrderFidOffersEndpoint(
-      $this->_replacements['{orderFid}']
-    );
-    $endpoint->setConnection($this->_getConnection());
-    return $endpoint;
-  }
-
-  /**
-   * @summary Retrieve an order
+   * @param $offerFid
    *
-   * @return OrderRequest
+   * @return OrdersOrderFidOffersOfferFidEndpoint
    */
-  public function retrieve()
+  public function with($offerFid)
   {
-    $request = new OrderRequest();
+    $endpoint = new OrdersOrderFidOffersOfferFidEndpoint(
+      $this->_replacements['{orderFid}'],
+      $offerFid
+    );
+    $endpoint->setConnection($this->_getConnection());
+    return $endpoint;
+  }
+
+  /**
+   * @summary Add an offer to an order
+   *
+   * @param $offerFid
+   *
+   * @return ApiRequest
+   */
+  public function create($offerFid)
+  {
+    $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'orders/{orderFid}'
+        'orders/{orderFid}/offers'
       )
     ));
-    $detail->setMethod('GET');
+    $detail->addPostField('offerFid', $offerFid);
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }
