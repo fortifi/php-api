@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\OrderProductsRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersOrderFidProductsEndpoint extends ApiEndpoint
@@ -18,15 +19,15 @@ class OrdersOrderFidProductsEndpoint extends ApiEndpoint
   }
 
   /**
-   * @param $productFid
+   * @param $orderProductFid
    *
-   * @return OrdersOrderFidProductsProductFidEndpoint
+   * @return OrdersOrderFidProductsOrderProductFidEndpoint
    */
-  public function with($productFid)
+  public function with($orderProductFid)
   {
-    $endpoint = new OrdersOrderFidProductsProductFidEndpoint(
+    $endpoint = new OrdersOrderFidProductsOrderProductFidEndpoint(
       $this->_replacements['{orderFid}'],
-      $productFid
+      $orderProductFid
     );
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
@@ -50,6 +51,31 @@ class OrdersOrderFidProductsEndpoint extends ApiEndpoint
       )
     ));
     $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Add a product to an order
+   *
+   * @param $productPriceFid
+   *
+   * @return ApiRequest
+   */
+  public function create($productPriceFid)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $detail = new ApiRequestDetail();
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/products'
+      )
+    ));
+    $detail->addPostField('productPriceFid', $productPriceFid);
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

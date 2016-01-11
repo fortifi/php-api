@@ -775,8 +775,7 @@ paths:
             $ref: '#/definitions/OrderProducts'
         404:
           description: Order not found
-  "/orders/{orderFid}/products/{productFid}":
-    delete:
+    post:
       summary: Add a product to an order
       tags:
         - orders
@@ -785,14 +784,27 @@ paths:
           - orders
       parameters:
         - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
+        - name: productPriceFid
+          in: formData
           required: true
-          schema:
-            $ref: '#/definitions/OrderProductPayload'
+          type: string
       responses:
         200:
           description: Product added to the order successfully
+  "/orders/{orderFid}/products/{orderProductFid}":
+    delete:
+      summary: Remove a product from an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - $ref: '#/parameters/orderProductFid'
+      responses:
+        200:
+          description: Product removed from the order successfully
 
 parameters:
   visitorId:
@@ -824,6 +836,11 @@ parameters:
     description: Property Name
   orderFid:
     name: orderFid
+    in: path
+    required: true
+    type: string
+  orderProductFid:
+    name: orderProductFid
     in: path
     required: true
     type: string
@@ -1075,7 +1092,6 @@ definitions:
       externalReference:
         $ref: '#/definitions/visitorExternalReference'
       companyFid:
-        required: true
         $ref: '#/definitions/companyFid'
       campaignHash:
         $ref: '#/definitions/campaignHash'
@@ -1089,6 +1105,8 @@ definitions:
         $ref: '#/definitions/metaData'
       time:
         $ref: '#/definitions/isoTime'
+    required:
+      - companyFid
 
   ReverseActionPayload:
     properties:
@@ -1129,7 +1147,6 @@ definitions:
       time:
         $ref: '#/definitions/isoTime'
       companyFid:
-        required: true
         $ref: '#/definitions/companyFid'
       currency:
         $ref: '#/definitions/currency'
@@ -1151,6 +1168,8 @@ definitions:
         $ref: '#/definitions/customerLifecycle'
       subscriptionType:
         $ref: '#/definitions/customerSubscriptionType'
+    required:
+      - companyFid
 
   SetAccountStatusPayload:
     properties:
@@ -1250,8 +1269,6 @@ definitions:
         $ref: '#/definitions/cardExpiryYear'
       issue:
         $ref: '#/definitions/cardIssue'
-      cardHolder:
-        $ref: '#/definitions/cardCardHolder'
       addressFid:
         $ref: '#/definitions/cardAddressFid'
       addressLine1:
@@ -1281,30 +1298,11 @@ definitions:
         $ref: '#/definitions/clientIp'
       userAgent:
         $ref: '#/definitions/userAgent'
-      products:
+      productPriceFids:
         type: array
+        description: Product price FIDs to add
         items:
-          $ref: '#/definitions/OrderProductPayload'
-
-  OrderProductPayload:
-    properties:
-      productPriceFid:
-        type: string
-        description: Product price FID to add
-      offerFid:
-        type: string
-        description: Offer FID to apply
-      couponCode:
-        type: string
-        description: Coupon Code for the Offer
-      configuration:
-        type: array
-        items:
-          $ref: '#/definitions/keyValue'
-        description: Product configuration
-      termFid:
-        type: string
-        description: Term FID
+          type: string
 
 #Properties
   isoTime:

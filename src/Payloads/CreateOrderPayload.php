@@ -24,7 +24,10 @@ class CreateOrderPayload
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
    */
   protected $_userAgent;
-  protected $_products;
+  /**
+   * Product price FIDs to add
+   */
+  protected $_productPriceFids;
 
   public function hydrate($data)
   {
@@ -49,9 +52,9 @@ class CreateOrderPayload
     {
       $this->_userAgent = $data["userAgent"];
     }
-    if(isset($data["products"]))
+    if(isset($data["productPriceFids"]))
     {
-      $this->_products = $data["products"];
+      $this->_productPriceFids = $data["productPriceFids"];
     }
     return $this;
   }
@@ -64,7 +67,7 @@ class CreateOrderPayload
       "customerFid" => $this->_customerFid,
       "clientIp" => $this->_clientIp,
       "userAgent" => $this->_userAgent,
-      "products" => $this->_products,
+      "productPriceFids" => $this->_productPriceFids,
     ];
   }
 
@@ -184,35 +187,37 @@ class CreateOrderPayload
   }
 
   /**
-   * @param OrderProductPayload[] $value
+   * @param array $value
    *
    * @return $this
    */
-  public function setProducts(array $value)
+  public function setProductPriceFids(array $value)
   {
-    $this->_products = $value;
+    $this->_productPriceFids = $value;
     return $this;
   }
 
   /**
-   * @param OrderProductPayload $item
+   * @param $item
    * 
    * @return $this
    */
-  public function addProduct(OrderProductPayload $item)
+  public function addProductPriceFid($item)
   {
-    $this->_products[] = $item;
+    $this->_productPriceFids[] = $item;
     return $this;
   }
 
   /**
+   * Product price FIDs to add
+   * 
    * @param mixed $default
    *
-   * @return OrderProductPayload[]
+   * @return string[]
    */
-  public function getProducts($default = [])
+  public function getProductPriceFids($default = [])
   {
-    return $this->_products ?: $default;
+    return $this->_productPriceFids ?: $default;
   }
 }
       
