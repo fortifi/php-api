@@ -124,6 +124,7 @@ class VisitorPostActionRequest
   {
     return Objects::property($this->_getResultJson(), 'pixels', $default);
   }
+
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);

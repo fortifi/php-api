@@ -135,6 +135,7 @@ class ProductRequest
   {
     return Objects::property($this->_getResultJson(), 'maxQuantity', $default);
   }
+
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);

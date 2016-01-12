@@ -25,6 +25,7 @@ class ProductsRequest
   {
     return Objects::property($this->_getResultJson(), 'products', $default);
   }
+
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
