@@ -1159,6 +1159,15 @@ definitions:
     properties:
       fid:
         type: string
+      displayName:
+        type: string
+      description:
+        type: string
+      price:
+        type: number
+        format: float
+      offerFid:
+        type: string
 
 #Payloads
   PostActionPayload:
