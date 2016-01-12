@@ -166,7 +166,7 @@ class CreateCustomerPayload
 
   /**
    * Visitor ID of the visitor
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -189,7 +189,7 @@ class CreateCustomerPayload
 
   /**
    * IP Address of the visitor
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -212,7 +212,7 @@ class CreateCustomerPayload
 
   /**
    * External (to Fortifi) Reference e.g. your internal Unique ID
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -235,7 +235,7 @@ class CreateCustomerPayload
 
   /**
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -258,7 +258,7 @@ class CreateCustomerPayload
 
   /**
    * Company FID to track this event to
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -281,7 +281,7 @@ class CreateCustomerPayload
 
   /**
    * Currency
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -304,7 +304,7 @@ class CreateCustomerPayload
 
   /**
    * Phone Number
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -327,7 +327,7 @@ class CreateCustomerPayload
 
   /**
    * Email Address
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -350,7 +350,7 @@ class CreateCustomerPayload
 
   /**
    * First Name
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -373,7 +373,7 @@ class CreateCustomerPayload
 
   /**
    * Last Name
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -396,7 +396,7 @@ class CreateCustomerPayload
 
   /**
    * FID of the account manager for this customer
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -419,7 +419,7 @@ class CreateCustomerPayload
 
   /**
    * Account Type
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -442,7 +442,7 @@ class CreateCustomerPayload
 
   /**
    * Account Status
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -465,7 +465,7 @@ class CreateCustomerPayload
 
   /**
    * Customer Lifecycle Stage
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -488,7 +488,7 @@ class CreateCustomerPayload
 
   /**
    * Customer Subscription Status
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -498,4 +498,3 @@ class CreateCustomerPayload
     return $this->_subscriptionType ?: $default;
   }
 }
-      

@@ -25,5 +25,21 @@ class OrderProductsRequest
   {
     return Objects::property($this->_getResultJson(), 'products', $default);
   }
+  protected function _prepareResult($result)
+  {
+    $return = parent::_prepareResult($result);
+
+    if(!empty($return->products))
+    {
+       $tmp = [];
+       foreach($return->products as $itm)
+       {
+         $tmp[] = (new OrderProductRequest())->hydrate($itm);
+       }
+       $return->products = $tmp;
+    }
+
+    return $return;
+  }
 }
       

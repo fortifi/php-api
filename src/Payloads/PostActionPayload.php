@@ -203,7 +203,7 @@ class PostActionPayload
 
   /**
    * Your unique transaction ID for this event e.g. Order ID
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -226,7 +226,7 @@ class PostActionPayload
 
   /**
    * Your unique transaction ID for this event
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -249,7 +249,7 @@ class PostActionPayload
 
   /**
    * Coupon code used for the transaction
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -273,7 +273,7 @@ class PostActionPayload
   /**
    * Setting to true will return advertiser pixels for this event
 
-   * 
+   *
    * @param bool $default
    *
    * @return boolean
@@ -296,7 +296,7 @@ class PostActionPayload
 
   /**
    * Product Code linked to this action
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -319,7 +319,7 @@ class PostActionPayload
 
   /**
    * Product Term
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -342,7 +342,7 @@ class PostActionPayload
 
   /**
    * Payment method used on this transaction
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -365,7 +365,7 @@ class PostActionPayload
 
   /**
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -388,7 +388,7 @@ class PostActionPayload
 
   /**
    * Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -411,7 +411,7 @@ class PostActionPayload
 
   /**
    * Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -434,7 +434,7 @@ class PostActionPayload
 
   /**
    * IP Address of the visitor
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -457,7 +457,7 @@ class PostActionPayload
 
   /**
    * External (to Fortifi) Reference for this visitor e.g. a user ID
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -480,7 +480,7 @@ class PostActionPayload
 
   /**
    * Company FID to track this event to
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -504,7 +504,7 @@ class PostActionPayload
   /**
    * Advertiser Campaign to track this action to (if not already locked)
 
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -527,7 +527,7 @@ class PostActionPayload
 
   /**
    * Advertised sub tracking ID 1
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -550,7 +550,7 @@ class PostActionPayload
 
   /**
    * Advertised sub tracking ID 2
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -573,7 +573,7 @@ class PostActionPayload
 
   /**
    * Advertised sub tracking ID 3
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -596,7 +596,7 @@ class PostActionPayload
 
   /**
    * @param $item
-   * 
+   *
    * @return $this
    */
   public function addMetaData($item)
@@ -628,7 +628,7 @@ class PostActionPayload
 
   /**
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -638,4 +638,3 @@ class PostActionPayload
     return $this->_time ?: $default;
   }
 }
-      

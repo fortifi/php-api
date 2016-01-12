@@ -124,5 +124,21 @@ class VisitorPostActionRequest
   {
     return Objects::property($this->_getResultJson(), 'pixels', $default);
   }
+  protected function _prepareResult($result)
+  {
+    $return = parent::_prepareResult($result);
+
+    if(!empty($return->pixels))
+    {
+       $tmp = [];
+       foreach($return->pixels as $itm)
+       {
+         $tmp[] = (new AdvertiserPixelRequest())->hydrate($itm);
+       }
+       $return->pixels = $tmp;
+    }
+
+    return $return;
+  }
 }
       

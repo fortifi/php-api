@@ -39,7 +39,7 @@ class PropertyCounterPayload
 
   /**
    * Property Counter Adjustment
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -49,4 +49,3 @@ class PropertyCounterPayload
     return $this->_propertyValue ?: $default;
   }
 }
-      

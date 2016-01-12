@@ -39,7 +39,7 @@ class SetSubscriptionTypePayload
 
   /**
    * Customer Subscription Status
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -49,4 +49,3 @@ class SetSubscriptionTypePayload
     return $this->_subscriptionType ?: $default;
   }
 }
-      

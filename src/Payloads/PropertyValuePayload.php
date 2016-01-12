@@ -39,7 +39,7 @@ class PropertyValuePayload
 
   /**
    * Property Value
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -49,4 +49,3 @@ class PropertyValuePayload
     return $this->_propertyValue ?: $default;
   }
 }
-      

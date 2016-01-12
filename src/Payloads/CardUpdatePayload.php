@@ -156,7 +156,7 @@ class CardUpdatePayload
 
   /**
    * Name as appears on card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -179,7 +179,7 @@ class CardUpdatePayload
 
   /**
    * Start Month of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -202,7 +202,7 @@ class CardUpdatePayload
 
   /**
    * Start Year of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -225,7 +225,7 @@ class CardUpdatePayload
 
   /**
    * Expiration Month of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -248,7 +248,7 @@ class CardUpdatePayload
 
   /**
    * Expiration Year of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -271,7 +271,7 @@ class CardUpdatePayload
 
   /**
    * Issue number of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -294,7 +294,7 @@ class CardUpdatePayload
 
   /**
    * FID of an existing address to use with the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -317,7 +317,7 @@ class CardUpdatePayload
 
   /**
    * Address Line 1 of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -340,7 +340,7 @@ class CardUpdatePayload
 
   /**
    * Address Line 2 of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -363,7 +363,7 @@ class CardUpdatePayload
 
   /**
    * Address Line 3 of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -386,7 +386,7 @@ class CardUpdatePayload
 
   /**
    * City for the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -409,7 +409,7 @@ class CardUpdatePayload
 
   /**
    * State/County of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -432,7 +432,7 @@ class CardUpdatePayload
 
   /**
    * Country of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -455,7 +455,7 @@ class CardUpdatePayload
 
   /**
    * Postal/Zip Code of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -465,4 +465,3 @@ class CardUpdatePayload
     return $this->_addressPostal ?: $default;
   }
 }
-      

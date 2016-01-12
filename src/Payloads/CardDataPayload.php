@@ -183,7 +183,7 @@ class CardDataPayload
 
   /**
    * Card number encrypted using your public key
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -206,7 +206,7 @@ class CardDataPayload
 
   /**
    * Start Month of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -229,7 +229,7 @@ class CardDataPayload
 
   /**
    * Start Year of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -252,7 +252,7 @@ class CardDataPayload
 
   /**
    * Expiration Month of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -275,7 +275,7 @@ class CardDataPayload
 
   /**
    * Expiration Year of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -298,7 +298,7 @@ class CardDataPayload
 
   /**
    * Last 4 digits of the credit card number
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -321,7 +321,7 @@ class CardDataPayload
 
   /**
    * Issue number of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -344,7 +344,7 @@ class CardDataPayload
 
   /**
    * Name as appears on card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -367,7 +367,7 @@ class CardDataPayload
 
   /**
    * FID of an existing address to use with the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -390,7 +390,7 @@ class CardDataPayload
 
   /**
    * Address Line 1 of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -413,7 +413,7 @@ class CardDataPayload
 
   /**
    * Address Line 2 of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -436,7 +436,7 @@ class CardDataPayload
 
   /**
    * Address Line 3 of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -459,7 +459,7 @@ class CardDataPayload
 
   /**
    * City for the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -482,7 +482,7 @@ class CardDataPayload
 
   /**
    * State/County of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -505,7 +505,7 @@ class CardDataPayload
 
   /**
    * Country of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -528,7 +528,7 @@ class CardDataPayload
 
   /**
    * Postal/Zip Code of the card
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -551,7 +551,7 @@ class CardDataPayload
 
   /**
    * Is this card should be used as the primary card on the account
-   * 
+   *
    * @param bool $default
    *
    * @return boolean
@@ -561,4 +561,3 @@ class CardDataPayload
     return $this->_isDefault ?: $default;
   }
 }
-      

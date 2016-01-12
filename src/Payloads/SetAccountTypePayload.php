@@ -39,7 +39,7 @@ class SetAccountTypePayload
 
   /**
    * Account Type
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -49,4 +49,3 @@ class SetAccountTypePayload
     return $this->_accountType ?: $default;
   }
 }
-      

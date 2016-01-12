@@ -84,7 +84,7 @@ class CreateOrderPayload
 
   /**
    * FID for the payment account you wish to charge the customer through
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -107,7 +107,7 @@ class CreateOrderPayload
 
   /**
    * Company FID to track this event to
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -130,7 +130,7 @@ class CreateOrderPayload
 
   /**
    * FID for the customer placing the order
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -153,7 +153,7 @@ class CreateOrderPayload
 
   /**
    * IP Address of the visitor
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -176,7 +176,7 @@ class CreateOrderPayload
 
   /**
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -199,7 +199,7 @@ class CreateOrderPayload
 
   /**
    * @param $item
-   * 
+   *
    * @return $this
    */
   public function addProductPriceFid($item)
@@ -210,7 +210,7 @@ class CreateOrderPayload
 
   /**
    * Product price FIDs to add
-   * 
+   *
    * @param mixed $default
    *
    * @return string[]
@@ -220,4 +220,3 @@ class CreateOrderPayload
     return $this->_productPriceFids ?: $default;
   }
 }
-      

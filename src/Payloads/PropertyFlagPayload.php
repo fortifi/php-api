@@ -39,7 +39,7 @@ class PropertyFlagPayload
 
   /**
    * Property Flag Value
-   * 
+   *
    * @param bool $default
    *
    * @return boolean
@@ -49,4 +49,3 @@ class PropertyFlagPayload
     return $this->_propertyValue ?: $default;
   }
 }
-      

@@ -65,7 +65,7 @@ class TriggerActionPayload
 
   /**
    * @param $item
-   * 
+   *
    * @return $this
    */
   public function addMetaData($item)
@@ -97,7 +97,7 @@ class TriggerActionPayload
 
   /**
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -120,7 +120,7 @@ class TriggerActionPayload
 
   /**
    * Your alias for the event to be triggered
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -143,7 +143,7 @@ class TriggerActionPayload
 
   /**
    * If set to true, transactional messenger chains will be triggered
-   * 
+   *
    * @param bool $default
    *
    * @return boolean
@@ -153,4 +153,3 @@ class TriggerActionPayload
     return $this->_triggerMessenger ?: $default;
   }
 }
-      

@@ -137,7 +137,7 @@ class ReverseActionPayload
 
   /**
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -160,7 +160,7 @@ class ReverseActionPayload
 
   /**
    * Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -183,7 +183,7 @@ class ReverseActionPayload
 
   /**
    * Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -206,7 +206,7 @@ class ReverseActionPayload
 
   /**
    * IP Address of the visitor
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -229,7 +229,7 @@ class ReverseActionPayload
 
   /**
    * External (to Fortifi) Reference for this visitor e.g. a user ID
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -252,7 +252,7 @@ class ReverseActionPayload
 
   /**
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -275,7 +275,7 @@ class ReverseActionPayload
 
   /**
    * @param $item
-   * 
+   *
    * @return $this
    */
   public function addMetaData($item)
@@ -307,7 +307,7 @@ class ReverseActionPayload
 
   /**
    * Your unique transaction ID for the event to be reversed
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -330,7 +330,7 @@ class ReverseActionPayload
 
   /**
    * The reason for reversing the action
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -353,7 +353,7 @@ class ReverseActionPayload
 
   /**
    * Amount of revene refunded to the client from the original transaction / chargeback amount
-   * 
+   *
    * @param mixed $default
    *
    * @return integer
@@ -376,7 +376,7 @@ class ReverseActionPayload
 
   /**
    * Your unique transaction ID for this event e.g. Refund ID
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -399,7 +399,7 @@ class ReverseActionPayload
 
   /**
    * If known, the Fortifi event ID for this visitors action
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -409,4 +409,3 @@ class ReverseActionPayload
     return $this->_eventId ?: $default;
   }
 }
-      

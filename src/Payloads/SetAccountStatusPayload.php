@@ -39,7 +39,7 @@ class SetAccountStatusPayload
 
   /**
    * Account Status
-   * 
+   *
    * @param mixed $default
    *
    * @return string
@@ -49,4 +49,3 @@ class SetAccountStatusPayload
     return $this->_accountStatus ?: $default;
   }
 }
-      
