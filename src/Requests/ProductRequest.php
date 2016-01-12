@@ -19,6 +19,7 @@ class ProductRequest
       "statementDescription" => $this->getStatementDescription(),
       "trialDays" => $this->getTrialDays(),
       "defaultPriceFid" => $this->getDefaultPriceFid(),
+      "defaultPrice" => $this->getDefaultPrice(),
       "taxable" => $this->getTaxable(),
       "taxGroupFid" => $this->getTaxGroupFid(),
       "maxQuantity" => $this->getMaxQuantity(),
@@ -93,6 +94,16 @@ class ProductRequest
   public function getDefaultPriceFid($default = null)
   {
     return Objects::property($this->_getResultJson(), 'defaultPriceFid', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return ProductPriceResponse
+   */
+  public function getDefaultPrice($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'defaultPrice', $default);
   }
 
   /**

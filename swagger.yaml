@@ -1059,11 +1059,32 @@ definitions:
         type: string
       defaultPriceFid:
         type: string
+      defaultPrice:
+        $ref: "#/definitions/ProductPrice"
       taxable:
         type: string
       taxGroupFid:
         type: string
       maxQuantity:
+        type: string
+
+  ProductPrice:
+    properties:
+      productFid:
+        type: string
+      currency:
+        type: string
+      price:
+        type: number
+        format: float
+      setupFee:
+        type: number
+        format: float
+      cycle:
+        $ref: "#/definitions/cycleTermType"
+      cycleTerm:
+        type: string
+      cycleExact:
         type: string
 
   Order:
@@ -1488,6 +1509,16 @@ definitions:
     - suspended
     - expired
     - cancelled
+  cycleTermType:
+    description: Term Type
+    type: string
+    enum:
+      - onetime
+      - lifetime
+      - day
+      - week
+      - month
+      - year
   customerLifecycle:
     description: Customer Lifecycle Stage
     type: string
