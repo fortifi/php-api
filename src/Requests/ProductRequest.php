@@ -99,7 +99,7 @@ class ProductRequest
   /**
    * @param mixed $default
    *
-   * @return ProductPriceResponse
+   * @return ProductPriceRequest
    */
   public function getDefaultPrice($default = null)
   {
@@ -134,6 +134,14 @@ class ProductRequest
   public function getMaxQuantity($default = null)
   {
     return Objects::property($this->_getResultJson(), 'maxQuantity', $default);
+  }
+  protected function _prepareResult($result)
+  {
+    $return = parent::_prepareResult($result);
+
+    $return->defaultPrice = (new ProductPriceRequest())->hydrate($return->defaultPrice);
+
+    return $return;
   }
 }
       
