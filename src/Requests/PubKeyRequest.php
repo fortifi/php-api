@@ -28,4 +28,3 @@ class PubKeyRequest
     return Objects::property($this->_getResultJson(), 'key', $default);
   }
 }
-      

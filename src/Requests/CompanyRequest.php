@@ -48,4 +48,3 @@ class CompanyRequest
     return Objects::property($this->_getResultJson(), 'companyFid', $default);
   }
 }
-      

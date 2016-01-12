@@ -92,4 +92,3 @@ class CustomerRequest
     return Objects::property($this->_getResultJson(), 'externalReference', $default);
   }
 }
-      

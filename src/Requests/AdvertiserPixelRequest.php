@@ -48,4 +48,3 @@ class AdvertiserPixelRequest
     return Objects::property($this->_getResultJson(), 'content', $default);
   }
 }
-      

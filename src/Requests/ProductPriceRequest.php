@@ -94,4 +94,3 @@ class ProductPriceRequest
     return Objects::property($this->_getResultJson(), 'cycleExact', $default);
   }
 }
-      

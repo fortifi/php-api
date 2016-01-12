@@ -28,4 +28,3 @@ class FidRequest
     return Objects::property($this->_getResultJson(), 'fid', $default);
   }
 }
-      

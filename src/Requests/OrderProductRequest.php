@@ -26,4 +26,3 @@ class OrderProductRequest
     return Objects::property($this->_getResultJson(), 'fid', $default);
   }
 }
-      

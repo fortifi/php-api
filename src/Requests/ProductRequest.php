@@ -145,4 +145,3 @@ class ProductRequest
     return $return;
   }
 }
-      

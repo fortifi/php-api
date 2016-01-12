@@ -37,4 +37,3 @@ class KeyValueRequest
     return Objects::property($this->_getResultJson(), 'value', $default);
   }
 }
-      

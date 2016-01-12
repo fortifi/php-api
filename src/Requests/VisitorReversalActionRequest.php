@@ -92,4 +92,3 @@ class VisitorReversalActionRequest
     return Objects::property($this->_getResultJson(), 'commissionCurrency', $default);
   }
 }
-      

@@ -67,4 +67,3 @@ class UserRequest
     return Objects::property($this->_getResultJson(), 'timezone', $default);
   }
 }
-      

@@ -43,4 +43,3 @@ class ProductsRequest
     return $return;
   }
 }
-      

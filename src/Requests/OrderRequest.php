@@ -301,4 +301,3 @@ class OrderRequest
     return Objects::property($this->_getResultJson(), 'authorizeId', $default);
   }
 }
-      

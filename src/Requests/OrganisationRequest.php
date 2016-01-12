@@ -48,4 +48,3 @@ class OrganisationRequest
     return Objects::property($this->_getResultJson(), 'orgDomain', $default);
   }
 }
-      
