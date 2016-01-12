@@ -63,11 +63,11 @@ class CreateOrderPayload
   {
     return [
       "paymentAccountFid" => $this->_paymentAccountFid,
-      "companyFid" => $this->_companyFid,
-      "customerFid" => $this->_customerFid,
-      "clientIp" => $this->_clientIp,
-      "userAgent" => $this->_userAgent,
-      "productPriceFids" => $this->_productPriceFids,
+      "companyFid"        => $this->_companyFid,
+      "customerFid"       => $this->_customerFid,
+      "clientIp"          => $this->_clientIp,
+      "userAgent"         => $this->_userAgent,
+      "productPriceFids"  => $this->_productPriceFids,
     ];
   }
 

@@ -1065,18 +1065,6 @@ definitions:
         type: string
       maxQuantity:
         type: string
-      configVerifyUrl:
-        type: string
-      setupUrl:
-        type: string
-      cancelUrl:
-        type: string
-      suspendUrl:
-        type: string
-      reactivateUrl:
-        type: string
-      deleteUrl:
-        type: string
 
   Order:
     properties:

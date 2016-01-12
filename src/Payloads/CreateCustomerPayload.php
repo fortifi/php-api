@@ -135,21 +135,21 @@ class CreateCustomerPayload
   public function jsonSerialize()
   {
     return [
-      "visitorId" => $this->_visitorId,
-      "clientIp" => $this->_clientIp,
+      "visitorId"         => $this->_visitorId,
+      "clientIp"          => $this->_clientIp,
       "externalReference" => $this->_externalReference,
-      "time" => $this->_time,
-      "companyFid" => $this->_companyFid,
-      "currency" => $this->_currency,
-      "phoneNumber" => $this->_phoneNumber,
-      "email" => $this->_email,
-      "firstName" => $this->_firstName,
-      "lastName" => $this->_lastName,
+      "time"              => $this->_time,
+      "companyFid"        => $this->_companyFid,
+      "currency"          => $this->_currency,
+      "phoneNumber"       => $this->_phoneNumber,
+      "email"             => $this->_email,
+      "firstName"         => $this->_firstName,
+      "lastName"          => $this->_lastName,
       "accountManagerFid" => $this->_accountManagerFid,
-      "accountType" => $this->_accountType,
-      "accountStatus" => $this->_accountStatus,
-      "lifecycle" => $this->_lifecycle,
-      "subscriptionType" => $this->_subscriptionType,
+      "accountType"       => $this->_accountType,
+      "accountStatus"     => $this->_accountStatus,
+      "lifecycle"         => $this->_lifecycle,
+      "subscriptionType"  => $this->_subscriptionType,
     ];
   }
 

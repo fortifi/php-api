@@ -45,9 +45,9 @@ class TriggerActionPayload
   public function jsonSerialize()
   {
     return [
-      "metaData" => $this->_metaData,
-      "time" => $this->_time,
-      "alias" => $this->_alias,
+      "metaData"         => $this->_metaData,
+      "time"             => $this->_time,
+      "alias"            => $this->_alias,
       "triggerMessenger" => $this->_triggerMessenger,
     ];
   }

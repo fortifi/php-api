@@ -109,18 +109,18 @@ class ReverseActionPayload
   public function jsonSerialize()
   {
     return [
-      "userAgent" => $this->_userAgent,
-      "encoding" => $this->_encoding,
-      "language" => $this->_language,
-      "clientIp" => $this->_clientIp,
-      "externalReference" => $this->_externalReference,
-      "time" => $this->_time,
-      "metaData" => $this->_metaData,
+      "userAgent"           => $this->_userAgent,
+      "encoding"            => $this->_encoding,
+      "language"            => $this->_language,
+      "clientIp"            => $this->_clientIp,
+      "externalReference"   => $this->_externalReference,
+      "time"                => $this->_time,
+      "metaData"            => $this->_metaData,
       "sourceTransactionId" => $this->_sourceTransactionId,
-      "reason" => $this->_reason,
-      "reversalAmount" => $this->_reversalAmount,
-      "reversalId" => $this->_reversalId,
-      "eventId" => $this->_eventId,
+      "reason"              => $this->_reason,
+      "reversalAmount"      => $this->_reversalAmount,
+      "reversalId"          => $this->_reversalId,
+      "eventId"             => $this->_eventId,
     ];
   }
 

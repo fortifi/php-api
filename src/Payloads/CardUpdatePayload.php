@@ -126,20 +126,20 @@ class CardUpdatePayload
   public function jsonSerialize()
   {
     return [
-      "cardHolder" => $this->_cardHolder,
-      "startMonth" => $this->_startMonth,
-      "startYear" => $this->_startYear,
-      "expiryMonth" => $this->_expiryMonth,
-      "expiryYear" => $this->_expiryYear,
-      "issue" => $this->_issue,
-      "addressFid" => $this->_addressFid,
-      "addressLine1" => $this->_addressLine1,
-      "addressLine2" => $this->_addressLine2,
-      "addressLine3" => $this->_addressLine3,
-      "addressCity" => $this->_addressCity,
-      "addressState" => $this->_addressState,
+      "cardHolder"     => $this->_cardHolder,
+      "startMonth"     => $this->_startMonth,
+      "startYear"      => $this->_startYear,
+      "expiryMonth"    => $this->_expiryMonth,
+      "expiryYear"     => $this->_expiryYear,
+      "issue"          => $this->_issue,
+      "addressFid"     => $this->_addressFid,
+      "addressLine1"   => $this->_addressLine1,
+      "addressLine2"   => $this->_addressLine2,
+      "addressLine3"   => $this->_addressLine3,
+      "addressCity"    => $this->_addressCity,
+      "addressState"   => $this->_addressState,
       "addressCountry" => $this->_addressCountry,
-      "addressPostal" => $this->_addressPostal,
+      "addressPostal"  => $this->_addressPostal,
     ];
   }
 
