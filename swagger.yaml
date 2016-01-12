@@ -686,6 +686,22 @@ paths:
             $ref: '#/definitions/Fid'
           description: Credit card added to the customers account
 
+    get:
+      summary: List customers card payment methods
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+          - paymentMethods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/PaymentCards'
+          description: List of cards
+
   "/customers/{customerFid}/paymentMethods/cards/{cardFid}":
     delete:
       tags:
@@ -1167,6 +1183,30 @@ definitions:
         type: number
         format: float
       offerFid:
+        type: string
+
+  PaymentCards:
+    properties:
+      cards:
+        type: array
+        items:
+          $ref: "#/definitions/PaymentCard"
+
+  PaymentCard:
+    properties:
+      displayName:
+        type: string
+      nameOnCard:
+        type: string
+      expiryMonth:
+        type: number
+      expiryYear:
+        type: number
+      issue:
+        type: number
+      last4:
+        type: number
+      cardType:
         type: string
 
 #Payloads

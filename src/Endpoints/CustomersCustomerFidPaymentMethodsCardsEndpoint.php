@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\PaymentCardsRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Payloads\CardDataPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -54,6 +55,28 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
     ));
     $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary List customers card payment methods
+   *
+   * @return PaymentCardsRequest
+   */
+  public function all()
+  {
+    $request = new PaymentCardsRequest();
+    $request->setConnection($this->_getConnection());
+    $detail = new ApiRequestDetail();
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/paymentMethods/cards'
+      )
+    ));
+    $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
   }
