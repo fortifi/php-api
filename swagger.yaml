@@ -807,6 +807,8 @@ paths:
       responses:
         200:
           description: Verify the order and initiate the payment process
+          schema:
+            $ref: '#/definitions/OrderVerification'
   "/orders/{orderFid}/products":
     get:
       summary: Retrieve order products
@@ -1201,6 +1203,13 @@ definitions:
         type: number
         format: float
       offerFid:
+        type: string
+
+  OrderVerification:
+    properties:
+      requireRedirect:
+        type: boolean
+      redirectUrl:
         type: string
 
   PaymentCards:

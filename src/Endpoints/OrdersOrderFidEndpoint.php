@@ -1,10 +1,10 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
-use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersOrderFidEndpoint extends ApiEndpoint
@@ -70,11 +70,11 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
    *
    * @param VerifyOrderPayload $payload
    *
-   * @return ApiRequest
+   * @return OrderVerificationRequest
    */
   public function verify(VerifyOrderPayload $payload)
   {
-    $request = new ApiRequest();
+    $request = new OrderVerificationRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
     $detail->setUrl($this->_buildUrl(
