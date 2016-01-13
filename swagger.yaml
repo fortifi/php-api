@@ -789,6 +789,24 @@ paths:
             $ref: '#/definitions/Order'
         404:
           description: Order not found
+  "/orders/{orderFid}/verify":
+    put:
+      summary: Verify an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/VerifyOrderPayload'
+      responses:
+        200:
+          description: Verify the order and initiate the payment process
   "/orders/{orderFid}/products":
     get:
       summary: Retrieve order products
@@ -1461,6 +1479,19 @@ definitions:
         items:
           type: string
 
+  VerifyOrderPayload:
+    properties:
+      paymentAccountFid:
+        $ref: '#/definitions/paymentAccountFid'
+      paymentServiceFid:
+        $ref: '#/definitions/paymentServiceFid'
+      successUrl:
+        type: string
+      cancelUrl:
+        type: string
+      failUrl:
+        type: string
+
 #Properties
   isoTime:
     description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
@@ -1641,6 +1672,9 @@ definitions:
     type: boolean
   paymentAccountFid:
     description: FID for the payment account you wish to charge the customer through
+    type: string
+  paymentServiceFid:
+    description: FID for the payment service you wish to charge the customer through
     type: string
   customerFid:
     type: string
