@@ -12,6 +12,7 @@ class PaymentCardRequest
   public function jsonSerialize()
   {
     return [
+      "fid" => $this->getFid(),
       "displayName" => $this->getDisplayName(),
       "nameOnCard" => $this->getNameOnCard(),
       "expiryMonth" => $this->getExpiryMonth(),
@@ -20,6 +21,16 @@ class PaymentCardRequest
       "last4" => $this->getLast4(),
       "cardType" => $this->getCardType(),
     ];
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string
+   */
+  public function getFid($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'fid', $default);
   }
 
   /**
