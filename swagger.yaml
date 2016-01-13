@@ -791,7 +791,7 @@ paths:
           description: Order not found
   "/orders/{orderFid}/verify":
     put:
-      summary: Verify an order
+      summary: Verify an order, returning any security urls
       tags:
         - orders
       security:
@@ -806,9 +806,24 @@ paths:
             $ref: '#/definitions/VerifyOrderPayload'
       responses:
         200:
-          description: Verify the order and initiate the payment process
+          description: Order payment account verified
           schema:
             $ref: '#/definitions/OrderVerification'
+  "/orders/{orderFid}/confirm":
+    put:
+      summary: Confirm an order, authorize the payment
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+      responses:
+        200:
+          description: Order confirmed and payment authroized
+          schema:
+            $ref: '#/definitions/OrderConfirmation'
   "/orders/{orderFid}/products":
     get:
       summary: Retrieve order products
@@ -1211,6 +1226,11 @@ definitions:
         type: boolean
       redirectUrl:
         type: string
+
+  OrderConfirmation:
+    properties:
+      success:
+        type: boolean
 
   PaymentCards:
     properties:
