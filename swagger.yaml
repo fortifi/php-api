@@ -145,9 +145,9 @@ info:
     });
 
     ```
-host: api.fortifi.io
+host: lapi.fortifi.io:9090
 schemes:
-  - https
+  - http
 basePath: /v1
 produces:
   - application/json
@@ -1118,6 +1118,8 @@ definitions:
 
   Product:
     properties:
+      fid:
+        type: string
       displayName:
         type: string
       description:
