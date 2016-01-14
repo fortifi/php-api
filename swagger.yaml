@@ -751,6 +751,23 @@ paths:
           description: Products retrieved
           schema:
             $ref: '#/definitions/Products'
+  "/products/{productFid}/prices":
+    get:
+      summary: Retrieve Product Prices
+      tags:
+        - products
+      security:
+        - OAuth:
+          - products
+      parameters:
+        - $ref: '#/parameters/productFid'
+      responses:
+        200:
+          description: List of product prices
+          schema:
+            $ref: '#/definitions/ProductPrices'
+        404:
+          description: Product not found
 
   /orders:
     post:
@@ -935,6 +952,11 @@ parameters:
     required: true
     type: string
     description: Property Name
+  productFid:
+    name: productFid
+    in: path
+    required: true
+    type: string
   orderFid:
     name: orderFid
     in: path
@@ -1118,6 +1140,13 @@ definitions:
         type: string
       maxQuantity:
         type: string
+
+  ProductPrices:
+    properties:
+      prices:
+        type: array
+        items:
+          $ref: "#/definitions/ProductPrice"
 
   ProductPrice:
     properties:

@@ -2,7 +2,6 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\UserRequest;
-use Fortifi\Api\V1\Requests\ProductsRequest;
 use Fortifi\Api\V1\Requests\OrganisationRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -55,6 +54,16 @@ class V1Endpoint extends ApiEndpoint
   public function entities()
   {
     $endpoint = new EntitiesEndpoint();
+    $endpoint->setConnection($this->_getConnection());
+    return $endpoint;
+  }
+
+  /**
+   * @return ProductsEndpoint
+   */
+  public function products()
+  {
+    $endpoint = new ProductsEndpoint();
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }
@@ -136,22 +145,6 @@ class V1Endpoint extends ApiEndpoint
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
     $detail->setUrl($this->_buildUrl('companies'));
-    $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary List all products
-   *
-   * @return ProductsRequest
-   */
-  public function products()
-  {
-    $request = new ProductsRequest();
-    $request->setConnection($this->_getConnection());
-    $detail = new ApiRequestDetail();
-    $detail->setUrl($this->_buildUrl('products'));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
