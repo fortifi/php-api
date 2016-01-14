@@ -168,8 +168,8 @@ tags:
 securityDefinitions:
   OAuth:
     type: oauth2
-    authorizationUrl: 'http://api.fortifi.io/oauth/authorize'
-    tokenUrl: 'http://api.fortifi.io/oauth/token'
+    authorizationUrl: 'https://api.fortifi.io/oauth/authorize'
+    tokenUrl: 'https://api.fortifi.io/oauth/token'
     flow: accessCode
     scopes:
       "basic": Basic Read Access
