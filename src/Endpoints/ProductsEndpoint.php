@@ -38,6 +38,8 @@ class ProductsEndpoint extends ApiEndpoint
   {
     $request = new ProductsRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('products'));

@@ -24,6 +24,8 @@ class ProductsProductFidEndpoint extends ApiEndpoint
   {
     $request = new ProductPricesRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(

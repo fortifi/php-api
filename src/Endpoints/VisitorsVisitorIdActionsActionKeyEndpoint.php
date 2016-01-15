@@ -32,6 +32,8 @@ class VisitorsVisitorIdActionsActionKeyEndpoint extends ApiEndpoint
   {
     $request = new VisitorPostActionRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -60,6 +62,8 @@ class VisitorsVisitorIdActionsActionKeyEndpoint extends ApiEndpoint
   {
     $request = new VisitorReversalActionRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(

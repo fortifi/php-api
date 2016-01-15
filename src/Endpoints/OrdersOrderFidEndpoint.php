@@ -53,6 +53,8 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   {
     $request = new OrderRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -78,6 +80,8 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   {
     $request = new OrderVerificationRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -102,6 +106,8 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(

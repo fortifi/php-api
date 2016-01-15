@@ -26,6 +26,8 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -51,6 +53,8 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -77,6 +81,8 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(

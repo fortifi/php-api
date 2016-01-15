@@ -95,6 +95,8 @@ class FortifiApi extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('version'));
@@ -114,6 +116,8 @@ class FortifiApi extends ApiEndpoint
   {
     $request = new UserRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('me'));
@@ -133,6 +137,8 @@ class FortifiApi extends ApiEndpoint
   {
     $request = new OrganisationRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('organisation'));
@@ -152,6 +158,8 @@ class FortifiApi extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('companies'));

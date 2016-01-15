@@ -40,6 +40,8 @@ class EntitiesEntityFidEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(false);
     $detail->setUrl($this->_buildUrl(

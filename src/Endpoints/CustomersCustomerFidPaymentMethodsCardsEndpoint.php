@@ -44,6 +44,8 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   {
     $request = new FidRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -68,6 +70,8 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   {
     $request = new PaymentCardsRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(

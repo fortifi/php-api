@@ -41,6 +41,8 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   {
     $request = new CustomerRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -64,6 +66,8 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -89,6 +93,8 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -115,6 +121,8 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
@@ -141,6 +149,8 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
