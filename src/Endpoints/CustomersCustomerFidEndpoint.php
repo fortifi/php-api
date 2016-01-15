@@ -11,7 +11,7 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersCustomerFidEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'http://lapi.fortifi.io:9090';
+  protected $_baseUrl = 'https://api.fortifi.io';
   protected $_basePath = '/v1';
   protected $_path = 'customers/{customerFid}';
   protected $_replacements = [];
@@ -29,6 +29,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $endpoint = new CustomersCustomerFidPaymentMethodsEndpoint(
       $this->_replacements['{customerFid}']
     );
+    $endpoint->setApiDefinition($this->getApiDefinition());
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }
