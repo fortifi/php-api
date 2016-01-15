@@ -9,8 +9,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'customers/{customerFid}/paymentMethods/cards';
   protected $_replacements = [];
 

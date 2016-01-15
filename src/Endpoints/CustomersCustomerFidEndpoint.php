@@ -11,8 +11,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersCustomerFidEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'customers/{customerFid}';
   protected $_replacements = [];
 

@@ -7,8 +7,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersOrderFidOffersEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'orders/{orderFid}/offers';
   protected $_replacements = [];
 
