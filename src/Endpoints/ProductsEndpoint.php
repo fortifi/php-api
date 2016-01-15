@@ -24,8 +24,7 @@ class ProductsEndpoint extends ApiEndpoint
     $endpoint = new ProductsProductFidEndpoint(
       $productFid
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 

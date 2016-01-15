@@ -25,8 +25,7 @@ class OrdersEndpoint extends ApiEndpoint
     $endpoint = new OrdersOrderFidEndpoint(
       $orderFid
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 

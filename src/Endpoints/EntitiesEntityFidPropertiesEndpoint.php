@@ -21,8 +21,7 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesValuesEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -34,8 +33,7 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesFlagsEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -47,8 +45,7 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesCountersEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 }

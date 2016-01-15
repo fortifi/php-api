@@ -24,8 +24,7 @@ class EntitiesEntityFidEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 

@@ -26,8 +26,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
     $endpoint = new OrdersOrderFidProductsEndpoint(
       $this->_replacements['{orderFid}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -39,8 +38,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
     $endpoint = new OrdersOrderFidOffersEndpoint(
       $this->_replacements['{orderFid}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 

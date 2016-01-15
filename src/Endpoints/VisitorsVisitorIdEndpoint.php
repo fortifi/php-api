@@ -23,8 +23,7 @@ class VisitorsVisitorIdEndpoint extends ApiEndpoint
     $endpoint = new VisitorsVisitorIdActionsEndpoint(
       $this->_replacements['{visitorId}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 

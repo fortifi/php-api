@@ -24,8 +24,7 @@ class EntitiesEntityFidPropertiesFlagsEndpoint extends ApiEndpoint
       $this->_replacements['{entityFid}'],
       $propertyName
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 }

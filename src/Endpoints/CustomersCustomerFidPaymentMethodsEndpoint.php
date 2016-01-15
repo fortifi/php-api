@@ -21,8 +21,7 @@ class CustomersCustomerFidPaymentMethodsEndpoint extends ApiEndpoint
     $endpoint = new CustomersCustomerFidPaymentMethodsCardsEndpoint(
       $this->_replacements['{customerFid}']
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 }

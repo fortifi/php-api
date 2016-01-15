@@ -24,8 +24,7 @@ class FortifiApi extends ApiEndpoint
   public function visitors()
   {
     $endpoint = new VisitorsEndpoint();
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -35,8 +34,7 @@ class FortifiApi extends ApiEndpoint
   public function pay()
   {
     $endpoint = new PayEndpoint();
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -46,8 +44,7 @@ class FortifiApi extends ApiEndpoint
   public function customers()
   {
     $endpoint = new CustomersEndpoint();
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -57,8 +54,7 @@ class FortifiApi extends ApiEndpoint
   public function entities()
   {
     $endpoint = new EntitiesEndpoint();
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -68,8 +64,7 @@ class FortifiApi extends ApiEndpoint
   public function products()
   {
     $endpoint = new ProductsEndpoint();
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -79,8 +74,7 @@ class FortifiApi extends ApiEndpoint
   public function orders()
   {
     $endpoint = new OrdersEndpoint();
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 

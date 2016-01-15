@@ -25,8 +25,7 @@ class CustomersEndpoint extends ApiEndpoint
     $endpoint = new CustomersCustomerFidEndpoint(
       $customerFid
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
