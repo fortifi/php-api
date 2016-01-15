@@ -12,6 +12,7 @@ class ProductRequest
   public function jsonSerialize()
   {
     return [
+      "fid" => $this->getFid(),
       "displayName" => $this->getDisplayName(),
       "description" => $this->getDescription(),
       "productType" => $this->getProductType(),
@@ -24,6 +25,16 @@ class ProductRequest
       "taxGroupFid" => $this->getTaxGroupFid(),
       "maxQuantity" => $this->getMaxQuantity(),
     ];
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string
+   */
+  public function getFid($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'fid', $default);
   }
 
   /**

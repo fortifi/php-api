@@ -8,6 +8,8 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersEndpoint extends ApiEndpoint
 {
+  protected $_baseUrl = 'https://api.fortifi.io';
+  protected $_basePath = '/v1';
   protected $_path = 'orders';
   protected $_replacements = [];
 
@@ -25,7 +27,6 @@ class OrdersEndpoint extends ApiEndpoint
     $endpoint = new OrdersOrderFidEndpoint(
       $orderFid
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }

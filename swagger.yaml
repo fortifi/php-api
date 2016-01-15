@@ -1118,6 +1118,8 @@ definitions:
 
   Product:
     properties:
+      fid:
+        type: string
       displayName:
         type: string
       description:

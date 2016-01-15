@@ -5,6 +5,8 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class EntitiesEntityFidPropertiesFlagsEndpoint extends ApiEndpoint
 {
+  protected $_baseUrl = 'https://api.fortifi.io';
+  protected $_basePath = '/v1';
   protected $_path = 'entities/{entityFid}/properties/flags';
   protected $_replacements = [];
 
@@ -24,7 +26,6 @@ class EntitiesEntityFidPropertiesFlagsEndpoint extends ApiEndpoint
       $this->_replacements['{entityFid}'],
       $propertyName
     );
-    $endpoint->setApiDefinition($this->getApiDefinition());
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }
