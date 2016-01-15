@@ -5,6 +5,8 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class EntitiesEndpoint extends ApiEndpoint
 {
+  protected $_baseUrl = 'https://api.fortifi.io';
+  protected $_basePath = '/v1';
   protected $_path = 'entities';
   protected $_replacements = [];
 
@@ -22,7 +24,7 @@ class EntitiesEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidEndpoint(
       $entityFid
     );
-    $endpoint->_buildFromEndpoint($this);
+    $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }
 }

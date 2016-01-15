@@ -1152,6 +1152,8 @@ definitions:
 
   ProductPrice:
     properties:
+      fid:
+        type: string
       productFid:
         type: string
       currency:

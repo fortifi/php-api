@@ -12,6 +12,7 @@ class ProductPriceRequest
   public function jsonSerialize()
   {
     return [
+      "fid" => $this->getFid(),
       "productFid" => $this->getProductFid(),
       "currency" => $this->getCurrency(),
       "price" => $this->getPrice(),
@@ -20,6 +21,16 @@ class ProductPriceRequest
       "cycleTerm" => $this->getCycleTerm(),
       "cycleExact" => $this->getCycleExact(),
     ];
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string
+   */
+  public function getFid($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'fid', $default);
   }
 
   /**

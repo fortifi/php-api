@@ -8,6 +8,8 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersEndpoint extends ApiEndpoint
 {
+  protected $_baseUrl = 'https://api.fortifi.io';
+  protected $_basePath = '/v1';
   protected $_path = 'customers';
   protected $_replacements = [];
 
@@ -25,7 +27,7 @@ class CustomersEndpoint extends ApiEndpoint
     $endpoint = new CustomersCustomerFidEndpoint(
       $customerFid
     );
-    $endpoint->_buildFromEndpoint($this);
+    $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }
 
@@ -40,10 +42,7 @@ class CustomersEndpoint extends ApiEndpoint
   {
     $request = new CustomerRequest();
     $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
     $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('customers'));
     $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
@@ -62,10 +61,7 @@ class CustomersEndpoint extends ApiEndpoint
   {
     $request = new CustomerRequest();
     $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
     $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('customers/findByReference'));
     $detail->addQueryField('reference', $reference);
     $detail->setMethod('GET');

@@ -8,6 +8,8 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class EntitiesEntityFidPropertiesFlagsPropertyNameEndpoint extends ApiEndpoint
 {
+  protected $_baseUrl = 'https://api.fortifi.io';
+  protected $_basePath = '/v1';
   protected $_path = 'entities/{entityFid}/properties/flags/{propertyName}';
   protected $_replacements = [];
 
@@ -26,10 +28,7 @@ class EntitiesEntityFidPropertiesFlagsPropertyNameEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
     $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -53,10 +52,7 @@ class EntitiesEntityFidPropertiesFlagsPropertyNameEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
     $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
