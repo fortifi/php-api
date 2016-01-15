@@ -7,8 +7,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class PayEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'pay';
   protected $_replacements = [];
 
@@ -26,6 +24,7 @@ class PayEndpoint extends ApiEndpoint
     $request = new PubKeyRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('pay/publicKey'));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);

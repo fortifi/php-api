@@ -11,8 +11,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersCustomerFidEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'customers/{customerFid}';
   protected $_replacements = [];
 
@@ -29,6 +27,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $endpoint = new CustomersCustomerFidPaymentMethodsEndpoint(
       $this->_replacements['{customerFid}']
     );
+    $endpoint->setApiDefinition($this->getApiDefinition());
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }
@@ -43,6 +42,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request = new CustomerRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -65,6 +65,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -89,6 +90,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -114,6 +116,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -139,6 +142,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),

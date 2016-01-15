@@ -7,8 +7,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class VisitorsVisitorIdEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'visitors/{visitorId}';
   protected $_replacements = [];
 
@@ -25,6 +23,7 @@ class VisitorsVisitorIdEndpoint extends ApiEndpoint
     $endpoint = new VisitorsVisitorIdActionsEndpoint(
       $this->_replacements['{visitorId}']
     );
+    $endpoint->setApiDefinition($this->getApiDefinition());
     $endpoint->setConnection($this->_getConnection());
     return $endpoint;
   }
@@ -41,6 +40,7 @@ class VisitorsVisitorIdEndpoint extends ApiEndpoint
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),

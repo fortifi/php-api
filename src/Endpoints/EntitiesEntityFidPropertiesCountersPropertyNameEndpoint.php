@@ -8,8 +8,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'entities/{entityFid}/properties/counters/{propertyName}';
   protected $_replacements = [];
 
@@ -29,6 +27,7 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -53,6 +52,7 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -78,6 +78,7 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),

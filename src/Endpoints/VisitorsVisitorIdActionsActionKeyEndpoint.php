@@ -10,8 +10,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class VisitorsVisitorIdActionsActionKeyEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'visitors/{visitorId}/actions/{actionKey}';
   protected $_replacements = [];
 
@@ -35,6 +33,7 @@ class VisitorsVisitorIdActionsActionKeyEndpoint extends ApiEndpoint
     $request = new VisitorPostActionRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -62,6 +61,7 @@ class VisitorsVisitorIdActionsActionKeyEndpoint extends ApiEndpoint
     $request = new VisitorReversalActionRequest();
     $request->setConnection($this->_getConnection());
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
