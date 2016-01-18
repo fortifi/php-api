@@ -5,8 +5,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'entities/{entityFid}/properties';
   protected $_replacements = [];
 
@@ -23,7 +21,7 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesValuesEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -35,7 +33,7 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesFlagsEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -47,7 +45,7 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesCountersEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 }

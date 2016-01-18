@@ -7,8 +7,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class ProductsProductFidEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'products/{productFid}';
   protected $_replacements = [];
 
@@ -26,7 +24,10 @@ class ProductsProductFidEndpoint extends ApiEndpoint
   {
     $request = new ProductPricesRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),

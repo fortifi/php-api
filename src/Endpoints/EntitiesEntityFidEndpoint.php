@@ -8,8 +8,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class EntitiesEntityFidEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'entities/{entityFid}';
   protected $_replacements = [];
 
@@ -26,7 +24,7 @@ class EntitiesEntityFidEndpoint extends ApiEndpoint
     $endpoint = new EntitiesEntityFidPropertiesEndpoint(
       $this->_replacements['{entityFid}']
     );
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -41,7 +39,10 @@ class EntitiesEntityFidEndpoint extends ApiEndpoint
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(false);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),

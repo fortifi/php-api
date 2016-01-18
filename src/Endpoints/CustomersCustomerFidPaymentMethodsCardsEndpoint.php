@@ -9,8 +9,6 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
 {
-  protected $_baseUrl = 'https://api.fortifi.io';
-  protected $_basePath = '/v1';
   protected $_path = 'customers/{customerFid}/paymentMethods/cards';
   protected $_replacements = [];
 
@@ -30,7 +28,7 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
       $this->_replacements['{customerFid}'],
       $cardFid
     );
-    $endpoint->setConnection($this->_getConnection());
+    $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
@@ -45,7 +43,10 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   {
     $request = new FidRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -68,7 +69,10 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   {
     $request = new PaymentCardsRequest();
     $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
     $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
