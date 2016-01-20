@@ -3,6 +3,8 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\UserRequest;
 use Fortifi\Api\V1\Requests\OrganisationRequest;
+use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Payloads\CreatePolymerPayload;
 use Fortifi\Api\V1\Definitions\FortifiApiApiDefinition;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -74,6 +76,16 @@ class FortifiApi extends ApiEndpoint
   public function orders()
   {
     $endpoint = new OrdersEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return ContactsEndpoint
+   */
+  public function contacts()
+  {
+    $endpoint = new ContactsEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
@@ -158,6 +170,28 @@ class FortifiApi extends ApiEndpoint
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('companies'));
     $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Create a new polymer
+   *
+   * @param CreatePolymerPayload $payload
+   *
+   * @return FidRequest
+   */
+  public function createPolymer(CreatePolymerPayload $payload)
+  {
+    $request = new FidRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl('polymers'));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

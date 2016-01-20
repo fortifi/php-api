@@ -164,6 +164,8 @@ tags:
   - name: Entities
   - name: Orders
   - name: Custom Properties
+  - name: Contacts
+  - name: Polymers
 
 securityDefinitions:
   OAuth:
@@ -180,6 +182,9 @@ securityDefinitions:
       "orders": Read/Write On Orders
       "products": Read/Write On Products
       "paymentMethods": Read/Write On Payment Methods
+      "contact.write": Read/Write On Contacts
+      "polymer": Read Polymers
+      "polymer.write": Read/Write On Polymers
 
   accessToken:
     type: apiKey
@@ -924,6 +929,60 @@ paths:
         404:
           description: Order not found
 
+  "/contacts/emails/{emailAddress}/confirm":
+    put:
+      summary: Confirm email address
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+          - contact.write
+      parameters:
+        - $ref: '#/parameters/emailAddress'
+      responses:
+        200:
+          description: Email Address Confirmed
+        404:
+          description: Email Address not found
+
+  "/contacts/emails/{emailAddress}/unsubscribe":
+    put:
+      summary: Unsubscribe an email address
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+          - contact.write
+      parameters:
+        - $ref: '#/parameters/emailAddress'
+      responses:
+        200:
+          description: Email Address Unsubscribed
+        404:
+          description: Email Address not found
+
+  "/polymers":
+    post:
+      summary: Create a new polymer
+      tags:
+        - polymers
+      security:
+        - OAuth:
+          - polymer.write
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreatePolymerPayload'
+      responses:
+        200:
+          description: Polymer created
+          schema:
+              $ref: '#/definitions/Fid'
+        400:
+          description: Information provided is not valid
+
 parameters:
   visitorId:
     name: visitorId
@@ -940,6 +999,12 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  emailAddress:
+    name: emailAddress
+    in: path
+    type: string
+    required: true
+    description: Email Address
   entityFid:
     name: entityFid
     in: path
@@ -1292,6 +1357,20 @@ definitions:
         type: string
 
 #Payloads
+  CreatePolymerPayload:
+    properties:
+      polymerCode:
+        description: Code for polymer type
+        type: string
+      name:
+        description: Display name for this polymer
+        type: string
+      parentFid:
+        description: Fid for the parent of this polymer e.g. customerFid
+        type: string
+      description:
+        description: Description for this polymer
+        type: string
   PostActionPayload:
     properties:
       transactionId:
