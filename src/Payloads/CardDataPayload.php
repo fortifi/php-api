@@ -556,7 +556,7 @@ class CardDataPayload
    *
    * @return boolean
    */
-  public function isIsDefault($default = false)
+  public function isDefault($default = false)
   {
     return $this->_isDefault ?: $default;
   }

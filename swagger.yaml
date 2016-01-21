@@ -955,6 +955,10 @@ paths:
           - contact.write
       parameters:
         - $ref: '#/parameters/emailAddress'
+        - name: companyFid
+          in: formData
+          type: string
+          description: Company to unsubscribe the email address from
       responses:
         200:
           description: Email Address Unsubscribed
