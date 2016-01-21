@@ -5,7 +5,7 @@ use Fortifi\Api\V1\Requests\UserRequest;
 use Fortifi\Api\V1\Requests\OrganisationRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Payloads\CreatePolymerPayload;
-use Fortifi\Api\V1\Definitions\FortifiApiApiDefinition;
+use Fortifi\Api\V1\Definitions\FortifiApiDefinition;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -17,7 +17,7 @@ class FortifiApi extends ApiEndpoint
 
   public function __construct()
   {
-    $this->setApiDefinition(new FortifiApiApiDefinition());
+    $this->setApiDefinition(new FortifiApiDefinition());
   }
 
   /**

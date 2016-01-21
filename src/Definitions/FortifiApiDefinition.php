@@ -6,7 +6,7 @@ use Fortifi\Api\Core\ApiDefinition\TagDefinition;
 use Fortifi\Api\Core\ApiDefinition\SecurityDefinition;
 use Fortifi\Api\Core\ApiDefinition\DocumentationDefinition;
 
-class FortifiApiApiDefinition  extends ApiDefinition
+class FortifiApiDefinition  extends ApiDefinition
 {
   public function __construct()
   {
