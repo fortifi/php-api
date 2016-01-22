@@ -86,7 +86,7 @@ class PaymentCardRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return string
    */
   public function getLast4($default = null)
   {

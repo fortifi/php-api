@@ -1421,7 +1421,7 @@ definitions:
       issue:
         type: number
       last4:
-        type: number
+        type: string
       cardType:
         type: string
 
