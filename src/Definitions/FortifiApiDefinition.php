@@ -149,6 +149,11 @@ DESCRIPTION
     $tag->setName('Polymers');
     $this->addTag($tag);
 
+    $tag = new TagDefinition();
+    $tag->setDescription('');
+    $tag->setName('Products');
+    $this->addTag($tag);
+
     $secDef = new SecurityDefinition();
     $secDef->setDescription('');
     $secDef->setAuthorizationUrl('https://api.fortifi.io/oauth/authorize');
@@ -166,6 +171,8 @@ DESCRIPTION
     $secDef->addScope('contact.write','Read/Write On Contacts');
     $secDef->addScope('polymer','Read Polymers');
     $secDef->addScope('polymer.write','Read/Write On Polymers');
+    $secDef->addScope('product','Read Product Information');
+    $secDef->addScope('product.write','Read/Write On Products');
     $secDef->setType('oauth2');
     $secDef->setTokenUrl('https://api.fortifi.io/oauth/token');
     $this->addSecurityDefinition($secDef);

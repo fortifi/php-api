@@ -166,6 +166,7 @@ tags:
   - name: Custom Properties
   - name: Contacts
   - name: Polymers
+  - name: Products
 
 securityDefinitions:
   OAuth:
@@ -185,6 +186,8 @@ securityDefinitions:
       "contact.write": Read/Write On Contacts
       "polymer": Read Polymers
       "polymer.write": Read/Write On Polymers
+      "product": Read Product Information
+      "product.write": Read/Write On Products
 
   accessToken:
     type: apiKey
@@ -987,6 +990,20 @@ paths:
         400:
           description: Information provided is not valid
 
+  "/products/offers":
+      get:
+        summary: Retrieve all offers
+        tags:
+          - products
+        security:
+          - OAuth:
+            - product
+        responses:
+          200:
+            description: Available Offers
+            schema:
+              $ref: '#/definitions/ProductOffers'
+
 parameters:
   visitorId:
     name: visitorId
@@ -1150,7 +1167,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/AdvertiserPixel'
-
 
   VisitorReversalAction:
     properties:
@@ -1359,6 +1375,48 @@ definitions:
         type: number
       cardType:
         type: string
+
+  ProductOffers:
+    properties:
+      offers:
+        type: array
+        items:
+          $ref: '#/definitions/ProductOffer'
+
+  ProductOffer:
+    properties:
+      fid:
+        type: string
+      displayName:
+        type: string
+      couponCode:
+        type: string
+      applyFid:
+        type: string
+      maxUsages:
+        type: integer
+        format: int32
+      expiryTime:
+        $ref: '#/definitions/isoTime'
+      quantityLimit:
+        type: string
+      discountAmount:
+        type: number
+        format: float
+      discountType:
+        $ref: "#/definitions/discountType"
+      setupDiscountAmount:
+        type: number
+        format: float
+      setupDiscountType:
+        $ref: "#/definitions/discountType"
+      term:
+        type: integer
+        format: int32
+      termType:
+        $ref: "#/definitions/cycleTermType"
+      restrictive:
+        type: boolean
 
 #Payloads
   CreatePolymerPayload:
@@ -1746,6 +1804,12 @@ definitions:
       - week
       - month
       - year
+  discountType:
+    description: Discount Type
+    type: string
+    enum:
+      - fixed
+      - percentage
   customerLifecycle:
     description: Customer Lifecycle Stage
     type: string
