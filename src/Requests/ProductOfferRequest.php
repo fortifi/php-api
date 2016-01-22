@@ -18,7 +18,6 @@ class ProductOfferRequest
       "applyFid" => $this->getApplyFid(),
       "maxUsages" => $this->getMaxUsages(),
       "expiryTime" => $this->getExpiryTime(),
-      "quantityLimit" => $this->getQuantityLimit(),
       "discountAmount" => $this->getDiscountAmount(),
       "discountType" => $this->getDiscountType(),
       "setupDiscountAmount" => $this->getSetupDiscountAmount(),
@@ -89,16 +88,6 @@ class ProductOfferRequest
   public function getExpiryTime($default = null)
   {
     return Objects::property($this->_getResultJson(), 'expiryTime', $default);
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return string
-   */
-  public function getQuantityLimit($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'quantityLimit', $default);
   }
 
   /**

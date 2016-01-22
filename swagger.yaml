@@ -1398,8 +1398,6 @@ definitions:
         format: int32
       expiryTime:
         $ref: '#/definitions/isoTime'
-      quantityLimit:
-        type: string
       discountAmount:
         type: number
         format: float
