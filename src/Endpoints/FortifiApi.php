@@ -81,6 +81,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return MessengerEndpoint
+   */
+  public function messenger()
+  {
+    $endpoint = new MessengerEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ContactsEndpoint
    */
   public function contacts()

@@ -151,6 +151,11 @@ DESCRIPTION
 
     $tag = new TagDefinition();
     $tag->setDescription('');
+    $tag->setName('Messenger');
+    $this->addTag($tag);
+
+    $tag = new TagDefinition();
+    $tag->setDescription('');
     $tag->setName('Products');
     $this->addTag($tag);
 

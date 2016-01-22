@@ -166,6 +166,7 @@ tags:
   - name: Custom Properties
   - name: Contacts
   - name: Polymers
+  - name: Messenger
   - name: Products
 
 securityDefinitions:
@@ -932,6 +933,27 @@ paths:
         404:
           description: Order not found
 
+  "/messenger/deliveries/{deliveryFid}/unsubscribe":
+    put:
+      summary: Unsubscribe an email based on the delivery fid
+      tags:
+        - Contacts
+        - Messenger
+      security:
+        - OAuth:
+          - contact.write
+      parameters:
+        - $ref: '#/parameters/deliveryFid'
+        - $ref: '#/parameters/userAgent'
+        - $ref: '#/parameters/encoding'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/clientIp'
+      responses:
+        200:
+          description: Email Address Unsubscribed
+        404:
+          description: Email Address not found
+
   "/contacts/emails/{emailAddress}/confirm":
     put:
       summary: Confirm email address
@@ -1005,6 +1027,27 @@ paths:
               $ref: '#/definitions/ProductOffers'
 
 parameters:
+  userAgent:
+    name: userAgent
+    in: formData
+    description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+    type: string
+  language:
+    name: language
+    in: formData
+    description: Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
+    type: string
+  encoding:
+    name: encoding
+    in: formData
+    description: Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
+    type: string
+  clientIp:
+    name: clientIp
+    in: formData
+    description: IP Address of the visitor
+    type: string
+
   visitorId:
     name: visitorId
     in: path
@@ -1026,6 +1069,12 @@ parameters:
     type: string
     required: true
     description: Email Address
+  deliveryFid:
+    name: deliveryFid
+    in: path
+    type: string
+    required: true
+    description: Delivery FID
   entityFid:
     name: entityFid
     in: path
