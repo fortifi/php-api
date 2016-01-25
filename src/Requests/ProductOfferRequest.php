@@ -1,51 +1,31 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 
 class ProductOfferRequest
-  extends ApiRequest
+  extends EntityRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "fid" => $this->getFid(),
-      "displayName" => $this->getDisplayName(),
-      "couponCode" => $this->getCouponCode(),
-      "applyFid" => $this->getApplyFid(),
-      "maxUsages" => $this->getMaxUsages(),
-      "expiryTime" => $this->getExpiryTime(),
-      "discountAmount" => $this->getDiscountAmount(),
-      "discountType" => $this->getDiscountType(),
-      "setupDiscountAmount" => $this->getSetupDiscountAmount(),
-      "setupDiscountType" => $this->getSetupDiscountType(),
-      "term" => $this->getTerm(),
-      "termType" => $this->getTermType(),
-      "restrictive" => $this->isRestrictive(),
-    ];
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return string
-   */
-  public function getFid($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'fid', $default);
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return string
-   */
-  public function getDisplayName($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'displayName', $default);
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "couponCode" => $this->getCouponCode(),
+        "applyFid" => $this->getApplyFid(),
+        "maxUsages" => $this->getMaxUsages(),
+        "expiryTime" => $this->getExpiryTime(),
+        "discountAmount" => $this->getDiscountAmount(),
+        "discountType" => $this->getDiscountType(),
+        "setupDiscountAmount" => $this->getSetupDiscountAmount(),
+        "setupDiscountType" => $this->getSetupDiscountType(),
+        "term" => $this->getTerm(),
+        "termType" => $this->getTermType(),
+        "restrictive" => $this->isRestrictive(),
+      ]
+    );
   }
 
   /**

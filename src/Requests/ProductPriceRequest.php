@@ -1,36 +1,27 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 
 class ProductPriceRequest
-  extends ApiRequest
+  extends FidRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "fid" => $this->getFid(),
-      "productFid" => $this->getProductFid(),
-      "currency" => $this->getCurrency(),
-      "price" => $this->getPrice(),
-      "setupFee" => $this->getSetupFee(),
-      "cycle" => $this->getCycle(),
-      "cycleTerm" => $this->getCycleTerm(),
-      "cycleExact" => $this->getCycleExact(),
-    ];
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return string
-   */
-  public function getFid($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'fid', $default);
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "productFid" => $this->getProductFid(),
+        "currency" => $this->getCurrency(),
+        "price" => $this->getPrice(),
+        "setupFee" => $this->getSetupFee(),
+        "cycle" => $this->getCycle(),
+        "cycleTerm" => $this->getCycleTerm(),
+        "cycleExact" => $this->getCycleExact(),
+      ]
+    );
   }
 
   /**

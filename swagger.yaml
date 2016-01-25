@@ -182,13 +182,14 @@ securityDefinitions:
       "customer.readonly": Read Only on Customers
       "entity.properties": Read/Write On Entity Properties
       "orders": Read/Write On Orders
+      "orders.readonly": Read Only On Orders
       "products": Read/Write On Products
       "paymentMethods": Read/Write On Payment Methods
-      "contact.write": Read/Write On Contacts
-      "polymer": Read Polymers
-      "polymer.write": Read/Write On Polymers
-      "product": Read Product Information
-      "product.write": Read/Write On Products
+      "contact": Read/Write On Contacts
+      "polymer.readonly": Read Polymers
+      "polymer": Read/Write On Polymers
+      "product.readonly": Read Product Information
+      "product": Read/Write On Products
 
   accessToken:
     type: apiKey
@@ -514,6 +515,157 @@ paths:
         404:
           description: Customer not found
 
+  "/customers/{customerFid}/qualified":
+    put:
+      summary: Mark customer as qualified, this action cannot be undone.
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/isoTime'
+      responses:
+        200:
+          description: Customer Marked
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/chargeback":
+    put:
+      summary: Mark customer as charged back, this action cannot be undone.
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/isoTime'
+      responses:
+        200:
+          description: Customer Marked
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/fraud":
+    put:
+      summary: Mark customer as fraudulent, this action cannot be undone.
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/isoTime'
+      responses:
+        200:
+          description: Customer Marked
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/purchased":
+    put:
+      summary: Mark customer as purchased, this action cannot be undone.
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/isoTime'
+      responses:
+        200:
+          description: Customer Marked
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/loyal":
+    put:
+      summary: Set customer loyalty flag
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Customer Loyalty Acknowledged
+        404:
+          description: Customer not found
+
+    delete:
+      summary: Remove customer loyalty flag
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Customer No Longer Loyal
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/vip":
+    put:
+      summary: Set customer as VIP
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Customer Now VIP
+        404:
+          description: Customer not found
+
+    delete:
+      summary: Remove customer VIP Status
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Customer No Longer VIP
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/currency":
+    put:
+      summary: Set customer Currency
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: currency
+          in: formData
+          required: true
+          description: Currency (ISO 4217, 3 Character Code)
+          type: string
+      responses:
+        200:
+          description: Customer Currency Updated
+        404:
+          description: Customer not found
+
   "/entities/{entityFid}/properties/values/{propertyName}":
     delete:
       summary: Remove a value property from a datanode
@@ -747,6 +899,39 @@ paths:
         200:
           description: Card Updated
 
+  "/customers/{customerFid}/emails":
+    post:
+      summary: Add an email address to a customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: emailAddress
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Email Added
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/phones":
+    post:
+      summary: Add a phone number to a customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: phoneNumber
+          in: formData
+          required: true
+          type: string
+        - name: displayName
+          in: formData
+          type: string
+      responses:
+        200:
+          description: Phone Number Added
+        404:
+          description: Customer not found
+
   /products:
     get:
       summary: List all products
@@ -754,7 +939,7 @@ paths:
         - products
       security:
         - OAuth:
-          - products
+          - product.readonly
       responses:
         200:
           description: Products retrieved
@@ -767,7 +952,7 @@ paths:
         - products
       security:
         - OAuth:
-          - products
+          - product.readonly
       parameters:
         - $ref: '#/parameters/productFid'
       responses:
@@ -805,7 +990,7 @@ paths:
         - orders
       security:
         - OAuth:
-          - orders
+          - orders.readonly
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
@@ -857,7 +1042,7 @@ paths:
         - orders
       security:
         - OAuth:
-          - orders
+          - orders.readonly
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
@@ -941,7 +1126,7 @@ paths:
         - Messenger
       security:
         - OAuth:
-          - contact.write
+          - contact
       parameters:
         - $ref: '#/parameters/deliveryFid'
         - $ref: '#/parameters/userAgent'
@@ -961,7 +1146,7 @@ paths:
         - Contacts
       security:
         - OAuth:
-          - contact.write
+          - contact
       parameters:
         - $ref: '#/parameters/emailAddress'
       responses:
@@ -977,7 +1162,7 @@ paths:
         - Contacts
       security:
         - OAuth:
-          - contact.write
+          - contact
       parameters:
         - $ref: '#/parameters/emailAddress'
         - name: companyFid
@@ -997,7 +1182,7 @@ paths:
         - polymers
       security:
         - OAuth:
-          - polymer.write
+          - polymer
       parameters:
         - name: payload
           in: body
@@ -1012,6 +1197,27 @@ paths:
         400:
           description: Information provided is not valid
 
+  "/polymers/{polymerFid}":
+    get:
+      summary: Read a polymer
+      tags:
+        - polymers
+      security:
+        - OAuth:
+          - polymer.readonly
+      parameters:
+        - name: polymerFid
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Polymer Information
+          schema:
+              $ref: '#/definitions/Entity'
+        404:
+          description: Polymer not found
+
   "/products/offers":
       get:
         summary: Retrieve all offers
@@ -1019,7 +1225,7 @@ paths:
           - products
         security:
           - OAuth:
-            - product
+            - product.readonly
         responses:
           200:
             description: Available Offers
@@ -1027,6 +1233,12 @@ paths:
               $ref: '#/definitions/ProductOffers'
 
 parameters:
+  isoTime:
+    name: isoTime
+    description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+    type: string
+    format: date-time
+    in: formData
   userAgent:
     name: userAgent
     in: formData
@@ -1120,6 +1332,17 @@ definitions:
         type: string
         description: Object FID
 
+  Entity:
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          displayName:
+            type: string
+            description: Display Name
+          description:
+            type: string
+            description: Discription
+
   PubKey:
     properties:
       key:
@@ -1127,19 +1350,18 @@ definitions:
         description: RSA Public Key
 
   User:
-    properties:
-      fid:
-        type: string
-        description: Campaign FID
-      username:
-        type: string
-        description: Username
-      language:
-        type: string
-        description: Language
-      timezone:
-        type: string
-        description: Timezone for this user
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          username:
+            type: string
+            description: Username
+          language:
+            type: string
+            description: Language
+          timezone:
+            type: string
+            description: Timezone for this user
 
   Organisation:
     properties:
@@ -1160,21 +1382,21 @@ definitions:
         type: string
 
   Customer:
-    properties:
-      fid:
-        type: string
-      name:
-        type: string
-      firstName:
-        type: string
-      lastName:
-        type: string
-      email:
-        type: string
-      phone:
-        type: string
-      externalReference:
-        type: string
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          name:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          email:
+            type: string
+          phone:
+            type: string
+          externalReference:
+            type: string
 
   AdvertiserPixel:
     properties:
@@ -1251,31 +1473,27 @@ definitions:
           $ref: "#/definitions/Product"
 
   Product:
-    properties:
-      fid:
-        type: string
-      displayName:
-        type: string
-      description:
-        type: string
-      productType:
-        type: string
-      parentFid:
-        type: string
-      statementDescription:
-        type: string
-      trialDays:
-        type: string
-      defaultPriceFid:
-        type: string
-      defaultPrice:
-        $ref: "#/definitions/ProductPrice"
-      taxable:
-        type: string
-      taxGroupFid:
-        type: string
-      maxQuantity:
-        type: string
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          productType:
+            type: string
+          parentFid:
+            type: string
+          statementDescription:
+            type: string
+          trialDays:
+            type: string
+          defaultPriceFid:
+            type: string
+          defaultPrice:
+            $ref: "#/definitions/ProductPrice"
+          taxable:
+            type: string
+          taxGroupFid:
+            type: string
+          maxQuantity:
+            type: string
 
   ProductPrices:
     properties:
@@ -1285,86 +1503,86 @@ definitions:
           $ref: "#/definitions/ProductPrice"
 
   ProductPrice:
-    properties:
-      fid:
-        type: string
-      productFid:
-        type: string
-      currency:
-        type: string
-      price:
-        type: number
-        format: float
-      setupFee:
-        type: number
-        format: float
-      cycle:
-        $ref: "#/definitions/cycleTermType"
-      cycleTerm:
-        type: string
-      cycleExact:
-        type: string
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          productFid:
+            type: string
+          currency:
+            type: string
+          price:
+            type: number
+            format: float
+          setupFee:
+            type: number
+            format: float
+          cycle:
+            $ref: "#/definitions/cycleTermType"
+          cycleTerm:
+            type: string
+          cycleExact:
+            type: string
 
   Order:
-    properties:
-      fid:
-        type: string
-      orderHash:
-        type: string
-      state:
-        type: string
-      queueFid:
-        type: string
-      offerFid:
-        type: string
-      couponCode:
-        type: string
-      amount:
-        type: number
-        format: float
-      setupAmount:
-        type: number
-        format: float
-      taxAmount:
-        type: number
-        format: float
-      totalAmount:
-        type: number
-        format: float
-      currency:
-        type: string
-      country:
-        type: string
-      discountAmount:
-        type: number
-        format: float
-      discountType:
-        type: string
-      approvedByFid:
-        type: string
-      userAgent:
-        type: string
-      userIp:
-        type: string
-      paymentAccountFid:
-        type: string
-      paymentServiceType:
-        type: string
-      lastPaymentFid:
-        type: string
-      companyFid:
-        type: string
-      customerFid:
-        type: string
-      fraudFid:
-        type: string
-      invoiceFid:
-        type: string
-      amountPaid:
-        type: number
-        format: float
-      authorizeId:
-        type: string
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          orderHash:
+            type: string
+          state:
+            type: string
+          queueFid:
+            type: string
+          offerFid:
+            type: string
+          couponCode:
+            type: string
+          amount:
+            type: number
+            format: float
+          setupAmount:
+            type: number
+            format: float
+          taxAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          currency:
+            type: string
+          country:
+            type: string
+          discountAmount:
+            type: number
+            format: float
+          discountType:
+            type: string
+          approvedByFid:
+            type: string
+          userAgent:
+            type: string
+          userIp:
+            type: string
+          paymentAccountFid:
+            type: string
+          paymentServiceType:
+            type: string
+          lastPaymentFid:
+            type: string
+          companyFid:
+            type: string
+          customerFid:
+            type: string
+          fraudFid:
+            type: string
+          invoiceFid:
+            type: string
+          amountPaid:
+            type: number
+            format: float
+          authorizeId:
+            type: string
 
   OrderProducts:
     properties:
@@ -1374,18 +1592,14 @@ definitions:
           $ref: "#/definitions/OrderProduct"
 
   OrderProduct:
-    properties:
-      fid:
-        type: string
-      displayName:
-        type: string
-      description:
-        type: string
-      price:
-        type: number
-        format: float
-      offerFid:
-        type: string
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          price:
+            type: number
+            format: float
+          offerFid:
+            type: string
 
   OrderVerification:
     properties:
@@ -1407,23 +1621,21 @@ definitions:
           $ref: "#/definitions/PaymentCard"
 
   PaymentCard:
-    properties:
-      fid:
-        type: string
-      displayName:
-        type: string
-      nameOnCard:
-        type: string
-      expiryMonth:
-        type: number
-      expiryYear:
-        type: number
-      issue:
-        type: number
-      last4:
-        type: string
-      cardType:
-        type: string
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          nameOnCard:
+            type: string
+          expiryMonth:
+            type: number
+          expiryYear:
+            type: number
+          issue:
+            type: number
+          last4:
+            type: number
+          cardType:
+            type: string
 
   ProductOffers:
     properties:
@@ -1433,37 +1645,35 @@ definitions:
           $ref: '#/definitions/ProductOffer'
 
   ProductOffer:
-    properties:
-      fid:
-        type: string
-      displayName:
-        type: string
-      couponCode:
-        type: string
-      applyFid:
-        type: string
-      maxUsages:
-        type: integer
-        format: int32
-      expiryTime:
-        $ref: '#/definitions/isoTime'
-      discountAmount:
-        type: number
-        format: float
-      discountType:
-        $ref: "#/definitions/discountType"
-      setupDiscountAmount:
-        type: number
-        format: float
-      setupDiscountType:
-        $ref: "#/definitions/discountType"
-      term:
-        type: integer
-        format: int32
-      termType:
-        $ref: "#/definitions/cycleTermType"
-      restrictive:
-        type: boolean
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          couponCode:
+            type: string
+          applyFid:
+            type: string
+          maxUsages:
+            type: integer
+            format: int32
+          expiryTime:
+            $ref: '#/definitions/isoTime'
+          discountAmount:
+            type: number
+            format: float
+          discountType:
+            $ref: "#/definitions/discountType"
+          setupDiscountAmount:
+            type: number
+            format: float
+          setupDiscountType:
+            $ref: "#/definitions/discountType"
+          term:
+            type: integer
+            format: int32
+          termType:
+            $ref: "#/definitions/cycleTermType"
+          restrictive:
+            type: boolean
 
 #Payloads
   CreatePolymerPayload:

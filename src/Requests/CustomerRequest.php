@@ -1,35 +1,26 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 
 class CustomerRequest
-  extends ApiRequest
+  extends FidRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "fid" => $this->getFid(),
-      "name" => $this->getName(),
-      "firstName" => $this->getFirstName(),
-      "lastName" => $this->getLastName(),
-      "email" => $this->getEmail(),
-      "phone" => $this->getPhone(),
-      "externalReference" => $this->getExternalReference(),
-    ];
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return string
-   */
-  public function getFid($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'fid', $default);
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "name" => $this->getName(),
+        "firstName" => $this->getFirstName(),
+        "lastName" => $this->getLastName(),
+        "email" => $this->getEmail(),
+        "phone" => $this->getPhone(),
+        "externalReference" => $this->getExternalReference(),
+      ]
+    );
   }
 
   /**

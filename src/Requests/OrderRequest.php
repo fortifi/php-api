@@ -1,54 +1,45 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 
 class OrderRequest
-  extends ApiRequest
+  extends FidRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "fid" => $this->getFid(),
-      "orderHash" => $this->getOrderHash(),
-      "state" => $this->getState(),
-      "queueFid" => $this->getQueueFid(),
-      "offerFid" => $this->getOfferFid(),
-      "couponCode" => $this->getCouponCode(),
-      "amount" => $this->getAmount(),
-      "setupAmount" => $this->getSetupAmount(),
-      "taxAmount" => $this->getTaxAmount(),
-      "totalAmount" => $this->getTotalAmount(),
-      "currency" => $this->getCurrency(),
-      "country" => $this->getCountry(),
-      "discountAmount" => $this->getDiscountAmount(),
-      "discountType" => $this->getDiscountType(),
-      "approvedByFid" => $this->getApprovedByFid(),
-      "userAgent" => $this->getUserAgent(),
-      "userIp" => $this->getUserIp(),
-      "paymentAccountFid" => $this->getPaymentAccountFid(),
-      "paymentServiceType" => $this->getPaymentServiceType(),
-      "lastPaymentFid" => $this->getLastPaymentFid(),
-      "companyFid" => $this->getCompanyFid(),
-      "customerFid" => $this->getCustomerFid(),
-      "fraudFid" => $this->getFraudFid(),
-      "invoiceFid" => $this->getInvoiceFid(),
-      "amountPaid" => $this->getAmountPaid(),
-      "authorizeId" => $this->getAuthorizeId(),
-    ];
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return string
-   */
-  public function getFid($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'fid', $default);
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "orderHash" => $this->getOrderHash(),
+        "state" => $this->getState(),
+        "queueFid" => $this->getQueueFid(),
+        "offerFid" => $this->getOfferFid(),
+        "couponCode" => $this->getCouponCode(),
+        "amount" => $this->getAmount(),
+        "setupAmount" => $this->getSetupAmount(),
+        "taxAmount" => $this->getTaxAmount(),
+        "totalAmount" => $this->getTotalAmount(),
+        "currency" => $this->getCurrency(),
+        "country" => $this->getCountry(),
+        "discountAmount" => $this->getDiscountAmount(),
+        "discountType" => $this->getDiscountType(),
+        "approvedByFid" => $this->getApprovedByFid(),
+        "userAgent" => $this->getUserAgent(),
+        "userIp" => $this->getUserIp(),
+        "paymentAccountFid" => $this->getPaymentAccountFid(),
+        "paymentServiceType" => $this->getPaymentServiceType(),
+        "lastPaymentFid" => $this->getLastPaymentFid(),
+        "companyFid" => $this->getCompanyFid(),
+        "customerFid" => $this->getCustomerFid(),
+        "fraudFid" => $this->getFraudFid(),
+        "invoiceFid" => $this->getInvoiceFid(),
+        "amountPaid" => $this->getAmountPaid(),
+        "authorizeId" => $this->getAuthorizeId(),
+      ]
+    );
   }
 
   /**
