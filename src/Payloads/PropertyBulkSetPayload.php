@@ -1,11 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
 
-use Fortifi\Api\V1\Requests\KeyValueRequest;
-use Fortifi\Api\V1\Requests\KeyValueRequest;
-use Fortifi\Api\V1\Requests\KeyValueRequest;
-use Fortifi\Api\V1\Requests\KeyValueRequest;
-
 class PropertyBulkSetPayload
   implements \JsonSerializable
 {
@@ -59,7 +54,7 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param array $value
+   * @param KeyValuePayload[] $value
    *
    * @return $this
    */
@@ -70,11 +65,11 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param $item
+   * @param KeyValuePayload $item
    *
    * @return $this
    */
-  public function addValue($item)
+  public function addValue(KeyValuePayload $item)
   {
     $this->_values[] = $item;
     return $this;
@@ -85,7 +80,7 @@ class PropertyBulkSetPayload
    *
    * @param mixed $default
    *
-   * @return KeyValueRequest[]
+   * @return KeyValuePayload[]
    */
   public function getValues($default = [])
   {
@@ -93,7 +88,7 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param array $value
+   * @param KeyValuePayload[] $value
    *
    * @return $this
    */
@@ -104,11 +99,11 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param $item
+   * @param KeyValuePayload $item
    *
    * @return $this
    */
-  public function addFlag($item)
+  public function addFlag(KeyValuePayload $item)
   {
     $this->_flags[] = $item;
     return $this;
@@ -119,7 +114,7 @@ class PropertyBulkSetPayload
    *
    * @param mixed $default
    *
-   * @return KeyValueRequest[]
+   * @return KeyValuePayload[]
    */
   public function getFlags($default = [])
   {
@@ -127,7 +122,7 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param array $value
+   * @param KeyValuePayload[] $value
    *
    * @return $this
    */
@@ -138,11 +133,11 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param $item
+   * @param KeyValuePayload $item
    *
    * @return $this
    */
-  public function addIncrementCounter($item)
+  public function addIncrementCounter(KeyValuePayload $item)
   {
     $this->_incrementCounters[] = $item;
     return $this;
@@ -153,7 +148,7 @@ class PropertyBulkSetPayload
    *
    * @param mixed $default
    *
-   * @return KeyValueRequest[]
+   * @return KeyValuePayload[]
    */
   public function getIncrementCounters($default = [])
   {
@@ -161,7 +156,7 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param array $value
+   * @param KeyValuePayload[] $value
    *
    * @return $this
    */
@@ -172,11 +167,11 @@ class PropertyBulkSetPayload
   }
 
   /**
-   * @param $item
+   * @param KeyValuePayload $item
    *
    * @return $this
    */
-  public function addDecrementCounter($item)
+  public function addDecrementCounter(KeyValuePayload $item)
   {
     $this->_decrementCounters[] = $item;
     return $this;
@@ -187,7 +182,7 @@ class PropertyBulkSetPayload
    *
    * @param mixed $default
    *
-   * @return KeyValueRequest[]
+   * @return KeyValuePayload[]
    */
   public function getDecrementCounters($default = [])
   {

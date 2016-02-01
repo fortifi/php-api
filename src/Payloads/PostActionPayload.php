@@ -627,11 +627,11 @@ class PostActionPayload
   }
 
   /**
-   * @param $item
+   * @param KeyValueRequest $item
    *
    * @return $this
    */
-  public function addMetaData($item)
+  public function addMetaData(KeyValueRequest $item)
   {
     $this->_metaData[] = $item;
     return $this;

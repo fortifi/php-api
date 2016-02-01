@@ -1529,6 +1529,13 @@ definitions:
       value:
         type: string
 
+  keyValuePayload:
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+
   Products:
     properties:
       products:
@@ -1924,22 +1931,22 @@ definitions:
         type: array
         description: Additional information to store
         items:
-          $ref: '#/definitions/keyValue'
+          $ref: '#/definitions/keyValuePayload'
       flags:
         type: array
         description: Additional information to store
         items:
-          $ref: '#/definitions/keyValue'
+          $ref: '#/definitions/keyValuePayload'
       incrementCounters:
         type: array
         description: Additional information to store
         items:
-          $ref: '#/definitions/keyValue'
+          $ref: '#/definitions/keyValuePayload'
       decrementCounters:
         type: array
         description: Additional information to store
         items:
-          $ref: '#/definitions/keyValue'
+          $ref: '#/definitions/keyValuePayload'
 
   PropertyFlagPayload:
     properties:
