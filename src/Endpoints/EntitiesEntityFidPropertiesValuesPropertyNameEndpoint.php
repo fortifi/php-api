@@ -18,7 +18,7 @@ class EntitiesEntityFidPropertiesValuesPropertyNameEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Remove a value property from a datanode
+   * @summary Remove a value property from an entity
    *
    * @param PropertyValuePayload $payload
    *
@@ -46,7 +46,7 @@ class EntitiesEntityFidPropertiesValuesPropertyNameEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Write a datanode value property
+   * @summary Write an entity value property
    *
    * @param PropertyValuePayload $payload
    *

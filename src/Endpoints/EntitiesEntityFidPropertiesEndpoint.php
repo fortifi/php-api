@@ -1,6 +1,9 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Payloads\PropertyBulkSetPayload;
+use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
@@ -47,5 +50,33 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
+  }
+
+  /**
+   * @summary Write multiple entity properties
+   *
+   * @param PropertyBulkSetPayload $payload
+   *
+   * @return ApiRequest
+   */
+  public function setProperties(PropertyBulkSetPayload $payload)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'entities/{entityFid}/properties'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 }

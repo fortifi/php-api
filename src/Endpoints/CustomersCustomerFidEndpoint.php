@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\CustomerRequest;
 use Fortifi\Api\V1\Payloads\SetSubscriptionTypePayload;
+use Fortifi\Api\V1\Payloads\SetCustomerLocationPayload;
 use Fortifi\Api\V1\Payloads\SetAccountTypePayload;
 use Fortifi\Api\V1\Payloads\SetAccountStatusPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -81,6 +82,36 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @summary Update a customer
+   *
+   * @param $firstName
+   * @param $lastName
+   *
+   * @return ApiRequest
+   */
+  public function update($firstName = null, $lastName = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}'
+      )
+    ));
+    $detail->addPostField('firstName', $firstName);
+    $detail->addPostField('lastName', $lastName);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Archive a customer
    *
    * @return ApiRequest
@@ -125,6 +156,34 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
         array_keys($this->_replacements),
         array_values($this->_replacements),
         'customers/{customerFid}/accountStatus'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Update a customers location
+   *
+   * @param SetCustomerLocationPayload $payload
+   *
+   * @return ApiRequest
+   */
+  public function setLocation(SetCustomerLocationPayload $payload)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/location'
       )
     ));
     $detail->setBody(json_encode($payload));

@@ -18,7 +18,7 @@ class EntitiesEntityFidPropertiesFlagsPropertyNameEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Remove a flag from a datanode
+   * @summary Remove a flag from an entity
    *
    * @return ApiRequest
    */
@@ -43,7 +43,7 @@ class EntitiesEntityFidPropertiesFlagsPropertyNameEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Write a datanode flag
+   * @summary Write an entity flag
    *
    * @param PropertyFlagPayload $payload
    *

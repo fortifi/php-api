@@ -36,6 +36,10 @@ class PostActionPayload
    */
   protected $_paymentMethod;
   /**
+   * Username associated with this transaction (e.g. Join)
+   */
+  protected $_username;
+  /**
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
    */
   protected $_userAgent;
@@ -114,6 +118,10 @@ class PostActionPayload
     {
       $this->_paymentMethod = $data["paymentMethod"];
     }
+    if(isset($data["username"]))
+    {
+      $this->_username = $data["username"];
+    }
     if(isset($data["userAgent"]))
     {
       $this->_userAgent = $data["userAgent"];
@@ -175,6 +183,7 @@ class PostActionPayload
       "productCode"       => $this->_productCode,
       "productTerm"       => $this->_productTerm,
       "paymentMethod"     => $this->_paymentMethod,
+      "username"          => $this->_username,
       "userAgent"         => $this->_userAgent,
       "encoding"          => $this->_encoding,
       "language"          => $this->_language,
@@ -350,6 +359,29 @@ class PostActionPayload
   public function getPaymentMethod($default = null)
   {
     return $this->_paymentMethod ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setUsername($value)
+  {
+    $this->_username = $value;
+    return $this;
+  }
+
+  /**
+   * Username associated with this transaction (e.g. Join)
+   *
+   * @param mixed $default
+   *
+   * @return string
+   */
+  public function getUsername($default = null)
+  {
+    return $this->_username ?: $default;
   }
 
   /**

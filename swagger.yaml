@@ -435,6 +435,27 @@ paths:
             $ref: '#/definitions/Customer'
         404:
           description: Customer not found
+    put:
+      security:
+        - OAuth:
+          - customer
+          - customer.readonly
+      tags:
+        - customers
+      summary: Update a customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: firstName
+          in: formData
+          type: string
+        - name: lastName
+          in: formData
+          type: string
+      responses:
+        200:
+          description: Customer Updated
+        404:
+          description: Customer not found
     delete:
       security:
         - OAuth:
@@ -467,6 +488,27 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/SetAccountStatusPayload'
+      responses:
+        200:
+          description: Customer Status Updated
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/location":
+    put:
+      summary: Update a customers location
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetCustomerLocationPayload'
       responses:
         200:
           description: Customer Status Updated
@@ -666,9 +708,31 @@ paths:
         404:
           description: Customer not found
 
+  "/entities/{entityFid}/properties":
+    put:
+      summary: Write multiple entity properties
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyBulkSetPayload'
+
+      responses:
+        200:
+          description: Properties Saved
+        400:
+          description: Invalid Entity
+
   "/entities/{entityFid}/properties/values/{propertyName}":
     delete:
-      summary: Remove a value property from a datanode
+      summary: Remove a value property from an entity
       tags:
         - Custom Properties
       security:
@@ -688,7 +752,7 @@ paths:
           description: Property Deleted
 
     put:
-      summary: Write a datanode value property
+      summary: Write an entity value property
       tags:
         - Custom Properties
       security:
@@ -711,7 +775,7 @@ paths:
 
   "/entities/{entityFid}/properties/flags/{propertyName}":
     delete:
-      summary: Remove a flag from a datanode
+      summary: Remove a flag from an entity
       tags:
         - Custom Properties
       security:
@@ -726,7 +790,7 @@ paths:
           description: Property Deleted
 
     put:
-      summary: Write a datanode flag
+      summary: Write an entity flag
       tags:
         - Custom Properties
       security:
@@ -750,7 +814,7 @@ paths:
 
   "/entities/{entityFid}/properties/counters/{propertyName}":
     delete:
-      summary: Remove a counter from a datanode
+      summary: Remove a counter from an entity
       tags:
         - Custom Properties
       security:
@@ -766,7 +830,7 @@ paths:
 
   "/entities/{entityFid}/properties/counters/{propertyName}/increment":
     put:
-      summary: Increment a datanode counter
+      summary: Increment an entity counter
       tags:
         - Custom Properties
       security:
@@ -789,7 +853,7 @@ paths:
 
   "/entities/{entityFid}/properties/counters/{propertyName}/decrement":
     put:
-      summary: Decrement a datanode counter
+      summary: Decrement an entity counter
       tags:
         - Custom Properties
       security:
@@ -1716,6 +1780,9 @@ definitions:
       paymentMethod:
         type: string
         description: Payment method used on this transaction
+      username:
+        type: string
+        description: Username associated with this transaction (e.g. Join)
       userAgent:
         $ref: '#/definitions/userAgent'
       encoding:
@@ -1806,6 +1873,30 @@ definitions:
     required:
       - companyFid
 
+  SetCustomerLocationPayload:
+    properties:
+      continent:
+        type: string
+        description: Continent
+      country:
+        type: string
+        description: Country
+      county:
+        type: string
+        description: County
+      city:
+        type: string
+        description: City
+      postal:
+        type: string
+        description: Postal
+      timezone:
+        type: string
+        description: Timezone
+      clientIp:
+        type: string
+        description: Client IP Address
+
   SetAccountStatusPayload:
     properties:
       accountStatus:
@@ -1826,6 +1917,29 @@ definitions:
       propertyValue:
         description: Property Value
         type: string
+
+  PropertyBulkSetPayload:
+    properties:
+      values:
+        type: array
+        description: Additional information to store
+        items:
+          $ref: '#/definitions/keyValue'
+      flags:
+        type: array
+        description: Additional information to store
+        items:
+          $ref: '#/definitions/keyValue'
+      incrementCounters:
+        type: array
+        description: Additional information to store
+        items:
+          $ref: '#/definitions/keyValue'
+      decrementCounters:
+        type: array
+        description: Additional information to store
+        items:
+          $ref: '#/definitions/keyValue'
 
   PropertyFlagPayload:
     properties:

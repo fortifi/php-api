@@ -18,7 +18,7 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
   }
 
   /**
-   * @summary Remove a counter from a datanode
+   * @summary Remove a counter from an entity
    *
    * @return ApiRequest
    */
@@ -43,7 +43,7 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
   }
 
   /**
-   * @summary Increment a datanode counter
+   * @summary Increment an entity counter
    *
    * @param PropertyCounterPayload $payload
    *
@@ -71,7 +71,7 @@ class EntitiesEntityFidPropertiesCountersPropertyNameEndpoint extends ApiEndpoin
   }
 
   /**
-   * @summary Decrement a datanode counter
+   * @summary Decrement an entity counter
    *
    * @param PropertyCounterPayload $payload
    *
