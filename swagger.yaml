@@ -1094,6 +1094,9 @@ paths:
           - orders
       parameters:
         - $ref: '#/parameters/orderFid'
+        - name: cvv
+          in: formData
+          type: string
       responses:
         200:
           description: Order confirmed and payment authroized

@@ -98,9 +98,11 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   /**
    * @summary Confirm an order, authorize the payment
    *
+   * @param $cvv
+   *
    * @return OrderConfirmationRequest
    */
-  public function confirm()
+  public function confirm($cvv = null)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -115,6 +117,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         'orders/{orderFid}/confirm'
       )
     ));
+    $detail->addPostField('cvv', $cvv);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
