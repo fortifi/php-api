@@ -1688,6 +1688,8 @@ definitions:
     properties:
       success:
         type: boolean
+      message:
+        type: string
 
   PaymentCards:
     properties:

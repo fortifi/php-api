@@ -13,6 +13,7 @@ class OrderConfirmationRequest
   {
     return [
       "success" => $this->isSuccess(),
+      "message" => $this->getMessage(),
     ];
   }
 
@@ -24,5 +25,15 @@ class OrderConfirmationRequest
   public function isSuccess($default = false)
   {
     return Objects::property($this->_getResultJson(), 'success', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string
+   */
+  public function getMessage($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'message', $default);
   }
 }
