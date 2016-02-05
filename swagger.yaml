@@ -1098,6 +1098,8 @@ paths:
           in: formData
           type: string
       responses:
+        503:
+          description: There are no payment gateways available to handle your request
         200:
           description: Order confirmed and payment authroized
           schema:
