@@ -120,7 +120,11 @@ class ProductRequest
   {
     $return = parent::_prepareResult($result);
 
-    $return->defaultPrice = (new ProductPriceRequest())->hydrate($return->defaultPrice);
+    if(!empty($return->defaultPrice))
+    {
+      $return->defaultPrice = (new ProductPriceRequest())
+        ->hydrate($return->defaultPrice);
+    }
 
     return $return;
   }

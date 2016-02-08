@@ -32,12 +32,13 @@ class ProductPricesRequest
 
     if(!empty($return->prices))
     {
-       $tmp = [];
-       foreach($return->prices as $itm)
-       {
-         $tmp[] = (new ProductPriceRequest())->hydrate($itm);
-       }
-       $return->prices = $tmp;
+      $tmp = [];
+      foreach($return->prices as $itm)
+      {
+        $tmp[] = (new ProductPriceRequest())
+          ->hydrate($itm);
+      }
+      $return->prices = $tmp;
     }
 
     return $return;

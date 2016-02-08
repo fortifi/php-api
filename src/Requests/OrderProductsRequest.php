@@ -32,12 +32,13 @@ class OrderProductsRequest
 
     if(!empty($return->products))
     {
-       $tmp = [];
-       foreach($return->products as $itm)
-       {
-         $tmp[] = (new OrderProductRequest())->hydrate($itm);
-       }
-       $return->products = $tmp;
+      $tmp = [];
+      foreach($return->products as $itm)
+      {
+        $tmp[] = (new OrderProductRequest())
+          ->hydrate($itm);
+      }
+      $return->products = $tmp;
     }
 
     return $return;
