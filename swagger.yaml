@@ -1165,6 +1165,15 @@ paths:
           in: formData
           required: true
           type: string
+        - name: productFid
+          in: formData
+          type: string
+        - name: orderItemFid
+          in: formData
+          type: string
+        - name: replace
+          in: formData
+          type: boolean
       responses:
         200:
           description: Offer added to the order successfully

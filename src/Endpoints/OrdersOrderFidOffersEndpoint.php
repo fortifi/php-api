@@ -34,10 +34,13 @@ class OrdersOrderFidOffersEndpoint extends ApiEndpoint
    * @summary Add an offer to an order
    *
    * @param $offerFid
+   * @param $productFid
+   * @param $orderItemFid
+   * @param $replace
    *
    * @return ApiRequest
    */
-  public function create($offerFid)
+  public function create($offerFid, $productFid = null, $orderItemFid = null, $replace = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -53,6 +56,9 @@ class OrdersOrderFidOffersEndpoint extends ApiEndpoint
       )
     ));
     $detail->addPostField('offerFid', $offerFid);
+    $detail->addPostField('productFid', $productFid);
+    $detail->addPostField('orderItemFid', $orderItemFid);
+    $detail->addPostField('replace', $replace);
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
