@@ -20,31 +20,37 @@ class AdvertiserPixelRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUrl($default = null)
+  public function getUrl($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'url', $default);
+    $value = Objects::property($this->_getResultJson(), 'url', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getMethod($default = null)
+  public function getMethod($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'method', $default);
+    $value = Objects::property($this->_getResultJson(), 'method', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getContent($default = null)
+  public function getContent($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'content', $default);
+    $value = Objects::property($this->_getResultJson(), 'content', $default);
+    return $trim ? trim($value) : $value;
   }
 }

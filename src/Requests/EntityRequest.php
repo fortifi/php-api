@@ -23,23 +23,27 @@ class EntityRequest
    * Display Name
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDisplayName($default = null)
+  public function getDisplayName($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'displayName', $default);
+    $value = Objects::property($this->_getResultJson(), 'displayName', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * Discription
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDescription($default = null)
+  public function getDescription($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'description', $default);
+    $value = Objects::property($this->_getResultJson(), 'description', $default);
+    return $trim ? trim($value) : $value;
   }
 }

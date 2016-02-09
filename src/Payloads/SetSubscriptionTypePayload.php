@@ -41,11 +41,13 @@ class SetSubscriptionTypePayload
    * Customer Subscription Status
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSubscriptionType($default = null)
+  public function getSubscriptionType($default = null, $trim = true)
   {
-    return $this->_subscriptionType ?: $default;
+    $value = $this->_subscriptionType ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

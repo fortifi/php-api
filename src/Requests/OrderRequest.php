@@ -44,52 +44,62 @@ class OrderRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getOrderHash($default = null)
+  public function getOrderHash($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'orderHash', $default);
+    $value = Objects::property($this->_getResultJson(), 'orderHash', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getState($default = null)
+  public function getState($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'state', $default);
+    $value = Objects::property($this->_getResultJson(), 'state', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getQueueFid($default = null)
+  public function getQueueFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'queueFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'queueFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getOfferFid($default = null)
+  public function getOfferFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'offerFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCouponCode($default = null)
+  public function getCouponCode($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'couponCode', $default);
+    $value = Objects::property($this->_getResultJson(), 'couponCode', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -134,22 +144,26 @@ class OrderRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCurrency($default = null)
+  public function getCurrency($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'currency', $default);
+    $value = Objects::property($this->_getResultJson(), 'currency', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCountry($default = null)
+  public function getCountry($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'country', $default);
+    $value = Objects::property($this->_getResultJson(), 'country', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -164,112 +178,134 @@ class OrderRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDiscountType($default = null)
+  public function getDiscountType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'discountType', $default);
+    $value = Objects::property($this->_getResultJson(), 'discountType', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getApprovedByFid($default = null)
+  public function getApprovedByFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'approvedByFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'approvedByFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUserAgent($default = null)
+  public function getUserAgent($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'userAgent', $default);
+    $value = Objects::property($this->_getResultJson(), 'userAgent', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUserIp($default = null)
+  public function getUserIp($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'userIp', $default);
+    $value = Objects::property($this->_getResultJson(), 'userIp', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPaymentAccountFid($default = null)
+  public function getPaymentAccountFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'paymentAccountFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'paymentAccountFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPaymentServiceType($default = null)
+  public function getPaymentServiceType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'paymentServiceType', $default);
+    $value = Objects::property($this->_getResultJson(), 'paymentServiceType', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLastPaymentFid($default = null)
+  public function getLastPaymentFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'lastPaymentFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'lastPaymentFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyFid($default = null)
+  public function getCompanyFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'companyFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCustomerFid($default = null)
+  public function getCustomerFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'customerFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'customerFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getFraudFid($default = null)
+  public function getFraudFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'fraudFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'fraudFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getInvoiceFid($default = null)
+  public function getInvoiceFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'invoiceFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'invoiceFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -284,11 +320,13 @@ class OrderRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAuthorizeId($default = null)
+  public function getAuthorizeId($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'authorizeId', $default);
+    $value = Objects::property($this->_getResultJson(), 'authorizeId', $default);
+    return $trim ? trim($value) : $value;
   }
 }

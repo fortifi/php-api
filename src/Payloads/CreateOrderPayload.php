@@ -86,12 +86,14 @@ class CreateOrderPayload
    * FID for the payment account you wish to charge the customer through
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPaymentAccountFid($default = null)
+  public function getPaymentAccountFid($default = null, $trim = true)
   {
-    return $this->_paymentAccountFid ?: $default;
+    $value = $this->_paymentAccountFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -109,12 +111,14 @@ class CreateOrderPayload
    * Company FID to track this event to
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyFid($default = null)
+  public function getCompanyFid($default = null, $trim = true)
   {
-    return $this->_companyFid ?: $default;
+    $value = $this->_companyFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -132,12 +136,14 @@ class CreateOrderPayload
    * FID for the customer placing the order
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCustomerFid($default = null)
+  public function getCustomerFid($default = null, $trim = true)
   {
-    return $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -155,12 +161,14 @@ class CreateOrderPayload
    * IP Address of the visitor
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getClientIp($default = null)
+  public function getClientIp($default = null, $trim = true)
   {
-    return $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -178,12 +186,14 @@ class CreateOrderPayload
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUserAgent($default = null)
+  public function getUserAgent($default = null, $trim = true)
   {
-    return $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**

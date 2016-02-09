@@ -28,52 +28,62 @@ class ProductRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getProductType($default = null)
+  public function getProductType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'productType', $default);
+    $value = Objects::property($this->_getResultJson(), 'productType', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getParentFid($default = null)
+  public function getParentFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'parentFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'parentFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getStatementDescription($default = null)
+  public function getStatementDescription($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'statementDescription', $default);
+    $value = Objects::property($this->_getResultJson(), 'statementDescription', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTrialDays($default = null)
+  public function getTrialDays($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'trialDays', $default);
+    $value = Objects::property($this->_getResultJson(), 'trialDays', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDefaultPriceFid($default = null)
+  public function getDefaultPriceFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'defaultPriceFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'defaultPriceFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -88,32 +98,38 @@ class ProductRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTaxable($default = null)
+  public function getTaxable($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'taxable', $default);
+    $value = Objects::property($this->_getResultJson(), 'taxable', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTaxGroupFid($default = null)
+  public function getTaxGroupFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'taxGroupFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'taxGroupFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getMaxQuantity($default = null)
+  public function getMaxQuantity($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'maxQuantity', $default);
+    $value = Objects::property($this->_getResultJson(), 'maxQuantity', $default);
+    return $trim ? trim($value) : $value;
   }
 
   protected function _prepareResult($result)

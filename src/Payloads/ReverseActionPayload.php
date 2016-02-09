@@ -139,12 +139,14 @@ class ReverseActionPayload
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUserAgent($default = null)
+  public function getUserAgent($default = null, $trim = true)
   {
-    return $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -162,12 +164,14 @@ class ReverseActionPayload
    * Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getEncoding($default = null)
+  public function getEncoding($default = null, $trim = true)
   {
-    return $this->_encoding ?: $default;
+    $value = $this->_encoding ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -185,12 +189,14 @@ class ReverseActionPayload
    * Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLanguage($default = null)
+  public function getLanguage($default = null, $trim = true)
   {
-    return $this->_language ?: $default;
+    $value = $this->_language ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -208,12 +214,14 @@ class ReverseActionPayload
    * IP Address of the visitor
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getClientIp($default = null)
+  public function getClientIp($default = null, $trim = true)
   {
-    return $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -231,12 +239,14 @@ class ReverseActionPayload
    * External (to Fortifi) Reference for this visitor e.g. a user ID
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getExternalReference($default = null)
+  public function getExternalReference($default = null, $trim = true)
   {
-    return $this->_externalReference ?: $default;
+    $value = $this->_externalReference ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -254,12 +264,14 @@ class ReverseActionPayload
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTime($default = null)
+  public function getTime($default = null, $trim = true)
   {
-    return $this->_time ?: $default;
+    $value = $this->_time ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -309,12 +321,14 @@ class ReverseActionPayload
    * Your unique transaction ID for the event to be reversed
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSourceTransactionId($default = null)
+  public function getSourceTransactionId($default = null, $trim = true)
   {
-    return $this->_sourceTransactionId ?: $default;
+    $value = $this->_sourceTransactionId ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -332,12 +346,14 @@ class ReverseActionPayload
    * The reason for reversing the action
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getReason($default = null)
+  public function getReason($default = null, $trim = true)
   {
-    return $this->_reason ?: $default;
+    $value = $this->_reason ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -378,12 +394,14 @@ class ReverseActionPayload
    * Your unique transaction ID for this event e.g. Refund ID
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getReversalId($default = null)
+  public function getReversalId($default = null, $trim = true)
   {
-    return $this->_reversalId ?: $default;
+    $value = $this->_reversalId ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -401,11 +419,13 @@ class ReverseActionPayload
    * If known, the Fortifi event ID for this visitors action
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getEventId($default = null)
+  public function getEventId($default = null, $trim = true)
   {
-    return $this->_eventId ?: $default;
+    $value = $this->_eventId ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

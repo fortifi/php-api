@@ -24,42 +24,50 @@ class VisitorReversalActionRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getVisitorId($default = null)
+  public function getVisitorId($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'visitorId', $default);
+    $value = Objects::property($this->_getResultJson(), 'visitorId', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getEventId($default = null)
+  public function getEventId($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'eventId', $default);
+    $value = Objects::property($this->_getResultJson(), 'eventId', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAdvertiserFid($default = null)
+  public function getAdvertiserFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'advertiserFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'advertiserFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCampaignFid($default = null)
+  public function getCampaignFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'campaignFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'campaignFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -84,11 +92,13 @@ class VisitorReversalActionRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCommissionCurrency($default = null)
+  public function getCommissionCurrency($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'commissionCurrency', $default);
+    $value = Objects::property($this->_getResultJson(), 'commissionCurrency', $default);
+    return $trim ? trim($value) : $value;
   }
 }

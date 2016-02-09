@@ -68,12 +68,14 @@ class VerifyOrderPayload
    * FID for the payment account you wish to charge the customer through
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPaymentAccountFid($default = null)
+  public function getPaymentAccountFid($default = null, $trim = true)
   {
-    return $this->_paymentAccountFid ?: $default;
+    $value = $this->_paymentAccountFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -91,12 +93,14 @@ class VerifyOrderPayload
    * FID for the payment service you wish to charge the customer through
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPaymentServiceFid($default = null)
+  public function getPaymentServiceFid($default = null, $trim = true)
   {
-    return $this->_paymentServiceFid ?: $default;
+    $value = $this->_paymentServiceFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -112,12 +116,14 @@ class VerifyOrderPayload
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSuccessUrl($default = null)
+  public function getSuccessUrl($default = null, $trim = true)
   {
-    return $this->_successUrl ?: $default;
+    $value = $this->_successUrl ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -133,12 +139,14 @@ class VerifyOrderPayload
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCancelUrl($default = null)
+  public function getCancelUrl($default = null, $trim = true)
   {
-    return $this->_cancelUrl ?: $default;
+    $value = $this->_cancelUrl ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -154,11 +162,13 @@ class VerifyOrderPayload
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getFailUrl($default = null)
+  public function getFailUrl($default = null, $trim = true)
   {
-    return $this->_failUrl ?: $default;
+    $value = $this->_failUrl ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

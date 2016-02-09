@@ -26,22 +26,26 @@ class ProductPriceRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getProductFid($default = null)
+  public function getProductFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'productFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'productFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCurrency($default = null)
+  public function getCurrency($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'currency', $default);
+    $value = Objects::property($this->_getResultJson(), 'currency', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -68,31 +72,37 @@ class ProductPriceRequest
    * Term Type
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCycle($default = null)
+  public function getCycle($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'cycle', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCycleTerm($default = null)
+  public function getCycleTerm($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'cycleTerm', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycleTerm', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCycleExact($default = null)
+  public function getCycleExact($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'cycleExact', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycleExact', $default);
+    return $trim ? trim($value) : $value;
   }
 }

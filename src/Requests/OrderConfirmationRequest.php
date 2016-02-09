@@ -29,11 +29,13 @@ class OrderConfirmationRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getMessage($default = null)
+  public function getMessage($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'message', $default);
+    $value = Objects::property($this->_getResultJson(), 'message', $default);
+    return $trim ? trim($value) : $value;
   }
 }

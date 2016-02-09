@@ -31,11 +31,13 @@ class OrderProductRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getOfferFid($default = null)
+  public function getOfferFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'offerFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
+    return $trim ? trim($value) : $value;
   }
 }

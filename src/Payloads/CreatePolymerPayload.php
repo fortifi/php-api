@@ -68,12 +68,14 @@ class CreatePolymerPayload
    * Code for polymer type
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPolymerCode($default = null)
+  public function getPolymerCode($default = null, $trim = true)
   {
-    return $this->_polymerCode ?: $default;
+    $value = $this->_polymerCode ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -91,12 +93,14 @@ class CreatePolymerPayload
    * Display name for this polymer
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getName($default = null)
+  public function getName($default = null, $trim = true)
   {
-    return $this->_name ?: $default;
+    $value = $this->_name ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -114,12 +118,14 @@ class CreatePolymerPayload
    * Fid for the parent of this polymer e.g. customerFid
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getParentFid($default = null)
+  public function getParentFid($default = null, $trim = true)
   {
-    return $this->_parentFid ?: $default;
+    $value = $this->_parentFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -137,11 +143,13 @@ class CreatePolymerPayload
    * Description for this polymer
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDescription($default = null)
+  public function getDescription($default = null, $trim = true)
   {
-    return $this->_description ?: $default;
+    $value = $this->_description ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

@@ -168,12 +168,14 @@ class CreateCustomerPayload
    * Visitor ID of the visitor
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getVisitorId($default = null)
+  public function getVisitorId($default = null, $trim = true)
   {
-    return $this->_visitorId ?: $default;
+    $value = $this->_visitorId ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -191,12 +193,14 @@ class CreateCustomerPayload
    * IP Address of the visitor
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getClientIp($default = null)
+  public function getClientIp($default = null, $trim = true)
   {
-    return $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -214,12 +218,14 @@ class CreateCustomerPayload
    * External (to Fortifi) Reference e.g. your internal Unique ID
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getExternalReference($default = null)
+  public function getExternalReference($default = null, $trim = true)
   {
-    return $this->_externalReference ?: $default;
+    $value = $this->_externalReference ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -237,12 +243,14 @@ class CreateCustomerPayload
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTime($default = null)
+  public function getTime($default = null, $trim = true)
   {
-    return $this->_time ?: $default;
+    $value = $this->_time ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -260,12 +268,14 @@ class CreateCustomerPayload
    * Company FID to track this event to
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyFid($default = null)
+  public function getCompanyFid($default = null, $trim = true)
   {
-    return $this->_companyFid ?: $default;
+    $value = $this->_companyFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -283,12 +293,14 @@ class CreateCustomerPayload
    * Currency
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCurrency($default = null)
+  public function getCurrency($default = null, $trim = true)
   {
-    return $this->_currency ?: $default;
+    $value = $this->_currency ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -306,12 +318,14 @@ class CreateCustomerPayload
    * Phone Number
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPhoneNumber($default = null)
+  public function getPhoneNumber($default = null, $trim = true)
   {
-    return $this->_phoneNumber ?: $default;
+    $value = $this->_phoneNumber ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -329,12 +343,14 @@ class CreateCustomerPayload
    * Email Address
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getEmail($default = null)
+  public function getEmail($default = null, $trim = true)
   {
-    return $this->_email ?: $default;
+    $value = $this->_email ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -352,12 +368,14 @@ class CreateCustomerPayload
    * First Name
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getFirstName($default = null)
+  public function getFirstName($default = null, $trim = true)
   {
-    return $this->_firstName ?: $default;
+    $value = $this->_firstName ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -375,12 +393,14 @@ class CreateCustomerPayload
    * Last Name
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLastName($default = null)
+  public function getLastName($default = null, $trim = true)
   {
-    return $this->_lastName ?: $default;
+    $value = $this->_lastName ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -398,12 +418,14 @@ class CreateCustomerPayload
    * FID of the account manager for this customer
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAccountManagerFid($default = null)
+  public function getAccountManagerFid($default = null, $trim = true)
   {
-    return $this->_accountManagerFid ?: $default;
+    $value = $this->_accountManagerFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -421,12 +443,14 @@ class CreateCustomerPayload
    * Account Type
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAccountType($default = null)
+  public function getAccountType($default = null, $trim = true)
   {
-    return $this->_accountType ?: $default;
+    $value = $this->_accountType ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -444,12 +468,14 @@ class CreateCustomerPayload
    * Account Status
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAccountStatus($default = null)
+  public function getAccountStatus($default = null, $trim = true)
   {
-    return $this->_accountStatus ?: $default;
+    $value = $this->_accountStatus ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -467,12 +493,14 @@ class CreateCustomerPayload
    * Customer Lifecycle Stage
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLifecycle($default = null)
+  public function getLifecycle($default = null, $trim = true)
   {
-    return $this->_lifecycle ?: $default;
+    $value = $this->_lifecycle ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -490,11 +518,13 @@ class CreateCustomerPayload
    * Customer Subscription Status
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSubscriptionType($default = null)
+  public function getSubscriptionType($default = null, $trim = true)
   {
-    return $this->_subscriptionType ?: $default;
+    $value = $this->_subscriptionType ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

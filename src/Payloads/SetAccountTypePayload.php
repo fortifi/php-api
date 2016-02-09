@@ -41,11 +41,13 @@ class SetAccountTypePayload
    * Account Type
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAccountType($default = null)
+  public function getAccountType($default = null, $trim = true)
   {
-    return $this->_accountType ?: $default;
+    $value = $this->_accountType ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

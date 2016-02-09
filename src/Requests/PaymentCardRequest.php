@@ -25,12 +25,14 @@ class PaymentCardRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getNameOnCard($default = null)
+  public function getNameOnCard($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'nameOnCard', $default);
+    $value = Objects::property($this->_getResultJson(), 'nameOnCard', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -75,11 +77,13 @@ class PaymentCardRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCardType($default = null)
+  public function getCardType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'cardType', $default);
+    $value = Objects::property($this->_getResultJson(), 'cardType', $default);
+    return $trim ? trim($value) : $value;
   }
 }

@@ -19,21 +19,25 @@ class KeyValueRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getKey($default = null)
+  public function getKey($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'key', $default);
+    $value = Objects::property($this->_getResultJson(), 'key', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getValue($default = null)
+  public function getValue($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'value', $default);
+    $value = Objects::property($this->_getResultJson(), 'value', $default);
+    return $trim ? trim($value) : $value;
   }
 }

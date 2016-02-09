@@ -99,12 +99,14 @@ class TriggerActionPayload
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTime($default = null)
+  public function getTime($default = null, $trim = true)
   {
-    return $this->_time ?: $default;
+    $value = $this->_time ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -122,12 +124,14 @@ class TriggerActionPayload
    * Your alias for the event to be triggered
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAlias($default = null)
+  public function getAlias($default = null, $trim = true)
   {
-    return $this->_alias ?: $default;
+    $value = $this->_alias ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**

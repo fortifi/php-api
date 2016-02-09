@@ -20,11 +20,13 @@ class FidRequest
    * Object FID
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getFid($default = null)
+  public function getFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'fid', $default);
+    $value = Objects::property($this->_getResultJson(), 'fid', $default);
+    return $trim ? trim($value) : $value;
   }
 }

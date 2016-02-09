@@ -30,22 +30,26 @@ class ProductOfferRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCouponCode($default = null)
+  public function getCouponCode($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'couponCode', $default);
+    $value = Objects::property($this->_getResultJson(), 'couponCode', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getApplyFid($default = null)
+  public function getApplyFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'applyFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'applyFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -62,12 +66,14 @@ class ProductOfferRequest
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getExpiryTime($default = null)
+  public function getExpiryTime($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'expiryTime', $default);
+    $value = Objects::property($this->_getResultJson(), 'expiryTime', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -84,12 +90,14 @@ class ProductOfferRequest
    * Discount Type
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDiscountType($default = null)
+  public function getDiscountType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'discountType', $default);
+    $value = Objects::property($this->_getResultJson(), 'discountType', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -106,12 +114,14 @@ class ProductOfferRequest
    * Discount Type
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSetupDiscountType($default = null)
+  public function getSetupDiscountType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'setupDiscountType', $default);
+    $value = Objects::property($this->_getResultJson(), 'setupDiscountType', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -128,12 +138,14 @@ class ProductOfferRequest
    * Term Type
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTermType($default = null)
+  public function getTermType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'termType', $default);
+    $value = Objects::property($this->_getResultJson(), 'termType', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**

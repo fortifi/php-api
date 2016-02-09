@@ -41,11 +41,13 @@ class SetAccountStatusPayload
    * Account Status
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAccountStatus($default = null)
+  public function getAccountStatus($default = null, $trim = true)
   {
-    return $this->_accountStatus ?: $default;
+    $value = $this->_accountStatus ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

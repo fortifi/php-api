@@ -20,31 +20,37 @@ class CompanyRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyName($default = null)
+  public function getCompanyName($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'companyName', $default);
+    $value = Objects::property($this->_getResultJson(), 'companyName', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPrimaryDomain($default = null)
+  public function getPrimaryDomain($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'primaryDomain', $default);
+    $value = Objects::property($this->_getResultJson(), 'primaryDomain', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyFid($default = null)
+  public function getCompanyFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'companyFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
+    return $trim ? trim($value) : $value;
   }
 }

@@ -214,12 +214,14 @@ class PostActionPayload
    * Your unique transaction ID for this event e.g. Order ID
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTransactionId($default = null)
+  public function getTransactionId($default = null, $trim = true)
   {
-    return $this->_transactionId ?: $default;
+    $value = $this->_transactionId ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -260,12 +262,14 @@ class PostActionPayload
    * Coupon code used for the transaction
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCouponCode($default = null)
+  public function getCouponCode($default = null, $trim = true)
   {
-    return $this->_couponCode ?: $default;
+    $value = $this->_couponCode ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -307,12 +311,14 @@ class PostActionPayload
    * Product Code linked to this action
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getProductCode($default = null)
+  public function getProductCode($default = null, $trim = true)
   {
-    return $this->_productCode ?: $default;
+    $value = $this->_productCode ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -330,12 +336,14 @@ class PostActionPayload
    * Product Term
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getProductTerm($default = null)
+  public function getProductTerm($default = null, $trim = true)
   {
-    return $this->_productTerm ?: $default;
+    $value = $this->_productTerm ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -353,12 +361,14 @@ class PostActionPayload
    * Payment method used on this transaction
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPaymentMethod($default = null)
+  public function getPaymentMethod($default = null, $trim = true)
   {
-    return $this->_paymentMethod ?: $default;
+    $value = $this->_paymentMethod ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -376,12 +386,14 @@ class PostActionPayload
    * Username associated with this transaction (e.g. Join)
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUsername($default = null)
+  public function getUsername($default = null, $trim = true)
   {
-    return $this->_username ?: $default;
+    $value = $this->_username ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -399,12 +411,14 @@ class PostActionPayload
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUserAgent($default = null)
+  public function getUserAgent($default = null, $trim = true)
   {
-    return $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -422,12 +436,14 @@ class PostActionPayload
    * Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getEncoding($default = null)
+  public function getEncoding($default = null, $trim = true)
   {
-    return $this->_encoding ?: $default;
+    $value = $this->_encoding ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -445,12 +461,14 @@ class PostActionPayload
    * Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLanguage($default = null)
+  public function getLanguage($default = null, $trim = true)
   {
-    return $this->_language ?: $default;
+    $value = $this->_language ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -468,12 +486,14 @@ class PostActionPayload
    * IP Address of the visitor
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getClientIp($default = null)
+  public function getClientIp($default = null, $trim = true)
   {
-    return $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -491,12 +511,14 @@ class PostActionPayload
    * External (to Fortifi) Reference for this visitor e.g. a user ID
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getExternalReference($default = null)
+  public function getExternalReference($default = null, $trim = true)
   {
-    return $this->_externalReference ?: $default;
+    $value = $this->_externalReference ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -514,12 +536,14 @@ class PostActionPayload
    * Company FID to track this event to
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyFid($default = null)
+  public function getCompanyFid($default = null, $trim = true)
   {
-    return $this->_companyFid ?: $default;
+    $value = $this->_companyFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -538,12 +562,14 @@ class PostActionPayload
 
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCampaignHash($default = null)
+  public function getCampaignHash($default = null, $trim = true)
   {
-    return $this->_campaignHash ?: $default;
+    $value = $this->_campaignHash ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -561,12 +587,14 @@ class PostActionPayload
    * Advertised sub tracking ID 1
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSid1($default = null)
+  public function getSid1($default = null, $trim = true)
   {
-    return $this->_sid1 ?: $default;
+    $value = $this->_sid1 ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -584,12 +612,14 @@ class PostActionPayload
    * Advertised sub tracking ID 2
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSid2($default = null)
+  public function getSid2($default = null, $trim = true)
   {
-    return $this->_sid2 ?: $default;
+    $value = $this->_sid2 ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -607,12 +637,14 @@ class PostActionPayload
    * Advertised sub tracking ID 3
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getSid3($default = null)
+  public function getSid3($default = null, $trim = true)
   {
-    return $this->_sid3 ?: $default;
+    $value = $this->_sid3 ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -662,11 +694,13 @@ class PostActionPayload
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTime($default = null)
+  public function getTime($default = null, $trim = true)
   {
-    return $this->_time ?: $default;
+    $value = $this->_time ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

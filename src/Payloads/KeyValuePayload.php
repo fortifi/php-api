@@ -42,12 +42,14 @@ class KeyValuePayload
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getKey($default = null)
+  public function getKey($default = null, $trim = true)
   {
-    return $this->_key ?: $default;
+    $value = $this->_key ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -63,11 +65,13 @@ class KeyValuePayload
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getValue($default = null)
+  public function getValue($default = null, $trim = true)
   {
-    return $this->_value ?: $default;
+    $value = $this->_value ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

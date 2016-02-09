@@ -20,31 +20,37 @@ class OrganisationRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getOrgName($default = null)
+  public function getOrgName($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'orgName', $default);
+    $value = Objects::property($this->_getResultJson(), 'orgName', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getOrgFid($default = null)
+  public function getOrgFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'orgFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'orgFid', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getOrgDomain($default = null)
+  public function getOrgDomain($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'orgDomain', $default);
+    $value = Objects::property($this->_getResultJson(), 'orgDomain', $default);
+    return $trim ? trim($value) : $value;
   }
 }

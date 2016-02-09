@@ -41,11 +41,13 @@ class PropertyValuePayload
    * Property Value
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPropertyValue($default = null)
+  public function getPropertyValue($default = null, $trim = true)
   {
-    return $this->_propertyValue ?: $default;
+    $value = $this->_propertyValue ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

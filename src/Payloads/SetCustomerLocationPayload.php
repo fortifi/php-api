@@ -95,12 +95,14 @@ class SetCustomerLocationPayload
    * Continent
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getContinent($default = null)
+  public function getContinent($default = null, $trim = true)
   {
-    return $this->_continent ?: $default;
+    $value = $this->_continent ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -118,12 +120,14 @@ class SetCustomerLocationPayload
    * Country
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCountry($default = null)
+  public function getCountry($default = null, $trim = true)
   {
-    return $this->_country ?: $default;
+    $value = $this->_country ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -141,12 +145,14 @@ class SetCustomerLocationPayload
    * County
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCounty($default = null)
+  public function getCounty($default = null, $trim = true)
   {
-    return $this->_county ?: $default;
+    $value = $this->_county ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -164,12 +170,14 @@ class SetCustomerLocationPayload
    * City
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCity($default = null)
+  public function getCity($default = null, $trim = true)
   {
-    return $this->_city ?: $default;
+    $value = $this->_city ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -187,12 +195,14 @@ class SetCustomerLocationPayload
    * Postal
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPostal($default = null)
+  public function getPostal($default = null, $trim = true)
   {
-    return $this->_postal ?: $default;
+    $value = $this->_postal ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -210,12 +220,14 @@ class SetCustomerLocationPayload
    * Timezone
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTimezone($default = null)
+  public function getTimezone($default = null, $trim = true)
   {
-    return $this->_timezone ?: $default;
+    $value = $this->_timezone ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -233,11 +245,13 @@ class SetCustomerLocationPayload
    * Client IP Address
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getClientIp($default = null)
+  public function getClientIp($default = null, $trim = true)
   {
-    return $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

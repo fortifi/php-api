@@ -158,12 +158,14 @@ class CardUpdatePayload
    * Name as appears on card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCardHolder($default = null)
+  public function getCardHolder($default = null, $trim = true)
   {
-    return $this->_cardHolder ?: $default;
+    $value = $this->_cardHolder ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -296,12 +298,14 @@ class CardUpdatePayload
    * FID of an existing address to use with the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressFid($default = null)
+  public function getAddressFid($default = null, $trim = true)
   {
-    return $this->_addressFid ?: $default;
+    $value = $this->_addressFid ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -319,12 +323,14 @@ class CardUpdatePayload
    * Address Line 1 of the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressLine1($default = null)
+  public function getAddressLine1($default = null, $trim = true)
   {
-    return $this->_addressLine1 ?: $default;
+    $value = $this->_addressLine1 ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -342,12 +348,14 @@ class CardUpdatePayload
    * Address Line 2 of the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressLine2($default = null)
+  public function getAddressLine2($default = null, $trim = true)
   {
-    return $this->_addressLine2 ?: $default;
+    $value = $this->_addressLine2 ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -365,12 +373,14 @@ class CardUpdatePayload
    * Address Line 3 of the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressLine3($default = null)
+  public function getAddressLine3($default = null, $trim = true)
   {
-    return $this->_addressLine3 ?: $default;
+    $value = $this->_addressLine3 ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -388,12 +398,14 @@ class CardUpdatePayload
    * City for the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressCity($default = null)
+  public function getAddressCity($default = null, $trim = true)
   {
-    return $this->_addressCity ?: $default;
+    $value = $this->_addressCity ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -411,12 +423,14 @@ class CardUpdatePayload
    * State/County of the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressState($default = null)
+  public function getAddressState($default = null, $trim = true)
   {
-    return $this->_addressState ?: $default;
+    $value = $this->_addressState ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -434,12 +448,14 @@ class CardUpdatePayload
    * Country of the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressCountry($default = null)
+  public function getAddressCountry($default = null, $trim = true)
   {
-    return $this->_addressCountry ?: $default;
+    $value = $this->_addressCountry ?: $default;
+    return $trim ? trim($value) : $value;
   }
 
   /**
@@ -457,11 +473,13 @@ class CardUpdatePayload
    * Postal/Zip Code of the card
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAddressPostal($default = null)
+  public function getAddressPostal($default = null, $trim = true)
   {
-    return $this->_addressPostal ?: $default;
+    $value = $this->_addressPostal ?: $default;
+    return $trim ? trim($value) : $value;
   }
 }

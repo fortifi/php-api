@@ -24,35 +24,41 @@ class UserRequest
    * Username
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getUsername($default = null)
+  public function getUsername($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'username', $default);
+    $value = Objects::property($this->_getResultJson(), 'username', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * Language
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLanguage($default = null)
+  public function getLanguage($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'language', $default);
+    $value = Objects::property($this->_getResultJson(), 'language', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * Timezone for this user
    * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getTimezone($default = null)
+  public function getTimezone($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'timezone', $default);
+    $value = Objects::property($this->_getResultJson(), 'timezone', $default);
+    return $trim ? trim($value) : $value;
   }
 }

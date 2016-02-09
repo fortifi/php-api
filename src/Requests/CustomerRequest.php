@@ -25,61 +25,73 @@ class CustomerRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getName($default = null)
+  public function getName($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'name', $default);
+    $value = Objects::property($this->_getResultJson(), 'name', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getFirstName($default = null)
+  public function getFirstName($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'firstName', $default);
+    $value = Objects::property($this->_getResultJson(), 'firstName', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLastName($default = null)
+  public function getLastName($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'lastName', $default);
+    $value = Objects::property($this->_getResultJson(), 'lastName', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getEmail($default = null)
+  public function getEmail($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'email', $default);
+    $value = Objects::property($this->_getResultJson(), 'email', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPhone($default = null)
+  public function getPhone($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'phone', $default);
+    $value = Objects::property($this->_getResultJson(), 'phone', $default);
+    return $trim ? trim($value) : $value;
   }
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getExternalReference($default = null)
+  public function getExternalReference($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'externalReference', $default);
+    $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
+    return $trim ? trim($value) : $value;
   }
 }
