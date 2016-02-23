@@ -1685,6 +1685,17 @@ definitions:
             format: float
           offerFid:
             type: string
+          firstChargeAmount:
+            type: number
+            format: float
+          firstChargeDiscount:
+            type: number
+            format: float
+          firstChargeTax:
+            type: number
+            format: float
+          renewalDate:
+            $ref: '#/definitions/isoTime'
 
   OrderVerification:
     properties:
