@@ -15,9 +15,6 @@ class OrderProductRequest
       [
         "price" => $this->getPrice(),
         "offerFid" => $this->getOfferFid(),
-        "firstChargeAmount" => $this->getFirstChargeAmount(),
-        "firstChargeDiscount" => $this->getFirstChargeDiscount(),
-        "firstChargeTax" => $this->getFirstChargeTax(),
         "renewalDate" => $this->getRenewalDate(),
       ]
     );
@@ -43,36 +40,6 @@ class OrderProductRequest
   {
     $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
     return $trim ? trim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return integer
-   */
-  public function getFirstChargeAmount($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'firstChargeAmount', $default);
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return integer
-   */
-  public function getFirstChargeDiscount($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'firstChargeDiscount', $default);
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return integer
-   */
-  public function getFirstChargeTax($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'firstChargeTax', $default);
   }
 
   /**
