@@ -2080,10 +2080,12 @@ definitions:
 
   VerifyOrderPayload:
     properties:
-      paymentAccountFid:
-        $ref: '#/definitions/paymentAccountFid'
       paymentServiceFid:
         $ref: '#/definitions/paymentServiceFid'
+      paymentAccountFid:
+        $ref: '#/definitions/paymentAccountFid'
+      paymentServiceProcessor:
+        $ref: '#/definitions/PaymentServiceProcessor'
       successUrl:
         type: string
       cancelUrl:
