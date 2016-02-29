@@ -2221,6 +2221,16 @@ definitions:
     - trial
     - free
     - paid
+  PaymentServiceProcessor:
+    description: Payment Service Processor Type
+    type: string
+    enum:
+    - paypal
+    - wire
+    - blackhole
+    - cheque
+    - prepayment
+    - fortifipay
   externalReference:
     description: External (to Fortifi) Reference e.g. your internal Unique ID
     type: string
