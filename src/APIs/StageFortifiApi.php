@@ -12,7 +12,7 @@ class StageFortifiApi extends FortifiApi
     $def = $this->getApiDefinition();
     if($def instanceof ApiDefinition)
     {
-      $def->setHost('sapi.fortifi.io');
+      $def->setHost('api.fortifiio.xyz');
     }
   }
 
