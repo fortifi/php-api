@@ -25,7 +25,7 @@ class MessengerDeliveriesDeliveryFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function unsubscribe($userAgent = null, $encoding = null, $language = null, $clientIp = null)
+  public function setUnsubscribe($userAgent = null, $encoding = null, $language = null, $clientIp = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());

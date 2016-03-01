@@ -47,7 +47,7 @@ class ContactsEmailsEmailAddressEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function unsubscribe($companyFid = null)
+  public function setUnsubscribe($companyFid = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());

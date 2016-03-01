@@ -20,7 +20,7 @@ class CustomersCustomerFidLoyalEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function loyal()
+  public function setLoyal()
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());

@@ -20,7 +20,7 @@ class CustomersCustomerFidVipEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function vip()
+  public function setVip()
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
