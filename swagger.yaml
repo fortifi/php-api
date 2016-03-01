@@ -1084,7 +1084,7 @@ paths:
           description: Order payment account verified
           schema:
             $ref: '#/definitions/OrderVerification'
-  "/orders/{orderFid}/confirm":
+  "/orders/{orderFid}/confirmCard":
     put:
       summary: Confirm an order, authorize the payment
       tags:
@@ -1095,6 +1095,32 @@ paths:
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: cvv
+          in: formData
+          type: string
+      responses:
+        503:
+          description: There are no payment gateways available to handle your request
+        200:
+          description: Order confirmed and payment authroized
+          schema:
+            $ref: '#/definitions/OrderConfirmation'
+  "/orders/{orderFid}/confirmPayPal":
+    put:
+      summary: Confirm an order, authorize the payment
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: paymentId
+          in: formData
+          type: string
+        - name: token
+          in: formData
+          type: string
+        - name: payerId
           in: formData
           type: string
       responses:

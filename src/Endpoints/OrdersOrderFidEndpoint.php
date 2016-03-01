@@ -102,7 +102,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
    *
    * @return OrderConfirmationRequest
    */
-  public function confirm($cvv = null)
+  public function setConfirmCard($cvv = null)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -114,10 +114,42 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'orders/{orderFid}/confirm'
+        'orders/{orderFid}/confirmCard'
       )
     ));
     $detail->addPostField('cvv', $cvv);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Confirm an order, authorize the payment
+   *
+   * @param $paymentId
+   * @param $token
+   * @param $payerId
+   *
+   * @return OrderConfirmationRequest
+   */
+  public function setConfirmPayPal($paymentId = null, $token = null, $payerId = null)
+  {
+    $request = new OrderConfirmationRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/confirmPayPal'
+      )
+    ));
+    $detail->addPostField('paymentId', $paymentId);
+    $detail->addPostField('token', $token);
+    $detail->addPostField('payerId', $payerId);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
