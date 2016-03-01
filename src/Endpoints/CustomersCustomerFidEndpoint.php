@@ -143,7 +143,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setAccountStatus(SetAccountStatusPayload $payload)
+  public function accountStatus(SetAccountStatusPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -171,7 +171,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setLocation(SetCustomerLocationPayload $payload)
+  public function location(SetCustomerLocationPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -199,7 +199,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setAccountType(SetAccountTypePayload $payload)
+  public function accountType(SetAccountTypePayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -227,7 +227,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setSubscriptionType(SetSubscriptionTypePayload $payload)
+  public function subscriptionType(SetSubscriptionTypePayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -255,7 +255,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setQualified($isoTime = null)
+  public function qualified($isoTime = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -283,7 +283,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setChargeback($isoTime = null)
+  public function chargeback($isoTime = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -311,7 +311,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setFraud($isoTime = null)
+  public function fraud($isoTime = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -339,7 +339,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setPurchased($isoTime = null)
+  public function purchased($isoTime = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -367,7 +367,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setCurrency($currency)
+  public function currency($currency)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());

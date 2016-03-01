@@ -59,7 +59,7 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setProperties(PropertyBulkSetPayload $payload)
+  public function properties(PropertyBulkSetPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());

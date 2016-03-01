@@ -102,7 +102,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
    *
    * @return OrderConfirmationRequest
    */
-  public function setConfirmCard($cvv = null)
+  public function confirmCard($cvv = null)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -132,7 +132,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
    *
    * @return OrderConfirmationRequest
    */
-  public function setConfirmPayPal($paymentId = null, $token = null, $payerId = null)
+  public function confirmPayPal($paymentId = null, $token = null, $payerId = null)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
