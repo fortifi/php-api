@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class SetCustomerLocationPayload
   implements \JsonSerializable
@@ -102,7 +103,7 @@ class SetCustomerLocationPayload
   public function getContinent($default = null, $trim = true)
   {
     $value = $this->_continent ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -127,7 +128,7 @@ class SetCustomerLocationPayload
   public function getCountry($default = null, $trim = true)
   {
     $value = $this->_country ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -152,7 +153,7 @@ class SetCustomerLocationPayload
   public function getCounty($default = null, $trim = true)
   {
     $value = $this->_county ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -177,7 +178,7 @@ class SetCustomerLocationPayload
   public function getCity($default = null, $trim = true)
   {
     $value = $this->_city ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -202,7 +203,7 @@ class SetCustomerLocationPayload
   public function getPostal($default = null, $trim = true)
   {
     $value = $this->_postal ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -227,7 +228,7 @@ class SetCustomerLocationPayload
   public function getTimezone($default = null, $trim = true)
   {
     $value = $this->_timezone ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -252,6 +253,6 @@ class SetCustomerLocationPayload
   public function getClientIp($default = null, $trim = true)
   {
     $value = $this->_clientIp ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

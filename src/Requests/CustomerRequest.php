@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class CustomerRequest
   extends FidRequest
@@ -32,7 +33,7 @@ class CustomerRequest
   public function getName($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'name', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -44,7 +45,7 @@ class CustomerRequest
   public function getFirstName($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'firstName', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -56,7 +57,7 @@ class CustomerRequest
   public function getLastName($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'lastName', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -68,7 +69,7 @@ class CustomerRequest
   public function getEmail($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'email', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -80,7 +81,7 @@ class CustomerRequest
   public function getPhone($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'phone', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -92,6 +93,6 @@ class CustomerRequest
   public function getExternalReference($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

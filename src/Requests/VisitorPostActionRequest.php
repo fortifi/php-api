@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class VisitorPostActionRequest
   extends ApiRequest
@@ -34,7 +35,7 @@ class VisitorPostActionRequest
   public function getVisitorId($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'visitorId', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -46,7 +47,7 @@ class VisitorPostActionRequest
   public function getEventId($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'eventId', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -58,7 +59,7 @@ class VisitorPostActionRequest
   public function getSid1($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'sid1', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -70,7 +71,7 @@ class VisitorPostActionRequest
   public function getSid2($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'sid2', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -82,7 +83,7 @@ class VisitorPostActionRequest
   public function getSid3($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'sid3', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -94,7 +95,7 @@ class VisitorPostActionRequest
   public function getAdvertiserFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'advertiserFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -106,7 +107,7 @@ class VisitorPostActionRequest
   public function getCampaignFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'campaignFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -128,7 +129,7 @@ class VisitorPostActionRequest
   public function getCommissionCurrency($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'commissionCurrency', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

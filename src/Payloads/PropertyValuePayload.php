@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class PropertyValuePayload
   implements \JsonSerializable
@@ -48,6 +49,6 @@ class PropertyValuePayload
   public function getPropertyValue($default = null, $trim = true)
   {
     $value = $this->_propertyValue ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

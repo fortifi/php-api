@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class VisitorReversalActionRequest
   extends ApiRequest
@@ -31,7 +32,7 @@ class VisitorReversalActionRequest
   public function getVisitorId($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'visitorId', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -43,7 +44,7 @@ class VisitorReversalActionRequest
   public function getEventId($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'eventId', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -55,7 +56,7 @@ class VisitorReversalActionRequest
   public function getAdvertiserFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'advertiserFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -67,7 +68,7 @@ class VisitorReversalActionRequest
   public function getCampaignFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'campaignFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -99,6 +100,6 @@ class VisitorReversalActionRequest
   public function getCommissionCurrency($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'commissionCurrency', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

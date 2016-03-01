@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class CreatePolymerPayload
   implements \JsonSerializable
@@ -75,7 +76,7 @@ class CreatePolymerPayload
   public function getPolymerCode($default = null, $trim = true)
   {
     $value = $this->_polymerCode ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -100,7 +101,7 @@ class CreatePolymerPayload
   public function getName($default = null, $trim = true)
   {
     $value = $this->_name ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -125,7 +126,7 @@ class CreatePolymerPayload
   public function getParentFid($default = null, $trim = true)
   {
     $value = $this->_parentFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -150,6 +151,6 @@ class CreatePolymerPayload
   public function getDescription($default = null, $trim = true)
   {
     $value = $this->_description ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

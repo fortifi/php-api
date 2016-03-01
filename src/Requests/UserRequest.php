@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class UserRequest
   extends FidRequest
@@ -31,7 +32,7 @@ class UserRequest
   public function getUsername($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'username', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -45,7 +46,7 @@ class UserRequest
   public function getLanguage($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'language', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -59,6 +60,6 @@ class UserRequest
   public function getTimezone($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'timezone', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

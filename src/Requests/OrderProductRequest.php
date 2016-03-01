@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class OrderProductRequest
   extends EntityRequest
@@ -39,7 +40,7 @@ class OrderProductRequest
   public function getOfferFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -53,6 +54,6 @@ class OrderProductRequest
   public function getRenewalDate($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'renewalDate', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

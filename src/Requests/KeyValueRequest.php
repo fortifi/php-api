@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class KeyValueRequest
   extends ApiRequest
@@ -26,7 +27,7 @@ class KeyValueRequest
   public function getKey($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'key', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -38,6 +39,6 @@ class KeyValueRequest
   public function getValue($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'value', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

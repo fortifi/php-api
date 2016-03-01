@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class OrderRequest
   extends FidRequest
@@ -51,7 +52,7 @@ class OrderRequest
   public function getOrderHash($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'orderHash', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -63,7 +64,7 @@ class OrderRequest
   public function getState($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'state', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -75,7 +76,7 @@ class OrderRequest
   public function getQueueFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'queueFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -87,7 +88,7 @@ class OrderRequest
   public function getOfferFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -99,7 +100,7 @@ class OrderRequest
   public function getCouponCode($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'couponCode', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -151,7 +152,7 @@ class OrderRequest
   public function getCurrency($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'currency', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -163,7 +164,7 @@ class OrderRequest
   public function getCountry($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'country', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -185,7 +186,7 @@ class OrderRequest
   public function getDiscountType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'discountType', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -197,7 +198,7 @@ class OrderRequest
   public function getApprovedByFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'approvedByFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -209,7 +210,7 @@ class OrderRequest
   public function getUserAgent($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'userAgent', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -221,7 +222,7 @@ class OrderRequest
   public function getUserIp($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'userIp', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -233,7 +234,7 @@ class OrderRequest
   public function getPaymentAccountFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'paymentAccountFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -245,7 +246,7 @@ class OrderRequest
   public function getPaymentServiceType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'paymentServiceType', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -257,7 +258,7 @@ class OrderRequest
   public function getLastPaymentFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'lastPaymentFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -269,7 +270,7 @@ class OrderRequest
   public function getCompanyFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -281,7 +282,7 @@ class OrderRequest
   public function getCustomerFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'customerFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -293,7 +294,7 @@ class OrderRequest
   public function getFraudFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'fraudFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -305,7 +306,7 @@ class OrderRequest
   public function getInvoiceFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'invoiceFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -327,6 +328,6 @@ class OrderRequest
   public function getAuthorizeId($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'authorizeId', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

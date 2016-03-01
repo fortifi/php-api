@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class ProductOfferRequest
   extends EntityRequest
@@ -37,7 +38,7 @@ class ProductOfferRequest
   public function getCouponCode($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'couponCode', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -49,7 +50,7 @@ class ProductOfferRequest
   public function getApplyFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'applyFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -73,7 +74,7 @@ class ProductOfferRequest
   public function getExpiryTime($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'expiryTime', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -97,7 +98,7 @@ class ProductOfferRequest
   public function getDiscountType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'discountType', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -121,7 +122,7 @@ class ProductOfferRequest
   public function getSetupDiscountType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'setupDiscountType', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -145,7 +146,7 @@ class ProductOfferRequest
   public function getTermType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'termType', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

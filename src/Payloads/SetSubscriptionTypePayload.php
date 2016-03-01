@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class SetSubscriptionTypePayload
   implements \JsonSerializable
@@ -48,6 +49,6 @@ class SetSubscriptionTypePayload
   public function getSubscriptionType($default = null, $trim = true)
   {
     $value = $this->_subscriptionType ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

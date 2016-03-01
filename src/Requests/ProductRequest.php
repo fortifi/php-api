@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class ProductRequest
   extends EntityRequest
@@ -35,7 +36,7 @@ class ProductRequest
   public function getProductType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'productType', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -47,7 +48,7 @@ class ProductRequest
   public function getParentFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'parentFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -59,7 +60,7 @@ class ProductRequest
   public function getStatementDescription($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'statementDescription', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -71,7 +72,7 @@ class ProductRequest
   public function getTrialDays($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'trialDays', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -83,7 +84,7 @@ class ProductRequest
   public function getDefaultPriceFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'defaultPriceFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -105,7 +106,7 @@ class ProductRequest
   public function getTaxable($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'taxable', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -117,7 +118,7 @@ class ProductRequest
   public function getTaxGroupFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'taxGroupFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -129,7 +130,7 @@ class ProductRequest
   public function getMaxQuantity($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'maxQuantity', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   protected function _prepareResult($result)

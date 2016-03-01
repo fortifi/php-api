@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class PaymentCardRequest
   extends EntityRequest
@@ -32,7 +33,7 @@ class PaymentCardRequest
   public function getNameOnCard($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'nameOnCard', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -84,6 +85,6 @@ class PaymentCardRequest
   public function getCardType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cardType', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

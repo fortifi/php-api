@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class CardDataPayload
   implements \JsonSerializable
@@ -192,7 +193,7 @@ class CardDataPayload
   public function getEncryptedCardNumber($default = null, $trim = true)
   {
     $value = $this->_encryptedCardNumber ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -355,7 +356,7 @@ class CardDataPayload
   public function getCardHolder($default = null, $trim = true)
   {
     $value = $this->_cardHolder ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -380,7 +381,7 @@ class CardDataPayload
   public function getAddressFid($default = null, $trim = true)
   {
     $value = $this->_addressFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -405,7 +406,7 @@ class CardDataPayload
   public function getAddressLine1($default = null, $trim = true)
   {
     $value = $this->_addressLine1 ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -430,7 +431,7 @@ class CardDataPayload
   public function getAddressLine2($default = null, $trim = true)
   {
     $value = $this->_addressLine2 ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -455,7 +456,7 @@ class CardDataPayload
   public function getAddressLine3($default = null, $trim = true)
   {
     $value = $this->_addressLine3 ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -480,7 +481,7 @@ class CardDataPayload
   public function getAddressCity($default = null, $trim = true)
   {
     $value = $this->_addressCity ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -505,7 +506,7 @@ class CardDataPayload
   public function getAddressState($default = null, $trim = true)
   {
     $value = $this->_addressState ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -530,7 +531,7 @@ class CardDataPayload
   public function getAddressCountry($default = null, $trim = true)
   {
     $value = $this->_addressCountry ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -555,7 +556,7 @@ class CardDataPayload
   public function getAddressPostal($default = null, $trim = true)
   {
     $value = $this->_addressPostal ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class ProductPricesRequest
   extends ApiRequest

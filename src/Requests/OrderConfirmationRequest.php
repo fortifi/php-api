@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class OrderConfirmationRequest
   extends ApiRequest
@@ -36,6 +37,6 @@ class OrderConfirmationRequest
   public function getMessage($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'message', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

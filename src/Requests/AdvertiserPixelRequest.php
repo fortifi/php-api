@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class AdvertiserPixelRequest
   extends ApiRequest
@@ -27,7 +28,7 @@ class AdvertiserPixelRequest
   public function getUrl($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'url', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -39,7 +40,7 @@ class AdvertiserPixelRequest
   public function getMethod($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'method', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -51,6 +52,6 @@ class AdvertiserPixelRequest
   public function getContent($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'content', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

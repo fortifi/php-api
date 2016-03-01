@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class CreateOrderPayload
   implements \JsonSerializable
@@ -93,7 +94,7 @@ class CreateOrderPayload
   public function getPaymentAccountFid($default = null, $trim = true)
   {
     $value = $this->_paymentAccountFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -118,7 +119,7 @@ class CreateOrderPayload
   public function getCompanyFid($default = null, $trim = true)
   {
     $value = $this->_companyFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -143,7 +144,7 @@ class CreateOrderPayload
   public function getCustomerFid($default = null, $trim = true)
   {
     $value = $this->_customerFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -168,7 +169,7 @@ class CreateOrderPayload
   public function getClientIp($default = null, $trim = true)
   {
     $value = $this->_clientIp ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -193,7 +194,7 @@ class CreateOrderPayload
   public function getUserAgent($default = null, $trim = true)
   {
     $value = $this->_userAgent ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

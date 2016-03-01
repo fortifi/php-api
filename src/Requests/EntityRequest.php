@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class EntityRequest
   extends FidRequest
@@ -30,7 +31,7 @@ class EntityRequest
   public function getDisplayName($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'displayName', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -44,6 +45,6 @@ class EntityRequest
   public function getDescription($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'description', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

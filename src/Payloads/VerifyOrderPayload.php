@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class VerifyOrderPayload
   implements \JsonSerializable
@@ -84,7 +85,7 @@ class VerifyOrderPayload
   public function getPaymentServiceFid($default = null, $trim = true)
   {
     $value = $this->_paymentServiceFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -109,7 +110,7 @@ class VerifyOrderPayload
   public function getPaymentAccountFid($default = null, $trim = true)
   {
     $value = $this->_paymentAccountFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -134,7 +135,7 @@ class VerifyOrderPayload
   public function getPaymentServiceProcessor($default = null, $trim = true)
   {
     $value = $this->_paymentServiceProcessor ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -157,7 +158,7 @@ class VerifyOrderPayload
   public function getSuccessUrl($default = null, $trim = true)
   {
     $value = $this->_successUrl ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -180,7 +181,7 @@ class VerifyOrderPayload
   public function getCancelUrl($default = null, $trim = true)
   {
     $value = $this->_cancelUrl ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -203,6 +204,6 @@ class VerifyOrderPayload
   public function getFailUrl($default = null, $trim = true)
   {
     $value = $this->_failUrl ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

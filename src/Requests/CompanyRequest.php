@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class CompanyRequest
   extends ApiRequest
@@ -27,7 +28,7 @@ class CompanyRequest
   public function getCompanyName($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'companyName', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -39,7 +40,7 @@ class CompanyRequest
   public function getPrimaryDomain($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'primaryDomain', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -51,6 +52,6 @@ class CompanyRequest
   public function getCompanyFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

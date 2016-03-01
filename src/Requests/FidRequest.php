@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class FidRequest
   extends ApiRequest
@@ -27,6 +28,6 @@ class FidRequest
   public function getFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'fid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class CreateCustomerPayload
   implements \JsonSerializable
@@ -175,7 +176,7 @@ class CreateCustomerPayload
   public function getVisitorId($default = null, $trim = true)
   {
     $value = $this->_visitorId ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -200,7 +201,7 @@ class CreateCustomerPayload
   public function getClientIp($default = null, $trim = true)
   {
     $value = $this->_clientIp ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -225,7 +226,7 @@ class CreateCustomerPayload
   public function getExternalReference($default = null, $trim = true)
   {
     $value = $this->_externalReference ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -250,7 +251,7 @@ class CreateCustomerPayload
   public function getTime($default = null, $trim = true)
   {
     $value = $this->_time ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -275,7 +276,7 @@ class CreateCustomerPayload
   public function getCompanyFid($default = null, $trim = true)
   {
     $value = $this->_companyFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -300,7 +301,7 @@ class CreateCustomerPayload
   public function getCurrency($default = null, $trim = true)
   {
     $value = $this->_currency ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -325,7 +326,7 @@ class CreateCustomerPayload
   public function getPhoneNumber($default = null, $trim = true)
   {
     $value = $this->_phoneNumber ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -350,7 +351,7 @@ class CreateCustomerPayload
   public function getEmail($default = null, $trim = true)
   {
     $value = $this->_email ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -375,7 +376,7 @@ class CreateCustomerPayload
   public function getFirstName($default = null, $trim = true)
   {
     $value = $this->_firstName ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -400,7 +401,7 @@ class CreateCustomerPayload
   public function getLastName($default = null, $trim = true)
   {
     $value = $this->_lastName ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -425,7 +426,7 @@ class CreateCustomerPayload
   public function getAccountManagerFid($default = null, $trim = true)
   {
     $value = $this->_accountManagerFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -450,7 +451,7 @@ class CreateCustomerPayload
   public function getAccountType($default = null, $trim = true)
   {
     $value = $this->_accountType ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -475,7 +476,7 @@ class CreateCustomerPayload
   public function getAccountStatus($default = null, $trim = true)
   {
     $value = $this->_accountStatus ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -500,7 +501,7 @@ class CreateCustomerPayload
   public function getLifecycle($default = null, $trim = true)
   {
     $value = $this->_lifecycle ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -525,6 +526,6 @@ class CreateCustomerPayload
   public function getSubscriptionType($default = null, $trim = true)
   {
     $value = $this->_subscriptionType ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

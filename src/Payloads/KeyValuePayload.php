@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class KeyValuePayload
   implements \JsonSerializable
@@ -49,7 +50,7 @@ class KeyValuePayload
   public function getKey($default = null, $trim = true)
   {
     $value = $this->_key ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -72,6 +73,6 @@ class KeyValuePayload
   public function getValue($default = null, $trim = true)
   {
     $value = $this->_value ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

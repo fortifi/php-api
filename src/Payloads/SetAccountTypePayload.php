@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+use Packaged\Helpers\Strings;
 
 class SetAccountTypePayload
   implements \JsonSerializable
@@ -48,6 +49,6 @@ class SetAccountTypePayload
   public function getAccountType($default = null, $trim = true)
   {
     $value = $this->_accountType ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
 
+use Packaged\Helpers\Strings;
 use Fortifi\Api\V1\Requests\KeyValueRequest;
 
 class TriggerActionPayload
@@ -106,7 +107,7 @@ class TriggerActionPayload
   public function getTime($default = null, $trim = true)
   {
     $value = $this->_time ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -131,7 +132,7 @@ class TriggerActionPayload
   public function getAlias($default = null, $trim = true)
   {
     $value = $this->_alias ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

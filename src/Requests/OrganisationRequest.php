@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Requests;
 
 use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class OrganisationRequest
   extends ApiRequest
@@ -27,7 +28,7 @@ class OrganisationRequest
   public function getOrgName($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'orgName', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -39,7 +40,7 @@ class OrganisationRequest
   public function getOrgFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'orgFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -51,6 +52,6 @@ class OrganisationRequest
   public function getOrgDomain($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'orgDomain', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

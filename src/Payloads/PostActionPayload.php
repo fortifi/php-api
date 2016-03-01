@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
 
+use Packaged\Helpers\Strings;
 use Fortifi\Api\V1\Requests\KeyValueRequest;
 
 class PostActionPayload
@@ -221,7 +222,7 @@ class PostActionPayload
   public function getTransactionId($default = null, $trim = true)
   {
     $value = $this->_transactionId ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -269,7 +270,7 @@ class PostActionPayload
   public function getCouponCode($default = null, $trim = true)
   {
     $value = $this->_couponCode ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -318,7 +319,7 @@ class PostActionPayload
   public function getProductCode($default = null, $trim = true)
   {
     $value = $this->_productCode ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -343,7 +344,7 @@ class PostActionPayload
   public function getProductTerm($default = null, $trim = true)
   {
     $value = $this->_productTerm ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -368,7 +369,7 @@ class PostActionPayload
   public function getPaymentMethod($default = null, $trim = true)
   {
     $value = $this->_paymentMethod ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -393,7 +394,7 @@ class PostActionPayload
   public function getUsername($default = null, $trim = true)
   {
     $value = $this->_username ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -418,7 +419,7 @@ class PostActionPayload
   public function getUserAgent($default = null, $trim = true)
   {
     $value = $this->_userAgent ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -443,7 +444,7 @@ class PostActionPayload
   public function getEncoding($default = null, $trim = true)
   {
     $value = $this->_encoding ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -468,7 +469,7 @@ class PostActionPayload
   public function getLanguage($default = null, $trim = true)
   {
     $value = $this->_language ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -493,7 +494,7 @@ class PostActionPayload
   public function getClientIp($default = null, $trim = true)
   {
     $value = $this->_clientIp ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -518,7 +519,7 @@ class PostActionPayload
   public function getExternalReference($default = null, $trim = true)
   {
     $value = $this->_externalReference ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -543,7 +544,7 @@ class PostActionPayload
   public function getCompanyFid($default = null, $trim = true)
   {
     $value = $this->_companyFid ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -569,7 +570,7 @@ class PostActionPayload
   public function getCampaignHash($default = null, $trim = true)
   {
     $value = $this->_campaignHash ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -594,7 +595,7 @@ class PostActionPayload
   public function getSid1($default = null, $trim = true)
   {
     $value = $this->_sid1 ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -619,7 +620,7 @@ class PostActionPayload
   public function getSid2($default = null, $trim = true)
   {
     $value = $this->_sid2 ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -644,7 +645,7 @@ class PostActionPayload
   public function getSid3($default = null, $trim = true)
   {
     $value = $this->_sid3 ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -701,6 +702,6 @@ class PostActionPayload
   public function getTime($default = null, $trim = true)
   {
     $value = $this->_time ?: $default;
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

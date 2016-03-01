@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Requests;
 
 use Packaged\Helpers\Objects;
+use Packaged\Helpers\Strings;
 
 class ProductPriceRequest
   extends FidRequest
@@ -33,7 +34,7 @@ class ProductPriceRequest
   public function getProductFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'productFid', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -45,7 +46,7 @@ class ProductPriceRequest
   public function getCurrency($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'currency', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -79,7 +80,7 @@ class ProductPriceRequest
   public function getCycle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycle', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -91,7 +92,7 @@ class ProductPriceRequest
   public function getCycleTerm($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycleTerm', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -103,6 +104,6 @@ class ProductPriceRequest
   public function getCycleExact($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycleExact', $default);
-    return $trim ? trim($value) : $value;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }
