@@ -2,8 +2,9 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\OrderProductsRequest;
+use Fortifi\Api\V1\Requests\OrderAddProductsRequest;
+use Fortifi\Api\V1\Payloads\AddOrderProductsPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
-use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersOrderFidProductsEndpoint extends ApiEndpoint
@@ -59,13 +60,13 @@ class OrdersOrderFidProductsEndpoint extends ApiEndpoint
   /**
    * @summary Add a product to an order
    *
-   * @param $productPriceFid
+   * @param AddOrderProductsPayload $payload
    *
-   * @return ApiRequest
+   * @return OrderAddProductsRequest
    */
-  public function create($productPriceFid)
+  public function create(AddOrderProductsPayload $payload)
   {
-    $request = new ApiRequest();
+    $request = new OrderAddProductsRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -78,7 +79,7 @@ class OrdersOrderFidProductsEndpoint extends ApiEndpoint
         'orders/{orderFid}/products'
       )
     ));
-    $detail->addPostField('productPriceFid', $productPriceFid);
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;

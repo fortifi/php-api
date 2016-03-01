@@ -1156,13 +1156,16 @@ paths:
           - orders
       parameters:
         - $ref: '#/parameters/orderFid'
-        - name: productPriceFid
-          in: formData
+        - name: payload
+          in: body
           required: true
-          type: string
+          schema:
+            $ref: '#/definitions/AddOrderProductsPayload'
       responses:
         200:
           description: Product added to the order successfully
+          schema:
+            $ref: '#/definitions/OrderAddProducts'
   "/orders/{orderFid}/products/{orderProductFid}":
     delete:
       summary: Remove a product from an order
@@ -1702,6 +1705,13 @@ definitions:
         items:
           $ref: "#/definitions/OrderProduct"
 
+  OrderAddProducts:
+    allOf:
+      - $ref: '#/definitions/OrderProducts'
+      - properties:
+          order:
+            $ref: '#/definitions/Order'
+
   OrderProduct:
     allOf:
       - $ref: '#/definitions/Entity'
@@ -2098,6 +2108,14 @@ definitions:
         $ref: '#/definitions/clientIp'
       userAgent:
         $ref: '#/definitions/userAgent'
+      productPriceFids:
+        type: array
+        description: Product price FIDs to add
+        items:
+          type: string
+
+  AddOrderProductsPayload:
+    properties:
       productPriceFids:
         type: array
         description: Product price FIDs to add
