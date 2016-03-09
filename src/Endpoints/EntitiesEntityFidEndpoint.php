@@ -17,6 +17,18 @@ class EntitiesEntityFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return EntitiesEntityFidConfigEndpoint
+   */
+  public function config()
+  {
+    $endpoint = new EntitiesEntityFidConfigEndpoint(
+      $this->_replacements['{entityFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return EntitiesEntityFidPropertiesEndpoint
    */
   public function properties()

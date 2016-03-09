@@ -141,6 +141,11 @@ DESCRIPTION
 
     $tag = new TagDefinition();
     $tag->setDescription('');
+    $tag->setName('Configuration');
+    $this->addTag($tag);
+
+    $tag = new TagDefinition();
+    $tag->setDescription('');
     $tag->setName('Contacts');
     $this->addTag($tag);
 
@@ -170,6 +175,7 @@ DESCRIPTION
     $secDef->addScope('customer','Read/Write On Customers');
     $secDef->addScope('customer.readonly','Read Only on Customers');
     $secDef->addScope('entity.properties','Read/Write On Entity Properties');
+    $secDef->addScope('entity.config','Read/Write On Entity Configuration');
     $secDef->addScope('orders','Read/Write On Orders');
     $secDef->addScope('orders.readonly','Read Only On Orders');
     $secDef->addScope('products','Read/Write On Products');

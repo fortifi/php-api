@@ -164,6 +164,7 @@ tags:
   - name: Entities
   - name: Orders
   - name: Custom Properties
+  - name: Configuration
   - name: Contacts
   - name: Polymers
   - name: Messenger
@@ -181,6 +182,7 @@ securityDefinitions:
       "customer": Read/Write On Customers
       "customer.readonly": Read Only on Customers
       "entity.properties": Read/Write On Entity Properties
+      "entity.config": Read/Write On Entity Configuration
       "orders": Read/Write On Orders
       "orders.readonly": Read Only On Orders
       "products": Read/Write On Products
@@ -707,6 +709,50 @@ paths:
           description: Customer Currency Updated
         404:
           description: Customer not found
+
+
+  "/entities/{entityFid}/config/{sectionName}":
+    delete:
+      summary: Remove a config section, or property from an entity
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+          - entity.config
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
+        - name: itemName
+          in: formData
+          type: string
+      responses:
+        200:
+          description: Config Item Deleted
+
+    post:
+      summary: Write a config item
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+          - entity.config
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
+        - name: itemName
+          in: formData
+          required: true
+          type: string
+        - name: value
+          in: formData
+          required: true
+          type: string
+
+      responses:
+        200:
+          description: Config Item Saved
+        400:
+          description: Invalid Entity
 
   "/entities/{entityFid}/properties":
     put:
@@ -1402,6 +1448,12 @@ parameters:
     description: Entity FID to use
   propertyName:
     name: propertyName
+    in: path
+    required: true
+    type: string
+    description: Property Name
+  sectionName:
+    name: sectionName
     in: path
     required: true
     type: string
