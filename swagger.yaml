@@ -729,6 +729,22 @@ paths:
         200:
           description: Config Item Deleted
 
+    get:
+      summary: Retrieve a config section
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+          - entity.config
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/ConfigItems'
+          description: List Of Config Items
+
     post:
       summary: Write a config item
       tags:
@@ -753,6 +769,25 @@ paths:
           description: Config Item Saved
         400:
           description: Invalid Entity
+
+  "/entities/{entityFid}/config/{sectionName}/{itemName}":
+      get:
+        summary: Retrieve a config item
+        tags:
+          - Configuration
+        security:
+          - OAuth:
+            - entity.config
+        parameters:
+          - $ref: '#/parameters/entityFid'
+          - $ref: '#/parameters/sectionName'
+          - $ref: '#/parameters/itemName'
+        responses:
+          200:
+            schema:
+              $ref: '#/definitions/ConfigItem'
+            description: Config Item
+
 
   "/entities/{entityFid}/properties":
     put:
@@ -1457,7 +1492,13 @@ parameters:
     in: path
     required: true
     type: string
-    description: Property Name
+    description: Section Name
+  itemName:
+    name: itemName
+    in: path
+    required: true
+    type: string
+    description: Item Name
   productFid:
     name: productFid
     in: path
@@ -1812,6 +1853,26 @@ definitions:
           last4:
             type: number
           cardType:
+            type: string
+
+  ConfigItems:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: "#/definitions/ConfigItem"
+
+  ConfigItem:
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          entityFid:
+            type: string
+          sectionName:
+            type: string
+          itemName:
+            type: string
+          value:
             type: string
 
   ProductOffers:
