@@ -17,9 +17,11 @@ class PayEndpoint extends ApiEndpoint
   /**
    * @summary Get the public key needed to encrypt a credit card number
    *
+   * @param $format
+   *
    * @return PubKeyRequest
    */
-  public function publicKey()
+  public function publicKey($format = null)
   {
     $request = new PubKeyRequest();
     $request->setConnection($this->_getConnection());
@@ -28,6 +30,7 @@ class PayEndpoint extends ApiEndpoint
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('pay/publicKey'));
+    $detail->addQueryField('format', $format);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

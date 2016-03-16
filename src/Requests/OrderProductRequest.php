@@ -16,6 +16,7 @@ class OrderProductRequest
       [
         "price" => $this->getPrice(),
         "offerFid" => $this->getOfferFid(),
+        "productFid" => $this->getProductFid(),
         "renewalDate" => $this->getRenewalDate(),
       ]
     );
@@ -40,6 +41,18 @@ class OrderProductRequest
   public function getOfferFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'productFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

@@ -289,7 +289,7 @@ class CardDataPayload
   }
 
   /**
-   * @param integer $value
+   * @param string $value
    *
    * @return $this
    */
@@ -303,12 +303,14 @@ class CardDataPayload
    * Last 4 digits of the credit card number
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
-   * @return integer
+   * @return string
    */
-  public function getLast4($default = null)
+  public function getLast4($default = null, $trim = true)
   {
-    return $this->_last4 ?: $default;
+    $value = $this->_last4 ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

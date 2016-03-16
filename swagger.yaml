@@ -365,6 +365,11 @@ paths:
       security:
         - OAuth:
           - paymentMethods
+      parameters:
+        - name: format
+          in: query
+          description: Format for the generated key xml, raw, pkcs1 or pkcs8.
+          type: string
       responses:
         200:
           schema:
@@ -1044,6 +1049,22 @@ paths:
         200:
           description: Card Updated
 
+  "/customers/{customerFid}/addresses":
+    get:
+      summary: List customers addresses
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer.readonly
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+         200:
+           schema:
+             $ref: '#/definitions/Addresses'
+           description: List of addresses
+
   "/customers/{customerFid}/emails":
     post:
       summary: Add an email address to a customer
@@ -1524,6 +1545,7 @@ parameters:
     in: path
     required: true
     type: string
+
 definitions:
 #Responses
   Fid:
@@ -1814,6 +1836,8 @@ definitions:
             format: float
           offerFid:
             type: string
+          productFid:
+            type: string
           renewalDate:
             $ref: '#/definitions/isoTime'
 
@@ -1853,6 +1877,32 @@ definitions:
           last4:
             type: number
           cardType:
+            type: string
+
+  Addresses:
+    properties:
+      addresses:
+        type: array
+        items:
+          $ref: "#/definitions/Address"
+
+  Address:
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          address1:
+            type: string
+          address2:
+            type: string
+          address3:
+            type: string
+          town:
+            type: string
+          county:
+            type: string
+          country:
+            type: string
+          postalCode:
             type: string
 
   ConfigItems:
@@ -2410,7 +2460,7 @@ definitions:
     type: integer
   cardLast4:
     description: Last 4 digits of the credit card number
-    type: integer
+    type: string
   cardIssue:
     description: Issue number of the card
     type: integer
