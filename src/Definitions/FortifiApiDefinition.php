@@ -179,7 +179,8 @@ DESCRIPTION
     $secDef->addScope('orders','Read/Write On Orders');
     $secDef->addScope('orders.readonly','Read Only On Orders');
     $secDef->addScope('products','Read/Write On Products');
-    $secDef->addScope('paymentMethods','Read/Write On Payment Methods');
+    $secDef->addScope('entity.events','Read/Write on Events');
+    $secDef->addScope('payment.methods','Read/Write On Payment Methods');
     $secDef->addScope('contact','Read/Write On Contacts');
     $secDef->addScope('polymer.readonly','Read Polymers');
     $secDef->addScope('polymer','Read/Write On Polymers');

@@ -428,7 +428,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request->setEndpoint($this);
 
     $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(false);
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
@@ -457,7 +457,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request->setEndpoint($this);
 
     $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(false);
+    $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl(
       str_replace(
         array_keys($this->_replacements),
