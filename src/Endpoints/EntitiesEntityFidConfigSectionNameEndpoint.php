@@ -18,16 +18,13 @@ class EntitiesEntityFidConfigSectionNameEndpoint extends ApiEndpoint
   }
 
   /**
-   * @param $itemName
-   *
-   * @return EntitiesEntityFidConfigSectionNameItemNameEndpoint
+   * @return EntitiesEntityFidConfigSectionNameItemsEndpoint
    */
-  public function with($itemName)
+  public function items()
   {
-    $endpoint = new EntitiesEntityFidConfigSectionNameItemNameEndpoint(
+    $endpoint = new EntitiesEntityFidConfigSectionNameItemsEndpoint(
       $this->_replacements['{entityFid}'],
-      $this->_replacements['{sectionName}'],
-      $itemName
+      $this->_replacements['{sectionName}']
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;

@@ -109,6 +109,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return LicenceEndpoint
+   */
+  public function licence()
+  {
+    $endpoint = new LicenceEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Current Version
    *
    * Retrieve the current version of the Fortifi api

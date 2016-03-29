@@ -169,6 +169,7 @@ tags:
   - name: Polymers
   - name: Messenger
   - name: Products
+  - name: Licence
 
 securityDefinitions:
   OAuth:
@@ -193,6 +194,7 @@ securityDefinitions:
       "polymer": Read/Write On Polymers
       "product.readonly": Read Product Information
       "product": Read/Write On Products
+      "purchase.readonly": Read Only on purchases
 
   accessToken:
     type: apiKey
@@ -776,7 +778,7 @@ paths:
         400:
           description: Invalid Entity
 
-  "/entities/{entityFid}/config/{sectionName}/{itemName}":
+  "/entities/{entityFid}/config/{sectionName}/items/{itemName}":
       get:
         summary: Retrieve a config item
         tags:
@@ -1451,6 +1453,26 @@ paths:
             schema:
               $ref: '#/definitions/ProductOffers'
 
+  "/licence/check":
+    get:
+      summary: Retrieve A Licence
+      tags:
+        - licence
+      security:
+        - OAuth:
+          - purchase.readonly
+      parameters:
+        - name: key
+          in: query
+          type: string
+      responses:
+        200:
+          description: Licence Information
+          schema:
+            $ref: '#/definitions/Licence'
+        404:
+          description: Licence Not Valid
+
 parameters:
   isoTime:
     name: isoTime
@@ -1689,6 +1711,41 @@ definitions:
         format: float
       commissionCurrency:
         type: string
+
+  Licence:
+    properties:
+        purchaseFid:
+          type: string
+        customerFid:
+          type: string
+        status:
+          type: string
+        dateCreated:
+          $ref: '#/definitions/isoTime'
+        lastRenewDate:
+          $ref: '#/definitions/isoTime'
+        renewDate:
+          $ref: '#/definitions/isoTime'
+        nextRenewDate:
+          $ref: '#/definitions/isoTime'
+        autoSuspendDate:
+          $ref: '#/definitions/isoTime'
+        autoCancelDate:
+          $ref: '#/definitions/isoTime'
+        startDate:
+          $ref: '#/definitions/isoTime'
+        endDate:
+          $ref: '#/definitions/isoTime'
+        trialStartDate:
+          $ref: '#/definitions/isoTime'
+        trialEndDate:
+          $ref: '#/definitions/isoTime'
+        cycle:
+          type: string
+        cycleExact:
+          type: string
+        cycleType:
+          type: string
 
   keyValue:
     properties:
