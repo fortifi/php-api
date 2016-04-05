@@ -10,7 +10,7 @@ class VisitorHelper
     return Arrays::value($_COOKIE, 'FRT:VIS');
   }
 
-  public function getClientIp()
+  public static function getClientIp()
   {
     static $ip;
     if($ip === null)
