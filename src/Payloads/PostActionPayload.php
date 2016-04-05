@@ -286,7 +286,6 @@ class PostActionPayload
 
   /**
    * Setting to true will return advertiser pixels for this event
-
    *
    * @param bool $default
    *
@@ -294,7 +293,7 @@ class PostActionPayload
    */
   public function isReturnPixels($default = false)
   {
-    return $this->_returnPixels ?: $default;
+    return (bool)$this->_returnPixels ?: $default;
   }
 
   /**
@@ -560,7 +559,6 @@ class PostActionPayload
 
   /**
    * Advertiser Campaign to track this action to (if not already locked)
-
    *
    * @param mixed $default
    * @param bool $trim Trim Value

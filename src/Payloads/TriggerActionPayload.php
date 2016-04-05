@@ -155,6 +155,6 @@ class TriggerActionPayload
    */
   public function isTriggerMessenger($default = false)
   {
-    return $this->_triggerMessenger ?: $default;
+    return (bool)$this->_triggerMessenger ?: $default;
   }
 }

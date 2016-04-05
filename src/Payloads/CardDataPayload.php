@@ -581,6 +581,6 @@ class CardDataPayload
    */
   public function isDefault($default = false)
   {
-    return $this->_isDefault ?: $default;
+    return (bool)$this->_isDefault ?: $default;
   }
 }
