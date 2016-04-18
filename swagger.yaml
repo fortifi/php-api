@@ -28,14 +28,14 @@ info:
 
     All endpoints are only accessible via https and are located at
 
-    `api.fortifi.io`. For instance: you can grab a list of all your companies
+    `api.fortifi.io`. For instance: you can grab a list of all your brands
 
     by accessing the following URL with your Access Token
 
     (replace ACCESS_TOKEN with your own):
 
     ```
-      https://api.fortifi.io/v1/companies?access_token=ACCESS_TOKEN
+      https://api.fortifi.io/v1/brands?access_token=ACCESS_TOKEN
 
     ```
 
@@ -132,7 +132,7 @@ info:
 
     ```
 
-    https://api.fortifi.io/v1/companies?access_token=ACCESS_TOKEN&callback=callbackFunction
+    https://api.fortifi.io/v1/brands?access_token=ACCESS_TOKEN&callback=callbackFunction
 
     ```
 
@@ -250,23 +250,23 @@ paths:
           schema:
               $ref: '#/definitions/Organisation'
 
-  /companies:
+  /brands:
     get:
       security:
         - OAuth:
           - basic
         - accessToken: []
-      summary: Your Companies
-      operationId: getCompanies
+      summary: Your Brand
+      operationId: getBrands
       description: |
-        Retrieve a list of all the companies within your Fortifi account
+        Retrieve a list of all the brands within your Fortifi account
       responses:
         200:
-          description: Company Information
+          description: Brand Information
           schema:
             type: array
             items:
-              $ref: '#/definitions/Company'
+              $ref: '#/definitions/Brand'
 
   "/visitors/{visitorId}/pixels":
     get:
@@ -400,7 +400,7 @@ paths:
            $ref: '#/definitions/Customer'
        404:
          description: |
-           The company Fid you are trying to add a customer to does not exist
+           The brand Fid you are trying to add a customer to does not exist
        409:
          description: |
            The external reference has already been used to create a customer
@@ -1386,10 +1386,10 @@ paths:
           - contact
       parameters:
         - $ref: '#/parameters/emailAddress'
-        - name: companyFid
+        - name: brandFid
           in: formData
           type: string
-          description: Company to unsubscribe the email address from
+          description: Brand to unsubscribe the email address from
       responses:
         200:
           description: Email Address Unsubscribed
@@ -1626,13 +1626,13 @@ definitions:
       orgDomain:
         type: string
 
-  Company:
+  Brand:
     properties:
-      companyName:
+      brandName:
         type: string
       primaryDomain:
         type: string
-      companyFid:
+      brandFid:
         type: string
 
   Customer:
@@ -1866,7 +1866,7 @@ definitions:
             type: string
           lastPaymentFid:
             type: string
-          companyFid:
+          brandFid:
             type: string
           customerFid:
             type: string
@@ -2084,8 +2084,8 @@ definitions:
         $ref: '#/definitions/clientIp'
       externalReference:
         $ref: '#/definitions/visitorExternalReference'
-      companyFid:
-        $ref: '#/definitions/companyFid'
+      brandFid:
+        $ref: '#/definitions/brandFid'
       campaignHash:
         $ref: '#/definitions/campaignHash'
       sid1:
@@ -2099,7 +2099,7 @@ definitions:
       time:
         $ref: '#/definitions/isoTime'
     required:
-      - companyFid
+      - brandFid
 
   ReverseActionPayload:
     properties:
@@ -2139,8 +2139,8 @@ definitions:
         $ref: '#/definitions/externalReference'
       time:
         $ref: '#/definitions/isoTime'
-      companyFid:
-        $ref: '#/definitions/companyFid'
+      brandFid:
+        $ref: '#/definitions/brandFid'
       currency:
         $ref: '#/definitions/currency'
       phoneNumber:
@@ -2162,7 +2162,7 @@ definitions:
       subscriptionType:
         $ref: '#/definitions/customerSubscriptionType'
     required:
-      - companyFid
+      - brandFid
 
   SetCustomerLocationPayload:
     properties:
@@ -2330,8 +2330,8 @@ definitions:
     properties:
       paymentAccountFid:
         $ref: '#/definitions/paymentAccountFid'
-      companyFid:
-        $ref: '#/definitions/companyFid'
+      brandFid:
+        $ref: '#/definitions/brandFid'
       customerFid:
         $ref: '#/definitions/customerFid'
       clientIp:
@@ -2387,8 +2387,8 @@ definitions:
   visitorExternalReference:
     description: External (to Fortifi) Reference for this visitor e.g. a user ID
     type: string
-  companyFid:
-    description: Company FID to track this event to
+  brandFid:
+    description: Brand FID to track this event to
     type: string
   campaignHash:
     description: |

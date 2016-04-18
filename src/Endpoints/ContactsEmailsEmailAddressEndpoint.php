@@ -43,11 +43,11 @@ class ContactsEmailsEmailAddressEndpoint extends ApiEndpoint
   /**
    * @summary Unsubscribe an email address
    *
-   * @param $companyFid
+   * @param $brandFid
    *
    * @return ApiRequest
    */
-  public function setUnsubscribe($companyFid = null)
+  public function setUnsubscribe($brandFid = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -62,7 +62,7 @@ class ContactsEmailsEmailAddressEndpoint extends ApiEndpoint
         'contacts/emails/{emailAddress}/unsubscribe'
       )
     ));
-    $detail->addPostField('companyFid', $companyFid);
+    $detail->addPostField('brandFid', $brandFid);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

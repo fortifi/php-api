@@ -5,7 +5,7 @@ use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class CompanyRequest
+class BrandRequest
   extends ApiRequest
   implements \JsonSerializable
 {
@@ -13,9 +13,9 @@ class CompanyRequest
   public function jsonSerialize()
   {
     return [
-      "companyName" => $this->getCompanyName(),
+      "brandName" => $this->getBrandName(),
       "primaryDomain" => $this->getPrimaryDomain(),
-      "companyFid" => $this->getCompanyFid(),
+      "brandFid" => $this->getBrandFid(),
     ];
   }
 
@@ -25,9 +25,9 @@ class CompanyRequest
    *
    * @return string
    */
-  public function getCompanyName($default = null, $trim = true)
+  public function getBrandName($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'companyName', $default);
+    $value = Objects::property($this->_getResultJson(), 'brandName', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -49,9 +49,9 @@ class CompanyRequest
    *
    * @return string
    */
-  public function getCompanyFid($default = null, $trim = true)
+  public function getBrandFid($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'brandFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

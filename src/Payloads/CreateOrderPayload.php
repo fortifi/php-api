@@ -10,9 +10,9 @@ class CreateOrderPayload
    */
   protected $_paymentAccountFid;
   /**
-   * Company FID to track this event to
+   * Brand FID to track this event to
    */
-  protected $_companyFid;
+  protected $_brandFid;
   /**
    * FID for the customer placing the order
    */
@@ -37,9 +37,9 @@ class CreateOrderPayload
     {
       $this->_paymentAccountFid = $data["paymentAccountFid"];
     }
-    if(isset($data["companyFid"]))
+    if(isset($data["brandFid"]))
     {
-      $this->_companyFid = $data["companyFid"];
+      $this->_brandFid = $data["brandFid"];
     }
     if(isset($data["customerFid"]))
     {
@@ -64,7 +64,7 @@ class CreateOrderPayload
   {
     return [
       "paymentAccountFid" => $this->_paymentAccountFid,
-      "companyFid"        => $this->_companyFid,
+      "brandFid"          => $this->_brandFid,
       "customerFid"       => $this->_customerFid,
       "clientIp"          => $this->_clientIp,
       "userAgent"         => $this->_userAgent,
@@ -102,23 +102,23 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setCompanyFid($value)
+  public function setBrandFid($value)
   {
-    $this->_companyFid = $value;
+    $this->_brandFid = $value;
     return $this;
   }
 
   /**
-   * Company FID to track this event to
+   * Brand FID to track this event to
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyFid($default = null, $trim = true)
+  public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_companyFid ?: $default;
+    $value = $this->_brandFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

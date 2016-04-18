@@ -28,11 +28,11 @@ to start requesting and posting data to and from Fortifi.
 
 
 All endpoints are only accessible via https and are located at
-`api.fortifi.io`. For instance: you can grab a list of all your companies
+`api.fortifi.io`. For instance: you can grab a list of all your brands
 by accessing the following URL with your Access Token
 (replace ACCESS_TOKEN with your own):
 ```
-  https://api.fortifi.io/v1/companies?access_token=ACCESS_TOKEN
+  https://api.fortifi.io/v1/brands?access_token=ACCESS_TOKEN
 ```
 
 ## Limits
@@ -92,7 +92,7 @@ If you're writing an AJAX application, and you'd like to wrap our response
 with a callback, all you have to do is specify a callback parameter with
 any API call:
 ```
-https://api.fortifi.io/v1/companies?access_token=ACCESS_TOKEN&callback=callbackFunction
+https://api.fortifi.io/v1/brands?access_token=ACCESS_TOKEN&callback=callbackFunction
 ```
 Would respond with:
 ```js

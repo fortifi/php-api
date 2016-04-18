@@ -182,13 +182,13 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @summary Your Companies
+   * @summary Your Brand
    *
-   * Retrieve a list of all the companies within your Fortifi account
+   * Retrieve a list of all the brands within your Fortifi account
    *
    * @return ApiRequest
    */
-  public function companies()
+  public function brands()
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -196,7 +196,7 @@ class FortifiApi extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('companies'));
+    $detail->setUrl($this->_buildUrl('brands'));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

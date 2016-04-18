@@ -61,10 +61,10 @@ class PostActionPayload
    */
   protected $_externalReference;
   /**
-   * Company FID to track this event to
+   * Brand FID to track this event to
    * @required
    */
-  protected $_companyFid;
+  protected $_brandFid;
   /**
    * Advertiser Campaign to track this action to (if not already locked)
 
@@ -143,9 +143,9 @@ class PostActionPayload
     {
       $this->_externalReference = $data["externalReference"];
     }
-    if(isset($data["companyFid"]))
+    if(isset($data["brandFid"]))
     {
-      $this->_companyFid = $data["companyFid"];
+      $this->_brandFid = $data["brandFid"];
     }
     if(isset($data["campaignHash"]))
     {
@@ -190,7 +190,7 @@ class PostActionPayload
       "language"          => $this->_language,
       "clientIp"          => $this->_clientIp,
       "externalReference" => $this->_externalReference,
-      "companyFid"        => $this->_companyFid,
+      "brandFid"          => $this->_brandFid,
       "campaignHash"      => $this->_campaignHash,
       "sid1"              => $this->_sid1,
       "sid2"              => $this->_sid2,
@@ -526,23 +526,23 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setCompanyFid($value)
+  public function setBrandFid($value)
   {
-    $this->_companyFid = $value;
+    $this->_brandFid = $value;
     return $this;
   }
 
   /**
-   * Company FID to track this event to
+   * Brand FID to track this event to
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCompanyFid($default = null, $trim = true)
+  public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_companyFid ?: $default;
+    $value = $this->_brandFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

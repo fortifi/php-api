@@ -33,7 +33,7 @@ class OrderRequest
         "paymentAccountFid" => $this->getPaymentAccountFid(),
         "paymentServiceType" => $this->getPaymentServiceType(),
         "lastPaymentFid" => $this->getLastPaymentFid(),
-        "companyFid" => $this->getCompanyFid(),
+        "brandFid" => $this->getBrandFid(),
         "customerFid" => $this->getCustomerFid(),
         "fraudFid" => $this->getFraudFid(),
         "invoiceFid" => $this->getInvoiceFid(),
@@ -267,9 +267,9 @@ class OrderRequest
    *
    * @return string
    */
-  public function getCompanyFid($default = null, $trim = true)
+  public function getBrandFid($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'brandFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
