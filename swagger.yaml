@@ -404,6 +404,8 @@ paths:
        409:
          description: |
            The external reference has already been used to create a customer
+         schema:
+            $ref: '#/definitions/Fid'
 
   /customers/findByReference:
     get:
