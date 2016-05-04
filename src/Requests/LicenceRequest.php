@@ -26,7 +26,7 @@ class LicenceRequest
       "endDate" => $this->getEndDate(),
       "trialStartDate" => $this->getTrialStartDate(),
       "trialEndDate" => $this->getTrialEndDate(),
-      "cycle" => $this->getCycle(),
+      "cycleTerm" => $this->getCycleTerm(),
       "cycleExact" => $this->getCycleExact(),
       "cycleType" => $this->getCycleType(),
     ];
@@ -214,9 +214,9 @@ class LicenceRequest
    *
    * @return string
    */
-  public function getCycle($default = null, $trim = true)
+  public function getCycleTerm($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycleTerm', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

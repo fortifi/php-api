@@ -18,7 +18,7 @@ class ProductPriceRequest
         "currency" => $this->getCurrency(),
         "price" => $this->getPrice(),
         "setupFee" => $this->getSetupFee(),
-        "cycle" => $this->getCycle(),
+        "cycleType" => $this->getCycleType(),
         "cycleTerm" => $this->getCycleTerm(),
         "cycleExact" => $this->getCycleExact(),
       ]
@@ -77,9 +77,9 @@ class ProductPriceRequest
    *
    * @return string
    */
-  public function getCycle($default = null, $trim = true)
+  public function getCycleType($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycleType', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

@@ -1742,7 +1742,7 @@ definitions:
           $ref: '#/definitions/isoTime'
         trialEndDate:
           $ref: '#/definitions/isoTime'
-        cycle:
+        cycleTerm:
           type: string
         cycleExact:
           type: string
@@ -1814,7 +1814,7 @@ definitions:
           setupFee:
             type: number
             format: float
-          cycle:
+          cycleType:
             $ref: "#/definitions/cycleTermType"
           cycleTerm:
             type: string
