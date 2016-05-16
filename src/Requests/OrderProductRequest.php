@@ -15,6 +15,7 @@ class OrderProductRequest
       parent::jsonSerialize(),
       [
         "price" => $this->getPrice(),
+        "priceFid" => $this->getPriceFid(),
         "offerFid" => $this->getOfferFid(),
         "productFid" => $this->getProductFid(),
         "renewalDate" => $this->getRenewalDate(),
@@ -30,6 +31,18 @@ class OrderProductRequest
   public function getPrice($default = null)
   {
     return Objects::property($this->_getResultJson(), 'price', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPriceFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'priceFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\coinbaseCheckoutRequest;
 use Fortifi\Api\V1\Requests\PubKeyRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -31,6 +32,28 @@ class PayEndpoint extends ApiEndpoint
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('pay/publicKey'));
     $detail->addQueryField('format', $format);
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Get a new checkout ID
+   *
+   * @param $orderFID
+   *
+   * @return coinbaseCheckoutRequest
+   */
+  public function coinbase($orderFID = null)
+  {
+    $request = new coinbaseCheckoutRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl('pay/coinbase'));
+    $detail->addQueryField('orderFID', $orderFID);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
