@@ -5,7 +5,7 @@ use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
 class ProductPriceRequest
-  extends FidRequest
+  extends EntityRequest
   implements \JsonSerializable
 {
 

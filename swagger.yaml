@@ -1825,7 +1825,7 @@ definitions:
 
   ProductPrice:
     allOf:
-      - $ref: '#/definitions/Fid'
+      - $ref: '#/definitions/Entity'
       - properties:
           productFid:
             type: string
