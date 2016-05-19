@@ -1263,6 +1263,23 @@ paths:
           description: Order confirmed and payment authroized
           schema:
             $ref: '#/definitions/OrderConfirmation'
+  "/orders/{orderFid}/confirmCoinbase":
+    put:
+      summary: Confirm an order, await payment
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+      responses:
+        503:
+          description: There are no payment gateways available to handle your request
+        200:
+          description: Order confirmed; awaiting blockchain confirmation.
+          schema:
+            $ref: '#/definitions/OrderConfirmation'
   "/orders/{orderFid}/products":
     get:
       summary: Retrieve order products
