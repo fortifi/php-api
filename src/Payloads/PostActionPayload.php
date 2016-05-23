@@ -226,7 +226,7 @@ class PostActionPayload
   }
 
   /**
-   * @param integer $value
+   * @param float $value
    *
    * @return $this
    */
@@ -241,7 +241,7 @@ class PostActionPayload
    *
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getTransactionValue($default = null)
   {

@@ -358,7 +358,7 @@ class ReverseActionPayload
   }
 
   /**
-   * @param integer $value
+   * @param float $value
    *
    * @return $this
    */
@@ -373,7 +373,7 @@ class ReverseActionPayload
    *
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getReversalAmount($default = null)
   {

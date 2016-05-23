@@ -26,7 +26,7 @@ class OrderProductRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getPrice($default = null)
   {

@@ -80,7 +80,7 @@ class ProductOfferRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getDiscountAmount($default = null)
   {
@@ -104,7 +104,7 @@ class ProductOfferRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getSetupDiscountAmount($default = null)
   {

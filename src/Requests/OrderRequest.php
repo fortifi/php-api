@@ -106,7 +106,7 @@ class OrderRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getAmount($default = null)
   {
@@ -116,7 +116,7 @@ class OrderRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getSetupAmount($default = null)
   {
@@ -126,7 +126,7 @@ class OrderRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getTaxAmount($default = null)
   {
@@ -136,7 +136,7 @@ class OrderRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getTotalAmount($default = null)
   {
@@ -170,7 +170,7 @@ class OrderRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getDiscountAmount($default = null)
   {
@@ -312,7 +312,7 @@ class OrderRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getAmountPaid($default = null)
   {

@@ -113,7 +113,7 @@ class VisitorPostActionRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getCommission($default = null)
   {

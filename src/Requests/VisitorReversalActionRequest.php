@@ -74,7 +74,7 @@ class VisitorReversalActionRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getReversedCommission($default = null)
   {
@@ -84,7 +84,7 @@ class VisitorReversalActionRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getFeeCharged($default = null)
   {

@@ -52,7 +52,7 @@ class ProductPriceRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getPrice($default = null)
   {
@@ -62,7 +62,7 @@ class ProductPriceRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getSetupFee($default = null)
   {
