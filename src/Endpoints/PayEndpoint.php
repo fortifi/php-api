@@ -1,8 +1,8 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\coinbaseCheckoutRequest;
 use Fortifi\Api\V1\Requests\PubKeyRequest;
+use Fortifi\Api\V1\Requests\CoinbaseCheckoutRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -42,11 +42,11 @@ class PayEndpoint extends ApiEndpoint
    *
    * @param $orderFID
    *
-   * @return coinbaseCheckoutRequest
+   * @return CoinbaseCheckoutRequest
    */
   public function coinbase($orderFID = null)
   {
-    $request = new coinbaseCheckoutRequest();
+    $request = new CoinbaseCheckoutRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 

@@ -393,7 +393,7 @@ paths:
        responses:
         200:
           schema:
-            $ref: '#/definitions/coinbaseCheckout'
+            $ref: '#/definitions/CoinbaseCheckout'
           description: Coinbase checkout ID
 
   /customers:
@@ -1639,7 +1639,7 @@ definitions:
         type: string
         description: RSA Public Key
 
-  coinbaseCheckout:
+  CoinbaseCheckout:
     properties:
       checkoutID:
         type: string

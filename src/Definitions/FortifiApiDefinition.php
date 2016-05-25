@@ -100,6 +100,7 @@ callbackFunction({
     ...
 });
 ```
+
 DESCRIPTION
     );
     $this->setTermsOfService('http://fortifi.co/legal/terms/api');
