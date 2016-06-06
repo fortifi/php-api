@@ -737,6 +737,48 @@ paths:
         404:
           description: Customer not found
 
+  "/customers/{customerFid}/tickets":
+    post:
+      summary: Create a new support ticket
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: subject
+          in: formData
+          required: true
+          description: Subject of the support ticket
+          type: string
+        - name: content
+          in: formData
+          required: true
+          description: Content of the support ticket
+          type: string
+        - name: recipient
+          in: formData
+          required: true
+          description: Receiver email address e.g. support@yourdomain.com
+          type: string
+        - name: sender
+          in: formData
+          required: true
+          description: Sender email address e.g. user@customer.com
+          type: string
+        - name: departmentFid
+          in: formData
+          required: false
+          description: Department FID
+          type: string
+      responses:
+        200:
+          description: Customer Currency Updated
+        404:
+          description: Customer not found
+
 
   "/entities/{entityFid}/config/{sectionName}":
     delete:
