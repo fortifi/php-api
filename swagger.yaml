@@ -2411,6 +2411,8 @@ definitions:
         $ref: '#/definitions/cardAddressCountry'
       addressPostal:
         $ref: '#/definitions/cardAddressPostal'
+      asDefault:
+        type: boolean
 
   CreateOrderPayload:
     properties:

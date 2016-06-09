@@ -61,6 +61,7 @@ class CardUpdatePayload
    * Postal/Zip Code of the card
    */
   protected $_addressPostal;
+  protected $_asDefault;
 
   public function hydrate($data)
   {
@@ -121,6 +122,10 @@ class CardUpdatePayload
     {
       $this->_addressPostal = $data["addressPostal"];
     }
+    if(isset($data["asDefault"]))
+    {
+      $this->_asDefault = $data["asDefault"];
+    }
     return $this;
   }
 
@@ -141,6 +146,7 @@ class CardUpdatePayload
       "addressState"   => $this->_addressState,
       "addressCountry" => $this->_addressCountry,
       "addressPostal"  => $this->_addressPostal,
+      "asDefault"      => $this->_asDefault,
     ];
   }
 
@@ -482,5 +488,26 @@ class CardUpdatePayload
   {
     $value = $this->_addressPostal ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param boolean $value
+   *
+   * @return $this
+   */
+  public function setAsDefault($value)
+  {
+    $this->_asDefault = $value;
+    return $this;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isAsDefault($default = false)
+  {
+    return (bool)$this->_asDefault ?: $default;
   }
 }
