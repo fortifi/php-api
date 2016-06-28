@@ -2378,6 +2378,10 @@ definitions:
         $ref: '#/definitions/cardAddressCountry'
       addressPostal:
         $ref: '#/definitions/cardAddressPostal'
+      preAuthAmount:
+          description: Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
+          type: number
+          format: float
       isDefault:
         $ref: '#/definitions/cardIsDefault'
 

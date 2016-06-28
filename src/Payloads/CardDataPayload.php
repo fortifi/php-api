@@ -70,6 +70,10 @@ class CardDataPayload
    */
   protected $_addressPostal;
   /**
+   * Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
+   */
+  protected $_preAuthAmount;
+  /**
    * Is this card should be used as the primary card on the account
    */
   protected $_isDefault;
@@ -141,6 +145,10 @@ class CardDataPayload
     {
       $this->_addressPostal = $data["addressPostal"];
     }
+    if(isset($data["preAuthAmount"]))
+    {
+      $this->_preAuthAmount = $data["preAuthAmount"];
+    }
     if(isset($data["isDefault"]))
     {
       $this->_isDefault = $data["isDefault"];
@@ -167,6 +175,7 @@ class CardDataPayload
       "addressState"        => $this->_addressState,
       "addressCountry"      => $this->_addressCountry,
       "addressPostal"       => $this->_addressPostal,
+      "preAuthAmount"       => $this->_preAuthAmount,
       "isDefault"           => $this->_isDefault,
     ];
   }
@@ -559,6 +568,29 @@ class CardDataPayload
   {
     $value = $this->_addressPostal ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param float $value
+   *
+   * @return $this
+   */
+  public function setPreAuthAmount($value)
+  {
+    $this->_preAuthAmount = $value;
+    return $this;
+  }
+
+  /**
+   * Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
+   *
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getPreAuthAmount($default = null)
+  {
+    return $this->_preAuthAmount ?: $default;
   }
 
   /**
