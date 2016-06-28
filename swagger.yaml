@@ -2431,6 +2431,11 @@ definitions:
         description: Product price FIDs to add
         items:
           type: string
+      offerFids:
+        type: array
+        description: Offer FIDs to apply to the order
+        items:
+          type: string
 
   AddOrderProductsPayload:
     properties:

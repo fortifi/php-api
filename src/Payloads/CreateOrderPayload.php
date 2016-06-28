@@ -29,6 +29,10 @@ class CreateOrderPayload
    * Product price FIDs to add
    */
   protected $_productPriceFids;
+  /**
+   * Offer FIDs to apply to the order
+   */
+  protected $_offerFids;
 
   public function hydrate($data)
   {
@@ -57,6 +61,10 @@ class CreateOrderPayload
     {
       $this->_productPriceFids = $data["productPriceFids"];
     }
+    if(isset($data["offerFids"]))
+    {
+      $this->_offerFids = $data["offerFids"];
+    }
     return $this;
   }
 
@@ -69,6 +77,7 @@ class CreateOrderPayload
       "clientIp"          => $this->_clientIp,
       "userAgent"         => $this->_userAgent,
       "productPriceFids"  => $this->_productPriceFids,
+      "offerFids"         => $this->_offerFids,
     ];
   }
 
@@ -229,5 +238,39 @@ class CreateOrderPayload
   public function getProductPriceFids($default = [])
   {
     return $this->_productPriceFids ?: $default;
+  }
+
+  /**
+   * @param array $value
+   *
+   * @return $this
+   */
+  public function setOfferFids(array $value)
+  {
+    $this->_offerFids = $value;
+    return $this;
+  }
+
+  /**
+   * @param $item
+   *
+   * @return $this
+   */
+  public function addOfferFid($item)
+  {
+    $this->_offerFids[] = $item;
+    return $this;
+  }
+
+  /**
+   * Offer FIDs to apply to the order
+   *
+   * @param mixed $default
+   *
+   * @return string[]
+   */
+  public function getOfferFids($default = [])
+  {
+    return $this->_offerFids ?: $default;
   }
 }
