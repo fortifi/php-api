@@ -1269,9 +1269,11 @@ paths:
           - orders
       parameters:
         - $ref: '#/parameters/orderFid'
-        - name: cvv
-          in: formData
-          type: string
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ConfirmCardOrderPayload'
       responses:
         503:
           description: There are no payment gateways available to handle your request
@@ -1289,15 +1291,11 @@ paths:
           - orders
       parameters:
         - $ref: '#/parameters/orderFid'
-        - name: paymentId
-          in: formData
-          type: string
-        - name: token
-          in: formData
-          type: string
-        - name: payerId
-          in: formData
-          type: string
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ConfirmPayPalOrderPayload'
       responses:
         503:
           description: There are no payment gateways available to handle your request
@@ -2449,7 +2447,7 @@ definitions:
         items:
           type: string
 
-  VerifyOrderPayload:
+  ConfirmOrderPayload:
     properties:
       paymentServiceFid:
         $ref: '#/definitions/paymentServiceFid'
@@ -2457,12 +2455,31 @@ definitions:
         $ref: '#/definitions/paymentAccountFid'
       paymentServiceProcessor:
         $ref: '#/definitions/PaymentServiceProcessor'
-      successUrl:
-        type: string
-      cancelUrl:
-        type: string
-      failUrl:
-        type: string
+
+  ConfirmCardOrderPayload:
+    allOf:
+      - $ref: '#/definitions/ConfirmOrderPayload'
+      - properties:
+          cvv:
+            type: string
+
+  ConfirmPayPalOrderPayload:
+    allOf:
+      - $ref: '#/definitions/ConfirmOrderPayload'
+      - properties:
+          token:
+            type: string
+
+  VerifyOrderPayload:
+    allOf:
+      - $ref: '#/definitions/ConfirmOrderPayload'
+      - properties:
+          successUrl:
+            type: string
+          cancelUrl:
+            type: string
+          failUrl:
+            type: string
 
 #Properties
   isoTime:

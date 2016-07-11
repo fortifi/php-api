@@ -5,6 +5,8 @@ use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
+use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
+use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -98,11 +100,11 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   /**
    * @summary Confirm an order, authorize the payment
    *
-   * @param $cvv
+   * @param ConfirmCardOrderPayload $payload
    *
    * @return OrderConfirmationRequest
    */
-  public function confirmCard($cvv = null)
+  public function confirmCard(ConfirmCardOrderPayload $payload)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -117,7 +119,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         'orders/{orderFid}/confirmCard'
       )
     ));
-    $detail->addPostField('cvv', $cvv);
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
@@ -126,13 +128,11 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   /**
    * @summary Confirm an order, authorize the payment
    *
-   * @param $paymentId
-   * @param $token
-   * @param $payerId
+   * @param ConfirmPayPalOrderPayload $payload
    *
    * @return OrderConfirmationRequest
    */
-  public function confirmPayPal($paymentId = null, $token = null, $payerId = null)
+  public function confirmPayPal(ConfirmPayPalOrderPayload $payload)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -147,9 +147,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         'orders/{orderFid}/confirmPayPal'
       )
     ));
-    $detail->addPostField('paymentId', $paymentId);
-    $detail->addPostField('token', $token);
-    $detail->addPostField('payerId', $payerId);
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

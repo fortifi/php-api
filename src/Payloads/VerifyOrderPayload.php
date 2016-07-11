@@ -3,20 +3,9 @@ namespace Fortifi\Api\V1\Payloads;
 use Packaged\Helpers\Strings;
 
 class VerifyOrderPayload
+  extends ConfirmOrderPayload
   implements \JsonSerializable
 {
-  /**
-   * FID for the payment service you wish to charge the customer through
-   */
-  protected $_paymentServiceFid;
-  /**
-   * FID for the payment account you wish to charge the customer through
-   */
-  protected $_paymentAccountFid;
-  /**
-   * Payment Service Processor Type
-   */
-  protected $_paymentServiceProcessor;
   protected $_successUrl;
   protected $_cancelUrl;
   protected $_failUrl;
@@ -24,18 +13,7 @@ class VerifyOrderPayload
   public function hydrate($data)
   {
     $data = (array)$data;
-    if(isset($data["paymentServiceFid"]))
-    {
-      $this->_paymentServiceFid = $data["paymentServiceFid"];
-    }
-    if(isset($data["paymentAccountFid"]))
-    {
-      $this->_paymentAccountFid = $data["paymentAccountFid"];
-    }
-    if(isset($data["paymentServiceProcessor"]))
-    {
-      $this->_paymentServiceProcessor = $data["paymentServiceProcessor"];
-    }
+    parent::hydrate($data);
     if(isset($data["successUrl"]))
     {
       $this->_successUrl = $data["successUrl"];
@@ -53,89 +31,14 @@ class VerifyOrderPayload
 
   public function jsonSerialize()
   {
-    return [
-      "paymentServiceFid"       => $this->_paymentServiceFid,
-      "paymentAccountFid"       => $this->_paymentAccountFid,
-      "paymentServiceProcessor" => $this->_paymentServiceProcessor,
-      "successUrl"              => $this->_successUrl,
-      "cancelUrl"               => $this->_cancelUrl,
-      "failUrl"                 => $this->_failUrl,
-    ];
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPaymentServiceFid($value)
-  {
-    $this->_paymentServiceFid = $value;
-    return $this;
-  }
-
-  /**
-   * FID for the payment service you wish to charge the customer through
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPaymentServiceFid($default = null, $trim = true)
-  {
-    $value = $this->_paymentServiceFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPaymentAccountFid($value)
-  {
-    $this->_paymentAccountFid = $value;
-    return $this;
-  }
-
-  /**
-   * FID for the payment account you wish to charge the customer through
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPaymentAccountFid($default = null, $trim = true)
-  {
-    $value = $this->_paymentAccountFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPaymentServiceProcessor($value)
-  {
-    $this->_paymentServiceProcessor = $value;
-    return $this;
-  }
-
-  /**
-   * Payment Service Processor Type
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPaymentServiceProcessor($default = null, $trim = true)
-  {
-    $value = $this->_paymentServiceProcessor ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "successUrl" => $this->_successUrl,
+        "cancelUrl"  => $this->_cancelUrl,
+        "failUrl"    => $this->_failUrl,
+      ]
+    );
   }
 
   /**
