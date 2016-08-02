@@ -13,7 +13,7 @@ class SubscriptionsRequest
   public function jsonSerialize()
   {
     return [
-      "invoices" => $this->getInvoices(),
+      "subscriptions" => $this->getSubscriptions(),
     ];
   }
 
@@ -22,24 +22,24 @@ class SubscriptionsRequest
    *
    * @return SubscriptionRequest[]
    */
-  public function getInvoices($default = [])
+  public function getSubscriptions($default = [])
   {
-    return Objects::property($this->_getResultJson(), 'invoices', $default);
+    return Objects::property($this->_getResultJson(), 'subscriptions', $default);
   }
 
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
 
-    if(!empty($return->invoices))
+    if(!empty($return->subscriptions))
     {
       $tmp = [];
-      foreach($return->invoices as $itm)
+      foreach($return->subscriptions as $itm)
       {
         $tmp[] = (new SubscriptionRequest())
           ->hydrate($itm);
       }
-      $return->invoices = $tmp;
+      $return->subscriptions = $tmp;
     }
 
     return $return;

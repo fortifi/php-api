@@ -1937,7 +1937,7 @@ definitions:
 
   Subscriptions:
     properties:
-      invoices:
+      subscriptions:
         type: array
         items:
           $ref: "#/definitions/Subscription"
