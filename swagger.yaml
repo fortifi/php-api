@@ -1171,6 +1171,80 @@ paths:
         404:
           description: Customer not found
 
+  "/customers/{customerFid}/invoices":
+    get:
+      summary: Retrieve all invoices from a customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: List of invoices from a customer
+          schema:
+            $ref: '#/definitions/Invoices'
+        404:
+          description: Customer not found
+
+  "/customers/{customerFid}/invoices/{invoiceFid}":
+    get:
+      summary: Retreive specific invoice by customerFid and invoice Fid
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+      responses:
+        200:
+          description: Retrieve specifc invoice by customerFid and invoiceFid
+          schema:
+            $ref: '#/definitions/Invoice'
+        404:
+          description: Invoice not found
+
+  "/customers/{customerFid}/subscriptions":
+    get:
+      summary: Retrieve all subscriptions for a customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: List of all subscriptions for a customer
+          schema:
+            $ref: '#/definitions/Subscriptions'
+        404:
+          description: No subscriptions found
+
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}":
+    get:
+      summary: Retreive specific invoice by customerFid and invoice Fid
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Retrieve specifc subscription by customerFid and invoiceFid
+          schema:
+            $ref: '#/definitions/Subscription'
+        404:
+          description: Subscription not found
+
   /products:
     get:
       summary: List all products
@@ -1184,6 +1258,7 @@ paths:
           description: Products retrieved
           schema:
             $ref: '#/definitions/Products'
+
   "/products/{productFid}/prices":
     get:
       summary: Retrieve Product Prices
@@ -1239,6 +1314,7 @@ paths:
             $ref: '#/definitions/Order'
         404:
           description: Order not found
+
   "/orders/{orderFid}/verify":
     put:
       summary: Verify an order, returning any security urls
@@ -1259,6 +1335,7 @@ paths:
           description: Order payment account verified
           schema:
             $ref: '#/definitions/OrderVerification'
+
   "/orders/{orderFid}/confirmCard":
     put:
       summary: Confirm an order, authorize the payment
@@ -1281,6 +1358,7 @@ paths:
           description: Order confirmed and payment authroized
           schema:
             $ref: '#/definitions/OrderConfirmation'
+
   "/orders/{orderFid}/confirmPayPal":
     put:
       summary: Confirm an order, authorize the payment
@@ -1303,6 +1381,7 @@ paths:
           description: Order confirmed and payment authroized
           schema:
             $ref: '#/definitions/OrderConfirmation'
+
   "/orders/{orderFid}/confirmCoinbase":
     put:
       summary: Confirm an order, await payment
@@ -1320,6 +1399,7 @@ paths:
           description: Order confirmed; awaiting blockchain confirmation.
           schema:
             $ref: '#/definitions/OrderConfirmation'
+
   "/orders/{orderFid}/products":
     get:
       summary: Retrieve order products
@@ -1592,6 +1672,18 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  invoiceFid:
+    name: invoiceFid
+    in: path
+    type: string
+    required: true
+    description: Invoice Fid to use
+  subscriptionFid:
+    name: subscriptionFid
+    in: path
+    type: string
+    required: true
+    description: Subscription FID to use
   emailAddress:
     name: emailAddress
     in: path
@@ -1843,6 +1935,228 @@ definitions:
       value:
         type: string
 
+  Subscriptions:
+    properties:
+      invoices:
+        type: array
+        items:
+          $ref: "#/definitions/Subscription"
+
+  Subscription:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          agreementFid:
+            $ref: '#/definitions/Fid'
+          amount:
+            type: number
+            format: float
+          autoCancelDate:
+            $ref: '#/definitions/isoTime'
+          autoCharge:
+            type: boolean
+          autoChargePaymentAccountFid:
+            $ref: '#/definitions/Fid'
+          autoSuspendDate:
+            $ref: '#/definitions/isoTime'
+          currency:
+            type: string
+          cycleExact:
+            type: string
+          cycleTerm:
+            type: string
+          cycleType:
+            type: string
+          dateCancelled:
+            $ref: '#/definitions/isoTime'
+          dateInactive:
+            $ref: '#/definitions/isoTime'
+          dateSuspended:
+            $ref: '#/definitions/isoTime'
+          dateUpgraded:
+            $ref: '#/definitions/isoTime'
+          discount:
+            type: number
+            format: float
+          displayName:
+            type: string
+          endDate:
+            $ref: '#/definitions/isoTime'
+          invoiceFid:
+            type: string
+          isPaid:
+            type: boolean
+          lastRenewDate:
+            $ref: '#/definitions/isoTime'
+          nextPaymentDate:
+            $ref: '#/definitions/isoTime'
+          nextRenewalAmount:
+            type: number
+            format: float
+          nextRenewDate:
+            $ref: '#/definitions/isoTime'
+          offerFid:
+            type: string
+          paidRenewals:
+            type: integer
+            format: int32
+          paidUntil:
+            $ref: '#/definitions/isoTime'
+          price:
+            type: number
+            format: float
+          priceFid:
+            type: string
+          productFid:
+            type: string
+          quantity:
+            type: integer
+            format: int32
+          renewalAdvanceDays:
+            type: integer
+            format: int32
+          renewDate:
+            $ref: '#/definitions/isoTime'
+          setupAmount:
+            type: number
+            format: float
+          setupDiscount:
+            type: number
+            format: float
+          startDate:
+            $ref: '#/definitions/isoTime'
+          status:
+            type: string
+          taxAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          totalRenewals:
+            type: integer
+          trialEndDate:
+            $ref: '#/definitions/isoTime'
+          trialStartDate:
+            $ref: '#/definitions/isoTime'
+          uniqueReference:
+            type: string
+
+  Invoices:
+    properties:
+      invoices:
+        type: array
+        items:
+          $ref: "#/definitions/InvoiceSummary"
+
+  InvoiceSummary:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          invoiceFid:
+            $ref: '#/definitions/Fid'
+          invoiceDate:
+            $ref: '#/definitions/isoTime'
+          invoiceStatus:
+            type: string
+          totalItems:
+            type: integer
+            format: int32
+          baseAmount:
+            type: number
+            format: float
+          discountAmount:
+            type: number
+            format: float
+          taxAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          amountPaid:
+            type: number
+            format: float
+          amountRefunded:
+            type: number
+            format: float
+
+  Invoice:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          invoiceFid:
+            $ref: '#/definitions/Fid'
+          invoiceDate:
+            $ref: '#/definitions/isoTime'
+          currency:
+            type: string
+          dueDate:
+            $ref: '#/definitions/isoTime'
+          paymentDate:
+            $ref: '#/definitions/isoTime'
+          amountPaid:
+            type: number
+            format: float
+          baseAmount:
+            type: number
+            format: float
+          discountAmount:
+            type: number
+            format: float
+          taxAmount:
+            type: number
+            format: float
+          creditedAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          refundAmount:
+            type: number
+            format: float
+          invoiceStatus:
+            type: string
+          totalItems:
+            type: integer
+            format: int32
+          invoiceItems:
+            $ref: '#/definitions/InvoiceItems'
+
+  InvoiceItems:
+    properties:
+      invoiceItems:
+        type: array
+        items:
+          $ref: "#/definitions/InvoiceItem"
+
+  InvoiceItem:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          productFid:
+            type: string
+          purchaseFid:
+            type: string
+          chargeRequestFid:
+            type: string
+          fromDate:
+            $ref: '#/definitions/isoTime'
+          toDate:
+            $ref: '#/definitions/isoTime'
+          perUnitAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          itemType:
+            type: string
+          quantity:
+            type: integer
+            format: int32
+
   Products:
     properties:
       products:
@@ -1852,7 +2166,7 @@ definitions:
 
   Product:
     allOf:
-      - $ref: '#/definitions/Entity'
+      - $ref: "#/definitions/Entity"
       - properties:
           productType:
             type: string
