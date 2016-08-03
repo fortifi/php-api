@@ -35,12 +35,14 @@ class InvoiceRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
-   * @return FidRequest
+   * @return string
    */
-  public function getInvoiceFid($default = null)
+  public function getInvoiceFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'invoiceFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'invoiceFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -202,12 +204,6 @@ class InvoiceRequest
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
-
-    if(!empty($return->invoiceFid))
-    {
-      $return->invoiceFid = (new FidRequest())
-        ->hydrate($return->invoiceFid);
-    }
 
     if(!empty($return->invoiceItems))
     {

@@ -62,12 +62,14 @@ class SubscriptionRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
-   * @return FidRequest
+   * @return string
    */
-  public function getAgreementFid($default = null)
+  public function getAgreementFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'agreementFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'agreementFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -106,12 +108,14 @@ class SubscriptionRequest
 
   /**
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
-   * @return FidRequest
+   * @return string
    */
-  public function getAutoChargePaymentAccountFid($default = null)
+  public function getAutoChargePaymentAccountFid($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'autoChargePaymentAccountFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'autoChargePaymentAccountFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -560,24 +564,5 @@ class SubscriptionRequest
   {
     $value = Objects::property($this->_getResultJson(), 'uniqueReference', $default);
     return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  protected function _prepareResult($result)
-  {
-    $return = parent::_prepareResult($result);
-
-    if(!empty($return->agreementFid))
-    {
-      $return->agreementFid = (new FidRequest())
-        ->hydrate($return->agreementFid);
-    }
-
-    if(!empty($return->autoChargePaymentAccountFid))
-    {
-      $return->autoChargePaymentAccountFid = (new FidRequest())
-        ->hydrate($return->autoChargePaymentAccountFid);
-    }
-
-    return $return;
   }
 }

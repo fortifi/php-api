@@ -1947,7 +1947,7 @@ definitions:
       - $ref: "#/definitions/Entity"
       - properties:
           agreementFid:
-            $ref: '#/definitions/Fid'
+            type: string
           amount:
             type: number
             format: float
@@ -1956,7 +1956,7 @@ definitions:
           autoCharge:
             type: boolean
           autoChargePaymentAccountFid:
-            $ref: '#/definitions/Fid'
+            type: string
           autoSuspendDate:
             $ref: '#/definitions/isoTime'
           currency:
@@ -2054,7 +2054,7 @@ definitions:
       - $ref: "#/definitions/Entity"
       - properties:
           invoiceFid:
-            $ref: '#/definitions/Fid'
+            type: string
           invoiceDate:
             $ref: '#/definitions/isoTime'
           invoiceStatus:
@@ -2086,7 +2086,7 @@ definitions:
       - $ref: "#/definitions/Entity"
       - properties:
           invoiceFid:
-            $ref: '#/definitions/Fid'
+            type: string
           invoiceDate:
             $ref: '#/definitions/isoTime'
           currency:
