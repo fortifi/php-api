@@ -1946,8 +1946,6 @@ definitions:
     allOf:
       - $ref: "#/definitions/Entity"
       - properties:
-          agreementFid:
-            type: string
           amount:
             type: number
             format: float
@@ -1955,10 +1953,13 @@ definitions:
             $ref: '#/definitions/isoTime'
           autoCharge:
             type: boolean
-          autoChargePaymentAccountFid:
-            type: string
           autoSuspendDate:
             $ref: '#/definitions/isoTime'
+          cancelDays:
+            type: integer
+            format: int32
+          cancelReason:
+            type: string
           currency:
             type: string
           cycleExact:
@@ -1969,7 +1970,13 @@ definitions:
             type: string
           dateCancelled:
             $ref: '#/definitions/isoTime'
+          dateCreated:
+            $ref: '#/definitions/isoTime'
           dateInactive:
+            $ref: '#/definitions/isoTime'
+          dateModified:
+            $ref: '#/definitions/isoTime'
+          dateStateChanged:
             $ref: '#/definitions/isoTime'
           dateSuspended:
             $ref: '#/definitions/isoTime'
@@ -1978,10 +1985,10 @@ definitions:
           discount:
             type: number
             format: float
-          displayName:
-            type: string
           endDate:
             $ref: '#/definitions/isoTime'
+          fid:
+            type: string
           invoiceFid:
             type: string
           isPaid:
@@ -1995,20 +2002,11 @@ definitions:
             format: float
           nextRenewDate:
             $ref: '#/definitions/isoTime'
-          offerFid:
-            type: string
           paidRenewals:
             type: integer
             format: int32
           paidUntil:
             $ref: '#/definitions/isoTime'
-          price:
-            type: number
-            format: float
-          priceFid:
-            type: string
-          productFid:
-            type: string
           quantity:
             type: integer
             format: int32
@@ -2023,9 +2021,18 @@ definitions:
           setupDiscount:
             type: number
             format: float
+          shouldCancel:
+            type: boolean
+          shouldSuspend:
+            type: boolean
           startDate:
             $ref: '#/definitions/isoTime'
           status:
+            type: string
+          suspendDays:
+            type: integer
+            format: int32
+          suspendReason:
             type: string
           taxAmount:
             type: number
@@ -2035,6 +2042,7 @@ definitions:
             format: float
           totalRenewals:
             type: integer
+            format: int32
           trialEndDate:
             $ref: '#/definitions/isoTime'
           trialStartDate:
@@ -2047,39 +2055,7 @@ definitions:
       invoices:
         type: array
         items:
-          $ref: "#/definitions/InvoiceSummary"
-
-  InvoiceSummary:
-    allOf:
-      - $ref: "#/definitions/Entity"
-      - properties:
-          invoiceFid:
-            type: string
-          invoiceDate:
-            $ref: '#/definitions/isoTime'
-          invoiceStatus:
-            type: string
-          totalItems:
-            type: integer
-            format: int32
-          baseAmount:
-            type: number
-            format: float
-          discountAmount:
-            type: number
-            format: float
-          taxAmount:
-            type: number
-            format: float
-          totalAmount:
-            type: number
-            format: float
-          amountPaid:
-            type: number
-            format: float
-          amountRefunded:
-            type: number
-            format: float
+          $ref: "#/definitions/Invoice"
 
   Invoice:
     allOf:
@@ -2113,6 +2089,9 @@ definitions:
           totalAmount:
             type: number
             format: float
+          outstandingAmount:
+            type: number
+            format: float
           refundAmount:
             type: number
             format: float
@@ -2132,15 +2111,27 @@ definitions:
           $ref: "#/definitions/InvoiceItem"
 
   InvoiceItem:
+    properties:
+      purchaseItem:
+        type: string
+      purchaseFid:
+        type: string
+      invoiceSubItems:
+        type: array
+        items:
+          $ref: "#/definitions/InvoiceSubItems"
+
+  InvoiceSubItems:
+    properties:
+      invoiceSubItems:
+        type: array
+        items:
+          $ref: "#/definitions/InvoiceSubItem"
+
+  InvoiceSubItem:
     allOf:
       - $ref: "#/definitions/Entity"
       - properties:
-          productFid:
-            type: string
-          purchaseFid:
-            type: string
-          chargeRequestFid:
-            type: string
           fromDate:
             $ref: '#/definitions/isoTime'
           toDate:

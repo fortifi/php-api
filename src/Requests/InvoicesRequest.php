@@ -20,7 +20,7 @@ class InvoicesRequest
   /**
    * @param mixed $default
    *
-   * @return InvoiceSummaryRequest[]
+   * @return InvoiceRequest[]
    */
   public function getInvoices($default = [])
   {
@@ -36,7 +36,7 @@ class InvoicesRequest
       $tmp = [];
       foreach($return->invoices as $itm)
       {
-        $tmp[] = (new InvoiceSummaryRequest())
+        $tmp[] = (new InvoiceRequest())
           ->hydrate($itm);
       }
       $return->invoices = $tmp;

@@ -5,7 +5,7 @@ use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class InvoiceItemRequest
+class InvoiceSubItemsRequest
   extends ApiRequest
   implements \JsonSerializable
 {
@@ -13,40 +13,14 @@ class InvoiceItemRequest
   public function jsonSerialize()
   {
     return [
-      "purchaseItem" => $this->getPurchaseItem(),
-      "purchaseFid" => $this->getPurchaseFid(),
       "invoiceSubItems" => $this->getInvoiceSubItems(),
     ];
   }
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
-   */
-  public function getPurchaseItem($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'purchaseItem', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPurchaseFid($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'purchaseFid', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return InvoiceSubItemsRequest[]
+   * @return InvoiceSubItemRequest[]
    */
   public function getInvoiceSubItems($default = [])
   {
@@ -62,7 +36,7 @@ class InvoiceItemRequest
       $tmp = [];
       foreach($return->invoiceSubItems as $itm)
       {
-        $tmp[] = (new InvoiceSubItemsRequest())
+        $tmp[] = (new InvoiceSubItemRequest())
           ->hydrate($itm);
       }
       $return->invoiceSubItems = $tmp;

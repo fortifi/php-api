@@ -25,6 +25,7 @@ class InvoiceRequest
         "taxAmount" => $this->getTaxAmount(),
         "creditedAmount" => $this->getCreditedAmount(),
         "totalAmount" => $this->getTotalAmount(),
+        "outstandingAmount" => $this->getOutstandingAmount(),
         "refundAmount" => $this->getRefundAmount(),
         "invoiceStatus" => $this->getInvoiceStatus(),
         "totalItems" => $this->getTotalItems(),
@@ -157,6 +158,16 @@ class InvoiceRequest
   public function getTotalAmount($default = null)
   {
     return Objects::property($this->_getResultJson(), 'totalAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getOutstandingAmount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'outstandingAmount', $default);
   }
 
   /**
