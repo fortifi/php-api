@@ -14,7 +14,6 @@ class InvoiceRequest
     return array_merge(
       parent::jsonSerialize(),
       [
-        "invoiceFid" => $this->getInvoiceFid(),
         "invoiceDate" => $this->getInvoiceDate(),
         "currency" => $this->getCurrency(),
         "dueDate" => $this->getDueDate(),
@@ -32,18 +31,6 @@ class InvoiceRequest
         "invoiceItems" => $this->getInvoiceItems(),
       ]
     );
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getInvoiceFid($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'invoiceFid', $default);
-    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -205,9 +192,9 @@ class InvoiceRequest
   /**
    * @param mixed $default
    *
-   * @return InvoiceItemsRequest
+   * @return InvoiceItemRequest[]
    */
-  public function getInvoiceItems($default = null)
+  public function getInvoiceItems($default = [])
   {
     return Objects::property($this->_getResultJson(), 'invoiceItems', $default);
   }
@@ -218,8 +205,13 @@ class InvoiceRequest
 
     if(!empty($return->invoiceItems))
     {
-      $return->invoiceItems = (new InvoiceItemsRequest())
-        ->hydrate($return->invoiceItems);
+      $tmp = [];
+      foreach($return->invoiceItems as $itm)
+      {
+        $tmp[] = (new InvoiceItemRequest())
+          ->hydrate($itm);
+      }
+      $return->invoiceItems = $tmp;
     }
 
     return $return;

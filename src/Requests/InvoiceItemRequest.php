@@ -1,71 +1,58 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
 class InvoiceItemRequest
-  extends ApiRequest
+  extends EntityRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "purchaseItem" => $this->getPurchaseItem(),
-      "purchaseFid" => $this->getPurchaseFid(),
-      "invoiceSubItems" => $this->getInvoiceSubItems(),
-    ];
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPurchaseItem($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'purchaseItem', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPurchaseFid($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'purchaseFid', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "totalAmount" => $this->getTotalAmount(),
+        "subItems" => $this->getSubItems(),
+      ]
+    );
   }
 
   /**
    * @param mixed $default
    *
-   * @return InvoiceSubItemsRequest[]
+   * @return float
    */
-  public function getInvoiceSubItems($default = [])
+  public function getTotalAmount($default = null)
   {
-    return Objects::property($this->_getResultJson(), 'invoiceSubItems', $default);
+    return Objects::property($this->_getResultJson(), 'totalAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return InvoiceSubItemRequest[]
+   */
+  public function getSubItems($default = [])
+  {
+    return Objects::property($this->_getResultJson(), 'subItems', $default);
   }
 
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
 
-    if(!empty($return->invoiceSubItems))
+    if(!empty($return->subItems))
     {
       $tmp = [];
-      foreach($return->invoiceSubItems as $itm)
+      foreach($return->subItems as $itm)
       {
-        $tmp[] = (new InvoiceSubItemsRequest())
+        $tmp[] = (new InvoiceSubItemRequest())
           ->hydrate($itm);
       }
-      $return->invoiceSubItems = $tmp;
+      $return->subItems = $tmp;
     }
 
     return $return;

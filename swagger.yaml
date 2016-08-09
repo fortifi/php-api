@@ -2061,8 +2061,6 @@ definitions:
     allOf:
       - $ref: "#/definitions/Entity"
       - properties:
-          invoiceFid:
-            type: string
           invoiceDate:
             $ref: '#/definitions/isoTime'
           currency:
@@ -2101,32 +2099,21 @@ definitions:
             type: integer
             format: int32
           invoiceItems:
-            $ref: '#/definitions/InvoiceItems'
-
-  InvoiceItems:
-    properties:
-      invoiceItems:
-        type: array
-        items:
-          $ref: "#/definitions/InvoiceItem"
+            type: array
+            items:
+              $ref: "#/definitions/InvoiceItem"
 
   InvoiceItem:
-    properties:
-      purchaseItem:
-        type: string
-      purchaseFid:
-        type: string
-      invoiceSubItems:
-        type: array
-        items:
-          $ref: "#/definitions/InvoiceSubItems"
-
-  InvoiceSubItems:
-    properties:
-      invoiceSubItems:
-        type: array
-        items:
-          $ref: "#/definitions/InvoiceSubItem"
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          totalAmount:
+            type: number
+            format: float
+          subItems:
+            type: array
+            items:
+              $ref: "#/definitions/InvoiceSubItem"
 
   InvoiceSubItem:
     allOf:
