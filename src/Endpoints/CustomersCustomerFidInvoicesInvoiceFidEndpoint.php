@@ -17,7 +17,7 @@ class CustomersCustomerFidInvoicesInvoiceFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Retreive specific invoice by customerFid and invoice Fid
+   * @summary Retreive a specific itemised invoice
    *
    * @return InvoiceRequest
    */

@@ -1,26 +1,28 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
 class InvoicesRequest
-  extends ApiRequest
+  extends PaginationRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "invoices" => $this->getInvoices(),
-    ];
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "invoices" => $this->getInvoices(),
+      ]
+    );
   }
 
   /**
    * @param mixed $default
    *
-   * @return InvoiceRequest[]
+   * @return InvoiceSummaryRequest[]
    */
   public function getInvoices($default = [])
   {
@@ -36,7 +38,7 @@ class InvoicesRequest
       $tmp = [];
       foreach($return->invoices as $itm)
       {
-        $tmp[] = (new InvoiceRequest())
+        $tmp[] = (new InvoiceSummaryRequest())
           ->hydrate($itm);
       }
       $return->invoices = $tmp;

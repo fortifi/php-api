@@ -17,7 +17,7 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
-   * @summary Retreive specific invoice by customerFid and invoice Fid
+   * @summary Retreive a specific subscription
    *
    * @return SubscriptionRequest
    */

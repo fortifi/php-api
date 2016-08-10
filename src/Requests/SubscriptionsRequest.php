@@ -1,26 +1,28 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
 class SubscriptionsRequest
-  extends ApiRequest
+  extends PaginationRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "subscriptions" => $this->getSubscriptions(),
-    ];
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "subscriptions" => $this->getSubscriptions(),
+      ]
+    );
   }
 
   /**
    * @param mixed $default
    *
-   * @return SubscriptionRequest[]
+   * @return SubscriptionSummaryRequest[]
    */
   public function getSubscriptions($default = [])
   {
@@ -36,7 +38,7 @@ class SubscriptionsRequest
       $tmp = [];
       foreach($return->subscriptions as $itm)
       {
-        $tmp[] = (new SubscriptionRequest())
+        $tmp[] = (new SubscriptionSummaryRequest())
           ->hydrate($itm);
       }
       $return->subscriptions = $tmp;

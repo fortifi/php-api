@@ -33,7 +33,6 @@ class SubscriptionRequest
         "dateUpgraded" => $this->getDateUpgraded(),
         "discount" => $this->getDiscount(),
         "endDate" => $this->getEndDate(),
-        "fid" => $this->getFid(),
         "invoiceFid" => $this->getInvoiceFid(),
         "isPaid" => $this->isPaid(),
         "lastRenewDate" => $this->getLastRenewDate(),
@@ -300,18 +299,6 @@ class SubscriptionRequest
   public function getEndDate($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'endDate', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getFid($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'fid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

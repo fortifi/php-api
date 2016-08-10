@@ -31,11 +31,14 @@ class CustomersCustomerFidSubscriptionsEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Retrieve all subscriptions for a customer
+   * @summary List of subscription summaries for given customer
+   *
+   * @param $limit
+   * @param $page
    *
    * @return SubscriptionsRequest
    */
-  public function all()
+  public function all($limit = null, $page = null)
   {
     $request = new SubscriptionsRequest();
     $request->setConnection($this->_getConnection());
@@ -50,6 +53,8 @@ class CustomersCustomerFidSubscriptionsEndpoint extends ApiEndpoint
         'customers/{customerFid}/subscriptions'
       )
     ));
+    $detail->addQueryField('limit', $limit);
+    $detail->addQueryField('page', $page);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

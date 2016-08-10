@@ -1173,7 +1173,7 @@ paths:
 
   "/customers/{customerFid}/invoices":
     get:
-      summary: Retrieve all invoices from a customer
+      summary: List of invoice summaries for given customer
       tags:
         - customers
       security:
@@ -1181,17 +1181,25 @@ paths:
           - customer
       parameters:
         - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: "Maximum number of records per page (default: 20)"
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: "Page number (default: 0)"
+          required: false
+          type: string
       responses:
         200:
-          description: List of invoices from a customer
+          description: List of invoices summaries
           schema:
             $ref: '#/definitions/Invoices'
-        404:
-          description: Customer not found
 
   "/customers/{customerFid}/invoices/{invoiceFid}":
     get:
-      summary: Retreive specific invoice by customerFid and invoice Fid
+      summary: Retreive a specific itemised invoice
       tags:
         - customers
       security:
@@ -1202,7 +1210,7 @@ paths:
         - $ref: '#/parameters/invoiceFid'
       responses:
         200:
-          description: Retrieve specifc invoice by customerFid and invoiceFid
+          description: Loaded invoice
           schema:
             $ref: '#/definitions/Invoice'
         404:
@@ -1210,7 +1218,7 @@ paths:
 
   "/customers/{customerFid}/subscriptions":
     get:
-      summary: Retrieve all subscriptions for a customer
+      summary: List of subscription summaries for given customer
       tags:
         - customers
       security:
@@ -1218,17 +1226,25 @@ paths:
           - customer
       parameters:
         - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: "Maximum number of records per page (default: 20)"
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: "Page number (default: 0)"
+          required: false
+          type: string
       responses:
         200:
-          description: List of all subscriptions for a customer
+          description: List of subscription summaries
           schema:
             $ref: '#/definitions/Subscriptions'
-        404:
-          description: No subscriptions found
 
   "/customers/{customerFid}/subscriptions/{subscriptionFid}":
     get:
-      summary: Retreive specific invoice by customerFid and invoice Fid
+      summary: Retreive a specific subscription
       tags:
         - customers
       security:
@@ -1239,7 +1255,7 @@ paths:
         - $ref: '#/parameters/subscriptionFid'
       responses:
         200:
-          description: Retrieve specifc subscription by customerFid and invoiceFid
+          description: Loaded subscription
           schema:
             $ref: '#/definitions/Subscription'
         404:
@@ -1936,11 +1952,31 @@ definitions:
         type: string
 
   Subscriptions:
-    properties:
-      subscriptions:
-        type: array
-        items:
-          $ref: "#/definitions/Subscription"
+    allOf:
+      - $ref: "#/definitions/Pagination"
+      - properties:
+          subscriptions:
+            type: array
+            items:
+              $ref: "#/definitions/SubscriptionSummary"
+
+  SubscriptionSummary:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          lastRenewed:
+            $ref: '#/definitions/isoTime'
+          renewalDate:
+            $ref: '#/definitions/isoTime'
+          paidUntil:
+            $ref: '#/definitions/isoTime'
+          cycle:
+            type: string
+          renewalPrice:
+            type: number
+            format: float
+          status:
+            type: string
 
   Subscription:
     allOf:
@@ -1987,8 +2023,6 @@ definitions:
             format: float
           endDate:
             $ref: '#/definitions/isoTime'
-          fid:
-            type: string
           invoiceFid:
             type: string
           isPaid:
@@ -2051,11 +2085,55 @@ definitions:
             type: string
 
   Invoices:
-    properties:
-      invoices:
-        type: array
-        items:
-          $ref: "#/definitions/Invoice"
+    allOf:
+      - $ref: "#/definitions/Pagination"
+      - properties:
+          invoices:
+            type: array
+            items:
+              $ref: "#/definitions/InvoiceSummary"
+
+  InvoiceSummary:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          invoiceNumber:
+            type: integer
+            format: int32
+          invoiceDate:
+            $ref: '#/definitions/isoTime'
+          currency:
+            type: string
+          dueDate:
+            $ref: '#/definitions/isoTime'
+          paymentDate:
+            $ref: '#/definitions/isoTime'
+          amountPaid:
+            type: number
+            format: float
+          baseAmount:
+            type: number
+            format: float
+          discountAmount:
+            type: number
+            format: float
+          taxAmount:
+            type: number
+            format: float
+          creditedAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          outstandingAmount:
+            type: number
+            format: float
+          refundAmount:
+            type: number
+            format: float
+          invoiceStatus:
+            type: string
 
   Invoice:
     allOf:
@@ -2134,6 +2212,18 @@ definitions:
           quantity:
             type: integer
             format: int32
+
+  Pagination:
+    properties:
+      limit:
+        type: integer
+        format: int32
+      page:
+        type: integer
+        format: int32
+      totalItems:
+        type: integer
+        format: int32
 
   Products:
     properties:

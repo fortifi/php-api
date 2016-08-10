@@ -31,11 +31,14 @@ class CustomersCustomerFidInvoicesEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Retrieve all invoices from a customer
+   * @summary List of invoice summaries for given customer
+   *
+   * @param $limit
+   * @param $page
    *
    * @return InvoicesRequest
    */
-  public function all()
+  public function all($limit = null, $page = null)
   {
     $request = new InvoicesRequest();
     $request->setConnection($this->_getConnection());
@@ -50,6 +53,8 @@ class CustomersCustomerFidInvoicesEndpoint extends ApiEndpoint
         'customers/{customerFid}/invoices'
       )
     ));
+    $detail->addQueryField('limit', $limit);
+    $detail->addQueryField('page', $page);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
