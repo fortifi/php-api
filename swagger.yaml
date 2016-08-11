@@ -1261,6 +1261,29 @@ paths:
         404:
           description: Subscription not found
 
+  "/customers/{customerFid}/subscriptions/modify":
+    post:
+      summary: modify subscription product and term
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ModifySubscriptionPayload'
+      responses:
+        200:
+          description: Successfully modified subscription
+        400:
+          description: Invalid payload data
+        404:
+          description: Subscription not found
+
   /products:
     get:
       summary: List all products
@@ -1452,6 +1475,7 @@ paths:
           description: Product added to the order successfully
           schema:
             $ref: '#/definitions/OrderAddProducts'
+
   "/orders/{orderFid}/products/{orderProductFid}":
     delete:
       summary: Remove a product from an order
@@ -1466,6 +1490,7 @@ paths:
       responses:
         200:
           description: Product removed from the order successfully
+
   "/orders/{orderFid}/offers":
     post:
       summary: Add an offer to an order
@@ -1494,6 +1519,7 @@ paths:
           description: Offer added to the order successfully
         404:
           description: Order not found
+
   "/orders/{orderFid}/offers/{offerFid}":
     delete:
       summary: Remove an offer from an order
@@ -2493,6 +2519,15 @@ definitions:
             type: boolean
 
 #Payloads
+  ModifySubscriptionPayload:
+    properties:
+      subscriptionFid:
+        $ref: '#/definitions/subscriptionFid'
+      priceFid:
+        $ref: '#/definitions/priceFid'
+    required:
+      - subscriptionFid
+      - priceFid
   CreatePolymerPayload:
     properties:
       polymerCode:
@@ -2860,6 +2895,13 @@ definitions:
             type: string
 
 #Properties
+
+  subscriptionFid:
+    description: Subscription FID to match a subscription with
+    type: string
+  priceFid:
+    description: Price FID to modify subscription with
+    type: string
   isoTime:
     description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
     type: string
