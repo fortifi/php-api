@@ -1268,7 +1268,7 @@ paths:
         - customers
       security:
         - OAuth:
-          - orders
+          - customer
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: payload
