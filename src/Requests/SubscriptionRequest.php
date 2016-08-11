@@ -21,9 +21,7 @@ class SubscriptionRequest
         "cancelDays" => $this->getCancelDays(),
         "cancelReason" => $this->getCancelReason(),
         "currency" => $this->getCurrency(),
-        "cycleExact" => $this->getCycleExact(),
-        "cycleTerm" => $this->getCycleTerm(),
-        "cycleType" => $this->getCycleType(),
+        "cycle" => $this->getCycle(),
         "dateCancelled" => $this->getDateCancelled(),
         "dateCreated" => $this->getDateCreated(),
         "dateInactive" => $this->getDateInactive(),
@@ -150,33 +148,9 @@ class SubscriptionRequest
    *
    * @return string
    */
-  public function getCycleExact($default = null, $trim = true)
+  public function getCycle($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'cycleExact', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCycleTerm($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'cycleTerm', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCycleType($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'cycleType', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

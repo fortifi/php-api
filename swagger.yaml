@@ -1998,11 +1998,7 @@ definitions:
             type: string
           currency:
             type: string
-          cycleExact:
-            type: string
-          cycleTerm:
-            type: string
-          cycleType:
+          cycle:
             type: string
           dateCancelled:
             $ref: '#/definitions/isoTime'
