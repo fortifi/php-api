@@ -69,7 +69,7 @@ class CustomersCustomerFidSubscriptionsEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function createModify(ModifySubscriptionPayload $payload)
+  public function setModify(ModifySubscriptionPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -85,7 +85,7 @@ class CustomersCustomerFidSubscriptionsEndpoint extends ApiEndpoint
       )
     ));
     $detail->setBody(json_encode($payload));
-    $detail->setMethod('POST');
+    $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
   }

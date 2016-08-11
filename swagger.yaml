@@ -1262,7 +1262,7 @@ paths:
           description: Subscription not found
 
   "/customers/{customerFid}/subscriptions/modify":
-    post:
+    put:
       summary: modify subscription product and term
       tags:
         - customers
