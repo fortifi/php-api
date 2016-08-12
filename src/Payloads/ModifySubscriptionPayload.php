@@ -6,11 +6,6 @@ class ModifySubscriptionPayload
   implements \JsonSerializable
 {
   /**
-   * Subscription FID to match a subscription with
-   * @required
-   */
-  protected $_subscriptionFid;
-  /**
    * Price FID to modify subscription with
    * @required
    */
@@ -19,10 +14,6 @@ class ModifySubscriptionPayload
   public function hydrate($data)
   {
     $data = (array)$data;
-    if(isset($data["subscriptionFid"]))
-    {
-      $this->_subscriptionFid = $data["subscriptionFid"];
-    }
     if(isset($data["priceFid"]))
     {
       $this->_priceFid = $data["priceFid"];
@@ -33,34 +24,8 @@ class ModifySubscriptionPayload
   public function jsonSerialize()
   {
     return [
-      "subscriptionFid" => $this->_subscriptionFid,
-      "priceFid"        => $this->_priceFid,
+      "priceFid" => $this->_priceFid,
     ];
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setSubscriptionFid($value)
-  {
-    $this->_subscriptionFid = $value;
-    return $this;
-  }
-
-  /**
-   * Subscription FID to match a subscription with
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getSubscriptionFid($default = null, $trim = true)
-  {
-    $value = $this->_subscriptionFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

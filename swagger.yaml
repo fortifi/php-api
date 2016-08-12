@@ -1261,7 +1261,7 @@ paths:
         404:
           description: Subscription not found
 
-  "/customers/{customerFid}/subscriptions/modify":
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/modify":
     put:
       summary: modify subscription product and term
       tags:
@@ -1271,6 +1271,7 @@ paths:
           - customer
       parameters:
         - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
         - name: payload
           in: body
           required: true
@@ -2521,12 +2522,9 @@ definitions:
 #Payloads
   ModifySubscriptionPayload:
     properties:
-      subscriptionFid:
-        $ref: '#/definitions/subscriptionFid'
       priceFid:
         $ref: '#/definitions/priceFid'
     required:
-      - subscriptionFid
       - priceFid
   CreatePolymerPayload:
     properties:
@@ -2895,10 +2893,6 @@ definitions:
             type: string
 
 #Properties
-
-  subscriptionFid:
-    description: Subscription FID to match a subscription with
-    type: string
   priceFid:
     description: Price FID to modify subscription with
     type: string
