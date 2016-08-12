@@ -1263,7 +1263,7 @@ paths:
 
   "/customers/{customerFid}/subscriptions/{subscriptionFid}/modify":
     put:
-      summary: modify subscription product and term
+      summary: Modify an existing subscription with a new price. Returns new open order to be completed
       tags:
         - customers
       security:
@@ -1279,7 +1279,9 @@ paths:
             $ref: '#/definitions/ModifySubscriptionPayload'
       responses:
         200:
-          description: Successfully modified subscription
+          description: Created new open order
+          schema:
+            $ref: '#/definitions/Fid'
         400:
           description: Invalid payload data
         404:
