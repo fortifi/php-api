@@ -1261,6 +1261,40 @@ paths:
         404:
           description: Subscription not found
 
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/enableAutoCharge":
+    put:
+      summary: Enable auto charge on specific subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Auto charge enabled
+        404:
+          description: Subscription not found
+
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/disableAutoCharge":
+    put:
+      summary: Disable auto charge on specific subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Auto charge disabled
+        404:
+          description: Subscription not found
+
   "/customers/{customerFid}/subscriptions/{subscriptionFid}/modify":
     put:
       summary: Modify an existing subscription with a new price. Returns new open order to be completed
@@ -2166,6 +2200,9 @@ definitions:
       - properties:
           invoiceDate:
             $ref: '#/definitions/isoTime'
+          invoiceNumber:
+            type: integer
+            format: int32
           currency:
             type: string
           dueDate:

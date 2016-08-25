@@ -5,6 +5,7 @@ use Fortifi\Api\V1\Requests\SubscriptionRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoint
@@ -39,6 +40,56 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
       )
     ));
     $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Enable auto charge on specific subscription
+   *
+   * @return ApiRequest
+   */
+  public function setEnableAutoCharge()
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/enableAutoCharge'
+      )
+    ));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Disable auto charge on specific subscription
+   *
+   * @return ApiRequest
+   */
+  public function setDisableAutoCharge()
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/disableAutoCharge'
+      )
+    ));
+    $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
   }
