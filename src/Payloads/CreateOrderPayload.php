@@ -26,6 +26,10 @@ class CreateOrderPayload
    */
   protected $_userAgent;
   /**
+   * Order Type (Must be initial to Auth Cards)
+   */
+  protected $_type;
+  /**
    * Product price FIDs to add
    */
   protected $_productPriceFids;
@@ -57,6 +61,10 @@ class CreateOrderPayload
     {
       $this->_userAgent = $data["userAgent"];
     }
+    if(isset($data["type"]))
+    {
+      $this->_type = $data["type"];
+    }
     if(isset($data["productPriceFids"]))
     {
       $this->_productPriceFids = $data["productPriceFids"];
@@ -76,6 +84,7 @@ class CreateOrderPayload
       "customerFid"       => $this->_customerFid,
       "clientIp"          => $this->_clientIp,
       "userAgent"         => $this->_userAgent,
+      "type"              => $this->_type,
       "productPriceFids"  => $this->_productPriceFids,
       "offerFids"         => $this->_offerFids,
     ];
@@ -203,6 +212,31 @@ class CreateOrderPayload
   public function getUserAgent($default = null, $trim = true)
   {
     $value = $this->_userAgent ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setType($value)
+  {
+    $this->_type = $value;
+    return $this;
+  }
+
+  /**
+   * Order Type (Must be initial to Auth Cards)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getType($default = null, $trim = true)
+  {
+    $value = $this->_type ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

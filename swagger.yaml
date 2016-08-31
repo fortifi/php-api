@@ -2878,6 +2878,8 @@ definitions:
         $ref: '#/definitions/clientIp'
       userAgent:
         $ref: '#/definitions/userAgent'
+      type:
+        $ref: '#/definitions/CreateOrderType'
       productPriceFids:
         type: array
         description: Product price FIDs to add
@@ -3075,6 +3077,12 @@ definitions:
     - prepayment
     - fortifipay
     - coinbase
+  CreateOrderType:
+    description: Order Type (Must be initial to Auth Cards)
+    type: string
+    enum:
+    - initial
+    - purchase
   externalReference:
     description: External (to Fortifi) Reference e.g. your internal Unique ID
     type: string
