@@ -9,6 +9,10 @@ class AddOrderProductsPayload
    * Product price FIDs to add
    */
   protected $_productPriceFids;
+  /**
+   * Quantity of products to add, keyed by priceFid
+   */
+  protected $_quantityProductPriceFids;
 
   public function hydrate($data)
   {
@@ -17,13 +21,18 @@ class AddOrderProductsPayload
     {
       $this->_productPriceFids = $data["productPriceFids"];
     }
+    if(isset($data["quantityProductPriceFids"]))
+    {
+      $this->_quantityProductPriceFids = $data["quantityProductPriceFids"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "productPriceFids" => $this->_productPriceFids,
+      "productPriceFids"         => $this->_productPriceFids,
+      "quantityProductPriceFids" => $this->_quantityProductPriceFids,
     ];
   }
 
@@ -59,5 +68,39 @@ class AddOrderProductsPayload
   public function getProductPriceFids($default = [])
   {
     return $this->_productPriceFids ?: $default;
+  }
+
+  /**
+   * @param array $value
+   *
+   * @return $this
+   */
+  public function setQuantityProductPriceFids(array $value)
+  {
+    $this->_quantityProductPriceFids = $value;
+    return $this;
+  }
+
+  /**
+   * @param $item
+   *
+   * @return $this
+   */
+  public function addQuantityProductPriceFid($item)
+  {
+    $this->_quantityProductPriceFids[] = $item;
+    return $this;
+  }
+
+  /**
+   * Quantity of products to add, keyed by priceFid
+   *
+   * @param mixed $default
+   *
+   * @return number[]
+   */
+  public function getQuantityProductPriceFids($default = [])
+  {
+    return $this->_quantityProductPriceFids ?: $default;
   }
 }

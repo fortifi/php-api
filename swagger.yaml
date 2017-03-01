@@ -2433,6 +2433,8 @@ definitions:
             type: string
           productFid:
             type: string
+          quantity:
+            type: number
           renewalDate:
             $ref: '#/definitions/isoTime'
 
@@ -2898,6 +2900,11 @@ definitions:
         description: Product price FIDs to add
         items:
           type: string
+      quantityProductPriceFids:
+        type: array
+        description: Quantity of products to add, keyed by priceFid
+        items:
+          type: number
 
   ConfirmOrderPayload:
     properties:
