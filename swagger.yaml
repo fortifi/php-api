@@ -1528,6 +1528,25 @@ paths:
         200:
           description: Product removed from the order successfully
 
+  "/orders/{orderFid}/products/{orderProductFid}/quantity":
+    put:
+      summary: Set the quantity of a product on an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - $ref: '#/parameters/orderProductFid'
+        - name: quantity
+          in: formData
+          required: true
+          type: number
+      responses:
+        200:
+          description: Quantity updated
+
   "/orders/{orderFid}/offers":
     post:
       summary: Add an offer to an order
@@ -2902,9 +2921,17 @@ definitions:
           type: string
       quantityProductPriceFids:
         type: array
-        description: Quantity of products to add, keyed by priceFid
+        description: Products to add with specified quantity
         items:
-          type: number
+          $ref: '#/definitions/OrderProductQuantity'
+
+  OrderProductQuantity:
+    properties:
+      priceFid:
+        type: string
+      quantity:
+        type: number
+        default: 1
 
   ConfirmOrderPayload:
     properties:

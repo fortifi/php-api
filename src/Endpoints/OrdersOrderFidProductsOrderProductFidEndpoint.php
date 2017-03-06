@@ -40,4 +40,32 @@ class OrdersOrderFidProductsOrderProductFidEndpoint extends ApiEndpoint
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Set the quantity of a product on an order
+   *
+   * @param $quantity
+   *
+   * @return ApiRequest
+   */
+  public function setQuantity($quantity)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/products/{orderProductFid}/quantity'
+      )
+    ));
+    $detail->addPostField('quantity', $quantity);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }
