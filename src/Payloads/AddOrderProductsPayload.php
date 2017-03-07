@@ -1,6 +1,5 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
-use Packaged\Helpers\Strings;
 
 class AddOrderProductsPayload
   implements \JsonSerializable
@@ -23,7 +22,8 @@ class AddOrderProductsPayload
     }
     if(isset($data["quantityProductPriceFids"]))
     {
-      $this->_quantityProductPriceFids = $data["quantityProductPriceFids"];
+      $this->_quantityProductPriceFids = new OrderProductQuantityPayload();
+      $this->_quantityProductPriceFids->hydrate($data["quantityProductPriceFids"]);
     }
     return $this;
   }

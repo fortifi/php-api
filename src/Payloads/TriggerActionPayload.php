@@ -1,8 +1,8 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
 
-use Packaged\Helpers\Strings;
 use Fortifi\Api\V1\Requests\KeyValueRequest;
+use Packaged\Helpers\Strings;
 
 class TriggerActionPayload
   implements \JsonSerializable

@@ -1,6 +1,5 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
-use Packaged\Helpers\Strings;
 
 class PropertyBulkSetPayload
   implements \JsonSerializable
@@ -27,19 +26,23 @@ class PropertyBulkSetPayload
     $data = (array)$data;
     if(isset($data["values"]))
     {
-      $this->_values = $data["values"];
+      $this->_values = new KeyValuePayload();
+      $this->_values->hydrate($data["values"]);
     }
     if(isset($data["flags"]))
     {
-      $this->_flags = $data["flags"];
+      $this->_flags = new KeyValuePayload();
+      $this->_flags->hydrate($data["flags"]);
     }
     if(isset($data["incrementCounters"]))
     {
-      $this->_incrementCounters = $data["incrementCounters"];
+      $this->_incrementCounters = new KeyValuePayload();
+      $this->_incrementCounters->hydrate($data["incrementCounters"]);
     }
     if(isset($data["decrementCounters"]))
     {
-      $this->_decrementCounters = $data["decrementCounters"];
+      $this->_decrementCounters = new KeyValuePayload();
+      $this->_decrementCounters->hydrate($data["decrementCounters"]);
     }
     return $this;
   }

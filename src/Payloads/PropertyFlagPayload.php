@@ -1,6 +1,5 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
-use Packaged\Helpers\Strings;
 
 class PropertyFlagPayload
   implements \JsonSerializable
