@@ -2923,15 +2923,17 @@ definitions:
         type: array
         description: Products to add with specified quantity
         items:
-          $ref: '#/definitions/OrderProductQuantity'
+          $ref: '#/definitions/OrderProductQuantityPayload'
 
-  OrderProductQuantity:
+  OrderProductQuantityPayload:
     properties:
       priceFid:
-        type: string
+        $ref: '#/definitions/priceFid'
       quantity:
         type: number
         default: 1
+    required:
+      - priceFid
 
   ConfirmOrderPayload:
     properties:

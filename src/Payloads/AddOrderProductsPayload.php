@@ -1,8 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
-
 use Packaged\Helpers\Strings;
-use Fortifi\Api\V1\Requests\OrderProductQuantityRequest;
 
 class AddOrderProductsPayload
   implements \JsonSerializable
@@ -73,7 +71,7 @@ class AddOrderProductsPayload
   }
 
   /**
-   * @param array $value
+   * @param OrderProductQuantityPayload[] $value
    *
    * @return $this
    */
@@ -84,11 +82,11 @@ class AddOrderProductsPayload
   }
 
   /**
-   * @param OrderProductQuantityRequest $item
+   * @param OrderProductQuantityPayload $item
    *
    * @return $this
    */
-  public function addQuantityProductPriceFid(OrderProductQuantityRequest $item)
+  public function addQuantityProductPriceFid(OrderProductQuantityPayload $item)
   {
     $this->_quantityProductPriceFids[] = $item;
     return $this;
@@ -99,7 +97,7 @@ class AddOrderProductsPayload
    *
    * @param mixed $default
    *
-   * @return OrderProductQuantityRequest[]
+   * @return OrderProductQuantityPayload[]
    */
   public function getQuantityProductPriceFids($default = [])
   {
