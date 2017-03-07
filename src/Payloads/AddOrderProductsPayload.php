@@ -22,8 +22,13 @@ class AddOrderProductsPayload
     }
     if(isset($data["quantityProductPriceFids"]))
     {
-      $this->_quantityProductPriceFids = new OrderProductQuantityPayload();
-      $this->_quantityProductPriceFids->hydrate($data["quantityProductPriceFids"]);
+      $this->_quantityProductPriceFids = [];
+      foreach($data["quantityProductPriceFids"] as $dItem)
+      {
+        $dObj = new OrderProductQuantityPayload();
+        $dObj->hydrate($dItem);
+        $this->_quantityProductPriceFids[] = $dObj;
+      }
     }
     return $this;
   }

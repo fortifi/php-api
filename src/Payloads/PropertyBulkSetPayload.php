@@ -26,23 +26,43 @@ class PropertyBulkSetPayload
     $data = (array)$data;
     if(isset($data["values"]))
     {
-      $this->_values = new KeyValuePayload();
-      $this->_values->hydrate($data["values"]);
+      $this->_values = [];
+      foreach($data["values"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_values[] = $dObj;
+      }
     }
     if(isset($data["flags"]))
     {
-      $this->_flags = new KeyValuePayload();
-      $this->_flags->hydrate($data["flags"]);
+      $this->_flags = [];
+      foreach($data["flags"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_flags[] = $dObj;
+      }
     }
     if(isset($data["incrementCounters"]))
     {
-      $this->_incrementCounters = new KeyValuePayload();
-      $this->_incrementCounters->hydrate($data["incrementCounters"]);
+      $this->_incrementCounters = [];
+      foreach($data["incrementCounters"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_incrementCounters[] = $dObj;
+      }
     }
     if(isset($data["decrementCounters"]))
     {
-      $this->_decrementCounters = new KeyValuePayload();
-      $this->_decrementCounters->hydrate($data["decrementCounters"]);
+      $this->_decrementCounters = [];
+      foreach($data["decrementCounters"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_decrementCounters[] = $dObj;
+      }
     }
     return $this;
   }
