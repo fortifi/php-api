@@ -170,6 +170,11 @@ DESCRIPTION
     $tag->setName('Licence');
     $this->addTag($tag);
 
+    $tag = new TagDefinition();
+    $tag->setDescription('');
+    $tag->setName('Support');
+    $this->addTag($tag);
+
     $secDef = new SecurityDefinition();
     $secDef->setDescription('');
     $secDef->setAuthorizationUrl('https://api.fortifi.io/oauth/authorize');
@@ -193,6 +198,8 @@ DESCRIPTION
     $secDef->addScope('product.readonly','Read Product Information');
     $secDef->addScope('product','Read/Write On Products');
     $secDef->addScope('purchase.readonly','Read Only on purchases');
+    $secDef->addScope('support','Read/Write On Support');
+    $secDef->addScope('support.readonly','Read Only on Support');
     $secDef->setType('oauth2');
     $secDef->setTokenUrl('https://api.fortifi.io/oauth/token');
     $this->addSecurityDefinition($secDef);

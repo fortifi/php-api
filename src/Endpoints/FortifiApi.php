@@ -2,7 +2,9 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\UserRequest;
+use Fortifi\Api\V1\Requests\TicketRequest;
 use Fortifi\Api\V1\Requests\OrganisationRequest;
+use Fortifi\Api\V1\Payloads\CreateTicketPayload;
 use Fortifi\Api\V1\Definitions\FortifiApiDefinition;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -198,6 +200,28 @@ class FortifiApi extends ApiEndpoint
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('brands'));
     $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Create a support ticket
+   *
+   * @param CreateTicketPayload $payload
+   *
+   * @return TicketRequest
+   */
+  public function createTicket(CreateTicketPayload $payload)
+  {
+    $request = new TicketRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl('tickets'));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

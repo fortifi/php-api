@@ -170,6 +170,7 @@ tags:
   - name: Messenger
   - name: Products
   - name: Licence
+  - name: Support
 
 securityDefinitions:
   OAuth:
@@ -195,6 +196,8 @@ securityDefinitions:
       "product.readonly": Read Product Information
       "product": Read/Write On Products
       "purchase.readonly": Read Only on purchases
+      "support": Read/Write On Support
+      "support.readonly": Read Only on Support
 
   accessToken:
     type: apiKey
@@ -1726,6 +1729,25 @@ paths:
             $ref: '#/definitions/Licence'
         404:
           description: Licence Not Valid
+  "/tickets":
+    post:
+      summary: Create a support ticket
+      tags:
+        - support
+      security:
+        - OAuth:
+          - support
+      parameters:
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateTicketPayload'
+      responses:
+        200:
+          description: Ticket Information
+          schema:
+            $ref: '#/definitions/Ticket'
 
 parameters:
   isoTime:
@@ -2579,6 +2601,14 @@ definitions:
           restrictive:
             type: boolean
 
+  Ticket:
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          timestamp:
+            type: number
+            format: int64
+
 #Payloads
   ModifySubscriptionPayload:
     properties:
@@ -2968,6 +2998,33 @@ definitions:
             type: string
           failUrl:
             type: string
+
+  CreateTicketPayload:
+    properties:
+      customerEmail:
+        type: string
+      customerName:
+        type: string
+      customerFid:
+        type: string
+      ticketType:
+        type: string
+      brandFid:
+        type: string
+      queueFid:
+        type: string
+      departmentFid:
+        type: string
+      departmentEmail:
+        type: string
+      departmentName:
+        type: string
+      subject:
+        type: string
+      textBody:
+        type: string
+      htmlBody:
+        type: string
 
 #Properties
   priceFid:
