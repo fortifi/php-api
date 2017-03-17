@@ -2357,6 +2357,8 @@ definitions:
             type: string
           maxQuantity:
             type: string
+          allowQuantity:
+            type: boolean
 
   ProductPrices:
     properties:

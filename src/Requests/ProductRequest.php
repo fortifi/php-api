@@ -23,6 +23,7 @@ class ProductRequest
         "taxable" => $this->getTaxable(),
         "taxGroupFid" => $this->getTaxGroupFid(),
         "maxQuantity" => $this->getMaxQuantity(),
+        "allowQuantity" => $this->isAllowQuantity(),
       ]
     );
   }
@@ -131,6 +132,16 @@ class ProductRequest
   {
     $value = Objects::property($this->_getResultJson(), 'maxQuantity', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isAllowQuantity($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'allowQuantity', $default);
   }
 
   protected function _prepareResult($result)
