@@ -2617,10 +2617,11 @@ definitions:
       priceFid:
         $ref: '#/definitions/priceFid'
       mode:
-        $ref: '#/definitions/mode'
+        $ref: '#/definitions/ModifySubscriptionMode'
     required:
       - priceFid
       - mode
+      
   CreatePolymerPayload:
     properties:
       polymerCode:
@@ -3035,8 +3036,13 @@ definitions:
   priceFid:
     description: Price FID to modify subscription with
     type: string
-  mode:
-    $ref: '#/definitions/modifySubscriptionMode'
+  ModifySubscriptionMode:
+    description: Mode to modify subscription with
+    type: string
+    enum:
+    - prorate
+    - extend
+    - replace
   isoTime:
     description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
     type: string
@@ -3246,10 +3252,3 @@ definitions:
   customerFid:
     type: string
     description: FID for the customer placing the order
-  modifySubscriptionMode:
-    description: Mode type for subscription
-    type: string
-    enum:
-    - prorate
-    - extend
-    - replace

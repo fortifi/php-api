@@ -11,6 +11,7 @@ class ModifySubscriptionPayload
    */
   protected $_priceFid;
   /**
+   * Mode to modify subscription with
    * @required
    */
   protected $_mode;
@@ -63,23 +64,27 @@ class ModifySubscriptionPayload
   }
 
   /**
-   * @param ModeResponse $value
+   * @param string $value
    *
    * @return $this
    */
-  public function setMode(ModeResponse $value)
+  public function setMode($value)
   {
     $this->_mode = $value;
     return $this;
   }
 
   /**
-   * @param mixed $default
+   * Mode to modify subscription with
    *
-   * @return ModeResponse
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
    */
-  public function getMode($default = null)
+  public function getMode($default = null, $trim = true)
   {
-    return $this->_mode ?: $default;
+    $value = $this->_mode ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }
