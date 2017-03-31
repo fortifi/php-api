@@ -3036,7 +3036,6 @@ definitions:
     description: Price FID to modify subscription with
     type: string
   mode:
-    description: Mode to modify subscription with
     $ref: '#/definitions/ModifySubscriptionMode'
   isoTime:
     description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
