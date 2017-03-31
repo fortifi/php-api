@@ -10,6 +10,10 @@ class ModifySubscriptionPayload
    * @required
    */
   protected $_priceFid;
+  /**
+   * @required
+   */
+  protected $_mode;
 
   public function hydrate($data)
   {
@@ -18,6 +22,10 @@ class ModifySubscriptionPayload
     {
       $this->_priceFid = $data["priceFid"];
     }
+    if(isset($data["mode"]))
+    {
+      $this->_mode = $data["mode"];
+    }
     return $this;
   }
 
@@ -25,6 +33,7 @@ class ModifySubscriptionPayload
   {
     return [
       "priceFid" => $this->_priceFid,
+      "mode"     => $this->_mode,
     ];
   }
 
@@ -51,5 +60,26 @@ class ModifySubscriptionPayload
   {
     $value = $this->_priceFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param ModeResponse $value
+   *
+   * @return $this
+   */
+  public function setMode(ModeResponse $value)
+  {
+    $this->_mode = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return ModeResponse
+   */
+  public function getMode($default = null)
+  {
+    return $this->_mode ?: $default;
   }
 }
