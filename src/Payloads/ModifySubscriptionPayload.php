@@ -12,7 +12,6 @@ class ModifySubscriptionPayload
   protected $_priceFid;
   /**
    * Mode to modify subscription with
-   * @required
    */
   protected $_mode;
 
