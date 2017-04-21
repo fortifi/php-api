@@ -10,7 +10,7 @@ class CreateOrderPayload
    */
   protected $_paymentAccountFid;
   /**
-   * Brand FID to track this event to
+   * FID of a valid Brand
    */
   protected $_brandFid;
   /**
@@ -127,7 +127,7 @@ class CreateOrderPayload
   }
 
   /**
-   * Brand FID to track this event to
+   * FID of a valid Brand
    *
    * @param mixed $default
    * @param bool $trim Trim Value

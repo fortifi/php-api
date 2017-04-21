@@ -183,6 +183,7 @@ DESCRIPTION
     $secDef->setName('');
     $secDef->addScope('basic','Basic Read Access');
     $secDef->addScope('visitor','Read/Write On Visitors');
+    $secDef->addScope('advertiser','Read/Write On Advertisers');
     $secDef->addScope('customer','Read/Write On Customers');
     $secDef->addScope('customer.readonly','Read Only on Customers');
     $secDef->addScope('entity.properties','Read/Write On Entity Properties');

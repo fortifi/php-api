@@ -61,7 +61,7 @@ class PostActionPayload
    */
   protected $_externalReference;
   /**
-   * Brand FID to track this event to
+   * FID of a valid Brand
    * @required
    */
   protected $_brandFid;
@@ -533,7 +533,7 @@ class PostActionPayload
   }
 
   /**
-   * Brand FID to track this event to
+   * FID of a valid Brand
    *
    * @param mixed $default
    * @param bool $trim Trim Value

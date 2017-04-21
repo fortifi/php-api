@@ -181,6 +181,7 @@ securityDefinitions:
     scopes:
       "basic": Basic Read Access
       "visitor": Read/Write On Visitors
+      "advertiser": Read/Write On Advertisers
       "customer": Read/Write On Customers
       "customer.readonly": Read Only on Customers
       "entity.properties": Read/Write On Entity Properties
@@ -270,6 +271,90 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Brand'
+
+  /advertisers:
+    post:
+      summary: Create a new advertiser
+      security:
+        - OAuth:
+          - advertiser
+      tags:
+       - marketing
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAdvertiserPayload'
+      responses:
+       200:
+         description: Advertiser Created
+         schema:
+           $ref: '#/definitions/Fid'
+       412:
+         description: |
+           Invalid data supplied
+
+  /advertisers/{advertiserFid}:
+    get:
+      security:
+        - OAuth:
+          - advertiser
+      tags:
+       - marketing
+      summary: Retrieve an advertiser
+      parameters:
+        - $ref: '#/parameters/advertiserFid'
+      responses:
+        200:
+          description: Loaded Advertiser
+          schema:
+            $ref: '#/definitions/Advertiser'
+        404:
+          description: Advertiser not found
+
+  /advertisers/{advertiserFid}/campaigns:
+    post:
+      summary: Create a new advertiser campaign
+      security:
+        - OAuth:
+          - advertiser
+      tags:
+       - marketing
+      parameters:
+        - $ref: '#/parameters/advertiserFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAdvertiserCampaignPayload'
+      responses:
+       200:
+         description: Campaign Created
+         schema:
+           $ref: '#/definitions/Fid'
+       412:
+         description: |
+           Invalid data supplied
+
+  /advertisers/{advertiserFid}/campaigns/{advertiserCampaignFid}:
+    get:
+      security:
+        - OAuth:
+          - advertiser
+      tags:
+       - marketing
+      summary: Retrieve an advertiser campaign
+      parameters:
+        - $ref: '#/parameters/advertiserFid'
+        - $ref: '#/parameters/advertiserCampaignFid'
+      responses:
+        200:
+          description: Loaded Campaign
+          schema:
+            $ref: '#/definitions/AdvertiserCampaign'
+        404:
+          description: Campaign not found
 
   "/visitors/{visitorId}/pixels":
     get:
@@ -475,6 +560,8 @@ paths:
       tags:
         - customers
       summary: Update a customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: firstName
@@ -597,6 +684,8 @@ paths:
       security:
         - OAuth:
           - customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/isoTime'
@@ -614,6 +703,8 @@ paths:
       security:
         - OAuth:
           - customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/isoTime'
@@ -631,6 +722,8 @@ paths:
       security:
         - OAuth:
           - customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/isoTime'
@@ -648,6 +741,8 @@ paths:
       security:
         - OAuth:
           - customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/isoTime'
@@ -727,6 +822,8 @@ paths:
       security:
         - OAuth:
           - customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: currency
@@ -749,6 +846,8 @@ paths:
       security:
         - OAuth:
           - customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: subject
@@ -791,6 +890,8 @@ paths:
       security:
         - OAuth:
           - entity.config
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/sectionName'
@@ -824,6 +925,8 @@ paths:
       security:
         - OAuth:
           - entity.config
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/sectionName'
@@ -1141,6 +1244,8 @@ paths:
       security:
         - OAuth:
           - customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: emailAddress
@@ -1159,6 +1264,8 @@ paths:
         - OAuth:
           - customer
       summary: Add a phone number to a customer
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: phoneNumber
@@ -1539,6 +1646,8 @@ paths:
       security:
         - OAuth:
           - orders
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/orderFid'
         - $ref: '#/parameters/orderProductFid'
@@ -1558,6 +1667,8 @@ paths:
       security:
         - OAuth:
           - orders
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: offerFid
@@ -1605,6 +1716,8 @@ paths:
       security:
         - OAuth:
           - contact
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/deliveryFid'
         - $ref: '#/parameters/userAgent'
@@ -1641,6 +1754,8 @@ paths:
       security:
         - OAuth:
           - contact
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/emailAddress'
         - name: brandFid
@@ -1786,6 +1901,18 @@ parameters:
       "Visitor ID from the cookie.
       If providing a pre-linked external reference, should be set to 'byref'.
       If no visitor ID is known, client IP should be provided and visitorId should be set to 'unknown'"
+  advertiserFid:
+    name: advertiserFid
+    in: path
+    type: string
+    required: true
+    description: Advertiser FID to use
+  advertiserCampaignFid:
+    name: advertiserCampaignFid
+    in: path
+    type: string
+    required: true
+    description: Advertiser Campaign FID to use
   customerFid:
     name: customerFid
     in: path
@@ -1944,6 +2071,54 @@ definitions:
           phone:
             type: string
           externalReference:
+            type: string
+
+  Advertiser:
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          type:
+            type: string
+          displayName:
+            type: string
+          contactName:
+            type: string
+          companyName:
+            type: string
+          phoneFid:
+            type: string
+          emailFid:
+            type: string
+          website:
+            type: string
+          acceptedTerms:
+            type: string
+          suspended:
+            type: string
+          accountManagerFid:
+            type: string
+          foundationFid:
+            type: string
+          companyFid:
+            type: string
+          isDisabled:
+            type: string
+          email:
+            type: string
+          phone:
+            type: string
+          payoutType:
+            type: string
+
+  AdvertiserCampaign:
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          hash:
+            type: string
+          affiliateFid:
+            type: string
+          brandFid:
             type: string
 
   AdvertiserPixel:
@@ -2635,6 +2810,56 @@ definitions:
       description:
         description: Description for this polymer
         type: string
+
+  CreateAdvertiserPayload:
+    description: Payload for creating an advertiser
+    properties:
+      username:
+        $ref: '#/definitions/username'
+      email:
+        $ref: '#/definitions/email'
+      password:
+        $ref: '#/definitions/password'
+      type:
+        $ref: '#/definitions/advertiserType'
+      displayName:
+        $ref: '#/definitions/displayName'
+      contactName:
+        type: string
+        description: Name of the person
+      companyName:
+        type: string
+        description: Name of the company
+      phone:
+        $ref: '#/definitions/phoneNumber'
+      website:
+        $ref: '#/definitions/url'
+      accountManagerFid:
+        $ref: '#/definitions/accountManagerFid'
+      foundationFid:
+        $ref: '#/definitions/foundationFid'
+      brandFid:
+        $ref: '#/definitions/brandFid'
+    required:
+      - username
+      - password
+      - type
+      - contactName
+
+  CreateAdvertiserCampaignPayload:
+    description: Payload for creating an advertiser campaign
+    properties:
+      advertiserFid:
+        $ref: '#/definitions/advertiserFid'
+      brandFid:
+        $ref: '#/definitions/brandFid'
+      displayName:
+        $ref: '#/definitions/displayName'
+    required:
+      - advertiserFid
+      - brandFid
+      - displayName
+
   PostActionPayload:
     properties:
       transactionId:
@@ -3062,7 +3287,10 @@ definitions:
     description: External (to Fortifi) Reference for this visitor e.g. a user ID
     type: string
   brandFid:
-    description: Brand FID to track this event to
+    description: FID of a valid Brand
+    type: string
+  foundationFid:
+    description: FID of a valid Foundation
     type: string
   campaignHash:
     description: |
@@ -3111,18 +3339,43 @@ definitions:
   phoneNumber:
     description: Phone Number
     type: string
+  displayName:
+    description: Visiable Display Name
+    type: string
   firstName:
     description: First Name
     type: string
   lastName:
     description: Last Name
     type: string
+  username:
+    type: string
+    description: Username
+  password:
+    type: string
+    description: Password
+  url:
+    type: string
+    description: URL
   email:
     type: string
     description: Email Address
   accountManagerFid:
-    description: FID of the account manager for this customer
+    description: FID of an Account Manager
     type: string
+  advertiserFid:
+    description: FID of an Advertiser
+    type: string
+  advertiserCampaignFid:
+    description: FID of an Advertiser Campaign
+    type: string
+  advertiserType:
+    description: Advertiser Type
+    type: string
+    enum:
+    - affiliate
+    - network
+    - customer
   customerAccountType:
     description: Account Type
     type: string

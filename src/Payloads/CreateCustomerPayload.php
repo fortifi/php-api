@@ -22,7 +22,7 @@ class CreateCustomerPayload
    */
   protected $_time;
   /**
-   * Brand FID to track this event to
+   * FID of a valid Brand
    * @required
    */
   protected $_brandFid;
@@ -47,7 +47,7 @@ class CreateCustomerPayload
    */
   protected $_lastName;
   /**
-   * FID of the account manager for this customer
+   * FID of an Account Manager
    */
   protected $_accountManagerFid;
   /**
@@ -266,7 +266,7 @@ class CreateCustomerPayload
   }
 
   /**
-   * Brand FID to track this event to
+   * FID of a valid Brand
    *
    * @param mixed $default
    * @param bool $trim Trim Value
@@ -416,7 +416,7 @@ class CreateCustomerPayload
   }
 
   /**
-   * FID of the account manager for this customer
+   * FID of an Account Manager
    *
    * @param mixed $default
    * @param bool $trim Trim Value
