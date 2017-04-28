@@ -3148,6 +3148,8 @@ definitions:
       - properties:
           token:
             $ref: '#/definitions/cardToken'
+          type:
+            $ref: '#/definitions/cardType'
 
   CardUpdatePayload:
     properties:
@@ -3482,6 +3484,9 @@ definitions:
     type: string
   cardToken:
     description: Card token from provider
+    type: string
+  cardType:
+    description: Card type from provider
     type: string
   cardEncryptedNumber:
     description: Card number encrypted using your public key
