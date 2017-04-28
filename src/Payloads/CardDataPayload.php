@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+
 use Packaged\Helpers\Strings;
 
 class CardDataPayload
@@ -47,7 +48,7 @@ class CardDataPayload
    * Card number encrypted using your public key
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */

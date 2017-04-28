@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+
 use Packaged\Helpers\Strings;
 
 class TokenizedCardDataPayload
@@ -65,7 +66,7 @@ class TokenizedCardDataPayload
    * Card token from provider
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -90,7 +91,7 @@ class TokenizedCardDataPayload
    * Card type from provider
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -101,6 +102,8 @@ class TokenizedCardDataPayload
   }
 
   /**
+   * Set the Payment Service processor
+   *
    * @param string $value
    *
    * @return $this
@@ -112,10 +115,10 @@ class TokenizedCardDataPayload
   }
 
   /**
-   * Payment Service Processor Type
+   * Get Payment Service Processor
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
