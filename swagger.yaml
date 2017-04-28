@@ -1186,6 +1186,29 @@ paths:
             $ref: '#/definitions/PaymentCards'
           description: List of cards
 
+  "/customers/{customerFid}/paymentMethods/tokenizedCard":
+    post:
+      summary: Add a new tokenized card
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+          - payment.methods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TokenizedCardDataPayload'
+
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Fid'
+          description: Tokenized card added to the customers account
+
   "/customers/{customerFid}/paymentMethods/cards/{cardFid}":
     delete:
       tags:
@@ -3073,10 +3096,8 @@ definitions:
         type: boolean
         description: If set to true, transactional messenger chains will be triggered
 
-  CardDataPayload:
+  AbstractCardDataPayload:
     properties:
-      encryptedCardNumber:
-        $ref: '#/definitions/cardEncryptedNumber'
       startMonth:
         $ref: '#/definitions/cardStartMonth'
       startYear:
@@ -3114,46 +3135,19 @@ definitions:
       isDefault:
         $ref: '#/definitions/cardIsDefault'
 
+  CardDataPayload:
+    allOf:
+      - $ref: '#/definitions/AbstractCardDataPayload'
+      - properties:
+          encryptedCardNumber:
+             $ref: '#/definitions/cardEncryptedNumber'
+
   TokenizedCardDataPayload:
-    properties:
-      token:
-        $ref: '#/definitions/cardToken'
-      startMonth:
-        $ref: '#/definitions/cardStartMonth'
-      startYear:
-        $ref: '#/definitions/cardStartYear'
-      expiryMonth:
-        $ref: '#/definitions/cardExpiryMonth'
-      expiryYear:
-        $ref: '#/definitions/cardExpiryYear'
-      last4:
-        $ref: '#/definitions/cardLast4'
-      issue:
-        $ref: '#/definitions/cardIssue'
-      cardHolder:
-        $ref: '#/definitions/cardCardHolder'
-      addressFid:
-        $ref: '#/definitions/cardAddressFid'
-      addressLine1:
-        $ref: '#/definitions/cardAddressLine1'
-      addressLine2:
-        $ref: '#/definitions/cardAddressLine2'
-      addressLine3:
-        $ref: '#/definitions/cardAddressLine3'
-      addressCity:
-        $ref: '#/definitions/cardAddressCity'
-      addressState:
-        $ref: '#/definitions/cardAddressState'
-      addressCountry:
-        $ref: '#/definitions/cardAddressCountry'
-      addressPostal:
-        $ref: '#/definitions/cardAddressPostal'
-      preAuthAmount:
-          description: Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
-          type: number
-          format: float
-      isDefault:
-        $ref: '#/definitions/cardIsDefault'
+    allOf:
+      - $ref: '#/definitions/AbstractCardDataPayload'
+      - properties:
+          token:
+            $ref: '#/definitions/cardToken'
 
   CardUpdatePayload:
     properties:
