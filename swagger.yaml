@@ -3476,7 +3476,7 @@ definitions:
     - prepayment
     - fortifipay
     - coinbase
-    - stipe
+    - stripe
   CreateOrderType:
     description: Order Type (Must be initial to Auth Cards)
     type: string
