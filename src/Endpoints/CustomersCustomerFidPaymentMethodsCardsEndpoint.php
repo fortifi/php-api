@@ -57,7 +57,7 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
         $subject = 'customers/{customerFid}/paymentMethods/cards';
         break;
       case $payload instanceof TokenizedCardDataPayload:
-        $subject = 'customers/{customerFid}/paymentMethods/tokenizeCard';
+        $subject = 'customers/{customerFid}/paymentMethods/tokenizedCard';
         break;
       default:
         throw new \Exception("Invalid create card payload type " . get_class($payload));
