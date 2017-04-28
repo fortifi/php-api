@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Payloads\TokenizedCardDataPayload;
 use Fortifi\Api\V1\Requests\PaymentCardsRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Payloads\CardDataPayload;
@@ -35,11 +36,11 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   /**
    * @summary Add a new card
    *
-   * @param CardDataPayload $payload
+   * @param CardDataPayload|TokenizedCardDataPayload $payload
    *
    * @return FidRequest
    */
-  public function create(CardDataPayload $payload)
+  public function create($payload)
   {
     $request = new FidRequest();
     $request->setConnection($this->_getConnection());
