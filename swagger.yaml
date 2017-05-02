@@ -3150,6 +3150,8 @@ definitions:
             $ref: '#/definitions/cardToken'
           type:
             $ref: '#/definitions/cardType'
+          paymentServiceProcessor:
+            $ref: '#/definitions/PaymentServiceProcessor'
 
   CardUpdatePayload:
     properties:

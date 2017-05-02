@@ -14,6 +14,10 @@ class TokenizedCardDataPayload
    * Card type from provider
    */
   protected $_type;
+  /**
+   * Payment Service Processor Type
+   */
+  protected $_paymentServiceProcessor;
 
   public function hydrate($data)
   {
@@ -27,6 +31,10 @@ class TokenizedCardDataPayload
     {
       $this->_type = $data["type"];
     }
+    if(isset($data["paymentServiceProcessor"]))
+    {
+      $this->_paymentServiceProcessor = $data["paymentServiceProcessor"];
+    }
     return $this;
   }
 
@@ -35,8 +43,9 @@ class TokenizedCardDataPayload
     return array_merge(
       parent::jsonSerialize(),
       [
-        "token" => $this->_token,
-        "type"  => $this->_type,
+        "token"                   => $this->_token,
+        "type"                    => $this->_type,
+        "paymentServiceProcessor" => $this->_paymentServiceProcessor,
       ]
     );
   }
@@ -88,6 +97,31 @@ class TokenizedCardDataPayload
   public function getType($default = null, $trim = true)
   {
     $value = $this->_type ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setPaymentServiceProcessor($value)
+  {
+    $this->_paymentServiceProcessor = $value;
+    return $this;
+  }
+
+  /**
+   * Payment Service Processor Type
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentServiceProcessor($default = null, $trim = true)
+  {
+    $value = $this->_paymentServiceProcessor ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
