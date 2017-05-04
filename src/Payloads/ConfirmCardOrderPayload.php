@@ -1,5 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+
 use Packaged\Helpers\Strings;
 
 class ConfirmCardOrderPayload
@@ -42,7 +43,7 @@ class ConfirmCardOrderPayload
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */

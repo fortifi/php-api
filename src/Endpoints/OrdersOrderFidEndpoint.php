@@ -4,7 +4,6 @@ namespace Fortifi\Api\V1\Endpoints;
 use Fortifi\Api\Core\ApiEndpoint;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
-use Fortifi\Api\V1\Payloads\ConfirmOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmTokenizedCardOrderPayload;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
