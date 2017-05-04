@@ -5,6 +5,7 @@ use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
+use Fortifi\Api\V1\Payloads\ConfirmTokenizedCardOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -128,9 +129,11 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   /**
    * @summary Confirm an order, authorize the payment
    *
+   * @param ConfirmTokenizedCardOrderPayload $payload
+   *
    * @return OrderConfirmationRequest
    */
-  public function confirmTokenizedCard()
+  public function confirmTokenizedCard(ConfirmTokenizedCardOrderPayload $payload)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -145,6 +148,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         'orders/{orderFid}/confirmTokenizedCard'
       )
     ));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

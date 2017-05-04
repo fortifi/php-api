@@ -1579,6 +1579,11 @@ paths:
           - orders
       parameters:
         - $ref: '#/parameters/orderFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ConfirmTokenizedCardOrderPayload'
       responses:
         503:
           description: There are no payment gateways available to handle your request
@@ -3272,6 +3277,13 @@ definitions:
       - $ref: '#/definitions/ConfirmOrderPayload'
       - properties:
           cvv:
+            type: string
+
+  ConfirmTokenizedCardOrderPayload:
+    allOf:
+      - $ref: '#/definitions/ConfirmOrderPayload'
+      - properties:
+          token:
             type: string
 
   ConfirmPayPalOrderPayload:
