@@ -1,16 +1,16 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Payloads\ConfirmStripeOrderPayload;
-use Fortifi\Api\V1\Requests\OrderVerificationRequest;
-use Fortifi\Api\V1\Requests\OrderRequest;
-use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
-use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
-use Fortifi\Api\V1\Payloads\ConfirmTokenizedCardOrderPayload;
-use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
-use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
-use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
+use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
+use Fortifi\Api\V1\Payloads\ConfirmOrderPayload;
+use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
+use Fortifi\Api\V1\Payloads\ConfirmTokenizedCardOrderPayload;
+use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
+use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
+use Fortifi\Api\V1\Requests\OrderRequest;
+use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 
 class OrdersOrderFidEndpoint extends ApiEndpoint
 {
@@ -59,13 +59,15 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'orders/{orderFid}'
+    $detail->setUrl(
+      $this->_buildUrl(
+        str_replace(
+          array_keys($this->_replacements),
+          array_values($this->_replacements),
+          'orders/{orderFid}'
+        )
       )
-    ));
+    );
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
@@ -86,13 +88,15 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'orders/{orderFid}/verify'
+    $detail->setUrl(
+      $this->_buildUrl(
+        str_replace(
+          array_keys($this->_replacements),
+          array_values($this->_replacements),
+          'orders/{orderFid}/verify'
+        )
       )
-    ));
+    );
     $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
@@ -114,13 +118,15 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'orders/{orderFid}/confirmCard'
+    $detail->setUrl(
+      $this->_buildUrl(
+        str_replace(
+          array_keys($this->_replacements),
+          array_values($this->_replacements),
+          'orders/{orderFid}/confirmCard'
+        )
       )
-    ));
+    );
     $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
@@ -170,13 +176,15 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'orders/{orderFid}/confirmPayPal'
+    $detail->setUrl(
+      $this->_buildUrl(
+        str_replace(
+          array_keys($this->_replacements),
+          array_values($this->_replacements),
+          'orders/{orderFid}/confirmPayPal'
+        )
       )
-    ));
+    );
     $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
@@ -196,37 +204,12 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'orders/{orderFid}/confirmCoinbase'
-      )
-    ));
-    $detail->setMethod('PUT');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Confirm an order, await payment
-   *
-   * @return OrderConfirmationRequest
-   */
-  public function confirmStripe()
-  {
-    $request = new OrderConfirmationRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
     $detail->setUrl(
       $this->_buildUrl(
         str_replace(
           array_keys($this->_replacements),
           array_values($this->_replacements),
-          'orders/{orderFid}/confirmStripe'
+          'orders/{orderFid}/confirmCoinbase'
         )
       )
     );
