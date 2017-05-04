@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Payloads\ConfirmStripeOrderPayload;
 use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
@@ -210,9 +211,11 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   /**
    * @summary Confirm an order, await payment
    *
+   * @param ConfirmStripeOrderPayload $payload
+   *
    * @return OrderConfirmationRequest
    */
-  public function confirmStripe()
+  public function confirmStripe(ConfirmStripeOrderPayload $payload)
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -229,6 +232,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         )
       )
     );
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
