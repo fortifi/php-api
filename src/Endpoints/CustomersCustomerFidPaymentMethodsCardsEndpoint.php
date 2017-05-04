@@ -1,13 +1,16 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Payloads\TokenizedCardDataPayload;
-use Fortifi\Api\V1\Requests\PaymentCardsRequest;
-use Fortifi\Api\V1\Requests\FidRequest;
-use Fortifi\Api\V1\Payloads\CardDataPayload;
-use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
+use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\V1\Payloads\CardDataPayload;
+use Fortifi\Api\V1\Payloads\TokenizedCardDataPayload;
+use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Requests\PaymentCardsRequest;
 
+/**
+ * Class CustomersCustomerFidPaymentMethodsCardsEndpoint
+ */
 class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
 {
   protected $_path = 'customers/{customerFid}/paymentMethods/cards';
@@ -60,7 +63,9 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
         $subject = 'customers/{customerFid}/paymentMethods/tokenizedCard';
         break;
       default:
-        throw new \Exception("Invalid create card payload type " . get_class($payload));
+        throw new \Exception(
+          "Invalid create card payload type " . get_class($payload)
+        );
         break;
     }
 
