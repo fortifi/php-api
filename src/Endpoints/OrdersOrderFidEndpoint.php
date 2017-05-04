@@ -211,11 +211,9 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   /**
    * @summary Confirm an order, await payment
    *
-   * @param ConfirmStripeOrderPayload $payload
-   *
    * @return OrderConfirmationRequest
    */
-  public function confirmStripe(ConfirmStripeOrderPayload $payload)
+  public function confirmStripe()
   {
     $request = new OrderConfirmationRequest();
     $request->setConnection($this->_getConnection());
@@ -232,7 +230,6 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         )
       )
     );
-    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
