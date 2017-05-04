@@ -63,9 +63,11 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   /**
    * @summary List customers card payment methods
    *
+   * @param $paymentMethodProcessor
+   *
    * @return PaymentCardsRequest
    */
-  public function all()
+  public function all($paymentMethodProcessor = null)
   {
     $request = new PaymentCardsRequest();
     $request->setConnection($this->_getConnection());
@@ -80,6 +82,7 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
         'customers/{customerFid}/paymentMethods/cards'
       )
     ));
+    $detail->addQueryField('paymentMethodProcessor', $paymentMethodProcessor);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

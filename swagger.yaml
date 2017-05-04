@@ -1180,6 +1180,7 @@ paths:
           - payment.methods
       parameters:
         - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentMethodProcessor'
       responses:
         200:
           schema:
@@ -1942,6 +1943,11 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  paymentMethodProcessor:
+    name: paymentMethodProcessor
+    in: query
+    type: string
+    description: Payment method processor to use
   invoiceFid:
     name: invoiceFid
     in: path
