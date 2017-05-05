@@ -63,7 +63,7 @@ class TokenizedCardDataPayload
   }
 
   /**
-   * Card token from provider
+   * Card CardToken from provider
    *
    * @param mixed $default
    * @param bool  $trim Trim Value
