@@ -9,11 +9,11 @@ class TokenizedCardDataPayload
   /**
    * Card token from provider
    */
-  protected $_token;
+  protected $_cardToken;
   /**
    * Card type from provider
    */
-  protected $_type;
+  protected $_cardType;
   /**
    * Payment Service Processor Type
    */
@@ -23,13 +23,13 @@ class TokenizedCardDataPayload
   {
     $data = (array)$data;
     parent::hydrate($data);
-    if(isset($data["token"]))
+    if(isset($data["cardToken"]))
     {
-      $this->_token = $data["token"];
+      $this->_cardToken = $data["cardToken"];
     }
-    if(isset($data["type"]))
+    if(isset($data["cardType"]))
     {
-      $this->_type = $data["type"];
+      $this->_cardType = $data["cardType"];
     }
     if(isset($data["paymentServiceProcessor"]))
     {
@@ -43,8 +43,8 @@ class TokenizedCardDataPayload
     return array_merge(
       parent::jsonSerialize(),
       [
-        "token"                   => $this->_token,
-        "type"                    => $this->_type,
+        "cardToken"               => $this->_cardToken,
+        "cardType"                => $this->_cardType,
         "paymentServiceProcessor" => $this->_paymentServiceProcessor,
       ]
     );
@@ -55,9 +55,9 @@ class TokenizedCardDataPayload
    *
    * @return $this
    */
-  public function setToken($value)
+  public function setCardToken($value)
   {
-    $this->_token = $value;
+    $this->_cardToken = $value;
     return $this;
   }
 
@@ -69,9 +69,9 @@ class TokenizedCardDataPayload
    *
    * @return string
    */
-  public function getToken($default = null, $trim = true)
+  public function getCardToken($default = null, $trim = true)
   {
-    $value = $this->_token ?: $default;
+    $value = $this->_cardToken ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -80,9 +80,9 @@ class TokenizedCardDataPayload
    *
    * @return $this
    */
-  public function setType($value)
+  public function setCardType($value)
   {
-    $this->_type = $value;
+    $this->_cardType = $value;
     return $this;
   }
 
@@ -94,9 +94,9 @@ class TokenizedCardDataPayload
    *
    * @return string
    */
-  public function getType($default = null, $trim = true)
+  public function getCardType($default = null, $trim = true)
   {
-    $value = $this->_type ?: $default;
+    $value = $this->_cardType ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

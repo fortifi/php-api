@@ -6,15 +6,15 @@ class ConfirmTokenizedCardOrderPayload
   extends ConfirmOrderPayload
   implements \JsonSerializable
 {
-  protected $_token;
+  protected $_cardToken;
 
   public function hydrate($data)
   {
     $data = (array)$data;
     parent::hydrate($data);
-    if(isset($data["token"]))
+    if(isset($data["cardToken"]))
     {
-      $this->_token = $data["token"];
+      $this->_cardToken = $data["cardToken"];
     }
     return $this;
   }
@@ -24,7 +24,7 @@ class ConfirmTokenizedCardOrderPayload
     return array_merge(
       parent::jsonSerialize(),
       [
-        "token" => $this->_token,
+        "cardToken" => $this->_cardToken,
       ]
     );
   }
@@ -34,9 +34,9 @@ class ConfirmTokenizedCardOrderPayload
    *
    * @return $this
    */
-  public function setToken($value)
+  public function setCardToken($value)
   {
-    $this->_token = $value;
+    $this->_cardToken = $value;
     return $this;
   }
 
@@ -46,9 +46,9 @@ class ConfirmTokenizedCardOrderPayload
    *
    * @return string
    */
-  public function getToken($default = null, $trim = true)
+  public function getCardToken($default = null, $trim = true)
   {
-    $value = $this->_token ?: $default;
+    $value = $this->_cardToken ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

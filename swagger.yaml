@@ -3175,9 +3175,9 @@ definitions:
     allOf:
       - $ref: '#/definitions/AbstractCardDataPayload'
       - properties:
-          token:
+          cardToken:
             $ref: '#/definitions/cardToken'
-          type:
+          cardType:
             $ref: '#/definitions/cardType'
           paymentServiceProcessor:
             $ref: '#/definitions/PaymentServiceProcessor'
@@ -3283,7 +3283,7 @@ definitions:
     allOf:
       - $ref: '#/definitions/ConfirmOrderPayload'
       - properties:
-          token:
+          cardToken:
             type: string
 
   ConfirmPayPalOrderPayload:
