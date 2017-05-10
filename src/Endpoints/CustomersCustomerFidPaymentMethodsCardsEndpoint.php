@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\Core\ApiEndpoint;
 use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\V1\Payloads\AbstractCardDataPayload;
 use Fortifi\Api\V1\Payloads\CardDataPayload;
 use Fortifi\Api\V1\Payloads\TokenizedCardDataPayload;
 use Fortifi\Api\V1\Requests\FidRequest;
@@ -39,7 +40,7 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   /**
    * @summary Add a new card
    *
-   * @param CardDataPayload|TokenizedCardDataPayload $payload
+   * @param AbstractCardDataPayload $payload
    *
    * @return FidRequest
    * @throws \Exception
@@ -54,7 +55,7 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
     $detail->setRequireAuth(true);
     $subject = null;
 
-    switch(1)
+    switch(true)
     {
       case $payload instanceof CardDataPayload:
         $subject = 'customers/{customerFid}/paymentMethods/cards';
@@ -108,7 +109,11 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
         )
       )
     );
-    $detail->addQueryField('paymentMethodProcessor', $paymentMethodProcessor);
+
+    if($paymentMethodProcessor !== null)
+    {
+      $detail->addQueryField('paymentMethodProcessor', $paymentMethodProcessor);
+    }
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
