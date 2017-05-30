@@ -1,8 +1,9 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
+
 use Packaged\Helpers\Strings;
 
-abstract class AbstractCardDataPayload
+class AbstractCardDataPayload
   implements \JsonSerializable
 {
   /**
@@ -66,7 +67,8 @@ abstract class AbstractCardDataPayload
    */
   protected $_addressPostal;
   /**
-   * Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
+   * Pre Auth the card for this value to verify the card can be charged.  (Pre
+   * Auth will be voided)
    */
   protected $_preAuthAmount;
   /**
@@ -278,7 +280,7 @@ abstract class AbstractCardDataPayload
    * Last 4 digits of the credit card number
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -326,7 +328,7 @@ abstract class AbstractCardDataPayload
    * Name as appears on card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -351,7 +353,7 @@ abstract class AbstractCardDataPayload
    * FID of an existing address to use with the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -376,7 +378,7 @@ abstract class AbstractCardDataPayload
    * Address Line 1 of the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -401,7 +403,7 @@ abstract class AbstractCardDataPayload
    * Address Line 2 of the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -426,7 +428,7 @@ abstract class AbstractCardDataPayload
    * Address Line 3 of the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -451,7 +453,7 @@ abstract class AbstractCardDataPayload
    * City for the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -476,7 +478,7 @@ abstract class AbstractCardDataPayload
    * State/County of the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -501,7 +503,7 @@ abstract class AbstractCardDataPayload
    * Country of the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -526,7 +528,7 @@ abstract class AbstractCardDataPayload
    * Postal/Zip Code of the card
    *
    * @param mixed $default
-   * @param bool $trim Trim Value
+   * @param bool  $trim Trim Value
    *
    * @return string
    */
@@ -548,7 +550,8 @@ abstract class AbstractCardDataPayload
   }
 
   /**
-   * Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
+   * Pre Auth the card for this value to verify the card can be charged.  (Pre
+   * Auth will be voided)
    *
    * @param mixed $default
    *

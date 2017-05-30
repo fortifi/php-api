@@ -1,12 +1,17 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\PaymentCardsRequest;
-use Fortifi\Api\V1\Requests\FidRequest;
-use Fortifi\Api\V1\Payloads\CardDataPayload;
-use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
+use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\V1\Payloads\AbstractCardDataPayload;
+use Fortifi\Api\V1\Payloads\CardDataPayload;
+use Fortifi\Api\V1\Payloads\TokenizedCardDataPayload;
+use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Requests\PaymentCardsRequest;
 
+/**
+ * Class CustomersCustomerFidPaymentMethodsCardsEndpoint
+ */
 class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
 {
   protected $_path = 'customers/{customerFid}/paymentMethods/cards';
@@ -35,11 +40,12 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
   /**
    * @summary Add a new card
    *
-   * @param CardDataPayload $payload
+   * @param AbstractCardDataPayload $payload
    *
    * @return FidRequest
+   * @throws \Exception
    */
-  public function create(CardDataPayload $payload)
+  public function create($payload)
   {
     $request = new FidRequest();
     $request->setConnection($this->_getConnection());
@@ -47,13 +53,32 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/paymentMethods/cards'
+    $subject = null;
+
+    switch(true)
+    {
+      case $payload instanceof CardDataPayload:
+        $subject = 'customers/{customerFid}/paymentMethods/cards';
+        break;
+      case $payload instanceof TokenizedCardDataPayload:
+        $subject = 'customers/{customerFid}/paymentMethods/tokenizedCard';
+        break;
+      default:
+        throw new \Exception(
+          "Invalid create card payload type " . get_class($payload)
+        );
+        break;
+    }
+
+    $detail->setUrl(
+      $this->_buildUrl(
+        str_replace(
+          array_keys($this->_replacements),
+          array_values($this->_replacements),
+          $subject
+        )
       )
-    ));
+    );
     $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
@@ -75,14 +100,20 @@ class CustomersCustomerFidPaymentMethodsCardsEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/paymentMethods/cards'
+    $detail->setUrl(
+      $this->_buildUrl(
+        str_replace(
+          array_keys($this->_replacements),
+          array_values($this->_replacements),
+          'customers/{customerFid}/paymentMethods/cards'
+        )
       )
-    ));
-    $detail->addQueryField('paymentMethodProcessor', $paymentMethodProcessor);
+    );
+
+    if($paymentMethodProcessor !== null)
+    {
+      $detail->addQueryField('paymentMethodProcessor', $paymentMethodProcessor);
+    }
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
