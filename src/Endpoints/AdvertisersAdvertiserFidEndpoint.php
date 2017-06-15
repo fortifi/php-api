@@ -60,7 +60,7 @@ class AdvertisersAdvertiserFidEndpoint extends ApiEndpoint
    *
    * @return AdvertiserRequest
    */
-  public function createApproved(UpdateAdvertiserApprovedPayload $payload)
+  public function setApproved(UpdateAdvertiserApprovedPayload $payload)
   {
     $request = new AdvertiserRequest();
     $request->setConnection($this->_getConnection());
@@ -76,7 +76,7 @@ class AdvertisersAdvertiserFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->setBody(json_encode($payload));
-    $detail->setMethod('POST');
+    $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
   }

@@ -314,7 +314,7 @@ paths:
           description: Advertiser not found
 
   /advertisers/{advertiserFid}/approved:
-    post:
+    put:
       security:
         - OAuth:
           - advertiser
