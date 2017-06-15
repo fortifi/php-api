@@ -30,6 +30,7 @@ class AdvertiserRequest
         "email" => $this->getEmail(),
         "phone" => $this->getPhone(),
         "payoutType" => $this->getPayoutType(),
+        "approved" => $this->isApproved(),
       ]
     );
   }
@@ -224,5 +225,15 @@ class AdvertiserRequest
   {
     $value = Objects::property($this->_getResultJson(), 'payoutType', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isApproved($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'approved', $default);
   }
 }

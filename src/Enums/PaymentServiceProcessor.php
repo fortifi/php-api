@@ -10,7 +10,6 @@ final class PaymentServiceProcessor
   const PREPAYMENT = 'prepayment';
   const FORTIFIPAY = 'fortifipay';
   const COINBASE = 'coinbase';
-  const STRIPE = 'stripe';
 
   public static function getDisplayValue($value)
   {
@@ -27,7 +26,6 @@ final class PaymentServiceProcessor
       'prepayment',
       'fortifipay',
       'coinbase',
-      'stripe',
     ];
   }
 }

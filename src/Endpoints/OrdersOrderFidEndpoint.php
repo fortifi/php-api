@@ -5,7 +5,6 @@ use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
-use Fortifi\Api\V1\Payloads\ConfirmTokenizedCardOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -118,34 +117,6 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         array_keys($this->_replacements),
         array_values($this->_replacements),
         'orders/{orderFid}/confirmCard'
-      )
-    ));
-    $detail->setBody(json_encode($payload));
-    $detail->setMethod('PUT');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Confirm an order, authorize the payment
-   *
-   * @param ConfirmTokenizedCardOrderPayload $payload
-   *
-   * @return OrderConfirmationRequest
-   */
-  public function confirmTokenizedCard(ConfirmTokenizedCardOrderPayload $payload)
-  {
-    $request = new OrderConfirmationRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'orders/{orderFid}/confirmTokenizedCard'
       )
     ));
     $detail->setBody(json_encode($payload));

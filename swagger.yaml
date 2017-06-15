@@ -313,6 +313,29 @@ paths:
         404:
           description: Advertiser not found
 
+  /advertisers/{advertiserFid}/approved:
+    post:
+      security:
+        - OAuth:
+          - advertiser
+      tags:
+       - marketing
+      summary: Change approved status on an advertiser
+      parameters:
+        - $ref: '#/parameters/advertiserFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateAdvertiserApprovedPayload'
+      responses:
+        200:
+          description: Updated Advertiser
+          schema:
+            $ref: '#/definitions/Advertiser'
+        404:
+          description: Advertiser not found
+
   /advertisers/{advertiserFid}/campaigns:
     post:
       summary: Create a new advertiser campaign
@@ -1180,35 +1203,11 @@ paths:
           - payment.methods
       parameters:
         - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentMethodProcessor'
       responses:
         200:
           schema:
             $ref: '#/definitions/PaymentCards'
           description: List of cards
-
-  "/customers/{customerFid}/paymentMethods/tokenizedCard":
-    post:
-      summary: Add a new tokenized card
-      tags:
-        - customers
-        - paymentMethods
-      security:
-        - OAuth:
-          - payment.methods
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/TokenizedCardDataPayload'
-
-      responses:
-        200:
-          schema:
-            $ref: '#/definitions/Fid'
-          description: Tokenized card added to the customers account
 
   "/customers/{customerFid}/paymentMethods/cards/{cardFid}":
     delete:
@@ -1561,29 +1560,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/ConfirmCardOrderPayload'
-      responses:
-        503:
-          description: There are no payment gateways available to handle your request
-        200:
-          description: Order confirmed and payment authroized
-          schema:
-            $ref: '#/definitions/OrderConfirmation'
-
-  "/orders/{orderFid}/confirmTokenizedCard":
-    put:
-      summary: Confirm an order, authorize the payment
-      tags:
-        - orders
-      security:
-        - OAuth:
-          - orders
-      parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ConfirmTokenizedCardOrderPayload'
       responses:
         503:
           description: There are no payment gateways available to handle your request
@@ -1966,11 +1942,6 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
-  paymentMethodProcessor:
-    name: paymentMethodProcessor
-    in: query
-    type: string
-    description: Payment method processor to use
   invoiceFid:
     name: invoiceFid
     in: path
@@ -2161,6 +2132,8 @@ definitions:
             type: string
           payoutType:
             type: string
+          approved:
+            type: boolean
 
   AdvertiserCampaign:
     allOf:
@@ -2912,6 +2885,17 @@ definitions:
       - brandFid
       - displayName
 
+  UpdateAdvertiserApprovedPayload:
+    description: Payload for updating an advertiser approved setting
+    properties:
+      advertiserFid:
+        $ref: '#/definitions/advertiserFid'
+      approved:
+        type: boolean
+        default: true
+    required:
+      - advertiserFid
+
   PostActionPayload:
     properties:
       transactionId:
@@ -3125,8 +3109,10 @@ definitions:
         type: boolean
         description: If set to true, transactional messenger chains will be triggered
 
-  AbstractCardDataPayload:
+  CardDataPayload:
     properties:
+      encryptedCardNumber:
+        $ref: '#/definitions/cardEncryptedNumber'
       startMonth:
         $ref: '#/definitions/cardStartMonth'
       startYear:
@@ -3163,24 +3149,6 @@ definitions:
           format: float
       isDefault:
         $ref: '#/definitions/cardIsDefault'
-
-  CardDataPayload:
-    allOf:
-      - $ref: '#/definitions/AbstractCardDataPayload'
-      - properties:
-          encryptedCardNumber:
-             $ref: '#/definitions/cardEncryptedNumber'
-
-  TokenizedCardDataPayload:
-    allOf:
-      - $ref: '#/definitions/AbstractCardDataPayload'
-      - properties:
-          cardToken:
-            $ref: '#/definitions/cardToken'
-          cardType:
-            $ref: '#/definitions/cardType'
-          paymentServiceProcessor:
-            $ref: '#/definitions/PaymentServiceProcessor'
 
   CardUpdatePayload:
     properties:
@@ -3277,13 +3245,6 @@ definitions:
       - $ref: '#/definitions/ConfirmOrderPayload'
       - properties:
           cvv:
-            type: string
-
-  ConfirmTokenizedCardOrderPayload:
-    allOf:
-      - $ref: '#/definitions/ConfirmOrderPayload'
-      - properties:
-          cardToken:
             type: string
 
   ConfirmPayPalOrderPayload:
@@ -3510,7 +3471,6 @@ definitions:
     - prepayment
     - fortifipay
     - coinbase
-    - stripe
   CreateOrderType:
     description: Order Type (Must be initial to Auth Cards)
     type: string
@@ -3519,12 +3479,6 @@ definitions:
     - purchase
   externalReference:
     description: External (to Fortifi) Reference e.g. your internal Unique ID
-    type: string
-  cardToken:
-    description: Card token from provider
-    type: string
-  cardType:
-    description: Card type from provider
     type: string
   cardEncryptedNumber:
     description: Card number encrypted using your public key
