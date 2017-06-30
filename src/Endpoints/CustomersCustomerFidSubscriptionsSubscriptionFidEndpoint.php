@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\SubscriptionRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Payloads\PreRenewSubscriptionPayload;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -115,6 +116,35 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
         array_keys($this->_replacements),
         array_values($this->_replacements),
         'customers/{customerFid}/subscriptions/{subscriptionFid}/modify'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Pre-renew an existing subscription with a different price. Returns new open
+   * order to be completed
+   *
+   * @param PreRenewSubscriptionPayload $payload
+   *
+   * @return FidRequest
+   */
+  public function setPreRenew(PreRenewSubscriptionPayload $payload)
+  {
+    $request = new FidRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/preRenew'
       )
     ));
     $detail->setBody(json_encode($payload));

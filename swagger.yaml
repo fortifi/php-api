@@ -1454,6 +1454,32 @@ paths:
         404:
           description: Subscription not found
 
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/preRenew":
+    put:
+      summary: Pre-renew an existing subscription with a different price. Returns new open order to be completed
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PreRenewSubscriptionPayload'
+      responses:
+        200:
+          description: Created new open order
+          schema:
+            $ref: '#/definitions/Fid'
+        400:
+          description: Invalid payload data
+        404:
+          description: Subscription not found
+
   /products:
     get:
       summary: List all products
@@ -2820,6 +2846,11 @@ definitions:
         $ref: '#/definitions/ModifySubscriptionMode'
     required:
       - priceFid
+
+  PreRenewSubscriptionPayload:
+    properties:
+      priceFid:
+        $ref: '#/definitions/priceFid'
 
   CreatePolymerPayload:
     properties:
