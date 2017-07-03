@@ -122,4 +122,61 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Apply an offer to a subscription
+   *
+   * @param $offerFid
+   *
+   * @return ApiRequest
+   */
+  public function setApplyOffer($offerFid)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/applyOffer'
+      )
+    ));
+    $detail->addPostField('offerFid', $offerFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Pre-renew an existing subscription with a different price. Returns new open
+   * order to be completed
+   *
+   * @param $priceFid
+   *
+   * @return FidRequest
+   */
+  public function setPreRenew($priceFid)
+  {
+    $request = new FidRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/preRenew'
+      )
+    ));
+    $detail->addPostField('priceFid', $priceFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }

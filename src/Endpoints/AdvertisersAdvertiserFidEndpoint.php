@@ -2,7 +2,6 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\AdvertiserRequest;
-use Fortifi\Api\V1\Payloads\UpdateAdvertiserApprovedPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -14,6 +13,18 @@ class AdvertisersAdvertiserFidEndpoint extends ApiEndpoint
   public function __construct($advertiserFid)
   {
     $this->_replacements['{advertiserFid}'] = $advertiserFid;
+  }
+
+  /**
+   * @return AdvertisersAdvertiserFidApprovedEndpoint
+   */
+  public function approved()
+  {
+    $endpoint = new AdvertisersAdvertiserFidApprovedEndpoint(
+      $this->_replacements['{advertiserFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
   }
 
   /**
@@ -49,34 +60,6 @@ class AdvertisersAdvertiserFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Change approved status on an advertiser
-   *
-   * @param UpdateAdvertiserApprovedPayload $payload
-   *
-   * @return AdvertiserRequest
-   */
-  public function setApproved(UpdateAdvertiserApprovedPayload $payload)
-  {
-    $request = new AdvertiserRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'advertisers/{advertiserFid}/approved'
-      )
-    ));
-    $detail->setBody(json_encode($payload));
-    $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
   }

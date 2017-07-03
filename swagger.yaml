@@ -319,20 +319,28 @@ paths:
         - OAuth:
           - advertiser
       tags:
-       - marketing
-      summary: Change approved status on an advertiser
+        - marketing
+      summary: Set approved status on an advertiser
       parameters:
         - $ref: '#/parameters/advertiserFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/UpdateAdvertiserApprovedPayload'
       responses:
         200:
-          description: Updated Advertiser
-          schema:
-            $ref: '#/definitions/Advertiser'
+          description: Approved Advertiser
+        404:
+          description: Advertiser not found
+
+    delete:
+      summary: Remove approved status on an advertiser
+      tags:
+        - marketing
+      security:
+        - OAuth:
+          - advertiser
+      parameters:
+        - $ref: '#/parameters/advertiserFid'
+      responses:
+        200:
+          description: Advertiser no longer approved
         404:
           description: Advertiser not found
 
@@ -1444,6 +1452,51 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/ModifySubscriptionPayload'
+      responses:
+        200:
+          description: Created new open order
+          schema:
+            $ref: '#/definitions/Fid'
+        400:
+          description: Invalid payload data
+        404:
+          description: Subscription not found
+
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/applyOffer":
+    put:
+      summary: Apply an offer to a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: offerFid
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Offer applied
+
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/preRenew":
+    put:
+      summary: Pre-renew an existing subscription with a different price. Returns new open order to be completed
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: priceFid
+          in: formData
+          required: true
+          description: Price FID
+          type: string
       responses:
         200:
           description: Created new open order
@@ -2884,17 +2937,6 @@ definitions:
       - advertiserFid
       - brandFid
       - displayName
-
-  UpdateAdvertiserApprovedPayload:
-    description: Payload for updating an advertiser approved setting
-    properties:
-      advertiserFid:
-        $ref: '#/definitions/advertiserFid'
-      approved:
-        type: boolean
-        default: true
-    required:
-      - advertiserFid
 
   PostActionPayload:
     properties:
