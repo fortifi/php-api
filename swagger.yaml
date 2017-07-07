@@ -1507,26 +1507,6 @@ paths:
         404:
           description: Subscription not found
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/applyOffer":
-    put:
-      summary: Apply an offer to a subscription
-      tags:
-        - customers
-      security:
-        - OAuth:
-          - customer
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ApplyOfferSubscriptionPayload'
-      responses:
-        200:
-          description: Offer applied
-
   /products:
     get:
       summary: List all products
@@ -2894,11 +2874,6 @@ definitions:
     required:
       - priceFid
 
-  ApplyOfferSubscriptionPayload:
-    properties:
-      offerFid:
-        $ref: '#/definitions/offerFid'
-
   CreatePolymerPayload:
     properties:
       polymerCode:
@@ -3362,9 +3337,6 @@ definitions:
 #Properties
   priceFid:
     description: Price FID to modify subscription with
-    type: string
-  offerFid:
-    description: Offer FID to apply to subscription
     type: string
   ModifySubscriptionMode:
     description: Mode to modify subscription with
