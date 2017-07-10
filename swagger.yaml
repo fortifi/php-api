@@ -1464,6 +1464,8 @@ paths:
 
   "/customers/{customerFid}/subscriptions/{subscriptionFid}/applyOffer":
     put:
+      consumes:
+        - multipart/form-data
       summary: Apply an offer to a subscription
       tags:
         - customers
@@ -1483,6 +1485,8 @@ paths:
 
   "/customers/{customerFid}/subscriptions/{subscriptionFid}/preRenew":
     put:
+      consumes:
+        - multipart/form-data
       summary: Pre-renew an existing subscription with a different price. Returns new open order to be completed
       tags:
         - customers
