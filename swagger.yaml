@@ -1357,26 +1357,6 @@ paths:
         404:
           description: Invoice not found
 
-  "/customers/{customerFid}/invoices/{invoiceFid}/creditNote":
-    post:
-      security:
-        - OAuth:
-          - customer
-      summary: Add a credit note to a customers invoice
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/invoiceFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/InvoiceCreditNotePayload'
-      responses:
-        200:
-          description: Credit Note Added
-        404:
-          description: Invoice not found
-
   "/customers/{customerFid}/subscriptions":
     get:
       summary: List of subscription summaries for given customer
@@ -1475,6 +1455,31 @@ paths:
       responses:
         200:
           description: Created new open order
+          schema:
+            $ref: '#/definitions/Fid'
+        400:
+          description: Invalid payload data
+        404:
+          description: Subscription not found
+
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/updateRenewalPrice":
+    put:
+      summary: Modify an existing subscription with a new price which will be used for the next renewal
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: priceFid
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Subscription price updated
           schema:
             $ref: '#/definitions/Fid'
         400:
@@ -1991,7 +1996,6 @@ parameters:
     in: formData
     description: IP Address of the visitor
     type: string
-
   visitorId:
     name: visitorId
     in: path
@@ -2889,25 +2893,6 @@ definitions:
             format: int64
 
 #Payloads
-  InvoiceCreditNotePayload:
-    properties:
-      chargeRequestFid:
-        $ref: '#/definitions/Fid'
-      creditAmountType:
-        $ref: '#/definitions/creditAmountType'
-      amount:
-        type: number
-        format: float
-      reasonFid:
-        $ref: '#/definitions/reasonFid'
-      currency:
-        $ref: '#/definitions/currency'
-      creditDate:
-        $ref: '#/definitions/isoTime'
-    required:
-      - creditAmountType
-      - amount
-
   ModifySubscriptionPayload:
     properties:
       priceFid:
@@ -3381,13 +3366,6 @@ definitions:
   priceFid:
     description: Price FID to modify subscription with
     type: string
-  creditAmountType:
-    description: Credit amount type
-    type: string
-    enum:
-    - percent_of_remaining
-    - percent_of_total
-    - fixed
   ModifySubscriptionMode:
     description: Mode to modify subscription with
     type: string
@@ -3632,6 +3610,3 @@ definitions:
   customerFid:
     type: string
     description: FID for the customer placing the order
-  reasonFid:
-    type: string
-    description: FID of the reason

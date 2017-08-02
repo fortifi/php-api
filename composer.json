@@ -1,20 +1,40 @@
 {
-  "name": "fortifi/php-api",
+  "name": "fortifi/publicapi",
   "description": "Fortifi Business Platform",
   "homepage": "http://fortifi.co",
   "require": {
+    "fortifi/microservice": "1.3.4",
     "fortifi/api": "~1.0",
-    "packaged/helpers": "~1.1"
+    "packaged/rwd": "~0.0",
+    "fortifi/fortifi-api": "6.23.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8",
+    "fortifi/fortifi-api": "dev-T2940 as 5.0"
   },
   "autoload": {
     "psr-4": {
-      "Fortifi\\Api\\V1\\": "src/"
+      "Fortifi\\Services\\PublicApi\\": "src/",
+      "Fortifi\\Tests\\Services\\PublicApi\\": "tests/"
     }
   },
+  "minimum-stability": "dev",
   "repositories": [
     {
       "type": "vcs",
+      "url": "git@github.com:fortifi/microservice.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:fortifi/datalayer.git"
+    },
+    {
+      "type": "vcs",
       "url": "git@github.com:fortifi/api.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:fortifi/fortifi-api.git"
     }
   ]
 }
