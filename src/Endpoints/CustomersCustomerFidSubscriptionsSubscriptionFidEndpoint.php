@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\SubscriptionRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Payloads\SubscriptionCancelPayload;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -204,6 +205,34 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
       )
     ));
     $detail->addPostField('priceFid', $priceFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Cancel a subscripion. Returns subscription FID.
+   *
+   * @param SubscriptionCancelPayload $payload
+   *
+   * @return SubscriptionRequest
+   */
+  public function setCancel(SubscriptionCancelPayload $payload)
+  {
+    $request = new SubscriptionRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/cancel'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
