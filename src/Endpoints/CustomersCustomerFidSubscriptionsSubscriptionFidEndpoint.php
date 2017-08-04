@@ -124,6 +124,35 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @summary Modify an existing subscription with a new price which will be used for the
+   * next renewal
+   *
+   * @param $priceFid
+   *
+   * @return FidRequest
+   */
+  public function setUpdateRenewalPrice($priceFid)
+  {
+    $request = new FidRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/updateRenewalPrice'
+      )
+    ));
+    $detail->addPostField('priceFid', $priceFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Apply an offer to a subscription
    *
    * @param $offerFid

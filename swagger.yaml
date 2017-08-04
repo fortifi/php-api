@@ -1462,6 +1462,33 @@ paths:
         404:
           description: Subscription not found
 
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/updateRenewalPrice":
+    put:
+      consumes:
+        - multipart/form-data
+      summary: Modify an existing subscription with a new price which will be used for the next renewal
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: priceFid
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Subscription price updated
+          schema:
+            $ref: '#/definitions/Fid'
+        400:
+          description: Invalid payload data
+        404:
+          description: Subscription not found
+
   "/customers/{customerFid}/subscriptions/{subscriptionFid}/applyOffer":
     put:
       consumes:
@@ -1971,7 +1998,6 @@ parameters:
     in: formData
     description: IP Address of the visitor
     type: string
-
   visitorId:
     name: visitorId
     in: path
