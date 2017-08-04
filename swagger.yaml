@@ -1464,6 +1464,8 @@ paths:
 
   "/customers/{customerFid}/subscriptions/{subscriptionFid}/updateRenewalPrice":
     put:
+      consumes:
+        - multipart/form-data
       summary: Modify an existing subscription with a new price which will be used for the next renewal
       tags:
         - customers
