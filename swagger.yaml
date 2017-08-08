@@ -2932,14 +2932,11 @@ definitions:
 
   SubscriptionCancelPayload:
     properties:
-      productFid:
-        $ref: '#/definitions/productFid'
       reasonFid:
         $ref: '#/definitions/reasonFid'
       subscriptionRefundType:
         $ref: '#/definitions/SubscriptionRefundType'
     required:
-      - productFid
       - subscriptionRefundType
 
   CreatePolymerPayload:

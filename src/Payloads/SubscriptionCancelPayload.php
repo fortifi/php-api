@@ -6,11 +6,6 @@ class SubscriptionCancelPayload
   implements \JsonSerializable
 {
   /**
-   * Product FID
-   * @required
-   */
-  protected $_productFid;
-  /**
    * Reason FID
    */
   protected $_reasonFid;
@@ -23,10 +18,6 @@ class SubscriptionCancelPayload
   public function hydrate($data)
   {
     $data = (array)$data;
-    if(isset($data["productFid"]))
-    {
-      $this->_productFid = $data["productFid"];
-    }
     if(isset($data["reasonFid"]))
     {
       $this->_reasonFid = $data["reasonFid"];
@@ -41,35 +32,9 @@ class SubscriptionCancelPayload
   public function jsonSerialize()
   {
     return [
-      "productFid"             => $this->_productFid,
       "reasonFid"              => $this->_reasonFid,
       "subscriptionRefundType" => $this->_subscriptionRefundType,
     ];
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setProductFid($value)
-  {
-    $this->_productFid = $value;
-    return $this;
-  }
-
-  /**
-   * Product FID
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getProductFid($default = null, $trim = true)
-  {
-    $value = $this->_productFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
