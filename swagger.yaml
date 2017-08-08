@@ -1538,6 +1538,32 @@ paths:
         404:
           description: Subscription not found
 
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/cancel":
+    put:
+      summary: Cancel a subscripion. Returns subscription FID.
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SubscriptionCancelPayload'
+      responses:
+        200:
+          description: Subscription cancelled
+          schema:
+            $ref: '#/definitions/Subscription'
+        400:
+          description: Invalid payload data
+        404:
+          description: Subscription not found
+
   /products:
     get:
       summary: List all products
@@ -2904,6 +2930,15 @@ definitions:
     required:
       - priceFid
 
+  SubscriptionCancelPayload:
+    properties:
+      reasonFid:
+        $ref: '#/definitions/reasonFid'
+      subscriptionRefundType:
+        $ref: '#/definitions/SubscriptionRefundType'
+    required:
+      - subscriptionRefundType
+
   CreatePolymerPayload:
     properties:
       polymerCode:
@@ -3368,6 +3403,12 @@ definitions:
   priceFid:
     description: Price FID to modify subscription with
     type: string
+  productFid:
+    description: Product FID
+    type: string
+  reasonFid:
+    description: Reason FID
+    type: string
   ModifySubscriptionMode:
     description: Mode to modify subscription with
     type: string
@@ -3549,6 +3590,12 @@ definitions:
     enum:
     - initial
     - purchase
+  SubscriptionRefundType:
+    description: Subscription Refund Type
+    type: string
+    enum:
+    - prorate
+    - full
   externalReference:
     description: External (to Fortifi) Reference e.g. your internal Unique ID
     type: string
