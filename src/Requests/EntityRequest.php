@@ -35,7 +35,7 @@ class EntityRequest
   }
 
   /**
-   * Discription
+   * Description
    * 
    * @param mixed $default
    * @param bool $trim Trim Value

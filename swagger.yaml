@@ -171,6 +171,7 @@ tags:
   - name: Products
   - name: Licence
   - name: Support
+  - name: Reasons
 
 securityDefinitions:
   OAuth:
@@ -199,6 +200,8 @@ securityDefinitions:
       "purchase.readonly": Read Only on purchases
       "support": Read/Write On Support
       "support.readonly": Read Only on Support
+      "reasons": Read/Write On reasons
+      "reasons.readonly": Read Only on reasons
 
   accessToken:
     type: apiKey
@@ -1357,6 +1360,30 @@ paths:
         404:
           description: Invoice not found
 
+  "/customers/{customerFid}/invoices/{invoiceFid}/creditNote":
+    post:
+      security:
+        - OAuth:
+          - customer
+      summary: Add a credit note to a customers invoice
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceCreditNotePayload'
+      responses:
+        200:
+          description: Credit Note Added
+          schema:
+            $ref: '#/definitions/InvoiceCreditNote'
+        404:
+          description: Invoice not found
+        412:
+          description: Issue adding credit note to invoice
+
   "/customers/{customerFid}/subscriptions":
     get:
       summary: List of subscription summaries for given customer
@@ -1719,6 +1746,29 @@ paths:
           schema:
             $ref: '#/definitions/OrderConfirmation'
 
+  "/orders/{orderFid}/confirmNewCard":
+    put:
+      summary: Confirm an order with a new card, authorize the payment
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ConfirmOrderWithNewCardPayload'
+      responses:
+        503:
+          description: There are no payment gateways available to handle your request
+        200:
+          description: Order confirmed and payment authroized
+          schema:
+            $ref: '#/definitions/OrderConfirmation'
+
   "/orders/{orderFid}/products":
     get:
       summary: Retrieve order products
@@ -1977,6 +2027,41 @@ paths:
             $ref: '#/definitions/Licence'
         404:
           description: Licence Not Valid
+
+  "/reasons/groups":
+    get:
+      summary: Get a list of all reason groups
+      tags:
+        - reasons
+      security:
+        - OAuth:
+          - reasons.readonly
+      parameters:
+        - $ref: '#/parameters/reasonGroupType'
+      responses:
+        200:
+          description: Reason groups
+          schema:
+            $ref: '#/definitions/ReasonGroups'
+
+  "/reasons/groups/{reasonGroupFid}":
+    get:
+      summary: Get all the reasons for the reason group
+      tags:
+        - reasons
+      security:
+        - OAuth:
+          - reasons.readonly
+      parameters:
+        - $ref: '#/parameters/reasonGroupFid'
+      responses:
+        200:
+          description: Reason Group retrieved
+          schema:
+            $ref: '#/definitions/Reasons'
+        404:
+          description: reasonGroupFid not found
+
   "/tickets":
     post:
       summary: Create a support ticket
@@ -2124,7 +2209,21 @@ parameters:
     in: path
     required: true
     type: string
-
+  reasonFid:
+    name: reasonFid
+    in: path
+    required: true
+    type: string
+  reasonGroupFid:
+    name: reasonGroupFid
+    in: path
+    required: true
+    type: string
+  reasonGroupType:
+    name: reasonGroupType
+    in: query
+    required: false
+    type: string
 definitions:
 #Responses
   Fid:
@@ -2142,7 +2241,7 @@ definitions:
             description: Display Name
           description:
             type: string
-            description: Discription
+            description: Description
 
   PubKey:
     properties:
@@ -2625,6 +2724,22 @@ definitions:
             type: integer
             format: int32
 
+  InvoiceCreditNote:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          invoiceFid:
+            $ref: '#/definitions/Fid'
+          chargeRequestFid:
+            $ref: '#/definitions/Fid'
+          creditDate:
+            $ref: '#/definitions/isoTime'
+          amount:
+            type: number
+            format: float
+          currency:
+            type: string
+
   Pagination:
     properties:
       limit:
@@ -2920,7 +3035,64 @@ definitions:
             type: number
             format: int64
 
+  ReasonGroups:
+    properties:
+      reasonGroups:
+        type: array
+        items:
+          $ref: '#/definitions/ReasonGroup'
+
+  ReasonGroup:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          builtIn:
+            type: boolean
+          reasonCount:
+            type: number
+            format: int64
+          type:
+            $ref: '#/definitions/reasonGroupType'
+
+  Reasons:
+    properties:
+      reasons:
+        type: array
+        items:
+          $ref: '#/definitions/Reason'
+
+  Reason:
+    allOf:
+      - $ref: "#/definitions/Entity"
+      - properties:
+          groupFid:
+            $ref: '#/definitions/reasonGroupFid'
+          usedCount:
+            type: number
+            format: int64
+
 #Payloads
+  InvoiceCreditNotePayload:
+    properties:
+      displayName:
+        type: string
+      description:
+        type: string
+      chargeRequestFid:
+        $ref: '#/definitions/Fid'
+      creditAmountType:
+        $ref: '#/definitions/creditAmountType'
+      amount:
+        type: number
+        format: float
+      reasonFid:
+        $ref: '#/definitions/reasonFid'
+      currency:
+        $ref: '#/definitions/currency'
+    required:
+      - creditAmountType
+      - amount
+
   ModifySubscriptionPayload:
     properties:
       priceFid:
@@ -3354,6 +3526,41 @@ definitions:
           cvv:
             type: string
 
+  ConfirmOrderWithNewCardPayload:
+    properties:
+      paymentServiceFid:
+        $ref: '#/definitions/paymentServiceFid'
+      encryptedCardNumber:
+        $ref: '#/definitions/cardEncryptedNumber'
+      startMonth:
+        $ref: '#/definitions/cardStartMonth'
+      startYear:
+        $ref: '#/definitions/cardStartYear'
+      expiryMonth:
+        $ref: '#/definitions/cardExpiryMonth'
+      expiryYear:
+        $ref: '#/definitions/cardExpiryYear'
+      issue:
+        $ref: '#/definitions/cardIssue'
+      cardHolder:
+        $ref: '#/definitions/cardCardHolder'
+      addressFid:
+        $ref: '#/definitions/cardAddressFid'
+      addressLine1:
+        $ref: '#/definitions/cardAddressLine1'
+      addressLine2:
+        $ref: '#/definitions/cardAddressLine2'
+      addressLine3:
+        $ref: '#/definitions/cardAddressLine3'
+      addressCity:
+        $ref: '#/definitions/cardAddressCity'
+      addressState:
+        $ref: '#/definitions/cardAddressState'
+      addressCountry:
+        $ref: '#/definitions/cardAddressCountry'
+      addressPostal:
+        $ref: '#/definitions/cardAddressPostal'
+
   ConfirmPayPalOrderPayload:
     allOf:
       - $ref: '#/definitions/ConfirmOrderPayload'
@@ -3409,6 +3616,13 @@ definitions:
   reasonFid:
     description: Reason FID
     type: string
+  creditAmountType:
+    description: Credit amount type
+    type: string
+    enum:
+    - percent_of_remaining
+    - percent_of_total
+    - fixed
   ModifySubscriptionMode:
     description: Mode to modify subscription with
     type: string
@@ -3659,3 +3873,20 @@ definitions:
   customerFid:
     type: string
     description: FID for the customer placing the order
+  reasonFid:
+    type: string
+    description: FID of the reason
+  reasonGroupFid:
+    type: string
+    description: FID for the reason group
+  reasonFid:
+    type: string
+    description: FID for the reason
+  reasonGroupType:
+    description: Reason Group Type
+    type: string
+    enum:
+    - cancel
+    - suspend
+    - refund
+    - credit
