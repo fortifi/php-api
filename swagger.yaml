@@ -3873,15 +3873,9 @@ definitions:
   customerFid:
     type: string
     description: FID for the customer placing the order
-  reasonFid:
-    type: string
-    description: FID of the reason
   reasonGroupFid:
     type: string
     description: FID for the reason group
-  reasonFid:
-    type: string
-    description: FID for the reason
   reasonGroupType:
     description: Reason Group Type
     type: string
