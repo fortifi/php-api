@@ -96,6 +96,34 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @summary Set parent subscription on a subscription
+   *
+   * @param $parentSubscriptionFid
+   *
+   * @return FidRequest
+   */
+  public function setParentSubscription($parentSubscriptionFid)
+  {
+    $request = new FidRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/setParentSubscription'
+      )
+    ));
+    $detail->addPostField('parentSubscriptionFid', $parentSubscriptionFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Modify an existing subscription with a new price. Returns new open order to
    * be completed
    *

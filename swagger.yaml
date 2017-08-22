@@ -647,6 +647,44 @@ paths:
         404:
           description: Customer not found
 
+  "/customers/{customerFid}/note":
+    put:
+      summary: Save a note against a customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: note
+          in: formData
+          required: true
+          description: Text content of note
+          type: string
+        - name: colour
+          in: formData
+          required: false
+          description: Colour of the new ticket
+          type: string
+          enum:
+            - blue
+            - red
+            - orange
+            - yellow
+            - indigo
+            - violet
+            - green
+            - pink
+            - grey
+      responses:
+        200:
+          description: Customer note saved
+        404:
+          description: Customer not found
+
   "/customers/{customerFid}/location":
     put:
       summary: Update a customers location
@@ -1460,6 +1498,33 @@ paths:
       responses:
         200:
           description: Auto charge disabled
+        404:
+          description: Subscription not found
+
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/setParentSubscription":
+    put:
+      consumes:
+        - multipart/form-data
+      summary: Set parent subscription on a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: parentSubscriptionFid
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Parent subscription set
+          schema:
+            $ref: '#/definitions/Fid'
+        412:
+          description: Cannot create cyclic reference
         404:
           description: Subscription not found
 

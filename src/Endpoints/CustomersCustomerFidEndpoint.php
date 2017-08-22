@@ -190,6 +190,36 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @summary Save a note against a customer
+   *
+   * @param $note
+   * @param $colour
+   *
+   * @return ApiRequest
+   */
+  public function setNote($note, $colour = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/note'
+      )
+    ));
+    $detail->addPostField('note', $note);
+    $detail->addPostField('colour', $colour);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Update a customers location
    *
    * @param SetCustomerLocationPayload $payload
