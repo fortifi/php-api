@@ -1,7 +1,5 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
-
-use Fortifi\Api\V1\Requests\KeyValueRequest;
 use Packaged\Helpers\Strings;
 
 class TriggerActionPayload
@@ -26,7 +24,13 @@ class TriggerActionPayload
     $data = (array)$data;
     if(isset($data["metaData"]))
     {
-      $this->_metaData = $data["metaData"];
+      $this->_metaData = [];
+      foreach($data["metaData"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_metaData[] = $dObj;
+      }
     }
     if(isset($data["time"]))
     {
@@ -54,7 +58,7 @@ class TriggerActionPayload
   }
 
   /**
-   * @param array $value
+   * @param KeyValuePayload[] $value
    *
    * @return $this
    */
@@ -65,11 +69,11 @@ class TriggerActionPayload
   }
 
   /**
-   * @param KeyValueRequest $item
+   * @param KeyValuePayload $item
    *
    * @return $this
    */
-  public function addMetaData(KeyValueRequest $item)
+  public function addMetaData(KeyValuePayload $item)
   {
     $this->_metaData[] = $item;
     return $this;
@@ -78,7 +82,7 @@ class TriggerActionPayload
   /**
    * @param mixed $default
    *
-   * @return KeyValueRequest[]
+   * @return KeyValuePayload[]
    */
   public function getMetaData($default = [])
   {

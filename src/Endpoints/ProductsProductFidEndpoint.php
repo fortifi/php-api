@@ -18,9 +18,11 @@ class ProductsProductFidEndpoint extends ApiEndpoint
   /**
    * @summary Retrieve Product Prices
    *
+   * @param $currency
+   *
    * @return ProductPricesRequest
    */
-  public function prices()
+  public function prices($currency = null)
   {
     $request = new ProductPricesRequest();
     $request->setConnection($this->_getConnection());
@@ -35,6 +37,7 @@ class ProductsProductFidEndpoint extends ApiEndpoint
         'products/{productFid}/prices'
       )
     ));
+    $detail->setBody(json_encode($currency));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

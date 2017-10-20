@@ -1680,6 +1680,16 @@ paths:
           - product.readonly
       parameters:
         - $ref: '#/parameters/productFid'
+        - name: currency
+          in: body
+          required: false
+          schema:
+            properties:
+              offerFids:
+                type: array
+                description: Offer FIDs to apply to the order
+                items:
+                  type: string
       responses:
         200:
           description: List of product prices
@@ -3144,7 +3154,7 @@ definitions:
       description:
         type: string
       chargeRequestFid:
-        $ref: '#/definitions/Fid'
+        $ref: '#/definitions/chargeRequestFid'
       creditAmountType:
         $ref: '#/definitions/creditAmountType'
       amount:
@@ -3229,14 +3239,11 @@ definitions:
   CreateAdvertiserCampaignPayload:
     description: Payload for creating an advertiser campaign
     properties:
-      advertiserFid:
-        $ref: '#/definitions/advertiserFid'
       brandFid:
         $ref: '#/definitions/brandFid'
       displayName:
         $ref: '#/definitions/displayName'
     required:
-      - advertiserFid
       - brandFid
       - displayName
 
@@ -3675,11 +3682,11 @@ definitions:
   priceFid:
     description: Price FID to modify subscription with
     type: string
-  productFid:
-    description: Product FID
-    type: string
   reasonFid:
     description: Reason FID
+    type: string
+  chargeRequestFid:
+    description: Charge Request FID
     type: string
   creditAmountType:
     description: Credit amount type
@@ -3737,7 +3744,7 @@ definitions:
     type: array
     description: Additional information to store
     items:
-      $ref: '#/definitions/keyValue'
+      $ref: '#/definitions/keyValuePayload'
   sourceTransactionId:
     description: Your unique transaction ID for the event to be reversed
     type: string
@@ -3790,12 +3797,6 @@ definitions:
     description: Email Address
   accountManagerFid:
     description: FID of an Account Manager
-    type: string
-  advertiserFid:
-    description: FID of an Advertiser
-    type: string
-  advertiserCampaignFid:
-    description: FID of an Advertiser Campaign
     type: string
   advertiserType:
     description: Advertiser Type

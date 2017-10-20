@@ -7,6 +7,9 @@ class InvoiceCreditNotePayload
 {
   protected $_displayName;
   protected $_description;
+  /**
+   * Charge Request FID
+   */
   protected $_chargeRequestFid;
   /**
    * Credit amount type
@@ -120,24 +123,28 @@ class InvoiceCreditNotePayload
   }
 
   /**
-   * @param FidResponse $value
+   * @param string $value
    *
    * @return $this
    */
-  public function setChargeRequestFid(FidResponse $value)
+  public function setChargeRequestFid($value)
   {
     $this->_chargeRequestFid = $value;
     return $this;
   }
 
   /**
-   * @param mixed $default
+   * Charge Request FID
    *
-   * @return FidResponse
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
    */
-  public function getChargeRequestFid($default = null)
+  public function getChargeRequestFid($default = null, $trim = true)
   {
-    return $this->_chargeRequestFid ?: $default;
+    $value = $this->_chargeRequestFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

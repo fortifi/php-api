@@ -1,7 +1,5 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
-
-use Fortifi\Api\V1\Requests\KeyValueRequest;
 use Packaged\Helpers\Strings;
 
 class PostActionPayload
@@ -165,7 +163,13 @@ class PostActionPayload
     }
     if(isset($data["metaData"]))
     {
-      $this->_metaData = $data["metaData"];
+      $this->_metaData = [];
+      foreach($data["metaData"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_metaData[] = $dObj;
+      }
     }
     if(isset($data["time"]))
     {
@@ -647,7 +651,7 @@ class PostActionPayload
   }
 
   /**
-   * @param array $value
+   * @param KeyValuePayload[] $value
    *
    * @return $this
    */
@@ -658,11 +662,11 @@ class PostActionPayload
   }
 
   /**
-   * @param KeyValueRequest $item
+   * @param KeyValuePayload $item
    *
    * @return $this
    */
-  public function addMetaData(KeyValueRequest $item)
+  public function addMetaData(KeyValuePayload $item)
   {
     $this->_metaData[] = $item;
     return $this;
@@ -671,7 +675,7 @@ class PostActionPayload
   /**
    * @param mixed $default
    *
-   * @return KeyValueRequest[]
+   * @return KeyValuePayload[]
    */
   public function getMetaData($default = [])
   {
