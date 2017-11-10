@@ -2804,9 +2804,9 @@ definitions:
       - $ref: "#/definitions/Entity"
       - properties:
           invoiceFid:
-            $ref: '#/definitions/Fid'
+            type: string
           chargeRequestFid:
-            $ref: '#/definitions/Fid'
+            type: string
           creditDate:
             $ref: '#/definitions/isoTime'
           amount:
