@@ -2989,6 +2989,10 @@ definitions:
 
   OrderConfirmation:
     properties:
+      paymentAccountFid:
+        type: string
+      paymentMode:
+        type: string
       success:
         type: boolean
       message:

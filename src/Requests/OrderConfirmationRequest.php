@@ -13,9 +13,35 @@ class OrderConfirmationRequest
   public function jsonSerialize()
   {
     return [
+      "paymentAccountFid" => $this->getPaymentAccountFid(),
+      "paymentMode" => $this->getPaymentMode(),
       "success" => $this->isSuccess(),
       "message" => $this->getMessage(),
     ];
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentAccountFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentAccountFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentMode($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentMode', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
