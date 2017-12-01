@@ -3478,6 +3478,8 @@ definitions:
         $ref: '#/definitions/cardExpiryYear'
       last4:
         $ref: '#/definitions/cardLast4'
+      cardType:
+        $ref: '#/definitions/cardType'
       issue:
         $ref: '#/definitions/cardIssue'
       cardHolder:
@@ -3618,6 +3620,10 @@ definitions:
         $ref: '#/definitions/cardExpiryYear'
       issue:
         $ref: '#/definitions/cardIssue'
+      last4:
+        $ref: '#/definitions/cardLast4'
+      cardType:
+        $ref: '#/definitions/cardType'
       cardHolder:
         $ref: '#/definitions/cardCardHolder'
       addressFid:
@@ -3900,6 +3906,9 @@ definitions:
     type: integer
   cardLast4:
     description: Last 4 digits of the credit card number
+    type: string
+  cardType:
+    description: Card issuer (visa, mastercard, etc)
     type: string
   cardIssue:
     description: Issue number of the card

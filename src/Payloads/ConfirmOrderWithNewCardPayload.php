@@ -34,6 +34,14 @@ class ConfirmOrderWithNewCardPayload
    */
   protected $_issue;
   /**
+   * Last 4 digits of the credit card number
+   */
+  protected $_last4;
+  /**
+   * Card issuer (visa, mastercard, etc)
+   */
+  protected $_cardType;
+  /**
    * Name as appears on card
    */
   protected $_cardHolder;
@@ -101,6 +109,14 @@ class ConfirmOrderWithNewCardPayload
     {
       $this->_issue = $data["issue"];
     }
+    if(isset($data["last4"]))
+    {
+      $this->_last4 = $data["last4"];
+    }
+    if(isset($data["cardType"]))
+    {
+      $this->_cardType = $data["cardType"];
+    }
     if(isset($data["cardHolder"]))
     {
       $this->_cardHolder = $data["cardHolder"];
@@ -150,6 +166,8 @@ class ConfirmOrderWithNewCardPayload
       "expiryMonth"         => $this->_expiryMonth,
       "expiryYear"          => $this->_expiryYear,
       "issue"               => $this->_issue,
+      "last4"               => $this->_last4,
+      "cardType"            => $this->_cardType,
       "cardHolder"          => $this->_cardHolder,
       "addressFid"          => $this->_addressFid,
       "addressLine1"        => $this->_addressLine1,
@@ -325,6 +343,56 @@ class ConfirmOrderWithNewCardPayload
   public function getIssue($default = null)
   {
     return $this->_issue ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setLast4($value)
+  {
+    $this->_last4 = $value;
+    return $this;
+  }
+
+  /**
+   * Last 4 digits of the credit card number
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLast4($default = null, $trim = true)
+  {
+    $value = $this->_last4 ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCardType($value)
+  {
+    $this->_cardType = $value;
+    return $this;
+  }
+
+  /**
+   * Card issuer (visa, mastercard, etc)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCardType($default = null, $trim = true)
+  {
+    $value = $this->_cardType ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

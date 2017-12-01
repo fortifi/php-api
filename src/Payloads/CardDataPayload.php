@@ -30,6 +30,10 @@ class CardDataPayload
    */
   protected $_last4;
   /**
+   * Card issuer (visa, mastercard, etc)
+   */
+  protected $_cardType;
+  /**
    * Issue number of the card
    */
   protected $_issue;
@@ -105,6 +109,10 @@ class CardDataPayload
     {
       $this->_last4 = $data["last4"];
     }
+    if(isset($data["cardType"]))
+    {
+      $this->_cardType = $data["cardType"];
+    }
     if(isset($data["issue"]))
     {
       $this->_issue = $data["issue"];
@@ -165,6 +173,7 @@ class CardDataPayload
       "expiryMonth"         => $this->_expiryMonth,
       "expiryYear"          => $this->_expiryYear,
       "last4"               => $this->_last4,
+      "cardType"            => $this->_cardType,
       "issue"               => $this->_issue,
       "cardHolder"          => $this->_cardHolder,
       "addressFid"          => $this->_addressFid,
@@ -319,6 +328,31 @@ class CardDataPayload
   public function getLast4($default = null, $trim = true)
   {
     $value = $this->_last4 ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCardType($value)
+  {
+    $this->_cardType = $value;
+    return $this;
+  }
+
+  /**
+   * Card issuer (visa, mastercard, etc)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCardType($default = null, $trim = true)
+  {
+    $value = $this->_cardType ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
