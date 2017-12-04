@@ -6,6 +6,10 @@ class CardDataPayload
   implements \JsonSerializable
 {
   /**
+   * Visible Display Name
+   */
+  protected $_cardDisplayName;
+  /**
    * Card number encrypted using your public key
    */
   protected $_encryptedCardNumber;
@@ -85,6 +89,10 @@ class CardDataPayload
   public function hydrate($data)
   {
     $data = (array)$data;
+    if(isset($data["cardDisplayName"]))
+    {
+      $this->_cardDisplayName = $data["cardDisplayName"];
+    }
     if(isset($data["encryptedCardNumber"]))
     {
       $this->_encryptedCardNumber = $data["encryptedCardNumber"];
@@ -167,6 +175,7 @@ class CardDataPayload
   public function jsonSerialize()
   {
     return [
+      "cardDisplayName"     => $this->_cardDisplayName,
       "encryptedCardNumber" => $this->_encryptedCardNumber,
       "startMonth"          => $this->_startMonth,
       "startYear"           => $this->_startYear,
@@ -187,6 +196,31 @@ class CardDataPayload
       "preAuthAmount"       => $this->_preAuthAmount,
       "isDefault"           => $this->_isDefault,
     ];
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCardDisplayName($value)
+  {
+    $this->_cardDisplayName = $value;
+    return $this;
+  }
+
+  /**
+   * Visible Display Name
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCardDisplayName($default = null, $trim = true)
+  {
+    $value = $this->_cardDisplayName ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

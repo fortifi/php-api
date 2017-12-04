@@ -25,7 +25,7 @@ class CreateAdvertiserPayload
    */
   protected $_type;
   /**
-   * Visiable Display Name
+   * Visible Display Name
    */
   protected $_displayName;
   /**
@@ -242,7 +242,7 @@ class CreateAdvertiserPayload
   }
 
   /**
-   * Visiable Display Name
+   * Visible Display Name
    *
    * @param mixed $default
    * @param bool $trim Trim Value

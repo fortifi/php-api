@@ -11,7 +11,7 @@ class CreateAdvertiserCampaignPayload
    */
   protected $_brandFid;
   /**
-   * Visiable Display Name
+   * Visible Display Name
    * @required
    */
   protected $_displayName;
@@ -75,7 +75,7 @@ class CreateAdvertiserCampaignPayload
   }
 
   /**
-   * Visiable Display Name
+   * Visible Display Name
    *
    * @param mixed $default
    * @param bool $trim Trim Value

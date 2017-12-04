@@ -3466,6 +3466,8 @@ definitions:
 
   CardDataPayload:
     properties:
+      cardDisplayName:
+        $ref: '#/definitions/displayName'
       encryptedCardNumber:
         $ref: '#/definitions/cardEncryptedNumber'
       startMonth:
@@ -3606,6 +3608,8 @@ definitions:
 
   ConfirmOrderWithNewCardPayload:
     properties:
+      cardDisplayName:
+        $ref: '#/definitions/displayName'
       paymentServiceFid:
         $ref: '#/definitions/paymentServiceFid'
       encryptedCardNumber:
@@ -3785,7 +3789,7 @@ definitions:
     description: Phone Number
     type: string
   displayName:
-    description: Visiable Display Name
+    description: Visible Display Name
     type: string
   firstName:
     description: First Name

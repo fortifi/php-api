@@ -6,6 +6,10 @@ class ConfirmOrderWithNewCardPayload
   implements \JsonSerializable
 {
   /**
+   * Visible Display Name
+   */
+  protected $_cardDisplayName;
+  /**
    * FID for the payment service you wish to charge the customer through
    */
   protected $_paymentServiceFid;
@@ -81,6 +85,10 @@ class ConfirmOrderWithNewCardPayload
   public function hydrate($data)
   {
     $data = (array)$data;
+    if(isset($data["cardDisplayName"]))
+    {
+      $this->_cardDisplayName = $data["cardDisplayName"];
+    }
     if(isset($data["paymentServiceFid"]))
     {
       $this->_paymentServiceFid = $data["paymentServiceFid"];
@@ -159,6 +167,7 @@ class ConfirmOrderWithNewCardPayload
   public function jsonSerialize()
   {
     return [
+      "cardDisplayName"     => $this->_cardDisplayName,
       "paymentServiceFid"   => $this->_paymentServiceFid,
       "encryptedCardNumber" => $this->_encryptedCardNumber,
       "startMonth"          => $this->_startMonth,
@@ -178,6 +187,31 @@ class ConfirmOrderWithNewCardPayload
       "addressCountry"      => $this->_addressCountry,
       "addressPostal"       => $this->_addressPostal,
     ];
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCardDisplayName($value)
+  {
+    $this->_cardDisplayName = $value;
+    return $this;
+  }
+
+  /**
+   * Visible Display Name
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCardDisplayName($default = null, $trim = true)
+  {
+    $value = $this->_cardDisplayName ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
