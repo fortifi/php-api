@@ -1501,6 +1501,27 @@ paths:
         404:
           description: Subscription not found
 
+  "/customers/{customerFid}/subscriptions/{subscriptionFid}/reEnableRenewal":
+    put:
+      summary: Re-enable renewals on a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: reason
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Renewals Enabled
+        404:
+          description: Subscription not found
+
   "/customers/{customerFid}/subscriptions/{subscriptionFid}/setParentSubscription":
     put:
       consumes:
