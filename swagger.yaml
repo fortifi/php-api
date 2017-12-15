@@ -1219,6 +1219,23 @@ paths:
         200:
           description: Event Triggered
 
+  "/customers/{customerFid}/paymentAccounts":
+    get:
+      summary: List customers payment accounts
+      tags:
+        - customers
+        - payment.methods
+      security:
+        - OAuth:
+          - payment.methods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/PaymentAccounts'
+          description: List of payment accounts
+
   "/customers/{customerFid}/paymentMethods/cards":
     post:
       summary: Add a new card
@@ -3013,11 +3030,29 @@ definitions:
       paymentAccountFid:
         type: string
       paymentMode:
-        type: string
+        $ref: '#/definitions/PaymentMode'
       success:
         type: boolean
       message:
         type: string
+
+  PaymentAccounts:
+    properties:
+      accounts:
+        type: array
+        items:
+          $ref: "#/definitions/PaymentAccount"
+
+  PaymentAccount:
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          accountType:
+            $ref: '#/definitions/PaymentAccountType'
+          paymentMethod:
+            $ref: '#/definitions/PaymentMethod'
+          paymentMode:
+            $ref: '#/definitions/PaymentMode'
 
   PaymentCards:
     properties:
@@ -3737,6 +3772,41 @@ definitions:
     - prorate
     - extend
     - replace
+  PaymentAccountType:
+    description: Payment account type
+    type: string
+    enum:
+    - unknown
+    - visa
+    - mastercard
+    - amex
+    - jcb
+    - discover
+    - diners
+    - encrypted
+    - paypal_personal
+    - paypal_premier
+    - paypal_business
+    - paypal_verified
+    - paypal_unverified
+    - paypal
+    - bitcoin
+    - account_balance
+  PaymentMethod:
+    description: Payment Method
+    type: string
+    enum:
+    - unknown
+    - multiple
+    - paypal
+    - bitcoin
+    - account_balance
+  PaymentMode:
+    description: Payment Mode
+    type: string
+    enum:
+    - automatic
+    - request
   isoTime:
     description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
     type: string

@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\PaymentAccountsRequest;
 use Fortifi\Api\V1\Requests\CustomerRequest;
 use Fortifi\Api\V1\Requests\AddressesRequest;
 use Fortifi\Api\V1\Payloads\SetSubscriptionTypePayload;
@@ -475,6 +476,31 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $detail->addPostField('sender', $sender);
     $detail->addPostField('departmentFid', $departmentFid);
     $detail->setMethod('POST');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary List customers payment accounts
+   *
+   * @return PaymentAccountsRequest
+   */
+  public function paymentAccounts()
+  {
+    $request = new PaymentAccountsRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/paymentAccounts'
+      )
+    ));
+    $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
   }

@@ -33,6 +33,8 @@ class OrderConfirmationRequest
   }
 
   /**
+   * Payment Mode
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *
