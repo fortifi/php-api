@@ -1586,7 +1586,7 @@ paths:
         200:
           description: Created new open order
           schema:
-            $ref: '#/definitions/Fid'
+            $ref: '#/definitions/Order'
         400:
           description: Invalid payload data
         404:

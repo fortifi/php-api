@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\SubscriptionRequest;
+use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Payloads\SubscriptionCancelPayload;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
@@ -157,11 +158,11 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
    *
    * @param ModifySubscriptionPayload $payload
    *
-   * @return FidRequest
+   * @return OrderRequest
    */
   public function setModify(ModifySubscriptionPayload $payload)
   {
-    $request = new FidRequest();
+    $request = new OrderRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
