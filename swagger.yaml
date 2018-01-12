@@ -1719,15 +1719,9 @@ paths:
       parameters:
         - $ref: '#/parameters/productFid'
         - name: currency
-          in: body
+          in: formData
           required: false
-          schema:
-            properties:
-              offerFids:
-                type: array
-                description: Offer FIDs to apply to the order
-                items:
-                  type: string
+          type: string
       responses:
         200:
           description: List of product prices
@@ -3232,6 +3226,8 @@ definitions:
     properties:
       priceFid:
         $ref: '#/definitions/priceFid'
+      offerFid:
+        $ref: '#/definitions/offerFid'
       mode:
         $ref: '#/definitions/ModifySubscriptionMode'
     required:
@@ -3750,6 +3746,9 @@ definitions:
 
 #Properties
   priceFid:
+    description: Price FID to modify subscription with
+    type: string
+  offerFid:
     description: Price FID to modify subscription with
     type: string
   reasonFid:

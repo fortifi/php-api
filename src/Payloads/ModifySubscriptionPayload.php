@@ -11,6 +11,10 @@ class ModifySubscriptionPayload
    */
   protected $_priceFid;
   /**
+   * Price FID to modify subscription with
+   */
+  protected $_offerFid;
+  /**
    * Mode to modify subscription with
    */
   protected $_mode;
@@ -21,6 +25,10 @@ class ModifySubscriptionPayload
     if(isset($data["priceFid"]))
     {
       $this->_priceFid = $data["priceFid"];
+    }
+    if(isset($data["offerFid"]))
+    {
+      $this->_offerFid = $data["offerFid"];
     }
     if(isset($data["mode"]))
     {
@@ -33,6 +41,7 @@ class ModifySubscriptionPayload
   {
     return [
       "priceFid" => $this->_priceFid,
+      "offerFid" => $this->_offerFid,
       "mode"     => $this->_mode,
     ];
   }
@@ -59,6 +68,31 @@ class ModifySubscriptionPayload
   public function getPriceFid($default = null, $trim = true)
   {
     $value = $this->_priceFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setOfferFid($value)
+  {
+    $this->_offerFid = $value;
+    return $this;
+  }
+
+  /**
+   * Price FID to modify subscription with
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOfferFid($default = null, $trim = true)
+  {
+    $value = $this->_offerFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
