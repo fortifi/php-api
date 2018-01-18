@@ -14,6 +14,18 @@ class CustomersCustomerFidPaymentMethodsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidPaymentMethodsPaypalEndpoint
+   */
+  public function paypal()
+  {
+    $endpoint = new CustomersCustomerFidPaymentMethodsPaypalEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidPaymentMethodsCardsEndpoint
    */
   public function cards()

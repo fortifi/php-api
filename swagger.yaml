@@ -294,7 +294,7 @@ paths:
          description: Advertiser Created
          schema:
            $ref: '#/definitions/Fid'
-       412:
+       400:
          description: |
            Invalid data supplied
 
@@ -367,7 +367,7 @@ paths:
          description: Campaign Created
          schema:
            $ref: '#/definitions/Fid'
-       412:
+       400:
          description: |
            Invalid data supplied
 
@@ -1235,6 +1235,64 @@ paths:
           schema:
             $ref: '#/definitions/PaymentAccounts'
           description: List of payment accounts
+        400:
+          description: Error retrieving payment accounts
+
+  "/customers/{customerFid}/paymentMethods/paypal/initialise":
+    post:
+      summary: Initialise a new paypal agreement for existing subscriptions
+      tags:
+        - customers
+        - payment.methods
+      security:
+        - OAuth:
+          - payment.methods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentServiceFid'
+        - $ref: '#/parameters/subscriptionFids'
+        - name: successUrl
+          type: string
+          in: formData
+          required: true
+        - name: cancelUrl
+          type: string
+          in: formData
+          required: true
+        - name: failUrl
+          type: string
+          in: formData
+          required: true
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/PaypalInit'
+          description: Redirect instructions
+        501:
+          description: Inable to initialise Paypal agreement
+
+  "/customers/{customerFid}/paymentMethods/paypal/complete":
+    post:
+      summary: Complete a paypal agreement created with initialise
+      tags:
+        - customers
+        - payment.methods
+      security:
+        - OAuth:
+          - payment.methods
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentServiceFid'
+        - $ref: '#/parameters/subscriptionFids'
+        - name: token
+          type: string
+          in: formData
+          required: true
+      responses:
+        200:
+          description: Successfully created agreement
+        400:
+          description: Failed to complete Paypal agreement
 
   "/customers/{customerFid}/paymentMethods/cards":
     post:
@@ -1436,7 +1494,7 @@ paths:
             $ref: '#/definitions/InvoiceCreditNote'
         404:
           description: Invoice not found
-        412:
+        400:
           description: Issue adding credit note to invoice
 
   "/customers/{customerFid}/subscriptions":
@@ -1561,7 +1619,7 @@ paths:
           description: Parent subscription set
           schema:
             $ref: '#/definitions/Fid'
-        412:
+        400:
           description: Cannot create cyclic reference
         404:
           description: Subscription not found
@@ -2249,12 +2307,26 @@ parameters:
     type: string
     required: true
     description: Invoice Fid to use
+  paymentServiceFid:
+    name: paymentServiceFid
+    in: formData
+    type: string
+    required: true
+    description: Payment Service FID to use
   subscriptionFid:
     name: subscriptionFid
     in: path
     type: string
     required: true
     description: Subscription FID to use
+  subscriptionFids:
+    name: subscriptionFids
+    in: formData
+    type: array
+    items:
+      type: string
+    required: true
+    description: Subscription FIDs
   emailAddress:
     name: emailAddress
     in: path
@@ -3036,6 +3108,11 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/PaymentAccount"
+
+  PaypalInit:
+    properties:
+      redirectUrl:
+        type: string
 
   PaymentAccount:
     allOf:
