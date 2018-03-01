@@ -47,6 +47,30 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidPaymentsEndpoint
+   */
+  public function payments()
+  {
+    $endpoint = new CustomersCustomerFidPaymentsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidChargebacksEndpoint
+   */
+  public function chargebacks()
+  {
+    $endpoint = new CustomersCustomerFidChargebacksEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidPaymentMethodsEndpoint
    */
   public function paymentMethods()
@@ -198,7 +222,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setNote($note, $colour = null)
+  public function createNote($note, $colour = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -215,7 +239,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('note', $note);
     $detail->addPostField('colour', $colour);
-    $detail->setMethod('PUT');
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

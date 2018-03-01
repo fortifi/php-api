@@ -21,6 +21,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return SvcauthEndpoint
+   */
+  public function svcauth()
+  {
+    $endpoint = new SvcauthEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return AdvertisersEndpoint
    */
   public function advertisers()

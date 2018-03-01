@@ -5,7 +5,7 @@ use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class KeyValueRequest
+class AuthTokenResponseRequest
   extends ApiRequest
   implements \JsonSerializable
 {
@@ -13,8 +13,8 @@ class KeyValueRequest
   public function jsonSerialize()
   {
     return [
-      "key" => $this->getKey(),
-      "value" => $this->getValue(),
+      "token" => $this->getToken(),
+      "expiry" => $this->getExpiry(),
     ];
   }
 
@@ -24,21 +24,19 @@ class KeyValueRequest
    *
    * @return string
    */
-  public function getKey($default = null, $trim = true)
+  public function getToken($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'key', $default);
+    $value = Objects::property($this->_getResultJson(), 'token', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return integer
    */
-  public function getValue($default = null, $trim = true)
+  public function getExpiry($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'value', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'expiry', $default);
   }
 }
