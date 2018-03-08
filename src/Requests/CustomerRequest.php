@@ -20,6 +20,7 @@ class CustomerRequest
         "email" => $this->getEmail(),
         "phone" => $this->getPhone(),
         "externalReference" => $this->getExternalReference(),
+        "companyFid" => $this->getCompanyFid(),
       ]
     );
   }
@@ -93,6 +94,18 @@ class CustomerRequest
   public function getExternalReference($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCompanyFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
