@@ -23,21 +23,19 @@ class ProductRequest
         "taxable" => $this->getTaxable(),
         "taxGroupFid" => $this->getTaxGroupFid(),
         "maxQuantity" => $this->getMaxQuantity(),
-        "allowQuantity" => $this->isAllowQuantity(),
+        "allowQuantity" => $this->getAllowQuantity(),
       ]
     );
   }
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return integer
    */
-  public function getProductType($default = null, $trim = true)
+  public function getProductType($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'productType', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'productType', $default);
   }
 
   /**
@@ -66,14 +64,12 @@ class ProductRequest
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return integer
    */
-  public function getTrialDays($default = null, $trim = true)
+  public function getTrialDays($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'trialDays', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'trialDays', $default);
   }
 
   /**
@@ -100,14 +96,12 @@ class ProductRequest
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return integer
    */
-  public function getTaxable($default = null, $trim = true)
+  public function getTaxable($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'taxable', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'taxable', $default);
   }
 
   /**
@@ -124,22 +118,20 @@ class ProductRequest
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return integer
    */
-  public function getMaxQuantity($default = null, $trim = true)
+  public function getMaxQuantity($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'maxQuantity', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'maxQuantity', $default);
   }
 
   /**
-   * @param bool $default
+   * @param mixed $default
    *
-   * @return boolean
+   * @return integer
    */
-  public function isAllowQuantity($default = false)
+  public function getAllowQuantity($default = null)
   {
     return Objects::property($this->_getResultJson(), 'allowQuantity', $default);
   }

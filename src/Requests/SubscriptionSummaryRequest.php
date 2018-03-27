@@ -18,6 +18,8 @@ class SubscriptionSummaryRequest
         "renewalDate" => $this->getRenewalDate(),
         "paidUntil" => $this->getPaidUntil(),
         "cycle" => $this->getCycle(),
+        "autoCharge" => $this->isAutoCharge(),
+        "productFid" => $this->getProductFid(),
         "renewalPrice" => $this->getRenewalPrice(),
         "status" => $this->getStatus(),
       ]
@@ -75,6 +77,28 @@ class SubscriptionSummaryRequest
   public function getCycle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isAutoCharge($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'autoCharge', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'productFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

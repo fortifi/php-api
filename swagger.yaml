@@ -1149,6 +1149,22 @@ paths:
           description: Customer Currency Updated
         404:
           description: Customer not found
+    get:
+      summary: Get support tickets for customer
+      tags:
+       - customers
+       - support
+      security:
+        - OAuth:
+          - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Tickets'
+          description: Ticket collection
 
 
   "/entities/{entityFid}/config/{sectionName}":
@@ -2006,6 +2022,21 @@ paths:
           description: Products retrieved
           schema:
             $ref: '#/definitions/Products'
+
+  "/products/groups":
+      get:
+        summary: Get a list of all product groups
+        tags:
+          - products
+        security:
+          - OAuth:
+            - product.readonly
+          - accessToken: []
+        responses:
+          200:
+            description: Products groups
+            schema:
+              $ref: '#/definitions/ProductGroups'
 
   "/products/{productFid}/prices":
     get:
@@ -2934,6 +2965,10 @@ definitions:
             $ref: '#/definitions/isoTime'
           cycle:
             type: string
+          autoCharge:
+            type: boolean
+          productFid:
+            type: string
           renewalPrice:
             type: number
             format: float
@@ -3214,25 +3249,46 @@ definitions:
       - $ref: "#/definitions/Entity"
       - properties:
           productType:
-            type: string
+            type: integer
+            format: int32
           parentFid:
             type: string
           statementDescription:
             type: string
           trialDays:
-            type: string
+            type: integer
+            format: int32
           defaultPriceFid:
             type: string
           defaultPrice:
             $ref: "#/definitions/ProductPrice"
           taxable:
-            type: string
+            type: integer
+            format: int64
           taxGroupFid:
             type: string
           maxQuantity:
-            type: string
+            type: integer
+            format: int64
           allowQuantity:
-            type: boolean
+            type: integer
+            format: int32
+
+  ProductGroups:
+    properties:
+      groups:
+        type: array
+        items:
+          $ref: "#/definitions/ProductGroup"
+
+  ProductGroup:
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          products:
+            type: array
+            items:
+              $ref: "#/definitions/Fid"
 
   ProductPrices:
     properties:
@@ -3504,11 +3560,95 @@ definitions:
           restrictive:
             type: boolean
 
+  Tickets:
+    properties:
+      tickets:
+        type: array
+        items:
+          $ref: '#/definitions/Ticket'
+
   Ticket:
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
-          timestamp:
+          hash:
+            type: string
+          customerFid:
+            type: string
+          companyFid:
+            type: string
+          departmentFid:
+            type: string
+          queueFid:
+            type: string
+          agentFid:
+            type: string
+          slaFid:
+            type: string
+          ticketType:
+            type: string
+          status:
+            type: number
+            format: int64
+          impact:
+            type: number
+            format: int64
+          urgency:
+            type: number
+            format: int64
+          priority:
+            type: number
+            format: int64
+          tier:
+            type: number
+            format: int64
+          outboundEmail:
+            type: string
+          outboundName:
+            type: string
+          inboundEmail:
+            type: string
+          inboundName:
+            type: string
+          isSpam:
+            type: boolean
+          responseTargetTime:
+            type: number
+            format: int64
+          resolveTargetTime:
+            type: number
+            format: int64
+          postCount:
+            type: number
+            format: int64
+          lastReplySentTime:
+            type: number
+            format: int64
+          lastReplyReceivedTime:
+            type: number
+            format: int64
+          priorityAdjustment:
+            type: number
+            format: int64
+          locked:
+            type: boolean
+          lockedByFid:
+            type: string
+          attachments:
+            type: number
+            format: int64
+          restrictedAccess:
+            type: boolean
+          cc:
+            type: string
+          bcc:
+            type: string
+          language:
+            type: string
+          dataCreated:
+            type: number
+            format: int64
+          dateModified:
             type: number
             format: int64
 

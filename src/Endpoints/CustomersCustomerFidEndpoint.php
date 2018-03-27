@@ -71,6 +71,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidTicketsEndpoint
+   */
+  public function tickets()
+  {
+    $endpoint = new CustomersCustomerFidTicketsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidPaymentMethodsEndpoint
    */
   public function paymentMethods()
@@ -464,42 +476,6 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('currency', $currency);
     $detail->setMethod('PUT');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Create a new support ticket
-   *
-   * @param $subject
-   * @param $content
-   * @param $recipient
-   * @param $sender
-   * @param $departmentFid
-   *
-   * @return ApiRequest
-   */
-  public function createTicket($subject, $content, $recipient, $sender, $departmentFid = null)
-  {
-    $request = new ApiRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/tickets'
-      )
-    ));
-    $detail->addPostField('subject', $subject);
-    $detail->addPostField('content', $content);
-    $detail->addPostField('recipient', $recipient);
-    $detail->addPostField('sender', $sender);
-    $detail->addPostField('departmentFid', $departmentFid);
-    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

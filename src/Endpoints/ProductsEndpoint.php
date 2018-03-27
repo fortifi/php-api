@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\ProductsRequest;
 use Fortifi\Api\V1\Requests\ProductOffersRequest;
+use Fortifi\Api\V1\Requests\ProductGroupsRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -43,6 +44,25 @@ class ProductsEndpoint extends ApiEndpoint
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('products'));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Get a list of all product groups
+   *
+   * @return ProductGroupsRequest
+   */
+  public function groups()
+  {
+    $request = new ProductGroupsRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl('products/groups'));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
