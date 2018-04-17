@@ -4,6 +4,7 @@ namespace Fortifi\Api\V1\Endpoints;
 use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
+use Fortifi\Api\V1\Requests\BoolMessageRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmOrderWithNewCardPayload;
@@ -93,6 +94,31 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Cancel an order
+   *
+   * @return BoolMessageRequest
+   */
+  public function setCancel()
+  {
+    $request = new BoolMessageRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/cancel'
+      )
+    ));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

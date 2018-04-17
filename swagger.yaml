@@ -316,6 +316,30 @@ paths:
        400:
          description: |
            Invalid data supplied
+    get:
+      summary: List advertisers
+      security:
+        - OAuth:
+          - advertiser
+        - accessToken: []
+      tags:
+        - marketing
+      parameters:
+        - name: limit
+          in: query
+          description: "Maximum number of records per page (default: 20)"
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: "Page number (default: 1)"
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of advertisers
+          schema:
+            $ref: '#/definitions/Advertisers'
 
   /advertisers/{advertiserFid}:
     get:
@@ -1683,12 +1707,12 @@ paths:
           in: query
           description: "Maximum number of records per page (default: 20)"
           required: false
-          type: string
+          type: integer
         - name: page
           in: query
-          description: "Page number (default: 0)"
+          description: "Page number (default: 1)"
           required: false
-          type: string
+          type: integer
       responses:
         200:
           description: List of invoices summaries
@@ -1755,12 +1779,12 @@ paths:
           in: query
           description: "Maximum number of records per page (default: 20)"
           required: false
-          type: string
+          type: integer
         - name: page
           in: query
-          description: "Page number (default: 0)"
+          description: "Page number (default: 1)"
           required: false
-          type: string
+          type: integer
       responses:
         200:
           description: List of subscription summaries
@@ -2124,6 +2148,24 @@ paths:
           description: Order payment account verified
           schema:
             $ref: '#/definitions/OrderVerification'
+
+  "/orders/{orderFid}/cancel":
+    put:
+      summary: Cancel an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/orderFid'
+      responses:
+        200:
+          description: Order cancelled
+          schema:
+            $ref: '#/definitions/BoolMessage'
+
 
   "/orders/{orderFid}/confirmCard":
     put:
@@ -2787,6 +2829,8 @@ definitions:
             type: string
           phone:
             type: string
+          currency:
+            type: string
           externalReference:
             type: string
           companyFid:
@@ -2830,6 +2874,15 @@ definitions:
             type: string
           approved:
             type: boolean
+
+  Advertisers:
+    allOf:
+      - $ref: "#/definitions/Pagination"
+      - properties:
+          advertisers:
+            type: array
+            items:
+              $ref: "#/definitions/Advertiser"
 
   AdvertiserCampaign:
     allOf:

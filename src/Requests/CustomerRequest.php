@@ -19,6 +19,7 @@ class CustomerRequest
         "lastName" => $this->getLastName(),
         "email" => $this->getEmail(),
         "phone" => $this->getPhone(),
+        "currency" => $this->getCurrency(),
         "externalReference" => $this->getExternalReference(),
         "companyFid" => $this->getCompanyFid(),
       ]
@@ -82,6 +83,18 @@ class CustomerRequest
   public function getPhone($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'phone', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCurrency($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'currency', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
