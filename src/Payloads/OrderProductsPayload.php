@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Payloads;
 
-class AddOrderProductsPayload
+class OrderProductsPayload
   implements \JsonSerializable
 {
   /**

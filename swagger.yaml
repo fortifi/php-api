@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: "2.16.1"
+  version: "2.18.1"
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1000,9 +1000,10 @@ paths:
           description: Payment FID to use
         - name: dateSubmitted
           type: string
+          format: date-time
           in: formData
           required: true
-          description: Date the chargeback was received
+          description: Date the chargeback was received (Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z)
         - name: reasonCode
           type: string
           in: formData
@@ -2296,6 +2297,26 @@ paths:
           description: Product added to the order successfully
           schema:
             $ref: '#/definitions/OrderAddProducts'
+    put:
+      summary: Set the products on an order
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/OrderProductsPayload'
+      responses:
+        200:
+          description: Order products successfully updated
+          schema:
+            $ref: '#/definitions/OrderAddProducts'
 
   "/orders/{orderFid}/products/{orderProductFid}":
     delete:
@@ -3460,7 +3481,8 @@ definitions:
           productFid:
             type: string
           quantity:
-            type: number
+            type: integer
+            format: int64
           renewalDate:
             $ref: '#/definitions/isoTime'
 
@@ -4180,7 +4202,7 @@ definitions:
         items:
           type: string
 
-  AddOrderProductsPayload:
+  OrderProductsPayload:
     properties:
       productPriceFids:
         type: array
@@ -4193,12 +4215,17 @@ definitions:
         items:
           $ref: '#/definitions/OrderProductQuantityPayload'
 
+  AddOrderProductsPayload:
+    allOf:
+      - $ref: '#/definitions/OrderProductsPayload'
+
   OrderProductQuantityPayload:
     properties:
       priceFid:
         $ref: '#/definitions/priceFid'
       quantity:
-        type: number
+        type: integer
+        format: int64
         default: 1
     required:
       - priceFid
@@ -4543,6 +4570,23 @@ definitions:
     - prepayment
     - fortifipay
     - coinbase
+  ChargebackState:
+    type: string
+    enum:
+      - alert
+      - initiated
+      - disputed
+      - won
+      - lost
+      - undisputed_loss
+    description: Current State
+  ChargebackSource:
+    type: string
+    enum:
+      - gateway
+      - ethoca
+      - verifi
+    description: Source of the alert, or gateway for everything else
   CreateOrderType:
     description: Order Type (Must be initial to Auth Cards)
     type: string
