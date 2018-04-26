@@ -301,7 +301,7 @@ paths:
           - advertiser
         - accessToken: []
       tags:
-       - marketing
+        - marketing
       parameters:
         - name: payload
           in: body
@@ -2759,8 +2759,31 @@ parameters:
     in: query
     required: false
     type: string
+
 definitions:
 #Responses
+
+  Response:
+    properties:
+      requestId:
+        type: string
+        description: Request ID
+      code:
+        type: number
+        format: int32
+        description: Status code
+      message:
+        type: string
+        description: Status message
+    required:
+      - requestId
+      - code
+      - message
+
+  Error:
+    allOf:
+      - $ref: '#/definitions/Response'
+
   Fid:
     properties:
       fid:
