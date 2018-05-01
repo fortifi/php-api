@@ -5,7 +5,7 @@ use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class ResponseRequest
+class EnvelopeMetaRequest
   extends ApiRequest
   implements \JsonSerializable
 {

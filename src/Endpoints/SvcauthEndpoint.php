@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\AuthTokenResponseRequest;
+use Fortifi\Api\V1\Requests\AuthTokenRequest;
 use Fortifi\Api\V1\Payloads\ServiceAccountCredentialsPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -22,11 +22,11 @@ class SvcauthEndpoint extends ApiEndpoint
    *
    * @param ServiceAccountCredentialsPayload $payload
    *
-   * @return AuthTokenResponseRequest
+   * @return AuthTokenRequest
    */
   public function createVerify(ServiceAccountCredentialsPayload $payload)
   {
-    $request = new AuthTokenResponseRequest();
+    $request = new AuthTokenRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 

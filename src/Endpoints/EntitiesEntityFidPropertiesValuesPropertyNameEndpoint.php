@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\PropertyValueRequest;
 use Fortifi\Api\V1\Payloads\PropertyValuePayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -15,6 +16,31 @@ class EntitiesEntityFidPropertiesValuesPropertyNameEndpoint extends ApiEndpoint
   {
     $this->_replacements['{entityFid}'] = $entityFid;
     $this->_replacements['{propertyName}'] = $propertyName;
+  }
+
+  /**
+   * @summary Get a property value from an entity
+   *
+   * @return PropertyValueRequest
+   */
+  public function retrieve()
+  {
+    $request = new PropertyValueRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'entities/{entityFid}/properties/values/{propertyName}'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 
   /**

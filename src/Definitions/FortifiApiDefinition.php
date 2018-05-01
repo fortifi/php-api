@@ -11,7 +11,7 @@ class FortifiApiDefinition  extends ApiDefinition
   public function __construct()
   {
     $this->setTitle('Fortifi API');
-    $this->setVersion('2.18.1');
+    $this->setVersion('2.19.0');
     $this->setDescription(<<<DESCRIPTION
 The second version of the Fortifi API is an exciting step forward towards
 making it easier for businesses to have open access to their data. We created it
@@ -58,10 +58,10 @@ Every response is contained by an envelope. That is, each response has a
 predictable set of keys with which you can expect to interact:
 ```json
 {
-    "meta": {
-        "code": 200
+    'meta': {
+        'code': 200
     },
-    "data": {
+    'data': {
         ...
     }
 }
@@ -76,10 +76,10 @@ However, sometimes things go wrong, and in that case you might see a
 response like:
 ```json
 {
-    "meta": {
-        "type": "OAuthException",
-        "code": 400,
-        "message": "..."
+    'meta': {
+        'type': 'OAuthException',
+        'code': 400,
+        'message': '...'
     }
 }
 ```

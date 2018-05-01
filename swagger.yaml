@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: "2.18.1"
+  version: '2.19.0'
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -79,10 +79,10 @@ info:
     ```json
 
     {
-        "meta": {
-            "code": 200
+        'meta': {
+            'code': 200
         },
-        "data": {
+        'data': {
             ...
         }
     }
@@ -106,10 +106,10 @@ info:
     ```json
 
     {
-        "meta": {
-            "type": "OAuthException",
-            "code": 400,
-            "message": "..."
+        'meta': {
+            'type': 'OAuthException',
+            'code': 400,
+            'message': '...'
         }
     }
 
@@ -180,28 +180,28 @@ securityDefinitions:
     tokenUrl: 'https://api.fortifi.io/oauth/token'
     flow: accessCode
     scopes:
-      "basic": Basic Read Access
-      "visitor": Read/Write On Visitors
-      "advertiser": Read/Write On Advertisers
-      "customer": Read/Write On Customers
-      "customer.readonly": Read Only on Customers
-      "entity.properties": Read/Write On Entity Properties
-      "entity.config": Read/Write On Entity Configuration
-      "orders": Read/Write On Orders
-      "orders.readonly": Read Only On Orders
-      "products": Read/Write On Products
-      "entity.events": Read/Write on Events
-      "payment.methods": Read/Write On Payment Methods
-      "contact": Read/Write On Contacts
-      "polymer.readonly": Read Polymers
-      "polymer": Read/Write On Polymers
-      "product.readonly": Read Product Information
-      "product": Read/Write On Products
-      "purchase.readonly": Read Only on purchases
-      "support": Read/Write On Support
-      "support.readonly": Read Only on Support
-      "reasons": Read/Write On reasons
-      "reasons.readonly": Read Only on reasons
+      'basic': Basic Read Access
+      'visitor': Read/Write On Visitors
+      'advertiser': Read/Write On Advertisers
+      'customer': Read/Write On Customers
+      'customer.readonly': Read Only on Customers
+      'entity.properties': Read/Write On Entity Properties
+      'entity.config': Read/Write On Entity Configuration
+      'orders': Read/Write On Orders
+      'orders.readonly': Read Only On Orders
+      'products': Read/Write On Products
+      'entity.events': Read/Write on Events
+      'payment.methods': Read/Write On Payment Methods
+      'contact': Read/Write On Contacts
+      'polymer.readonly': Read Polymers
+      'polymer': Read/Write On Polymers
+      'product.readonly': Read Product Information
+      'product': Read/Write On Products
+      'purchase.readonly': Read Only on purchases
+      'support': Read/Write On Support
+      'support.readonly': Read Only on Support
+      'reasons': Read/Write On reasons
+      'reasons.readonly': Read Only on reasons
 
   accessToken:
     type: apiKey
@@ -223,7 +223,11 @@ paths:
         200:
           description: Version
           schema:
-            type: string
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    type: string
 
   /svcauth/verify:
     post:
@@ -241,7 +245,11 @@ paths:
         200:
           description: Token
           schema:
-            $ref: '#/definitions/AuthTokenResponse'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/AuthToken'
 
   /me:
     get:
@@ -257,7 +265,11 @@ paths:
         200:
           description: User Information
           schema:
-              $ref: '#/definitions/User'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/User'
 
   /organisation:
     get:
@@ -273,7 +285,11 @@ paths:
         200:
           description: Organisation Information
           schema:
-              $ref: '#/definitions/Organisation'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Organisation'
 
   /brands:
     get:
@@ -289,9 +305,13 @@ paths:
         200:
           description: Brand Information
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Brand'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/definitions/Brand'
 
   /advertisers:
     post:
@@ -309,13 +329,22 @@ paths:
           schema:
             $ref: '#/definitions/CreateAdvertiserPayload'
       responses:
-       200:
-         description: Advertiser Created
-         schema:
-           $ref: '#/definitions/Fid'
-       400:
-         description: |
-           Invalid data supplied
+        200:
+          description: Advertiser Created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
+        400:
+          description: |
+            Invalid data supplied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
     get:
       summary: List advertisers
       security:
@@ -327,19 +356,23 @@ paths:
       parameters:
         - name: limit
           in: query
-          description: "Maximum number of records per page (default: 20)"
+          description: 'Maximum number of records per page (default: 20)'
           required: false
           type: integer
         - name: page
           in: query
-          description: "Page number (default: 1)"
+          description: 'Page number (default: 1)'
           required: false
           type: integer
       responses:
         200:
           description: List of advertisers
           schema:
-            $ref: '#/definitions/Advertisers'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Advertisers'
 
   /advertisers/{advertiserFid}:
     get:
@@ -356,9 +389,17 @@ paths:
         200:
           description: Loaded Advertiser
           schema:
-            $ref: '#/definitions/Advertiser'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Advertiser'
         404:
           description: Advertiser not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   /advertisers/{advertiserFid}/approved:
     put:
@@ -376,6 +417,10 @@ paths:
           description: Approved Advertiser
         404:
           description: Advertiser not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
     delete:
       summary: Remove approved status on an advertiser
@@ -392,6 +437,10 @@ paths:
           description: Advertiser no longer approved
         404:
           description: Advertiser not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   /advertisers/{advertiserFid}/campaigns:
     post:
@@ -410,13 +459,20 @@ paths:
           schema:
             $ref: '#/definitions/CreateAdvertiserCampaignPayload'
       responses:
-       200:
-         description: Campaign Created
-         schema:
-           $ref: '#/definitions/Fid'
-       400:
-         description: |
-           Invalid data supplied
+        200:
+          description: Campaign Created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
+        400:
+          description: Invalid data supplied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   /advertisers/{advertiserFid}/campaigns/{advertiserCampaignFid}:
     get:
@@ -434,11 +490,19 @@ paths:
         200:
           description: Loaded Campaign
           schema:
-            $ref: '#/definitions/AdvertiserCampaign'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/AdvertiserCampaign'
         404:
           description: Campaign not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/visitors/{visitorId}/pixels":
+  '/visitors/{visitorId}/pixels':
     get:
       security:
         - OAuth:
@@ -454,11 +518,15 @@ paths:
         200:
           description: Pixels
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/AdvertiserPixel'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/definitions/AdvertiserPixel'
 
-  "/visitors/{visitorId}/actions/{actionKey}":
+  '/visitors/{visitorId}/actions/{actionKey}':
     post:
       summary: Track an action
       tags:
@@ -486,7 +554,11 @@ paths:
         200:
           description: Action Tracked
           schema:
-            $ref: '#/definitions/VisitorPostAction'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/VisitorPostAction'
         409:
           description: |
             The transaction ID specified has already been used for this action
@@ -497,8 +569,12 @@ paths:
         404:
           description: |
             The actionKey specified does not exist
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/visitors/{visitorId}/actions/{actionKey}/reverse":
+  '/visitors/{visitorId}/actions/{actionKey}/reverse':
     post:
       summary: Reverse a previously tracked action
       tags:
@@ -526,13 +602,21 @@ paths:
         200:
           description: Action Reversed
           schema:
-            $ref: '#/definitions/VisitorReversalAction'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/VisitorReversalAction'
         404:
           description: |
             The action you are trying to reverse cannot be found
         409:
           description: |
             The action specified has already been reversed
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   /pay/publicKey:
     get:
@@ -548,9 +632,13 @@ paths:
           type: string
       responses:
         200:
-          schema:
-            $ref: '#/definitions/PubKey'
           description: RSA Public Key
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PubKey'
 
   /pay/coinbase:
      get:
@@ -566,9 +654,13 @@ paths:
            type: string
        responses:
         200:
-          schema:
-            $ref: '#/definitions/CoinbaseCheckout'
           description: Coinbase checkout ID
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CoinbaseCheckout'
 
   /customers:
     post:
@@ -586,18 +678,24 @@ paths:
         schema:
           $ref: '#/definitions/CreateCustomerPayload'
       responses:
-       200:
-         description: Customer Created
-         schema:
-           $ref: '#/definitions/Customer'
-       404:
-         description: |
-           The brand Fid you are trying to add a customer to does not exist
-       409:
-         description: |
-           The external reference has already been used to create a customer
-         schema:
-            $ref: '#/definitions/Fid'
+        200:
+          description: Customer Created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Customer'
+        404:
+          description: |
+            The brand Fid you are trying to add a customer to does not exist
+        409:
+          description: |
+            The external reference has already been used to create a customer
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   /customers/findByReference:
     get:
@@ -618,11 +716,19 @@ paths:
         200:
           description: Located Customer
           schema:
-            $ref: '#/definitions/Customer'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Customer'
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}":
+  '/customers/{customerFid}':
     get:
       security:
         - OAuth:
@@ -638,9 +744,17 @@ paths:
         200:
           description: Loaded Customer
           schema:
-            $ref: '#/definitions/Customer'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Customer'
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
     put:
       security:
         - OAuth:
@@ -682,8 +796,12 @@ paths:
           description: It is not possible to archive this customer
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/accountStatus":
+  '/customers/{customerFid}/accountStatus':
     put:
       summary: Update a customers status
       tags:
@@ -704,8 +822,12 @@ paths:
           description: Customer Status Updated
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/note":
+  '/customers/{customerFid}/note':
     post:
       summary: Save a note against a customer
       tags:
@@ -743,8 +865,12 @@ paths:
           description: Customer note saved
         400:
           description: Invalid Payload
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/location":
+  '/customers/{customerFid}/location':
     put:
       summary: Update a customers location
       tags:
@@ -765,8 +891,12 @@ paths:
           description: Customer Status Updated
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/accountType":
+  '/customers/{customerFid}/accountType':
     put:
       summary: Update a customers status
       tags:
@@ -787,8 +917,12 @@ paths:
           description: Customer Status Updated
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptionType":
+  '/customers/{customerFid}/subscriptionType':
     put:
       summary: Update a customers status
       tags:
@@ -809,8 +943,12 @@ paths:
           description: Customer Status Updated
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/qualified":
+  '/customers/{customerFid}/qualified':
     put:
       summary: Mark customer as qualified, this action cannot be undone.
       tags:
@@ -829,8 +967,12 @@ paths:
           description: Customer Marked
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/chargeback":
+  '/customers/{customerFid}/chargeback':
     put:
       summary: Mark customer as charged back, this action cannot be undone.
       tags:
@@ -849,8 +991,12 @@ paths:
           description: Customer Marked
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/fraud":
+  '/customers/{customerFid}/fraud':
     put:
       summary: Mark customer as fraudulent, this action cannot be undone.
       tags:
@@ -869,8 +1015,12 @@ paths:
           description: Customer Marked
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/purchased":
+  '/customers/{customerFid}/purchased':
     put:
       summary: Mark customer as purchased, this action cannot be undone.
       tags:
@@ -889,8 +1039,12 @@ paths:
           description: Customer Marked
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/loyal":
+  '/customers/{customerFid}/loyal':
     put:
       summary: Set customer loyalty flag
       tags:
@@ -906,6 +1060,10 @@ paths:
           description: Customer Loyalty Acknowledged
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
     delete:
       summary: Remove customer loyalty flag
@@ -922,8 +1080,12 @@ paths:
           description: Customer No Longer Loyal
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/vip":
+  '/customers/{customerFid}/vip':
     put:
       summary: Set customer as VIP
       tags:
@@ -939,6 +1101,10 @@ paths:
           description: Customer Now VIP
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
     delete:
       summary: Remove customer VIP Status
@@ -955,8 +1121,12 @@ paths:
           description: Customer No Longer VIP
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/currency":
+  '/customers/{customerFid}/currency':
     put:
       summary: Set customer Currency
       tags:
@@ -979,8 +1149,12 @@ paths:
           description: Customer Currency Updated
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/payments/{paymentFid}/chargeback":
+  '/customers/{customerFid}/payments/{paymentFid}/chargeback':
     post:
       summary: Initiate a chargeback on a payment
       tags:
@@ -1066,13 +1240,21 @@ paths:
         200:
           description: Chargeback Opened
           schema:
-            $ref: '#/definitions/Fid'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
         400:
           description: Invalid Payload
         404:
           description: Invalid Payment Fid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/chargebacks/{chargebackFid}":
+  '/customers/{customerFid}/chargebacks/{chargebackFid}':
     put:
       summary: Action a chargeback
       tags:
@@ -1126,11 +1308,19 @@ paths:
         200:
           description: Chargeback Actioned
           schema:
-            $ref: '#/definitions/BoolMessage'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
         400:
           description: Invalid Payload
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/tickets":
+  '/customers/{customerFid}/tickets':
     post:
       summary: Create a new support ticket
       tags:
@@ -1174,6 +1364,10 @@ paths:
           description: Customer Currency Updated
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
     get:
       summary: Get support tickets for customer
       tags:
@@ -1188,11 +1382,15 @@ paths:
       responses:
         200:
           schema:
-            $ref: '#/definitions/Tickets'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Tickets'
           description: Ticket collection
 
 
-  "/entities/{entityFid}/config/{sectionName}":
+  '/entities/{entityFid}/config/{sectionName}':
     delete:
       summary: Remove a config section, or property from an entity
       tags:
@@ -1227,7 +1425,11 @@ paths:
       responses:
         200:
           schema:
-            $ref: '#/definitions/ConfigItems'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ConfigItems'
           description: List Of Config Items
 
     post:
@@ -1257,28 +1459,35 @@ paths:
           description: Config Item Saved
         400:
           description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/entities/{entityFid}/config/{sectionName}/items/{itemName}":
-      get:
-        summary: Retrieve a config item
-        tags:
-          - Configuration
-        security:
-          - OAuth:
-            - entity.config
-          - accessToken: []
-        parameters:
-          - $ref: '#/parameters/entityFid'
-          - $ref: '#/parameters/sectionName'
-          - $ref: '#/parameters/itemName'
-        responses:
-          200:
-            schema:
-              $ref: '#/definitions/ConfigItem'
-            description: Config Item
+  '/entities/{entityFid}/config/{sectionName}/items/{itemName}':
+    get:
+      summary: Retrieve a config item
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+          - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
+        - $ref: '#/parameters/itemName'
+      responses:
+        200:
+          description: Config Item
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ConfigItem'
 
-
-  "/entities/{entityFid}/properties":
+  '/entities/{entityFid}/properties':
     put:
       summary: Write multiple entity properties
       tags:
@@ -1300,8 +1509,32 @@ paths:
           description: Properties Saved
         400:
           description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/entities/{entityFid}/properties/values/{propertyName}":
+  '/entities/{entityFid}/properties/values/{propertyName}':
+    get:
+      summary: Get a property value from an entity
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+          - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+      responses:
+        200:
+          description: Property Value
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PropertyValue'
     delete:
       summary: Remove a value property from an entity
       tags:
@@ -1318,7 +1551,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/PropertyValuePayload'
-
       responses:
         200:
           description: Property Deleted
@@ -1345,8 +1577,12 @@ paths:
           description: Property Saved
         400:
           description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/entities/{entityFid}/properties/flags/{propertyName}":
+  '/entities/{entityFid}/properties/flags/{propertyName}':
     delete:
       summary: Remove a flag from an entity
       tags:
@@ -1385,9 +1621,13 @@ paths:
           description: Flag Saved
         400:
           description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
 
-  "/entities/{entityFid}/properties/counters/{propertyName}":
+  '/entities/{entityFid}/properties/counters/{propertyName}':
     delete:
       summary: Remove a counter from an entity
       tags:
@@ -1404,7 +1644,7 @@ paths:
         200:
           description: Property Deleted
 
-  "/entities/{entityFid}/properties/counters/{propertyName}/increment":
+  '/entities/{entityFid}/properties/counters/{propertyName}/increment':
     put:
       summary: Increment an entity counter
       tags:
@@ -1427,8 +1667,12 @@ paths:
           description: Counter Incremented
         400:
           description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/entities/{entityFid}/properties/counters/{propertyName}/decrement":
+  '/entities/{entityFid}/properties/counters/{propertyName}/decrement':
     put:
       summary: Decrement an entity counter
       tags:
@@ -1451,8 +1695,12 @@ paths:
           description: Counter Decremented
         400:
           description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/entities/{entityFid}/events":
+  '/entities/{entityFid}/events':
     post:
       summary: Trigger a new event
       security:
@@ -1470,7 +1718,7 @@ paths:
         200:
           description: Event Triggered
 
-  "/customers/{customerFid}/paymentAccounts":
+  '/customers/{customerFid}/paymentAccounts':
     get:
       summary: List customers payment accounts
       tags:
@@ -1485,12 +1733,20 @@ paths:
       responses:
         200:
           schema:
-            $ref: '#/definitions/PaymentAccounts'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PaymentAccounts'
           description: List of payment accounts
         400:
           description: Error retrieving payment accounts
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/paymentMethods/paypal/initialise":
+  '/customers/{customerFid}/paymentMethods/paypal/initialise':
     post:
       summary: Initialise a new paypal agreement for existing subscriptions
       tags:
@@ -1521,12 +1777,20 @@ paths:
       responses:
         200:
           schema:
-            $ref: '#/definitions/PaypalInit'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PaypalInit'
           description: Redirect instructions
         501:
           description: Inable to initialise Paypal agreement
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/paymentMethods/paypal/complete":
+  '/customers/{customerFid}/paymentMethods/paypal/complete':
     post:
       summary: Complete a paypal agreement created with initialise
       tags:
@@ -1551,8 +1815,12 @@ paths:
           description: Successfully created agreement
         400:
           description: Failed to complete Paypal agreement
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/paymentMethods/cards":
+  '/customers/{customerFid}/paymentMethods/cards':
     post:
       summary: Add a new card
       tags:
@@ -1569,7 +1837,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/CardDataPayload'
-
       responses:
         200:
           schema:
@@ -1593,7 +1860,7 @@ paths:
             $ref: '#/definitions/PaymentCards'
           description: List of cards
 
-  "/customers/{customerFid}/paymentMethods/cards/{cardFid}":
+  '/customers/{customerFid}/paymentMethods/cards/{cardFid}':
     delete:
       tags:
         - customers
@@ -1625,13 +1892,12 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/CardUpdatePayload'
-
       summary: Update a card
       responses:
         200:
           description: Card Updated
 
-  "/customers/{customerFid}/addresses":
+  '/customers/{customerFid}/addresses':
     get:
       summary: List customers addresses
       tags:
@@ -1648,7 +1914,7 @@ paths:
              $ref: '#/definitions/Addresses'
            description: List of addresses
 
-  "/customers/{customerFid}/emails":
+  '/customers/{customerFid}/emails':
     post:
       summary: Add an email address to a customer
       security:
@@ -1668,8 +1934,12 @@ paths:
           description: Email Added
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/phones":
+  '/customers/{customerFid}/phones':
     post:
       security:
         - OAuth:
@@ -1692,8 +1962,12 @@ paths:
           description: Phone Number Added
         404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/invoices":
+  '/customers/{customerFid}/invoices':
     get:
       summary: List of invoice summaries for given customer
       tags:
@@ -1706,12 +1980,12 @@ paths:
         - $ref: '#/parameters/customerFid'
         - name: limit
           in: query
-          description: "Maximum number of records per page (default: 20)"
+          description: 'Maximum number of records per page (default: 20)'
           required: false
           type: integer
         - name: page
           in: query
-          description: "Page number (default: 1)"
+          description: 'Page number (default: 1)'
           required: false
           type: integer
       responses:
@@ -1720,7 +1994,7 @@ paths:
           schema:
             $ref: '#/definitions/Invoices'
 
-  "/customers/{customerFid}/invoices/{invoiceFid}":
+  '/customers/{customerFid}/invoices/{invoiceFid}':
     get:
       summary: Retreive a specific itemised invoice
       tags:
@@ -1739,8 +2013,12 @@ paths:
             $ref: '#/definitions/Invoice'
         404:
           description: Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/invoices/{invoiceFid}/creditNote":
+  '/customers/{customerFid}/invoices/{invoiceFid}/creditNote':
     post:
       security:
         - OAuth:
@@ -1759,13 +2037,21 @@ paths:
         200:
           description: Credit Note Added
           schema:
-            $ref: '#/definitions/InvoiceCreditNote'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InvoiceCreditNote'
         404:
           description: Invoice not found
         400:
           description: Issue adding credit note to invoice
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions":
+  '/customers/{customerFid}/subscriptions':
     get:
       summary: List of subscription summaries for given customer
       tags:
@@ -1778,21 +2064,25 @@ paths:
         - $ref: '#/parameters/customerFid'
         - name: limit
           in: query
-          description: "Maximum number of records per page (default: 20)"
+          description: 'Maximum number of records per page (default: 20)'
           required: false
           type: integer
         - name: page
           in: query
-          description: "Page number (default: 1)"
+          description: 'Page number (default: 1)'
           required: false
           type: integer
       responses:
         200:
           description: List of subscription summaries
           schema:
-            $ref: '#/definitions/Subscriptions'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Subscriptions'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}':
     get:
       summary: Retreive a specific subscription
       tags:
@@ -1808,11 +2098,19 @@ paths:
         200:
           description: Loaded subscription
           schema:
-            $ref: '#/definitions/Subscription'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Subscription'
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/enableAutoCharge":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/enableAutoCharge':
     put:
       summary: Enable auto charge on specific subscription
       tags:
@@ -1829,8 +2127,12 @@ paths:
           description: Auto charge enabled
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/disableAutoCharge":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/disableAutoCharge':
     put:
       summary: Disable auto charge on specific subscription
       tags:
@@ -1847,8 +2149,12 @@ paths:
           description: Auto charge disabled
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/reEnableRenewal":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/reEnableRenewal':
     put:
       summary: Re-enable renewals on a subscription
       tags:
@@ -1871,8 +2177,12 @@ paths:
           description: Renewals Enabled
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/setParentSubscription":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/setParentSubscription':
     put:
       summary: Set parent subscription on a subscription
       tags:
@@ -1894,13 +2204,21 @@ paths:
         200:
           description: Parent subscription set
           schema:
-            $ref: '#/definitions/Fid'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
         400:
           description: Cannot create cyclic reference
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/modify":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/modify':
     put:
       summary: Modify an existing subscription with a new price. Returns new open order to be completed
       tags:
@@ -1921,13 +2239,21 @@ paths:
         200:
           description: Created new open order
           schema:
-            $ref: '#/definitions/Order'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Order'
         400:
           description: Invalid payload data
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/updateRenewalPrice":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/updateRenewalPrice':
     put:
       summary: Modify an existing subscription with a new price which will be used for the next renewal
       tags:
@@ -1949,13 +2275,21 @@ paths:
         200:
           description: Subscription price updated
           schema:
-            $ref: '#/definitions/Fid'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
         400:
           description: Invalid payload data
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/applyOffer":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/applyOffer':
     put:
       summary: Apply an offer to a subscription
       tags:
@@ -1977,7 +2311,7 @@ paths:
         200:
           description: Offer applied
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/preRenew":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/preRenew':
     put:
       summary: Pre-renew an existing subscription with a different price. Returns new open order to be completed
       tags:
@@ -2000,13 +2334,21 @@ paths:
         200:
           description: Created new open order
           schema:
-            $ref: '#/definitions/Fid'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
         400:
           description: Invalid payload data
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/customers/{customerFid}/subscriptions/{subscriptionFid}/cancel":
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/cancel':
     put:
       summary: Cancel a subscripion. Returns subscription FID.
       tags:
@@ -2027,11 +2369,19 @@ paths:
         200:
           description: Subscription cancelled
           schema:
-            $ref: '#/definitions/Subscription'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Subscription'
         400:
           description: Invalid payload data
         404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   /products:
     get:
@@ -2046,24 +2396,32 @@ paths:
         200:
           description: Products retrieved
           schema:
-            $ref: '#/definitions/Products'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Products'
 
-  "/products/groups":
-      get:
-        summary: Get a list of all product groups
-        tags:
-          - products
-        security:
-          - OAuth:
-            - product.readonly
-          - accessToken: []
-        responses:
-          200:
-            description: Products groups
-            schema:
-              $ref: '#/definitions/ProductGroups'
+  '/products/groups':
+    get:
+      summary: Get a list of all product groups
+      tags:
+        - products
+      security:
+        - OAuth:
+          - product.readonly
+        - accessToken: []
+      responses:
+        200:
+          description: Products groups
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductGroups'
 
-  "/products/{productFid}/prices":
+  '/products/{productFid}/prices':
     get:
       summary: Retrieve Product Prices
       tags:
@@ -2084,9 +2442,17 @@ paths:
         200:
           description: List of product prices
           schema:
-            $ref: '#/definitions/ProductPrices'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductPrices'
         404:
           description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   /orders:
     post:
@@ -2107,9 +2473,13 @@ paths:
         200:
           description: Order created successfully
           schema:
-            $ref: '#/definitions/Fid'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
 
-  "/orders/{orderFid}":
+  '/orders/{orderFid}':
     get:
       summary: Retrieve an order
       tags:
@@ -2124,11 +2494,19 @@ paths:
         200:
           description: Order retrieved
           schema:
-            $ref: '#/definitions/Order'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Order'
         404:
           description: Order not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/orders/{orderFid}/verify":
+  '/orders/{orderFid}/verify':
     put:
       summary: Verify an order, returning any security urls
       tags:
@@ -2148,9 +2526,13 @@ paths:
         200:
           description: Order payment account verified
           schema:
-            $ref: '#/definitions/OrderVerification'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderVerification'
 
-  "/orders/{orderFid}/cancel":
+  '/orders/{orderFid}/cancel':
     put:
       summary: Cancel an order
       tags:
@@ -2165,10 +2547,14 @@ paths:
         200:
           description: Order cancelled
           schema:
-            $ref: '#/definitions/BoolMessage'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
 
 
-  "/orders/{orderFid}/confirmCard":
+  '/orders/{orderFid}/confirmCard':
     put:
       summary: Confirm an order, authorize the payment
       tags:
@@ -2185,14 +2571,22 @@ paths:
           schema:
             $ref: '#/definitions/ConfirmCardOrderPayload'
       responses:
-        503:
-          description: There are no payment gateways available to handle your request
         200:
           description: Order confirmed and payment authroized
           schema:
-            $ref: '#/definitions/OrderConfirmation'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderConfirmation'
+        503:
+          description: There are no payment gateways available to handle your request
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/orders/{orderFid}/confirmPayPal":
+  '/orders/{orderFid}/confirmPayPal':
     put:
       summary: Confirm an order, authorize the payment
       tags:
@@ -2209,14 +2603,22 @@ paths:
           schema:
             $ref: '#/definitions/ConfirmPayPalOrderPayload'
       responses:
-        503:
-          description: There are no payment gateways available to handle your request
         200:
           description: Order confirmed and payment authroized
           schema:
-            $ref: '#/definitions/OrderConfirmation'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderConfirmation'
+        503:
+          description: There are no payment gateways available to handle your request
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/orders/{orderFid}/confirmCoinbase":
+  '/orders/{orderFid}/confirmCoinbase':
     put:
       summary: Confirm an order, await payment
       tags:
@@ -2228,14 +2630,22 @@ paths:
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
-        503:
-          description: There are no payment gateways available to handle your request
         200:
           description: Order confirmed; awaiting blockchain confirmation.
           schema:
-            $ref: '#/definitions/OrderConfirmation'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderConfirmation'
+        503:
+          description: There are no payment gateways available to handle your request
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/orders/{orderFid}/confirmNewCard":
+  '/orders/{orderFid}/confirmNewCard':
     put:
       summary: Confirm an order with a new card, authorize the payment
       tags:
@@ -2252,14 +2662,22 @@ paths:
           schema:
             $ref: '#/definitions/ConfirmOrderWithNewCardPayload'
       responses:
-        503:
-          description: There are no payment gateways available to handle your request
         200:
           description: Order confirmed and payment authroized
           schema:
-            $ref: '#/definitions/OrderConfirmation'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderConfirmation'
+        503:
+          description: There are no payment gateways available to handle your request
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/orders/{orderFid}/products":
+  '/orders/{orderFid}/products':
     get:
       summary: Retrieve order products
       tags:
@@ -2274,9 +2692,17 @@ paths:
         200:
           description: List of order products
           schema:
-            $ref: '#/definitions/OrderProducts'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderProducts'
         404:
           description: Order not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
     post:
       summary: Add a product to an order
       tags:
@@ -2296,7 +2722,11 @@ paths:
         200:
           description: Product added to the order successfully
           schema:
-            $ref: '#/definitions/OrderAddProducts'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderAddProducts'
     put:
       summary: Set the products on an order
       tags:
@@ -2316,9 +2746,13 @@ paths:
         200:
           description: Order products successfully updated
           schema:
-            $ref: '#/definitions/OrderAddProducts'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderAddProducts'
 
-  "/orders/{orderFid}/products/{orderProductFid}":
+  '/orders/{orderFid}/products/{orderProductFid}':
     delete:
       summary: Remove a product from an order
       tags:
@@ -2334,7 +2768,7 @@ paths:
         200:
           description: Product removed from the order successfully
 
-  "/orders/{orderFid}/products/{orderProductFid}/quantity":
+  '/orders/{orderFid}/products/{orderProductFid}/quantity':
     put:
       summary: Set the quantity of a product on an order
       tags:
@@ -2356,7 +2790,7 @@ paths:
         200:
           description: Quantity updated
 
-  "/orders/{orderFid}/offers":
+  '/orders/{orderFid}/offers':
     post:
       summary: Add an offer to an order
       tags:
@@ -2387,8 +2821,12 @@ paths:
           description: Offer added to the order successfully
         404:
           description: Order not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/orders/{orderFid}/offers/{offerFid}":
+  '/orders/{orderFid}/offers/{offerFid}':
     delete:
       summary: Remove an offer from an order
       tags:
@@ -2405,8 +2843,12 @@ paths:
           description: Offer removed from the order successfully
         404:
           description: Order not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/messenger/deliveries/{deliveryFid}/unsubscribe":
+  '/messenger/deliveries/{deliveryFid}/unsubscribe':
     put:
       summary: Unsubscribe an email based on the delivery fid
       tags:
@@ -2429,8 +2871,12 @@ paths:
           description: Email Address Unsubscribed
         404:
           description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/contacts/emails/{emailAddress}/confirm":
+  '/contacts/emails/{emailAddress}/confirm':
     put:
       summary: Confirm email address
       tags:
@@ -2446,8 +2892,12 @@ paths:
           description: Email Address Confirmed
         404:
           description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/contacts/emails/{emailAddress}/unsubscribe":
+  '/contacts/emails/{emailAddress}/unsubscribe':
     put:
       summary: Unsubscribe an email address
       tags:
@@ -2469,8 +2919,12 @@ paths:
           description: Email Address Unsubscribed
         404:
           description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/polymers":
+  '/polymers':
     post:
       summary: Create a new polymer
       tags:
@@ -2489,11 +2943,19 @@ paths:
         200:
           description: Polymer created
           schema:
-              $ref: '#/definitions/Fid'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
         400:
           description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/polymers/{polymerFid}":
+  '/polymers/{polymerFid}':
     get:
       summary: Read a polymer
       tags:
@@ -2511,26 +2973,38 @@ paths:
         200:
           description: Polymer Information
           schema:
-              $ref: '#/definitions/Entity'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Entity'
         404:
           description: Polymer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/products/offers":
-      get:
-        summary: Retrieve all offers
-        tags:
-          - products
-        security:
-          - OAuth:
-            - product.readonly
-          - accessToken: []
-        responses:
-          200:
-            description: Available Offers
-            schema:
-              $ref: '#/definitions/ProductOffers'
+  '/products/offers':
+    get:
+      summary: Retrieve all offers
+      tags:
+        - products
+      security:
+        - OAuth:
+          - product.readonly
+        - accessToken: []
+      responses:
+        200:
+          description: Available Offers
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductOffers'
 
-  "/licence/check":
+  '/licence/check':
     get:
       summary: Retrieve A Licence
       tags:
@@ -2547,11 +3021,19 @@ paths:
         200:
           description: Licence Information
           schema:
-            $ref: '#/definitions/Licence'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Licence'
         404:
           description: Licence Not Valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/reasons/groups":
+  '/reasons/groups':
     get:
       summary: Get a list of all reason groups
       tags:
@@ -2566,9 +3048,13 @@ paths:
         200:
           description: Reason groups
           schema:
-            $ref: '#/definitions/ReasonGroups'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ReasonGroups'
 
-  "/reasons/groups/{reasonGroupFid}":
+  '/reasons/groups/{reasonGroupFid}':
     get:
       summary: Get all the reasons for the reason group
       tags:
@@ -2583,11 +3069,19 @@ paths:
         200:
           description: Reason Group retrieved
           schema:
-            $ref: '#/definitions/Reasons'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Reasons'
         404:
           description: reasonGroupFid not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
-  "/tickets":
+  '/tickets':
     post:
       summary: Create a support ticket
       tags:
@@ -2606,7 +3100,11 @@ paths:
         200:
           description: Ticket Information
           schema:
-            $ref: '#/definitions/Ticket'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Ticket'
 
 parameters:
   isoTime:
@@ -2617,33 +3115,33 @@ parameters:
     in: formData
   userAgent:
     name: userAgent
-    in: formData
     description: User Agent of the visitors browser 'HTTP_USER_AGENT'
     type: string
+    in: formData
   language:
     name: language
-    in: formData
     description: Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
     type: string
+    in: formData
   encoding:
     name: encoding
-    in: formData
     description: Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
     type: string
+    in: formData
   clientIp:
     name: clientIp
-    in: formData
     description: IP Address of the visitor
     type: string
+    in: formData
   visitorId:
     name: visitorId
     in: path
     type: string
     required: true
     description: |
-      "Visitor ID from the cookie.
+      'Visitor ID from the cookie.
       If providing a pre-linked external reference, should be set to 'byref'.
-      If no visitor ID is known, client IP should be provided and visitorId should be set to 'unknown'"
+      If no visitor ID is known, client IP should be provided and visitorId should be set to 'unknown''
   advertiserFid:
     name: advertiserFid
     in: path
@@ -2670,10 +3168,10 @@ parameters:
     description: Invoice Fid to use
   paymentServiceFid:
     name: paymentServiceFid
-    in: formData
+    description: Payment Service FID to use
     type: string
     required: true
-    description: Payment Service FID to use
+    in: formData
   subscriptionFid:
     name: subscriptionFid
     in: path
@@ -2682,12 +3180,12 @@ parameters:
     description: Subscription FID to use
   subscriptionFids:
     name: subscriptionFids
-    in: formData
+    description: Subscription FIDs
     type: array
     items:
       type: string
     required: true
-    description: Subscription FIDs
+    in: formData
   emailAddress:
     name: emailAddress
     in: path
@@ -2761,9 +3259,11 @@ parameters:
     type: string
 
 definitions:
+
 #Responses
 
-  Response:
+  EnvelopeMeta:
+    description: Envelope Meta
     properties:
       requestId:
         type: string
@@ -2780,11 +3280,17 @@ definitions:
       - code
       - message
 
-  Error:
-    allOf:
-      - $ref: '#/definitions/Response'
+  Envelope:
+    description: Envelope
+    x-response-property: data
+    properties:
+      meta:
+        $ref: '#/definitions/EnvelopeMeta'
+    required:
+      - meta
 
   Fid:
+    description: Generic Response
     properties:
       fid:
         type: string
@@ -2792,7 +3298,20 @@ definitions:
     required:
       - fid
 
+  Entity:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          displayName:
+            type: string
+            description: Display Name
+          description:
+            type: string
+            description: Description
+
   BoolMessage:
+    description: Generic Response
     properties:
       message:
         type: string
@@ -2804,30 +3323,36 @@ definitions:
       - message
       - result
 
-  Entity:
+  AuthToken:
+    description: Authentication token used to access services
+    properties:
+      token:
+        type: string
+      expiry:
+        type: number
+        format: int64
+
+  AuthTokenResponse:
+    description: Authentication token used to access services
     allOf:
-      - $ref: '#/definitions/Fid'
-      - properties:
-          displayName:
-            type: string
-            description: Display Name
-          description:
-            type: string
-            description: Description
+      - $ref: '#/definitions/AuthToken'
 
   PubKey:
+    description: Generic Response
     properties:
       key:
         type: string
         description: RSA Public Key
 
   CoinbaseCheckout:
+    description: Generic Response
     properties:
       checkoutID:
         type: string
         description: Coinbase checkout ID
 
   User:
+    description: User
     allOf:
       - $ref: '#/definitions/Fid'
       - properties:
@@ -2842,6 +3367,7 @@ definitions:
             description: Timezone for this user
 
   Organisation:
+    description: Organisation
     properties:
       orgName:
         type: string
@@ -2851,6 +3377,7 @@ definitions:
         type: string
 
   Brand:
+    description: Brand
     properties:
       brandName:
         type: string
@@ -2860,6 +3387,7 @@ definitions:
         type: string
 
   Customer:
+    description: Customer
     allOf:
       - $ref: '#/definitions/Fid'
       - properties:
@@ -2881,12 +3409,11 @@ definitions:
             type: string
 
   Advertiser:
+    description: Advertiser
     allOf:
-      - $ref: '#/definitions/Fid'
+      - $ref: '#/definitions/Entity'
       - properties:
           type:
-            type: string
-          displayName:
             type: string
           contactName:
             type: string
@@ -2920,15 +3447,17 @@ definitions:
             type: boolean
 
   Advertisers:
+    description: Advertisers
     allOf:
-      - $ref: "#/definitions/Pagination"
+      - $ref: '#/definitions/Pagination'
       - properties:
           advertisers:
             type: array
             items:
-              $ref: "#/definitions/Advertiser"
+              $ref: '#/definitions/Advertiser'
 
   AdvertiserCampaign:
+    description: Campaign
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -2940,6 +3469,7 @@ definitions:
             type: string
 
   AdvertiserPixel:
+    description: Pixel
     properties:
       url:
         type: string
@@ -2955,6 +3485,7 @@ definitions:
         type: string
 
   VisitorPostAction:
+    description: Vistor Action
     properties:
       visitorId:
        type: string
@@ -2981,6 +3512,7 @@ definitions:
           $ref: '#/definitions/AdvertiserPixel'
 
   VisitorReversalAction:
+    description: Visitor Action Reversal
     properties:
       visitorId:
        type: string
@@ -3000,66 +3532,88 @@ definitions:
         type: string
 
   Licence:
+    description: Licence
     properties:
-        purchaseFid:
-          type: string
-        customerFid:
-          type: string
-        status:
-          type: string
-        dateCreated:
-          $ref: '#/definitions/isoTime'
-        lastRenewDate:
-          $ref: '#/definitions/isoTime'
-        renewDate:
-          $ref: '#/definitions/isoTime'
-        nextRenewDate:
-          $ref: '#/definitions/isoTime'
-        autoSuspendDate:
-          $ref: '#/definitions/isoTime'
-        autoCancelDate:
-          $ref: '#/definitions/isoTime'
-        startDate:
-          $ref: '#/definitions/isoTime'
-        endDate:
-          $ref: '#/definitions/isoTime'
-        trialStartDate:
-          $ref: '#/definitions/isoTime'
-        trialEndDate:
-          $ref: '#/definitions/isoTime'
-        cycleTerm:
-          type: string
-        cycleExact:
-          type: string
-        cycleType:
-          type: string
-
-  keyValuePayload:
-    properties:
-      key:
+      purchaseFid:
         type: string
-      value:
+      customerFid:
+        type: string
+      status:
+        type: string
+      dateCreated:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      lastRenewDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      renewDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      nextRenewDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      autoSuspendDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      autoCancelDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      startDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      endDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      trialStartDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      trialEndDate:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      cycleTerm:
+        type: string
+      cycleExact:
+        type: string
+      cycleType:
         type: string
 
   Subscriptions:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Pagination"
+      - $ref: '#/definitions/Pagination'
       - properties:
           subscriptions:
             type: array
             items:
-              $ref: "#/definitions/SubscriptionSummary"
+              $ref: '#/definitions/SubscriptionSummary'
 
   SubscriptionSummary:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           lastRenewed:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           renewalDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           paidUntil:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           cycle:
             type: string
           autoCharge:
@@ -3073,18 +3627,23 @@ definitions:
             type: string
 
   Subscription:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           amount:
             type: number
             format: float
           autoCancelDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           autoCharge:
             type: boolean
           autoSuspendDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           cancelDays:
             type: integer
             format: int32
@@ -3095,42 +3654,66 @@ definitions:
           cycle:
             type: string
           dateCancelled:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           dateCreated:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           dateInactive:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           dateModified:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           dateStateChanged:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           dateSuspended:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           dateUpgraded:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           discount:
             type: number
             format: float
           endDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           invoiceFid:
             type: string
           isPaid:
             type: boolean
           lastRenewDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           nextPaymentDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           nextRenewalAmount:
             type: number
             format: float
           nextRenewDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           paidRenewals:
             type: integer
             format: int32
           paidUntil:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           quantity:
             type: integer
             format: int32
@@ -3138,7 +3721,9 @@ definitions:
             type: integer
             format: int32
           renewDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           setupAmount:
             type: number
             format: float
@@ -3150,7 +3735,9 @@ definitions:
           shouldSuspend:
             type: boolean
           startDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           status:
             type: string
           suspendDays:
@@ -3168,36 +3755,48 @@ definitions:
             type: integer
             format: int32
           trialEndDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           trialStartDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           uniqueReference:
             type: string
 
   Invoices:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Pagination"
+      - $ref: '#/definitions/Pagination'
       - properties:
           invoices:
             type: array
             items:
-              $ref: "#/definitions/InvoiceSummary"
+              $ref: '#/definitions/InvoiceSummary'
 
   InvoiceSummary:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           invoiceNumber:
             type: integer
             format: int32
           invoiceDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           currency:
             type: string
           dueDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           paymentDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           amountPaid:
             type: number
             format: float
@@ -3226,20 +3825,27 @@ definitions:
             type: string
 
   Invoice:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           invoiceDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           invoiceNumber:
             type: integer
             format: int32
           currency:
             type: string
           dueDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           paymentDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           amountPaid:
             type: number
             format: float
@@ -3272,11 +3878,12 @@ definitions:
           invoiceItems:
             type: array
             items:
-              $ref: "#/definitions/InvoiceItem"
+              $ref: '#/definitions/InvoiceItem'
 
   InvoiceItem:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           totalAmount:
             type: number
@@ -3284,16 +3891,21 @@ definitions:
           subItems:
             type: array
             items:
-              $ref: "#/definitions/InvoiceSubItem"
+              $ref: '#/definitions/InvoiceSubItem'
 
   InvoiceSubItem:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           fromDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           toDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           perUnitAmount:
             type: number
             format: float
@@ -3307,15 +3919,18 @@ definitions:
             format: int32
 
   InvoiceCreditNote:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           invoiceFid:
             type: string
           chargeRequestFid:
             type: string
           creditDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           amount:
             type: number
             format: float
@@ -3323,27 +3938,30 @@ definitions:
             type: string
 
   Pagination:
+    description: Generic Response
     properties:
-      limit:
-        type: integer
-        format: int32
-      page:
-        type: integer
-        format: int32
-      totalItems:
-        type: integer
-        format: int32
+        limit:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+        totalItems:
+          type: integer
+          format: int32
 
   Products:
+    description: Generic Response
     properties:
       products:
         type: array
         items:
-          $ref: "#/definitions/Product"
+          $ref: '#/definitions/Product'
 
   Product:
+    description: Generic Response
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           productType:
             type: integer
@@ -3358,7 +3976,7 @@ definitions:
           defaultPriceFid:
             type: string
           defaultPrice:
-            $ref: "#/definitions/ProductPrice"
+            $ref: '#/definitions/ProductPrice'
           taxable:
             type: integer
             format: int64
@@ -3372,29 +3990,33 @@ definitions:
             format: int32
 
   ProductGroups:
+    description: Generic Response
     properties:
       groups:
         type: array
         items:
-          $ref: "#/definitions/ProductGroup"
+          $ref: '#/definitions/ProductGroup'
 
   ProductGroup:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
           products:
             type: array
             items:
-              $ref: "#/definitions/Fid"
+              $ref: '#/definitions/Fid'
 
   ProductPrices:
+    description: Generic Response
     properties:
       prices:
         type: array
         items:
-          $ref: "#/definitions/ProductPrice"
+          $ref: '#/definitions/ProductPrice'
 
   ProductPrice:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3409,13 +4031,14 @@ definitions:
             type: number
             format: float
           cycleType:
-            $ref: "#/definitions/cycleTermType"
+            $ref: '#/definitions/cycleTermType'
           cycleTerm:
             type: string
           cycleExact:
             type: string
 
   Order:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Fid'
       - properties:
@@ -3477,13 +4100,15 @@ definitions:
             type: string
 
   OrderProducts:
+    description: Generic Response
     properties:
       products:
         type: array
         items:
-          $ref: "#/definitions/OrderProduct"
+          $ref: '#/definitions/OrderProduct'
 
   OrderAddProducts:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/OrderProducts'
       - properties:
@@ -3491,6 +4116,7 @@ definitions:
             $ref: '#/definitions/Order'
 
   OrderProduct:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3507,9 +4133,12 @@ definitions:
             type: integer
             format: int64
           renewalDate:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
 
   OrderVerification:
+    description: Generic Response
     properties:
       requireRedirect:
         type: boolean
@@ -3517,6 +4146,7 @@ definitions:
         type: string
 
   OrderConfirmation:
+    description: Generic Response
     properties:
       paymentAccountFid:
         type: string
@@ -3528,18 +4158,21 @@ definitions:
         type: string
 
   PaymentAccounts:
+    description: Generic Response
     properties:
       accounts:
         type: array
         items:
-          $ref: "#/definitions/PaymentAccount"
+          $ref: '#/definitions/PaymentAccount'
 
   PaypalInit:
+    description: Generic Response
     properties:
       redirectUrl:
         type: string
 
   PaymentAccount:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3551,13 +4184,15 @@ definitions:
             $ref: '#/definitions/PaymentMode'
 
   PaymentCards:
+    description: Generic Response
     properties:
       cards:
         type: array
         items:
-          $ref: "#/definitions/PaymentCard"
+          $ref: '#/definitions/PaymentCard'
 
   PaymentCard:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3575,13 +4210,15 @@ definitions:
             type: string
 
   Addresses:
+    description: Generic Response
     properties:
       addresses:
         type: array
         items:
-          $ref: "#/definitions/Address"
+          $ref: '#/definitions/Address'
 
   Address:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3601,13 +4238,15 @@ definitions:
             type: string
 
   ConfigItems:
+    description: Generic Response
     properties:
       items:
         type: array
         items:
-          $ref: "#/definitions/ConfigItem"
+          $ref: '#/definitions/ConfigItem'
 
   ConfigItem:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3621,6 +4260,7 @@ definitions:
             type: string
 
   ProductOffers:
+    description: Generic Response
     properties:
       offers:
         type: array
@@ -3628,6 +4268,7 @@ definitions:
           $ref: '#/definitions/ProductOffer'
 
   ProductOffer:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3639,26 +4280,29 @@ definitions:
             type: integer
             format: int32
           expiryTime:
-            $ref: '#/definitions/isoTime'
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
           discountAmount:
             type: number
             format: float
           discountType:
-            $ref: "#/definitions/discountType"
+            $ref: '#/definitions/discountType'
           setupDiscountAmount:
             type: number
             format: float
           setupDiscountType:
-            $ref: "#/definitions/discountType"
+            $ref: '#/definitions/discountType'
           term:
             type: integer
             format: int32
           termType:
-            $ref: "#/definitions/cycleTermType"
+            $ref: '#/definitions/cycleTermType'
           restrictive:
             type: boolean
 
   Tickets:
+    description: Generic Response
     properties:
       tickets:
         type: array
@@ -3666,6 +4310,7 @@ definitions:
           $ref: '#/definitions/Ticket'
 
   Ticket:
+    description: Generic Response
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -3751,6 +4396,7 @@ definitions:
             format: int64
 
   ReasonGroups:
+    description: Reason Groups
     properties:
       reasonGroups:
         type: array
@@ -3758,8 +4404,9 @@ definitions:
           $ref: '#/definitions/ReasonGroup'
 
   ReasonGroup:
+    description: Reason Group
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           builtIn:
             type: boolean
@@ -3770,6 +4417,7 @@ definitions:
             $ref: '#/definitions/reasonGroupType'
 
   Reasons:
+    description: Reasons
     properties:
       reasons:
         type: array
@@ -3777,35 +4425,36 @@ definitions:
           $ref: '#/definitions/Reason'
 
   Reason:
+    description: Reason
     allOf:
-      - $ref: "#/definitions/Entity"
+      - $ref: '#/definitions/Entity'
       - properties:
           groupFid:
-            $ref: '#/definitions/reasonGroupFid'
+            type: string
+            description: FID for the reason group
           usedCount:
             type: number
             format: int64
 
-#Payloads
-  ServiceAccountCredentialsPayload:
-    description: Service credentials used to verify ownership of a user account
+  PropertyValue:
+    description: Reason
     properties:
-      id:
+      propertyValue:
+        description: Property Value
         type: string
-      key:
-        type: string
-    required:
-      - id
-      - key
 
-  AuthTokenResponse:
-    description: Authentication token used to access services
-    properties:
-      token:
-        type: string
-      expiry:
-        type: number
-        format: int64
+#Payloads
+
+  ServiceAccountCredentialsPayload:
+      description: Service credentials used to verify ownership of a user account
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+      required:
+        - id
+        - key
 
   InvoiceCreditNotePayload:
     properties:
@@ -3814,16 +4463,19 @@ definitions:
       description:
         type: string
       chargeRequestFid:
-        $ref: '#/definitions/chargeRequestFid'
+        description: Charge Request FID
+        type: string
       creditAmountType:
         $ref: '#/definitions/creditAmountType'
       amount:
         type: number
         format: float
       reasonFid:
-        $ref: '#/definitions/reasonFid'
+        description: Reason FID
+        type: string
       currency:
-        $ref: '#/definitions/currency'
+        description: Currency
+        type: string
     required:
       - creditAmountType
       - amount
@@ -3831,9 +4483,11 @@ definitions:
   ModifySubscriptionPayload:
     properties:
       priceFid:
-        $ref: '#/definitions/priceFid'
+        description: Price FID to modify subscription with
+        type: string
       offerFid:
-        $ref: '#/definitions/offerFid'
+        description: Price FID to modify subscription with
+        type: string
       mode:
         $ref: '#/definitions/ModifySubscriptionMode'
     required:
@@ -3842,7 +4496,8 @@ definitions:
   SubscriptionCancelPayload:
     properties:
       reasonFid:
-        $ref: '#/definitions/reasonFid'
+        description: Reason FID
+        type: string
       subscriptionRefundType:
         $ref: '#/definitions/SubscriptionRefundType'
     required:
@@ -3867,15 +4522,19 @@ definitions:
     description: Payload for creating an advertiser
     properties:
       username:
-        $ref: '#/definitions/username'
+        type: string
+        description: Username
       email:
-        $ref: '#/definitions/email'
+        type: string
+        description: Email Address
       password:
-        $ref: '#/definitions/password'
+        type: string
+        description: Password
       type:
         $ref: '#/definitions/advertiserType'
       displayName:
-        $ref: '#/definitions/displayName'
+        description: Visible Display Name
+        type: string
       contactName:
         type: string
         description: Name of the person
@@ -3883,15 +4542,20 @@ definitions:
         type: string
         description: Name of the company
       phone:
-        $ref: '#/definitions/phoneNumber'
+        description: Phone Number
+        type: string
       website:
-        $ref: '#/definitions/url'
+        type: string
+        description: URL
       accountManagerFid:
-        $ref: '#/definitions/accountManagerFid'
+        description: FID of an Account Manager
+        type: string
       foundationFid:
-        $ref: '#/definitions/foundationFid'
+        description: FID of a valid Foundation
+        type: string
       brandFid:
-        $ref: '#/definitions/brandFid'
+        description: FID of a valid Brand
+        type: string
     required:
       - username
       - password
@@ -3902,12 +4566,22 @@ definitions:
     description: Payload for creating an advertiser campaign
     properties:
       brandFid:
-        $ref: '#/definitions/brandFid'
+        description: FID of a valid Brand
+        type: string
       displayName:
-        $ref: '#/definitions/displayName'
+        description: Visible Display Name
+        type: string
     required:
       - brandFid
       - displayName
+
+  keyValuePayload:
+    description: Key Value Payload
+    properties:
+      key:
+        type: string
+      value:
+        type: string
 
   PostActionPayload:
     properties:
@@ -3939,84 +4613,121 @@ definitions:
         type: string
         description: Username associated with this transaction (e.g. Join)
       userAgent:
-        $ref: '#/definitions/userAgent'
+        description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+        type: string
       encoding:
-        $ref: '#/definitions/encoding'
+        description: Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
+        type: string
       language:
-        $ref: '#/definitions/language'
+        description: Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
+        type: string
       clientIp:
-        $ref: '#/definitions/clientIp'
+        description: IP Address of the visitor
+        type: string
       externalReference:
-        $ref: '#/definitions/visitorExternalReference'
+        description: External (to Fortifi) Reference for this visitor e.g. a user ID
+        type: string
       brandFid:
-        $ref: '#/definitions/brandFid'
+        description: FID of a valid Brand
+        type: string
       campaignHash:
-        $ref: '#/definitions/campaignHash'
+        description: |
+          Advertiser Campaign to track this action to (if not already locked)
+        type: string
       sid1:
-        $ref: '#/definitions/sid1'
+        type: string
+        description: Advertised sub tracking ID 1
       sid2:
-        $ref: '#/definitions/sid2'
+        type: string
+        description: Advertised sub tracking ID 2
       sid3:
-        $ref: '#/definitions/sid3'
+        type: string
+        description: Advertised sub tracking ID 3
       metaData:
         $ref: '#/definitions/metaData'
       time:
-        $ref: '#/definitions/isoTime'
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
     required:
       - brandFid
 
   ReverseActionPayload:
     properties:
       userAgent:
-        $ref: '#/definitions/userAgent'
+        description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+        type: string
       encoding:
-        $ref: '#/definitions/encoding'
+        description: Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
+        type: string
       language:
-        $ref: '#/definitions/language'
+        description: Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
+        type: string
       clientIp:
-        $ref: '#/definitions/clientIp'
+        description: IP Address of the visitor
+        type: string
       externalReference:
-        $ref: '#/definitions/visitorExternalReference'
+        description: External (to Fortifi) Reference for this visitor e.g. a user ID
+        type: string
       time:
-        $ref: '#/definitions/isoTime'
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
       metaData:
         $ref: '#/definitions/metaData'
       sourceTransactionId:
-        $ref: '#/definitions/sourceTransactionId'
+        description: Your unique transaction ID for the event to be reversed
+        type: string
       reason:
         $ref: '#/definitions/reversalReason'
       reversalAmount:
-        $ref: '#/definitions/reversalAmount'
+        description: Amount of revene refunded to the client from the original transaction / chargeback amount
+        type: number
+        format: float
       reversalId:
-        $ref: '#/definitions/reversalId'
+        description: Your unique transaction ID for this event e.g. Refund ID
+        type: string
       eventId:
-        $ref: '#/definitions/eventId'
+        description: If known, the Fortifi event ID for this visitors action
+        type: string
 
   CreateCustomerPayload:
     description: Payload for creating a customer
     properties:
       visitorId:
-        $ref: '#/definitions/visitorId'
+        description: Visitor ID of the visitor
+        type: string
       clientIp:
-        $ref: '#/definitions/clientIp'
+        description: IP Address of the visitor
+        type: string
       externalReference:
-        $ref: '#/definitions/externalReference'
+        description: External (to Fortifi) Reference e.g. your internal Unique ID
+        type: string
       time:
-        $ref: '#/definitions/isoTime'
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
       brandFid:
-        $ref: '#/definitions/brandFid'
+        description: FID of a valid Brand
+        type: string
       currency:
-        $ref: '#/definitions/currency'
+        description: Currency
+        type: string
       phoneNumber:
-        $ref: '#/definitions/phoneNumber'
+        description: Phone Number
+        type: string
       email:
-        $ref: '#/definitions/email'
+        type: string
+        description: Email Address
       firstName:
-        $ref: '#/definitions/firstName'
+        description: First Name
+        type: string
       lastName:
-        $ref: '#/definitions/lastName'
+        description: Last Name
+        type: string
       accountManagerFid:
-        $ref: '#/definitions/accountManagerFid'
+        description: FID of an Account Manager
+        type: string
       accountType:
         $ref: '#/definitions/customerAccountType'
       accountStatus:
@@ -4063,17 +4774,20 @@ definitions:
         $ref: '#/definitions/customerAccountType'
 
   SetSubscriptionTypePayload:
+    description: Subscription Type
     properties:
       subscriptionType:
         $ref: '#/definitions/customerSubscriptionType'
 
   PropertyValuePayload:
+    description: Value Property
     properties:
       propertyValue:
         description: Property Value
         type: string
 
   PropertyBulkSetPayload:
+    description: Set Many Properties
     properties:
       values:
         type: array
@@ -4097,12 +4811,14 @@ definitions:
           $ref: '#/definitions/keyValuePayload'
 
   PropertyFlagPayload:
+    description: Flag Property
     properties:
       propertyValue:
         description: Property Flag Value
         type: boolean
 
   PropertyCounterPayload:
+    description: Counter Property
     properties:
       propertyValue:
         description: Property Counter Adjustment
@@ -4114,7 +4830,9 @@ definitions:
       metaData:
         $ref: '#/definitions/metaData'
       time:
-        $ref: '#/definitions/isoTime'
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
       alias:
         type: string
         description: Your alias for the event to be triggered
@@ -4125,93 +4843,142 @@ definitions:
   CardDataPayload:
     properties:
       cardDisplayName:
-        $ref: '#/definitions/displayName'
+        description: Visible Display Name
+        type: string
       encryptedCardNumber:
-        $ref: '#/definitions/cardEncryptedNumber'
+        description: Card number encrypted using your public key
+        type: string
       startMonth:
-        $ref: '#/definitions/cardStartMonth'
+        description: Start Month of the card
+        type: integer
+        format: int32
       startYear:
-        $ref: '#/definitions/cardStartYear'
+        description: Start Year of the card
+        type: integer
+        format: int32
       expiryMonth:
-        $ref: '#/definitions/cardExpiryMonth'
+        description: Expiration Month of the card
+        type: integer
+        format: int32
       expiryYear:
-        $ref: '#/definitions/cardExpiryYear'
+        description: Expiration Year of the card
+        type: integer
+        format: int32
       last4:
-        $ref: '#/definitions/cardLast4'
+        description: Last 4 digits of the credit card number
+        type: string
       cardType:
-        $ref: '#/definitions/cardType'
+        description: Card issuer (visa, mastercard, etc)
+        type: string
       issue:
-        $ref: '#/definitions/cardIssue'
+        description: Issue number of the card
+        type: integer
+        format: int32
       cardHolder:
-        $ref: '#/definitions/cardCardHolder'
+        description: Name as appears on card
+        type: string
       addressFid:
-        $ref: '#/definitions/cardAddressFid'
+        description: FID of an existing address to use with the card
+        type: string
       addressLine1:
-        $ref: '#/definitions/cardAddressLine1'
+        description: Address Line 1 of the card
+        type: string
       addressLine2:
-        $ref: '#/definitions/cardAddressLine2'
+        description: Address Line 2 of the card
+        type: string
       addressLine3:
-        $ref: '#/definitions/cardAddressLine3'
+        description: Address Line 3 of the card
+        type: string
       addressCity:
-        $ref: '#/definitions/cardAddressCity'
+        description: City for the card
+        type: string
       addressState:
-        $ref: '#/definitions/cardAddressState'
+        description: State/County of the card
+        type: string
       addressCountry:
-        $ref: '#/definitions/cardAddressCountry'
+        description: Country of the card
+        type: string
       addressPostal:
-        $ref: '#/definitions/cardAddressPostal'
+        description:  Postal/Zip Code of the card
+        type: string
       preAuthAmount:
           description: Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
           type: number
           format: float
       isDefault:
-        $ref: '#/definitions/cardIsDefault'
+        description: Is this card should be used as the primary card on the account
+        type: boolean
 
   CardUpdatePayload:
+    description: Update card details
     properties:
       cardHolder:
-        $ref: '#/definitions/cardCardHolder'
+        description: Name as appears on card
+        type: string
       startMonth:
-        $ref: '#/definitions/cardStartMonth'
+        description: Start Month of the card
+        type: integer
+        format: int32
       startYear:
-        $ref: '#/definitions/cardStartYear'
+        description: Start Year of the card
+        type: integer
+        format: int32
       expiryMonth:
-        $ref: '#/definitions/cardExpiryMonth'
+        description: Expiration Month of the card
+        type: integer
+        format: int32
       expiryYear:
-        $ref: '#/definitions/cardExpiryYear'
+        description: Expiration Year of the card
+        type: integer
+        format: int32
       issue:
-        $ref: '#/definitions/cardIssue'
+        description: Issue number of the card
+        type: integer
+        format: int32
       addressFid:
-        $ref: '#/definitions/cardAddressFid'
+        description: FID of an existing address to use with the card
+        type: string
       addressLine1:
-        $ref: '#/definitions/cardAddressLine1'
+        description: Address Line 1 of the card
+        type: string
       addressLine2:
-        $ref: '#/definitions/cardAddressLine2'
+        description: Address Line 2 of the card
+        type: string
       addressLine3:
-        $ref: '#/definitions/cardAddressLine3'
+        description: Address Line 3 of the card
+        type: string
       addressCity:
-        $ref: '#/definitions/cardAddressCity'
+        description: City for the card
+        type: string
       addressState:
-        $ref: '#/definitions/cardAddressState'
+        description: State/County of the card
+        type: string
       addressCountry:
-        $ref: '#/definitions/cardAddressCountry'
+        description: Country of the card
+        type: string
       addressPostal:
-        $ref: '#/definitions/cardAddressPostal'
+        description:  Postal/Zip Code of the card
+        type: string
       asDefault:
         type: boolean
 
   CreateOrderPayload:
     properties:
       paymentAccountFid:
-        $ref: '#/definitions/paymentAccountFid'
+        description: FID for the payment account you wish to charge the customer through
+        type: string
       brandFid:
-        $ref: '#/definitions/brandFid'
+        description: FID of a valid Brand
+        type: string
       customerFid:
-        $ref: '#/definitions/customerFid'
+        type: string
+        description: FID for the customer placing the order
       clientIp:
-        $ref: '#/definitions/clientIp'
+        description: IP Address of the visitor
+        type: string
       userAgent:
-        $ref: '#/definitions/userAgent'
+        description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+        type: string
       type:
         $ref: '#/definitions/CreateOrderType'
       productPriceFids:
@@ -4245,7 +5012,8 @@ definitions:
   OrderProductQuantityPayload:
     properties:
       priceFid:
-        $ref: '#/definitions/priceFid'
+        description: Price FID to modify subscription with
+        type: string
       quantity:
         type: integer
         format: int64
@@ -4256,9 +5024,11 @@ definitions:
   ConfirmOrderPayload:
     properties:
       paymentServiceFid:
-        $ref: '#/definitions/paymentServiceFid'
+        description: FID for the payment service you wish to charge the customer through
+        type: string
       paymentAccountFid:
-        $ref: '#/definitions/paymentAccountFid'
+        description: FID for the payment account you wish to charge the customer through
+        type: string
       paymentServiceProcessor:
         $ref: '#/definitions/PaymentServiceProcessor'
 
@@ -4272,43 +5042,67 @@ definitions:
   ConfirmOrderWithNewCardPayload:
     properties:
       cardDisplayName:
-        $ref: '#/definitions/displayName'
+        description: Visible Display Name
+        type: string
       paymentServiceFid:
-        $ref: '#/definitions/paymentServiceFid'
+        description: FID for the payment service you wish to charge the customer through
+        type: string
       encryptedCardNumber:
-        $ref: '#/definitions/cardEncryptedNumber'
+        description: Card number encrypted using your public key
+        type: string
       startMonth:
-        $ref: '#/definitions/cardStartMonth'
+        description: Start Month of the card
+        type: integer
+        format: int32
       startYear:
-        $ref: '#/definitions/cardStartYear'
+        description: Start Year of the card
+        type: integer
+        format: int32
       expiryMonth:
-        $ref: '#/definitions/cardExpiryMonth'
+        description: Expiration Month of the card
+        type: integer
+        format: int32
       expiryYear:
-        $ref: '#/definitions/cardExpiryYear'
+        description: Expiration Year of the card
+        type: integer
+        format: int32
       issue:
-        $ref: '#/definitions/cardIssue'
+        description: Issue number of the card
+        type: integer
+        format: int32
       last4:
-        $ref: '#/definitions/cardLast4'
+        description: Last 4 digits of the credit card number
+        type: string
       cardType:
-        $ref: '#/definitions/cardType'
+        description: Card issuer (visa, mastercard, etc)
+        type: string
       cardHolder:
-        $ref: '#/definitions/cardCardHolder'
+        description: Name as appears on card
+        type: string
       addressFid:
-        $ref: '#/definitions/cardAddressFid'
+        description: FID of an existing address to use with the card
+        type: string
       addressLine1:
-        $ref: '#/definitions/cardAddressLine1'
+        description: Address Line 1 of the card
+        type: string
       addressLine2:
-        $ref: '#/definitions/cardAddressLine2'
+        description: Address Line 2 of the card
+        type: string
       addressLine3:
-        $ref: '#/definitions/cardAddressLine3'
+        description: Address Line 3 of the card
+        type: string
       addressCity:
-        $ref: '#/definitions/cardAddressCity'
+        description: City for the card
+        type: string
       addressState:
-        $ref: '#/definitions/cardAddressState'
+        description: State/County of the card
+        type: string
       addressCountry:
-        $ref: '#/definitions/cardAddressCountry'
+        description: Country of the card
+        type: string
       addressPostal:
-        $ref: '#/definitions/cardAddressPostal'
+        description:  Postal/Zip Code of the card
+        type: string
 
   ConfirmPayPalOrderPayload:
     allOf:
@@ -4356,18 +5150,6 @@ definitions:
         type: string
 
 #Properties
-  priceFid:
-    description: Price FID to modify subscription with
-    type: string
-  offerFid:
-    description: Price FID to modify subscription with
-    type: string
-  reasonFid:
-    description: Reason FID
-    type: string
-  chargeRequestFid:
-    description: Charge Request FID
-    type: string
   creditAmountType:
     description: Credit amount type
     type: string
@@ -4431,52 +5213,11 @@ definitions:
     enum:
     - automatic
     - request
-  isoTime:
-    description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-    type: string
-    format: date-time
-  userAgent:
-    description: User Agent of the visitors browser 'HTTP_USER_AGENT'
-    type: string
-  language:
-    description: Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
-    type: string
-  encoding:
-    description: Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
-    type: string
-  clientIp:
-    description: IP Address of the visitor
-    type: string
-  visitorExternalReference:
-    description: External (to Fortifi) Reference for this visitor e.g. a user ID
-    type: string
-  brandFid:
-    description: FID of a valid Brand
-    type: string
-  foundationFid:
-    description: FID of a valid Foundation
-    type: string
-  campaignHash:
-    description: |
-      Advertiser Campaign to track this action to (if not already locked)
-    type: string
-  sid1:
-    type: string
-    description: Advertised sub tracking ID 1
-  sid2:
-    type: string
-    description: Advertised sub tracking ID 2
-  sid3:
-    type: string
-    description: Advertised sub tracking ID 3
   metaData:
     type: array
     description: Additional information to store
     items:
       $ref: '#/definitions/keyValuePayload'
-  sourceTransactionId:
-    description: Your unique transaction ID for the event to be reversed
-    type: string
   reversalReason:
     description: The reason for reversing the action
     type: string
@@ -4484,49 +5225,6 @@ definitions:
     - chargeback
     - cancel
     - fraud
-  reversalAmount:
-    description: Amount of revene refunded to the client from the original transaction / chargeback amount
-    type: number
-    format: float
-  reversalId:
-    description: Your unique transaction ID for this event e.g. Refund ID
-    type: string
-  eventId:
-    description: If known, the Fortifi event ID for this visitors action
-    type: string
-  visitorId:
-    description: Visitor ID of the visitor
-    type: string
-  currency:
-    description: Currency
-    type: string
-  phoneNumber:
-    description: Phone Number
-    type: string
-  displayName:
-    description: Visible Display Name
-    type: string
-  firstName:
-    description: First Name
-    type: string
-  lastName:
-    description: Last Name
-    type: string
-  username:
-    type: string
-    description: Username
-  password:
-    type: string
-    description: Password
-  url:
-    type: string
-    description: URL
-  email:
-    type: string
-    description: Email Address
-  accountManagerFid:
-    description: FID of an Account Manager
-    type: string
   advertiserType:
     description: Advertiser Type
     type: string
@@ -4622,80 +5320,6 @@ definitions:
     enum:
     - prorate
     - full
-  externalReference:
-    description: External (to Fortifi) Reference e.g. your internal Unique ID
-    type: string
-  cardEncryptedNumber:
-    description: Card number encrypted using your public key
-    type: string
-  cardStartMonth:
-    description: Start Month of the card
-    type: integer
-    format: int32
-  cardStartYear:
-    description: Start Year of the card
-    type: integer
-    format: int32
-  cardExpiryMonth:
-    description: Expiration Month of the card
-    type: integer
-    format: int32
-  cardExpiryYear:
-    description: Expiration Year of the card
-    type: integer
-    format: int32
-  cardLast4:
-    description: Last 4 digits of the credit card number
-    type: string
-  cardType:
-    description: Card issuer (visa, mastercard, etc)
-    type: string
-  cardIssue:
-    description: Issue number of the card
-    type: integer
-    format: int32
-  cardCardHolder:
-    description: Name as appears on card
-    type: string
-  cardAddressFid:
-    description: FID of an existing address to use with the card
-    type: string
-  cardAddressCity:
-    description: City for the card
-    type: string
-  cardAddressCountry:
-    description: Country of the card
-    type: string
-  cardAddressLine1:
-    description: Address Line 1 of the card
-    type: string
-  cardAddressLine2:
-    description: Address Line 2 of the card
-    type: string
-  cardAddressLine3:
-    description: Address Line 3 of the card
-    type: string
-  cardAddressState:
-    description: State/County of the card
-    type: string
-  cardAddressPostal:
-    description:  Postal/Zip Code of the card
-    type: string
-  cardIsDefault:
-    description: Is this card should be used as the primary card on the account
-    type: boolean
-  paymentAccountFid:
-    description: FID for the payment account you wish to charge the customer through
-    type: string
-  paymentServiceFid:
-    description: FID for the payment service you wish to charge the customer through
-    type: string
-  customerFid:
-    type: string
-    description: FID for the customer placing the order
-  reasonGroupFid:
-    type: string
-    description: FID for the reason group
   reasonGroupType:
     description: Reason Group Type
     type: string

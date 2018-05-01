@@ -5,7 +5,7 @@ use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
 class AdvertiserRequest
-  extends FidRequest
+  extends EntityRequest
   implements \JsonSerializable
 {
 
@@ -15,7 +15,6 @@ class AdvertiserRequest
       parent::jsonSerialize(),
       [
         "type" => $this->getType(),
-        "displayName" => $this->getDisplayName(),
         "contactName" => $this->getContactName(),
         "companyName" => $this->getCompanyName(),
         "phoneFid" => $this->getPhoneFid(),
@@ -44,18 +43,6 @@ class AdvertiserRequest
   public function getType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'type', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getDisplayName($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'displayName', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
