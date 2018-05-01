@@ -3286,8 +3286,11 @@ definitions:
     properties:
       meta:
         $ref: '#/definitions/EnvelopeMeta'
+      data:
+        type: object
     required:
       - meta
+      - data
 
   Fid:
     description: Generic Response

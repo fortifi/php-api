@@ -14,6 +14,7 @@ class EnvelopeRequest
   {
     return [
       "meta" => $this->getMeta(),
+      "data" => $this->getData(),
     ];
   }
 
@@ -25,6 +26,16 @@ class EnvelopeRequest
   public function getMeta($default = null)
   {
     return Objects::property($this->_getResultJson(), 'meta', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return object
+   */
+  public function getData($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'data', $default);
   }
 
   protected function _prepareResult($result)
