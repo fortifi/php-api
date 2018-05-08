@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '2.19.0'
+  version: '2.19.1'
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2553,7 +2553,6 @@ paths:
                   data:
                     $ref: '#/definitions/BoolMessage'
 
-
   '/orders/{orderFid}/confirmCard':
     put:
       summary: Confirm an order, authorize the payment
@@ -4048,7 +4047,8 @@ definitions:
           orderHash:
             type: string
           state:
-            type: string
+            type: number
+            format: int32
           queueFid:
             type: string
           offerFid:

@@ -57,14 +57,12 @@ class OrderRequest
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return integer
    */
-  public function getState($default = null, $trim = true)
+  public function getState($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'state', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'state', $default);
   }
 
   /**
