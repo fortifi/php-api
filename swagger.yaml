@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '2.19.1'
+  version: '2.20.0'
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -171,6 +171,7 @@ tags:
   - name: Products
   - name: Licence
   - name: Support
+  - name: ServiceStatus
   - name: Reasons
 
 securityDefinitions:
@@ -3105,6 +3106,75 @@ paths:
                   data:
                     $ref: '#/definitions/Ticket'
 
+
+  '/services':
+    get:
+      summary: Retrieve all services
+      tags:
+        - ServiceStatus
+      security:
+        - OAuth:
+          - entity.properties
+        - accessToken: []
+      responses:
+        200:
+          description: Service listing
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Services'
+
+
+  '/services/{serviceFid}/incidents':
+    get:
+      summary: Retrieve incidents for service within timeframe
+      tags:
+        - ServiceStatus
+      security:
+        - OAuth:
+          - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/serviceFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ServiceIncidentsPayload'
+      responses:
+        200:
+          description: Service incidents
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ServiceIncidents'
+
+  '/services/{serviceFid}/incidents/{incidentFid}/updates':
+    get:
+      summary: Retrieve incident updates for incident
+      tags:
+        - ServiceStatus
+      security:
+        - OAuth:
+          - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/serviceFid'
+        - $ref: '#/parameters/incidentFid'
+      responses:
+        200:
+          description: Service incidents
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/IncidentUpdates'
+
 parameters:
   isoTime:
     name: isoTime
@@ -3203,6 +3273,18 @@ parameters:
     type: string
     required: true
     description: Entity FID to use
+  serviceFid:
+    name: serviceFid
+    in: path
+    type: string
+    required: true
+    description: Service FID to use
+  incidentFid:
+    name: incidentFid
+    in: path
+    type: string
+    required: true
+    description: Incident FID to use
   propertyName:
     name: propertyName
     in: path
@@ -3376,6 +3458,10 @@ definitions:
       orgFid:
         type: string
       orgDomain:
+        type: string
+      primaryColour:
+        type: string
+      logo:
         type: string
 
   Brand:
@@ -4446,6 +4532,131 @@ definitions:
         description: Property Value
         type: string
 
+
+  Services:
+    description: Services
+    properties:
+      services:
+        type: array
+        items:
+          $ref: '#/definitions/Service'
+
+
+  Service:
+    description: Service
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      status:
+        type: string
+      inheritedStatus:
+        type: string
+      visibility:
+        type: string
+      parentServiceFid:
+        type: string
+      id:
+        type: number
+        format: int64
+      viewPolicy:
+        type: string
+      editPolicy:
+        type: string
+      dateCreated:
+        type: number
+        format: int64
+      dateModified:
+        type: number
+        format: int64
+      dateStateChanged:
+        type: number
+        format: int64
+      displayName:
+        type: string
+      currentState:
+        type: number
+        format: int64
+      fid:
+        type: string
+      brandFid:
+        type: string
+
+  IncidentUpdates:
+    description: Incident updates
+    properties:
+      incidentUpdates:
+        type: array
+        items:
+          $ref: '#/definitions/IncidentUpdate'
+
+  IncidentUpdate:
+    description: Incident Update
+    properties:
+      status:
+        type: string
+      message:
+        type: string
+      id:
+        type: number
+        format: int64
+      viewPolicy:
+        type: string
+      editPolicy:
+        type: string
+      dateCreated:
+        type: number
+        format: int64
+      dateModified:
+        type: number
+        format: int64
+      dateStateChanged:
+        type: number
+        format: int64
+      displayName:
+        type: string
+      description:
+        type: string
+      currentState:
+        type: number
+        format: int64
+      fid:
+        type: string
+
+  ServiceIncidents:
+    description: Service Incidents
+    properties:
+      serviceIncidents:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceIncident'
+
+  ServiceIncident:
+    description: Service Incident
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          timeStarted:
+            type: number
+            format: int64
+          timeEnded:
+            type: number
+            format: int64
+          serviceFid:
+            type: string
+          status:
+            type: string
+          dateCreated:
+            type: number
+            format: int64
+          dateModified:
+            type: number
+            format: int64
+          dateStateChanged:
+            type: number
+            format: int64
+
 #Payloads
 
   ServiceAccountCredentialsPayload:
@@ -5151,6 +5362,15 @@ definitions:
         type: string
       htmlBody:
         type: string
+
+  ServiceIncidentsPayload:
+      properties:
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
 
 #Properties
   creditAmountType:

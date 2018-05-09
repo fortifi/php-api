@@ -16,6 +16,8 @@ class OrganisationRequest
       "orgName" => $this->getOrgName(),
       "orgFid" => $this->getOrgFid(),
       "orgDomain" => $this->getOrgDomain(),
+      "primaryColour" => $this->getPrimaryColour(),
+      "logo" => $this->getLogo(),
     ];
   }
 
@@ -52,6 +54,30 @@ class OrganisationRequest
   public function getOrgDomain($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'orgDomain', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPrimaryColour($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'primaryColour', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLogo($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'logo', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
