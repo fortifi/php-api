@@ -13,11 +13,11 @@ class KeyValuePayload
     $data = (array)$data;
     if(isset($data["key"]))
     {
-      $this->_key = $data["key"];
+      $this->_key = (string)$data["key"];
     }
     if(isset($data["value"]))
     {
-      $this->_value = $data["value"];
+      $this->_value = (string)$data["value"];
     }
     return $this;
   }

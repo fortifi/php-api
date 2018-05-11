@@ -20,11 +20,11 @@ class SubscriptionCancelPayload
     $data = (array)$data;
     if(isset($data["reasonFid"]))
     {
-      $this->_reasonFid = $data["reasonFid"];
+      $this->_reasonFid = (string)$data["reasonFid"];
     }
     if(isset($data["subscriptionRefundType"]))
     {
-      $this->_subscriptionRefundType = $data["subscriptionRefundType"];
+      $this->_subscriptionRefundType = (string)$data["subscriptionRefundType"];
     }
     return $this;
   }

@@ -24,15 +24,15 @@ class ModifySubscriptionPayload
     $data = (array)$data;
     if(isset($data["priceFid"]))
     {
-      $this->_priceFid = $data["priceFid"];
+      $this->_priceFid = (string)$data["priceFid"];
     }
     if(isset($data["offerFid"]))
     {
-      $this->_offerFid = $data["offerFid"];
+      $this->_offerFid = (string)$data["offerFid"];
     }
     if(isset($data["mode"]))
     {
-      $this->_mode = $data["mode"];
+      $this->_mode = (string)$data["mode"];
     }
     return $this;
   }

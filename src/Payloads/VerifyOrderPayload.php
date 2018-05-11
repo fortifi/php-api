@@ -16,15 +16,15 @@ class VerifyOrderPayload
     parent::hydrate($data);
     if(isset($data["successUrl"]))
     {
-      $this->_successUrl = $data["successUrl"];
+      $this->_successUrl = (string)$data["successUrl"];
     }
     if(isset($data["cancelUrl"]))
     {
-      $this->_cancelUrl = $data["cancelUrl"];
+      $this->_cancelUrl = (string)$data["cancelUrl"];
     }
     if(isset($data["failUrl"]))
     {
-      $this->_failUrl = $data["failUrl"];
+      $this->_failUrl = (string)$data["failUrl"];
     }
     return $this;
   }

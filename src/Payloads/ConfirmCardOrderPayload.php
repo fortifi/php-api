@@ -14,7 +14,7 @@ class ConfirmCardOrderPayload
     parent::hydrate($data);
     if(isset($data["cvv"]))
     {
-      $this->_cvv = $data["cvv"];
+      $this->_cvv = (string)$data["cvv"];
     }
     return $this;
   }

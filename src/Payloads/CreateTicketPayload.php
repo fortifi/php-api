@@ -23,51 +23,51 @@ class CreateTicketPayload
     $data = (array)$data;
     if(isset($data["customerEmail"]))
     {
-      $this->_customerEmail = $data["customerEmail"];
+      $this->_customerEmail = (string)$data["customerEmail"];
     }
     if(isset($data["customerName"]))
     {
-      $this->_customerName = $data["customerName"];
+      $this->_customerName = (string)$data["customerName"];
     }
     if(isset($data["customerFid"]))
     {
-      $this->_customerFid = $data["customerFid"];
+      $this->_customerFid = (string)$data["customerFid"];
     }
     if(isset($data["ticketType"]))
     {
-      $this->_ticketType = $data["ticketType"];
+      $this->_ticketType = (string)$data["ticketType"];
     }
     if(isset($data["brandFid"]))
     {
-      $this->_brandFid = $data["brandFid"];
+      $this->_brandFid = (string)$data["brandFid"];
     }
     if(isset($data["queueFid"]))
     {
-      $this->_queueFid = $data["queueFid"];
+      $this->_queueFid = (string)$data["queueFid"];
     }
     if(isset($data["departmentFid"]))
     {
-      $this->_departmentFid = $data["departmentFid"];
+      $this->_departmentFid = (string)$data["departmentFid"];
     }
     if(isset($data["departmentEmail"]))
     {
-      $this->_departmentEmail = $data["departmentEmail"];
+      $this->_departmentEmail = (string)$data["departmentEmail"];
     }
     if(isset($data["departmentName"]))
     {
-      $this->_departmentName = $data["departmentName"];
+      $this->_departmentName = (string)$data["departmentName"];
     }
     if(isset($data["subject"]))
     {
-      $this->_subject = $data["subject"];
+      $this->_subject = (string)$data["subject"];
     }
     if(isset($data["textBody"]))
     {
-      $this->_textBody = $data["textBody"];
+      $this->_textBody = (string)$data["textBody"];
     }
     if(isset($data["htmlBody"]))
     {
-      $this->_htmlBody = $data["htmlBody"];
+      $this->_htmlBody = (string)$data["htmlBody"];
     }
     return $this;
   }

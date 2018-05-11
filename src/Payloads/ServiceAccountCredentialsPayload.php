@@ -19,11 +19,11 @@ class ServiceAccountCredentialsPayload
     $data = (array)$data;
     if(isset($data["id"]))
     {
-      $this->_id = $data["id"];
+      $this->_id = (string)$data["id"];
     }
     if(isset($data["key"]))
     {
-      $this->_key = $data["key"];
+      $this->_key = (string)$data["key"];
     }
     return $this;
   }

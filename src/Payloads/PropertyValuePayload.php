@@ -15,7 +15,7 @@ class PropertyValuePayload
     $data = (array)$data;
     if(isset($data["propertyValue"]))
     {
-      $this->_propertyValue = $data["propertyValue"];
+      $this->_propertyValue = (string)$data["propertyValue"];
     }
     return $this;
   }

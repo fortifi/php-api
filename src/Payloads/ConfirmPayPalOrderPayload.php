@@ -14,7 +14,7 @@ class ConfirmPayPalOrderPayload
     parent::hydrate($data);
     if(isset($data["token"]))
     {
-      $this->_token = $data["token"];
+      $this->_token = (string)$data["token"];
     }
     return $this;
   }

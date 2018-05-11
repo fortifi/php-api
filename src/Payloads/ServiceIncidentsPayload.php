@@ -13,11 +13,11 @@ class ServiceIncidentsPayload
     $data = (array)$data;
     if(isset($data["startDate"]))
     {
-      $this->_startDate = $data["startDate"];
+      $this->_startDate = (string)$data["startDate"];
     }
     if(isset($data["endDate"]))
     {
-      $this->_endDate = $data["endDate"];
+      $this->_endDate = (string)$data["endDate"];
     }
     return $this;
   }

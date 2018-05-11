@@ -68,59 +68,59 @@ class CardUpdatePayload
     $data = (array)$data;
     if(isset($data["cardHolder"]))
     {
-      $this->_cardHolder = $data["cardHolder"];
+      $this->_cardHolder = (string)$data["cardHolder"];
     }
     if(isset($data["startMonth"]))
     {
-      $this->_startMonth = $data["startMonth"];
+      $this->_startMonth = (int)$data["startMonth"];
     }
     if(isset($data["startYear"]))
     {
-      $this->_startYear = $data["startYear"];
+      $this->_startYear = (int)$data["startYear"];
     }
     if(isset($data["expiryMonth"]))
     {
-      $this->_expiryMonth = $data["expiryMonth"];
+      $this->_expiryMonth = (int)$data["expiryMonth"];
     }
     if(isset($data["expiryYear"]))
     {
-      $this->_expiryYear = $data["expiryYear"];
+      $this->_expiryYear = (int)$data["expiryYear"];
     }
     if(isset($data["issue"]))
     {
-      $this->_issue = $data["issue"];
+      $this->_issue = (int)$data["issue"];
     }
     if(isset($data["addressFid"]))
     {
-      $this->_addressFid = $data["addressFid"];
+      $this->_addressFid = (string)$data["addressFid"];
     }
     if(isset($data["addressLine1"]))
     {
-      $this->_addressLine1 = $data["addressLine1"];
+      $this->_addressLine1 = (string)$data["addressLine1"];
     }
     if(isset($data["addressLine2"]))
     {
-      $this->_addressLine2 = $data["addressLine2"];
+      $this->_addressLine2 = (string)$data["addressLine2"];
     }
     if(isset($data["addressLine3"]))
     {
-      $this->_addressLine3 = $data["addressLine3"];
+      $this->_addressLine3 = (string)$data["addressLine3"];
     }
     if(isset($data["addressCity"]))
     {
-      $this->_addressCity = $data["addressCity"];
+      $this->_addressCity = (string)$data["addressCity"];
     }
     if(isset($data["addressState"]))
     {
-      $this->_addressState = $data["addressState"];
+      $this->_addressState = (string)$data["addressState"];
     }
     if(isset($data["addressCountry"]))
     {
-      $this->_addressCountry = $data["addressCountry"];
+      $this->_addressCountry = (string)$data["addressCountry"];
     }
     if(isset($data["addressPostal"]))
     {
-      $this->_addressPostal = $data["addressPostal"];
+      $this->_addressPostal = (string)$data["addressPostal"];
     }
     if(isset($data["asDefault"]))
     {

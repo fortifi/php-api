@@ -15,7 +15,7 @@ class SetAccountStatusPayload
     $data = (array)$data;
     if(isset($data["accountStatus"]))
     {
-      $this->_accountStatus = $data["accountStatus"];
+      $this->_accountStatus = (string)$data["accountStatus"];
     }
     return $this;
   }

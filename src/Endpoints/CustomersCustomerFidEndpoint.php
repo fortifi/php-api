@@ -3,6 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\PaymentAccountsRequest;
 use Fortifi\Api\V1\Requests\CustomerRequest;
+use Fortifi\Api\V1\Requests\BoolMessageRequest;
 use Fortifi\Api\V1\Requests\AddressesRequest;
 use Fortifi\Api\V1\Payloads\SetSubscriptionTypePayload;
 use Fortifi\Api\V1\Payloads\SetCustomerLocationPayload;
@@ -583,6 +584,35 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('phoneNumber', $phoneNumber);
     $detail->addPostField('displayName', $displayName);
+    $detail->setMethod('POST');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Subject Access Request
+   *
+   * Initiate a Subject Access Request.  A URL will be sent via a webhook
+   * (CustomerWHE::SUBJECT_ACCESS_REQUEST), once the archive is ready for
+   * download
+   *
+   * @return BoolMessageRequest
+   */
+  public function createSar()
+  {
+    $request = new BoolMessageRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/sar'
+      )
+    ));
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;

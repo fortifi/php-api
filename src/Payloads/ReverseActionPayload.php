@@ -56,27 +56,27 @@ class ReverseActionPayload
     $data = (array)$data;
     if(isset($data["userAgent"]))
     {
-      $this->_userAgent = $data["userAgent"];
+      $this->_userAgent = (string)$data["userAgent"];
     }
     if(isset($data["encoding"]))
     {
-      $this->_encoding = $data["encoding"];
+      $this->_encoding = (string)$data["encoding"];
     }
     if(isset($data["language"]))
     {
-      $this->_language = $data["language"];
+      $this->_language = (string)$data["language"];
     }
     if(isset($data["clientIp"]))
     {
-      $this->_clientIp = $data["clientIp"];
+      $this->_clientIp = (string)$data["clientIp"];
     }
     if(isset($data["externalReference"]))
     {
-      $this->_externalReference = $data["externalReference"];
+      $this->_externalReference = (string)$data["externalReference"];
     }
     if(isset($data["time"]))
     {
-      $this->_time = $data["time"];
+      $this->_time = (string)$data["time"];
     }
     if(isset($data["metaData"]))
     {
@@ -90,23 +90,23 @@ class ReverseActionPayload
     }
     if(isset($data["sourceTransactionId"]))
     {
-      $this->_sourceTransactionId = $data["sourceTransactionId"];
+      $this->_sourceTransactionId = (string)$data["sourceTransactionId"];
     }
     if(isset($data["reason"]))
     {
-      $this->_reason = $data["reason"];
+      $this->_reason = (string)$data["reason"];
     }
     if(isset($data["reversalAmount"]))
     {
-      $this->_reversalAmount = $data["reversalAmount"];
+      $this->_reversalAmount = (float)$data["reversalAmount"];
     }
     if(isset($data["reversalId"]))
     {
-      $this->_reversalId = $data["reversalId"];
+      $this->_reversalId = (string)$data["reversalId"];
     }
     if(isset($data["eventId"]))
     {
-      $this->_eventId = $data["eventId"];
+      $this->_eventId = (string)$data["eventId"];
     }
     return $this;
   }

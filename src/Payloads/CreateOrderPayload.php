@@ -43,27 +43,27 @@ class CreateOrderPayload
     $data = (array)$data;
     if(isset($data["paymentAccountFid"]))
     {
-      $this->_paymentAccountFid = $data["paymentAccountFid"];
+      $this->_paymentAccountFid = (string)$data["paymentAccountFid"];
     }
     if(isset($data["brandFid"]))
     {
-      $this->_brandFid = $data["brandFid"];
+      $this->_brandFid = (string)$data["brandFid"];
     }
     if(isset($data["customerFid"]))
     {
-      $this->_customerFid = $data["customerFid"];
+      $this->_customerFid = (string)$data["customerFid"];
     }
     if(isset($data["clientIp"]))
     {
-      $this->_clientIp = $data["clientIp"];
+      $this->_clientIp = (string)$data["clientIp"];
     }
     if(isset($data["userAgent"]))
     {
-      $this->_userAgent = $data["userAgent"];
+      $this->_userAgent = (string)$data["userAgent"];
     }
     if(isset($data["type"]))
     {
-      $this->_type = $data["type"];
+      $this->_type = (string)$data["type"];
     }
     if(isset($data["productPriceFids"]))
     {

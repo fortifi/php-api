@@ -23,15 +23,15 @@ class ConfirmOrderPayload
     $data = (array)$data;
     if(isset($data["paymentServiceFid"]))
     {
-      $this->_paymentServiceFid = $data["paymentServiceFid"];
+      $this->_paymentServiceFid = (string)$data["paymentServiceFid"];
     }
     if(isset($data["paymentAccountFid"]))
     {
-      $this->_paymentAccountFid = $data["paymentAccountFid"];
+      $this->_paymentAccountFid = (string)$data["paymentAccountFid"];
     }
     if(isset($data["paymentServiceProcessor"]))
     {
-      $this->_paymentServiceProcessor = $data["paymentServiceProcessor"];
+      $this->_paymentServiceProcessor = (string)$data["paymentServiceProcessor"];
     }
     return $this;
   }

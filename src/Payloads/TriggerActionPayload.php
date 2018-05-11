@@ -34,11 +34,11 @@ class TriggerActionPayload
     }
     if(isset($data["time"]))
     {
-      $this->_time = $data["time"];
+      $this->_time = (string)$data["time"];
     }
     if(isset($data["alias"]))
     {
-      $this->_alias = $data["alias"];
+      $this->_alias = (string)$data["alias"];
     }
     if(isset($data["triggerMessenger"]))
     {

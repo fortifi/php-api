@@ -21,11 +21,11 @@ class CreateAdvertiserCampaignPayload
     $data = (array)$data;
     if(isset($data["brandFid"]))
     {
-      $this->_brandFid = $data["brandFid"];
+      $this->_brandFid = (string)$data["brandFid"];
     }
     if(isset($data["displayName"]))
     {
-      $this->_displayName = $data["displayName"];
+      $this->_displayName = (string)$data["displayName"];
     }
     return $this;
   }

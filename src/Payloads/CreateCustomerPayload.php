@@ -72,63 +72,63 @@ class CreateCustomerPayload
     $data = (array)$data;
     if(isset($data["visitorId"]))
     {
-      $this->_visitorId = $data["visitorId"];
+      $this->_visitorId = (string)$data["visitorId"];
     }
     if(isset($data["clientIp"]))
     {
-      $this->_clientIp = $data["clientIp"];
+      $this->_clientIp = (string)$data["clientIp"];
     }
     if(isset($data["externalReference"]))
     {
-      $this->_externalReference = $data["externalReference"];
+      $this->_externalReference = (string)$data["externalReference"];
     }
     if(isset($data["time"]))
     {
-      $this->_time = $data["time"];
+      $this->_time = (string)$data["time"];
     }
     if(isset($data["brandFid"]))
     {
-      $this->_brandFid = $data["brandFid"];
+      $this->_brandFid = (string)$data["brandFid"];
     }
     if(isset($data["currency"]))
     {
-      $this->_currency = $data["currency"];
+      $this->_currency = (string)$data["currency"];
     }
     if(isset($data["phoneNumber"]))
     {
-      $this->_phoneNumber = $data["phoneNumber"];
+      $this->_phoneNumber = (string)$data["phoneNumber"];
     }
     if(isset($data["email"]))
     {
-      $this->_email = $data["email"];
+      $this->_email = (string)$data["email"];
     }
     if(isset($data["firstName"]))
     {
-      $this->_firstName = $data["firstName"];
+      $this->_firstName = (string)$data["firstName"];
     }
     if(isset($data["lastName"]))
     {
-      $this->_lastName = $data["lastName"];
+      $this->_lastName = (string)$data["lastName"];
     }
     if(isset($data["accountManagerFid"]))
     {
-      $this->_accountManagerFid = $data["accountManagerFid"];
+      $this->_accountManagerFid = (string)$data["accountManagerFid"];
     }
     if(isset($data["accountType"]))
     {
-      $this->_accountType = $data["accountType"];
+      $this->_accountType = (string)$data["accountType"];
     }
     if(isset($data["accountStatus"]))
     {
-      $this->_accountStatus = $data["accountStatus"];
+      $this->_accountStatus = (string)$data["accountStatus"];
     }
     if(isset($data["lifecycle"]))
     {
-      $this->_lifecycle = $data["lifecycle"];
+      $this->_lifecycle = (string)$data["lifecycle"];
     }
     if(isset($data["subscriptionType"]))
     {
-      $this->_subscriptionType = $data["subscriptionType"];
+      $this->_subscriptionType = (string)$data["subscriptionType"];
     }
     return $this;
   }

@@ -39,31 +39,31 @@ class SetCustomerLocationPayload
     $data = (array)$data;
     if(isset($data["continent"]))
     {
-      $this->_continent = $data["continent"];
+      $this->_continent = (string)$data["continent"];
     }
     if(isset($data["country"]))
     {
-      $this->_country = $data["country"];
+      $this->_country = (string)$data["country"];
     }
     if(isset($data["county"]))
     {
-      $this->_county = $data["county"];
+      $this->_county = (string)$data["county"];
     }
     if(isset($data["city"]))
     {
-      $this->_city = $data["city"];
+      $this->_city = (string)$data["city"];
     }
     if(isset($data["postal"]))
     {
-      $this->_postal = $data["postal"];
+      $this->_postal = (string)$data["postal"];
     }
     if(isset($data["timezone"]))
     {
-      $this->_timezone = $data["timezone"];
+      $this->_timezone = (string)$data["timezone"];
     }
     if(isset($data["clientIp"]))
     {
-      $this->_clientIp = $data["clientIp"];
+      $this->_clientIp = (string)$data["clientIp"];
     }
     return $this;
   }

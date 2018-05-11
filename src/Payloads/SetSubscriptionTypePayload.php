@@ -15,7 +15,7 @@ class SetSubscriptionTypePayload
     $data = (array)$data;
     if(isset($data["subscriptionType"]))
     {
-      $this->_subscriptionType = $data["subscriptionType"];
+      $this->_subscriptionType = (string)$data["subscriptionType"];
     }
     return $this;
   }

@@ -27,19 +27,19 @@ class CreatePolymerPayload
     $data = (array)$data;
     if(isset($data["polymerCode"]))
     {
-      $this->_polymerCode = $data["polymerCode"];
+      $this->_polymerCode = (string)$data["polymerCode"];
     }
     if(isset($data["name"]))
     {
-      $this->_name = $data["name"];
+      $this->_name = (string)$data["name"];
     }
     if(isset($data["parentFid"]))
     {
-      $this->_parentFid = $data["parentFid"];
+      $this->_parentFid = (string)$data["parentFid"];
     }
     if(isset($data["description"]))
     {
-      $this->_description = $data["description"];
+      $this->_description = (string)$data["description"];
     }
     return $this;
   }

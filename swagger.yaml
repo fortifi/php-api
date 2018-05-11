@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '2.20.0'
+  version: '2.21.0'
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -310,9 +310,7 @@ paths:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    type: array
-                    items:
-                      $ref: '#/definitions/Brand'
+                    $ref: '#/definitions/Brands'
 
   /advertisers:
     post:
@@ -2384,6 +2382,35 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/sar':
+    post:
+      summary: Subject Access Request
+      tags:
+        - customers
+      description: |
+              Initiate a Subject Access Request.  A URL will be sent via a webhook (CustomerWHE::SUBJECT_ACCESS_REQUEST), once the archive is ready for download
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Subject Access Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        400:
+          description: Invalid payload data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   /products:
     get:
       summary: List all products
@@ -3463,6 +3490,14 @@ definitions:
         type: string
       logo:
         type: string
+
+  Brands:
+    description: Brands
+    properties:
+      brands:
+        type: array
+        items:
+          $ref: '#/definitions/Brand'
 
   Brand:
     description: Brand

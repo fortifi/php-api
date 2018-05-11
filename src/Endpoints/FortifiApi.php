@@ -4,6 +4,7 @@ namespace Fortifi\Api\V1\Endpoints;
 use Fortifi\Api\V1\Requests\UserRequest;
 use Fortifi\Api\V1\Requests\TicketRequest;
 use Fortifi\Api\V1\Requests\OrganisationRequest;
+use Fortifi\Api\V1\Requests\BrandsRequest;
 use Fortifi\Api\V1\Payloads\CreateTicketPayload;
 use Fortifi\Api\V1\Definitions\FortifiApiDefinition;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -228,11 +229,11 @@ class FortifiApi extends ApiEndpoint
    *
    * Retrieve a list of all the brands within your Fortifi account
    *
-   * @return ApiRequest
+   * @return BrandsRequest
    */
   public function brands()
   {
-    $request = new ApiRequest();
+    $request = new BrandsRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 

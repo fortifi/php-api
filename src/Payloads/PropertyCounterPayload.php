@@ -14,7 +14,7 @@ class PropertyCounterPayload
     $data = (array)$data;
     if(isset($data["propertyValue"]))
     {
-      $this->_propertyValue = $data["propertyValue"];
+      $this->_propertyValue = (int)$data["propertyValue"];
     }
     return $this;
   }

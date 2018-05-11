@@ -91,15 +91,15 @@ class PostActionPayload
     $data = (array)$data;
     if(isset($data["transactionId"]))
     {
-      $this->_transactionId = $data["transactionId"];
+      $this->_transactionId = (string)$data["transactionId"];
     }
     if(isset($data["transactionValue"]))
     {
-      $this->_transactionValue = $data["transactionValue"];
+      $this->_transactionValue = (float)$data["transactionValue"];
     }
     if(isset($data["couponCode"]))
     {
-      $this->_couponCode = $data["couponCode"];
+      $this->_couponCode = (string)$data["couponCode"];
     }
     if(isset($data["returnPixels"]))
     {
@@ -107,59 +107,59 @@ class PostActionPayload
     }
     if(isset($data["productCode"]))
     {
-      $this->_productCode = $data["productCode"];
+      $this->_productCode = (string)$data["productCode"];
     }
     if(isset($data["productTerm"]))
     {
-      $this->_productTerm = $data["productTerm"];
+      $this->_productTerm = (string)$data["productTerm"];
     }
     if(isset($data["paymentMethod"]))
     {
-      $this->_paymentMethod = $data["paymentMethod"];
+      $this->_paymentMethod = (string)$data["paymentMethod"];
     }
     if(isset($data["username"]))
     {
-      $this->_username = $data["username"];
+      $this->_username = (string)$data["username"];
     }
     if(isset($data["userAgent"]))
     {
-      $this->_userAgent = $data["userAgent"];
+      $this->_userAgent = (string)$data["userAgent"];
     }
     if(isset($data["encoding"]))
     {
-      $this->_encoding = $data["encoding"];
+      $this->_encoding = (string)$data["encoding"];
     }
     if(isset($data["language"]))
     {
-      $this->_language = $data["language"];
+      $this->_language = (string)$data["language"];
     }
     if(isset($data["clientIp"]))
     {
-      $this->_clientIp = $data["clientIp"];
+      $this->_clientIp = (string)$data["clientIp"];
     }
     if(isset($data["externalReference"]))
     {
-      $this->_externalReference = $data["externalReference"];
+      $this->_externalReference = (string)$data["externalReference"];
     }
     if(isset($data["brandFid"]))
     {
-      $this->_brandFid = $data["brandFid"];
+      $this->_brandFid = (string)$data["brandFid"];
     }
     if(isset($data["campaignHash"]))
     {
-      $this->_campaignHash = $data["campaignHash"];
+      $this->_campaignHash = (string)$data["campaignHash"];
     }
     if(isset($data["sid1"]))
     {
-      $this->_sid1 = $data["sid1"];
+      $this->_sid1 = (string)$data["sid1"];
     }
     if(isset($data["sid2"]))
     {
-      $this->_sid2 = $data["sid2"];
+      $this->_sid2 = (string)$data["sid2"];
     }
     if(isset($data["sid3"]))
     {
-      $this->_sid3 = $data["sid3"];
+      $this->_sid3 = (string)$data["sid3"];
     }
     if(isset($data["metaData"]))
     {
@@ -173,7 +173,7 @@ class PostActionPayload
     }
     if(isset($data["time"]))
     {
-      $this->_time = $data["time"];
+      $this->_time = (string)$data["time"];
     }
     return $this;
   }

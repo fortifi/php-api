@@ -34,31 +34,31 @@ class InvoiceCreditNotePayload
     $data = (array)$data;
     if(isset($data["displayName"]))
     {
-      $this->_displayName = $data["displayName"];
+      $this->_displayName = (string)$data["displayName"];
     }
     if(isset($data["description"]))
     {
-      $this->_description = $data["description"];
+      $this->_description = (string)$data["description"];
     }
     if(isset($data["chargeRequestFid"]))
     {
-      $this->_chargeRequestFid = $data["chargeRequestFid"];
+      $this->_chargeRequestFid = (string)$data["chargeRequestFid"];
     }
     if(isset($data["creditAmountType"]))
     {
-      $this->_creditAmountType = $data["creditAmountType"];
+      $this->_creditAmountType = (string)$data["creditAmountType"];
     }
     if(isset($data["amount"]))
     {
-      $this->_amount = $data["amount"];
+      $this->_amount = (float)$data["amount"];
     }
     if(isset($data["reasonFid"]))
     {
-      $this->_reasonFid = $data["reasonFid"];
+      $this->_reasonFid = (string)$data["reasonFid"];
     }
     if(isset($data["currency"]))
     {
-      $this->_currency = $data["currency"];
+      $this->_currency = (string)$data["currency"];
     }
     return $this;
   }

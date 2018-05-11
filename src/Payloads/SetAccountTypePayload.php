@@ -15,7 +15,7 @@ class SetAccountTypePayload
     $data = (array)$data;
     if(isset($data["accountType"]))
     {
-      $this->_accountType = $data["accountType"];
+      $this->_accountType = (string)$data["accountType"];
     }
     return $this;
   }

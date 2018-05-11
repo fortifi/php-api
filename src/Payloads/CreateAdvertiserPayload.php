@@ -63,51 +63,51 @@ class CreateAdvertiserPayload
     $data = (array)$data;
     if(isset($data["username"]))
     {
-      $this->_username = $data["username"];
+      $this->_username = (string)$data["username"];
     }
     if(isset($data["email"]))
     {
-      $this->_email = $data["email"];
+      $this->_email = (string)$data["email"];
     }
     if(isset($data["password"]))
     {
-      $this->_password = $data["password"];
+      $this->_password = (string)$data["password"];
     }
     if(isset($data["type"]))
     {
-      $this->_type = $data["type"];
+      $this->_type = (string)$data["type"];
     }
     if(isset($data["displayName"]))
     {
-      $this->_displayName = $data["displayName"];
+      $this->_displayName = (string)$data["displayName"];
     }
     if(isset($data["contactName"]))
     {
-      $this->_contactName = $data["contactName"];
+      $this->_contactName = (string)$data["contactName"];
     }
     if(isset($data["companyName"]))
     {
-      $this->_companyName = $data["companyName"];
+      $this->_companyName = (string)$data["companyName"];
     }
     if(isset($data["phone"]))
     {
-      $this->_phone = $data["phone"];
+      $this->_phone = (string)$data["phone"];
     }
     if(isset($data["website"]))
     {
-      $this->_website = $data["website"];
+      $this->_website = (string)$data["website"];
     }
     if(isset($data["accountManagerFid"]))
     {
-      $this->_accountManagerFid = $data["accountManagerFid"];
+      $this->_accountManagerFid = (string)$data["accountManagerFid"];
     }
     if(isset($data["foundationFid"]))
     {
-      $this->_foundationFid = $data["foundationFid"];
+      $this->_foundationFid = (string)$data["foundationFid"];
     }
     if(isset($data["brandFid"]))
     {
-      $this->_brandFid = $data["brandFid"];
+      $this->_brandFid = (string)$data["brandFid"];
     }
     return $this;
   }

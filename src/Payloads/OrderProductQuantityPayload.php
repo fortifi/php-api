@@ -17,11 +17,11 @@ class OrderProductQuantityPayload
     $data = (array)$data;
     if(isset($data["priceFid"]))
     {
-      $this->_priceFid = $data["priceFid"];
+      $this->_priceFid = (string)$data["priceFid"];
     }
     if(isset($data["quantity"]))
     {
-      $this->_quantity = $data["quantity"];
+      $this->_quantity = (int)$data["quantity"];
     }
     return $this;
   }
