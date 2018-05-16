@@ -48,4 +48,42 @@ class MessengerDeliveriesDeliveryFidEndpoint extends ApiEndpoint
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Subscribe an email based on the delivery fid
+   *
+   * @param $userAgent
+   * @param $encoding
+   * @param $language
+   * @param $clientIp
+   * @param $optInStatus
+   * @param $optInData
+   *
+   * @return ApiRequest
+   */
+  public function setSubscribe($userAgent = null, $encoding = null, $language = null, $clientIp = null, $optInStatus = null, $optInData = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'messenger/deliveries/{deliveryFid}/subscribe'
+      )
+    ));
+    $detail->addPostField('userAgent', $userAgent);
+    $detail->addPostField('encoding', $encoding);
+    $detail->addPostField('language', $language);
+    $detail->addPostField('clientIp', $clientIp);
+    $detail->addPostField('optInStatus', $optInStatus);
+    $detail->addPostField('optInData', $optInData);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }
