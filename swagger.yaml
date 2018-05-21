@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '2.23.0'
+  version: '2.24.0'
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2504,6 +2504,54 @@ paths:
       responses:
         200:
           description: Subject Access Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-400:
+          description: Invalid payload data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+
+  '/customers/{customerFid}/anonymize':
+    post:
+      summary: Anonymize customer data
+      tags:
+        - customers
+      description: |
+              Anonymize customer data
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: customer
+          in: formData
+          type: boolean
+        - name: tickets
+          in: formData
+          type: boolean
+        - name: chats
+          in: formData
+          type: boolean
+        - name: orders
+          in: formData
+          type: boolean
+        - name: emails
+          in: formData
+          type: boolean
+        - name: phones
+          in: formData
+          type: boolean
+      responses:
+        200:
+          description: Anonymize Request
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'

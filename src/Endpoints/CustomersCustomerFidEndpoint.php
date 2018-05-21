@@ -617,4 +617,44 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Anonymize customer data
+   *
+   * Anonymize customer data
+   *
+   * @param $customer
+   * @param $tickets
+   * @param $chats
+   * @param $orders
+   * @param $emails
+   * @param $phones
+   *
+   * @return BoolMessageRequest
+   */
+  public function createAnonymize($customer = null, $tickets = null, $chats = null, $orders = null, $emails = null, $phones = null)
+  {
+    $request = new BoolMessageRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/anonymize'
+      )
+    ));
+    $detail->addPostField('customer', $customer);
+    $detail->addPostField('tickets', $tickets);
+    $detail->addPostField('chats', $chats);
+    $detail->addPostField('orders', $orders);
+    $detail->addPostField('emails', $emails);
+    $detail->addPostField('phones', $phones);
+    $detail->setMethod('POST');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }
