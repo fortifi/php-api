@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '2.24.0'
+  version: '2.24.2'
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2549,6 +2549,12 @@ paths:
         - name: phones
           in: formData
           type: boolean
+        - name: addresses
+          in: formData
+          type: boolean
+        - name: paymentAccounts
+          in: formData
+          type: boolean
       responses:
         200:
           description: Anonymize Request
@@ -2620,8 +2626,6 @@ paths:
         - OAuth:
           - product.readonly
         - accessToken: []
-      consumes:
-        - multipart/form-data
       parameters:
         - $ref: '#/parameters/productFid'
         - name: currency
@@ -4448,15 +4452,15 @@ definitions:
           currency:
             type: string
           price:
-            type: number
-            format: float
-          setupFee:
-            type: number
-            format: float
-          cycleType:
-            $ref: '#/definitions/cycleTermType'
-          cycleTerm:
             type: string
+          setupFee:
+            type: string
+          cycleType:
+            type: number
+            format: int32
+          cycleTerm:
+            type: number
+            format: int32
           cycleExact:
             type: string
 

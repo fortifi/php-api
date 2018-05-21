@@ -51,35 +51,13 @@ class ProductPriceRequest
 
   /**
    * @param mixed $default
-   *
-   * @return float
-   */
-  public function getPrice($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'price', $default);
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return float
-   */
-  public function getSetupFee($default = null)
-  {
-    return Objects::property($this->_getResultJson(), 'setupFee', $default);
-  }
-
-  /**
-   * Term Type
-   * 
-   * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getCycleType($default = null, $trim = true)
+  public function getPrice($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'cycleType', $default);
+    $value = Objects::property($this->_getResultJson(), 'price', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -89,10 +67,30 @@ class ProductPriceRequest
    *
    * @return string
    */
-  public function getCycleTerm($default = null, $trim = true)
+  public function getSetupFee($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'cycleTerm', $default);
+    $value = Objects::property($this->_getResultJson(), 'setupFee', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleType($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cycleType', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleTerm($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cycleTerm', $default);
   }
 
   /**

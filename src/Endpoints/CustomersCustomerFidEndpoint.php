@@ -629,10 +629,12 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    * @param $orders
    * @param $emails
    * @param $phones
+   * @param $addresses
+   * @param $paymentAccounts
    *
    * @return BoolMessageRequest
    */
-  public function createAnonymize($customer = null, $tickets = null, $chats = null, $orders = null, $emails = null, $phones = null)
+  public function createAnonymize($customer = null, $tickets = null, $chats = null, $orders = null, $emails = null, $phones = null, $addresses = null, $paymentAccounts = null)
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());
@@ -653,6 +655,8 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $detail->addPostField('orders', $orders);
     $detail->addPostField('emails', $emails);
     $detail->addPostField('phones', $phones);
+    $detail->addPostField('addresses', $addresses);
+    $detail->addPostField('paymentAccounts', $paymentAccounts);
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
