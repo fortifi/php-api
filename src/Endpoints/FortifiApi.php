@@ -2,10 +2,6 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\UserRequest;
-use Fortifi\Api\V1\Requests\TicketRequest;
-use Fortifi\Api\V1\Requests\OrganisationRequest;
-use Fortifi\Api\V1\Requests\BrandsRequest;
-use Fortifi\Api\V1\Payloads\CreateTicketPayload;
 use Fortifi\Api\V1\Definitions\FortifiApiDefinition;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -162,6 +158,36 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return OrganisationEndpoint
+   */
+  public function organisation()
+  {
+    $endpoint = new OrganisationEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return BrandsEndpoint
+   */
+  public function brands()
+  {
+    $endpoint = new BrandsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return TicketsEndpoint
+   */
+  public function tickets()
+  {
+    $endpoint = new TicketsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Current Version
    *
    * Retrieve the current version of the Fortifi api
@@ -199,70 +225,6 @@ class FortifiApi extends ApiEndpoint
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('me'));
     $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Current Organisation
-   *
-   * Retrieve information about the current organisation
-   *
-   * @return OrganisationRequest
-   */
-  public function organisation()
-  {
-    $request = new OrganisationRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('organisation'));
-    $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Your Brand
-   *
-   * Retrieve a list of all the brands within your Fortifi account
-   *
-   * @return BrandsRequest
-   */
-  public function brands()
-  {
-    $request = new BrandsRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('brands'));
-    $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Create a support ticket
-   *
-   * @param CreateTicketPayload $payload
-   *
-   * @return TicketRequest
-   */
-  public function createTicket(CreateTicketPayload $payload)
-  {
-    $request = new TicketRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('tickets'));
-    $detail->setBody(json_encode($payload));
-    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

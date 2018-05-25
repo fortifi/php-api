@@ -1,10 +1,8 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\PaymentAccountsRequest;
 use Fortifi\Api\V1\Requests\CustomerRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Requests\AddressesRequest;
 use Fortifi\Api\V1\Payloads\SetSubscriptionTypePayload;
 use Fortifi\Api\V1\Payloads\SetCustomerLocationPayload;
 use Fortifi\Api\V1\Payloads\SetAccountTypePayload;
@@ -120,6 +118,78 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidNoteEndpoint
+   */
+  public function note()
+  {
+    $endpoint = new CustomersCustomerFidNoteEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidPaymentAccountsEndpoint
+   */
+  public function paymentAccounts()
+  {
+    $endpoint = new CustomersCustomerFidPaymentAccountsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidAddressesEndpoint
+   */
+  public function addresses()
+  {
+    $endpoint = new CustomersCustomerFidAddressesEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidEmailsEndpoint
+   */
+  public function emails()
+  {
+    $endpoint = new CustomersCustomerFidEmailsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidPhonesEndpoint
+   */
+  public function phones()
+  {
+    $endpoint = new CustomersCustomerFidPhonesEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidSarEndpoint
+   */
+  public function sar()
+  {
+    $endpoint = new CustomersCustomerFidSarEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retrieve a customer
    *
    * @return CustomerRequest
@@ -223,36 +293,6 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     ));
     $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Save a note against a customer
-   *
-   * @param $note
-   * @param $colour
-   *
-   * @return ApiRequest
-   */
-  public function createNote($note, $colour = null)
-  {
-    $request = new ApiRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/note'
-      )
-    ));
-    $detail->addPostField('note', $note);
-    $detail->addPostField('colour', $colour);
-    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }
@@ -477,143 +517,6 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('currency', $currency);
     $detail->setMethod('PUT');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary List customers payment accounts
-   *
-   * @return PaymentAccountsRequest
-   */
-  public function paymentAccounts()
-  {
-    $request = new PaymentAccountsRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/paymentAccounts'
-      )
-    ));
-    $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary List customers addresses
-   *
-   * @return AddressesRequest
-   */
-  public function addresses()
-  {
-    $request = new AddressesRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/addresses'
-      )
-    ));
-    $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Add an email address to a customer
-   *
-   * @param $emailAddress
-   *
-   * @return ApiRequest
-   */
-  public function createEmail($emailAddress)
-  {
-    $request = new ApiRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/emails'
-      )
-    ));
-    $detail->addPostField('emailAddress', $emailAddress);
-    $detail->setMethod('POST');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Add a phone number to a customer
-   *
-   * @param $phoneNumber
-   * @param $displayName
-   *
-   * @return ApiRequest
-   */
-  public function createPhone($phoneNumber, $displayName = null)
-  {
-    $request = new ApiRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/phones'
-      )
-    ));
-    $detail->addPostField('phoneNumber', $phoneNumber);
-    $detail->addPostField('displayName', $displayName);
-    $detail->setMethod('POST');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Subject Access Request
-   *
-   * Initiate a Subject Access Request.  A URL will be sent via a webhook
-   * (CustomerWHE::SUBJECT_ACCESS_REQUEST), once the archive is ready for
-   * download
-   *
-   * @return BoolMessageRequest
-   */
-  public function createSar()
-  {
-    $request = new BoolMessageRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/sar'
-      )
-    ));
-    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }
