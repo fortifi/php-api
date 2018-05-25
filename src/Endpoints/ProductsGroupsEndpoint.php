@@ -1,13 +1,13 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\CoinbaseCheckoutRequest;
+use Fortifi\Api\V1\Requests\ProductGroupsRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class PayEndpoint extends ApiEndpoint
+class ProductsGroupsEndpoint extends ApiEndpoint
 {
-  protected $_path = 'pay';
+  protected $_path = 'products/groups';
   protected $_replacements = [];
 
   public function __construct()
@@ -15,32 +15,33 @@ class PayEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return PayPublicKeyEndpoint
+   * @param $productGroupFid
+   *
+   * @return ProductsGroupsProductGroupFidEndpoint
    */
-  public function publicKey()
+  public function with($productGroupFid)
   {
-    $endpoint = new PayPublicKeyEndpoint();
+    $endpoint = new ProductsGroupsProductGroupFidEndpoint(
+      $productGroupFid
+    );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
   /**
-   * @summary Get a new checkout ID
+   * @summary Get a list of all product groups
    *
-   * @param $orderFID
-   *
-   * @return CoinbaseCheckoutRequest
+   * @return ProductGroupsRequest
    */
-  public function coinbase($orderFID = null)
+  public function all()
   {
-    $request = new CoinbaseCheckoutRequest();
+    $request = new ProductGroupsRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('pay/coinbase'));
-    $detail->addQueryField('orderFID', $orderFID);
+    $detail->setUrl($this->_buildUrl('products/groups'));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
