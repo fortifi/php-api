@@ -46,13 +46,11 @@ class InvoiceItemRequest
 
     if(!empty($return->subItems))
     {
-      $tmp = [];
-      foreach($return->subItems as $itm)
+      foreach($return->subItems as $itmKey => $itm)
       {
-        $tmp[] = (new InvoiceSubItemRequest())
+        $return->subItems[$itemKey] = (new InvoiceSubItemRequest())
           ->hydrate($itm);
       }
-      $return->subItems = $tmp;
     }
 
     return $return;

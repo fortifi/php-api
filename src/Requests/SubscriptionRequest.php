@@ -22,6 +22,10 @@ class SubscriptionRequest
         "cancelReason" => $this->getCancelReason(),
         "currency" => $this->getCurrency(),
         "cycle" => $this->getCycle(),
+        "cycleType" => $this->getCycleType(),
+        "cycleTerm" => $this->getCycleTerm(),
+        "priceFid" => $this->getPriceFid(),
+        "offerFid" => $this->getOfferFid(),
         "dateCancelled" => $this->getDateCancelled(),
         "dateCreated" => $this->getDateCreated(),
         "dateInactive" => $this->getDateInactive(),
@@ -151,6 +155,50 @@ class SubscriptionRequest
   public function getCycle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleType($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cycleType', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleTerm($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cycleTerm', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPriceFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'priceFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOfferFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

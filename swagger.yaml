@@ -4110,6 +4110,16 @@ definitions:
             type: string
           cycle:
             type: string
+          cycleType:
+            type: number
+            format: int32
+          cycleTerm:
+            type: number
+            format: int32
+          priceFid:
+            type: string
+          offerFid:
+            type: string
           dateCancelled:
             description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
             type: string

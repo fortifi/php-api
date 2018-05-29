@@ -33,13 +33,11 @@ class PaymentAccountsRequest
 
     if(!empty($return->accounts))
     {
-      $tmp = [];
-      foreach($return->accounts as $itm)
+      foreach($return->accounts as $itmKey => $itm)
       {
-        $tmp[] = (new PaymentAccountRequest())
+        $return->accounts[$itemKey] = (new PaymentAccountRequest())
           ->hydrate($itm);
       }
-      $return->accounts = $tmp;
     }
 
     return $return;

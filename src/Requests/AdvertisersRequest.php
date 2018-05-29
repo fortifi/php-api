@@ -35,13 +35,11 @@ class AdvertisersRequest
 
     if(!empty($return->advertisers))
     {
-      $tmp = [];
-      foreach($return->advertisers as $itm)
+      foreach($return->advertisers as $itmKey => $itm)
       {
-        $tmp[] = (new AdvertiserRequest())
+        $return->advertisers[$itemKey] = (new AdvertiserRequest())
           ->hydrate($itm);
       }
-      $return->advertisers = $tmp;
     }
 
     return $return;
