@@ -4,6 +4,7 @@ namespace Fortifi\Api\V1\Endpoints;
 use Fortifi\Api\V1\Requests\SubscriptionRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Requests\CalculatedSubscriptionModificationRequest;
 use Fortifi\Api\V1\Payloads\SubscriptionCancelPayload;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -147,6 +148,34 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
       )
     ));
     $detail->addPostField('parentSubscriptionFid', $parentSubscriptionFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Calculates the changes before a modification to a subscription
+   *
+   * @param ModifySubscriptionPayload $payload
+   *
+   * @return CalculatedSubscriptionModificationRequest
+   */
+  public function setCalculateModification(ModifySubscriptionPayload $payload)
+  {
+    $request = new CalculatedSubscriptionModificationRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/calculateModification'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
