@@ -4,8 +4,10 @@ namespace Fortifi\Api\V1\Endpoints;
 use Fortifi\Api\V1\Requests\SubscriptionRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Requests\CalculateSubscriptionRefundRequest;
 use Fortifi\Api\V1\Payloads\SubscriptionCancelPayload;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
+use Fortifi\Api\V1\Payloads\CalculateRefundPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -147,6 +149,34 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
       )
     ));
     $detail->addPostField('parentSubscriptionFid', $parentSubscriptionFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Calculates the result of a potential refund on a subscription
+   *
+   * @param CalculateRefundPayload $payload
+   *
+   * @return CalculateSubscriptionRefundRequest
+   */
+  public function setCalculateRefund(CalculateRefundPayload $payload)
+  {
+    $request = new CalculateSubscriptionRefundRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/calculateRefund'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

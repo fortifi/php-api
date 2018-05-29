@@ -2319,6 +2319,42 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/calculateRefund':
+    put:
+      summary: Calculates the result of a potential refund on a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CalculateRefundPayload'
+      responses:
+        200:
+          description: Returns calculated refund amounts
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CalculateSubscriptionRefund'
+        x-400:
+          description: Invalid payload data
+        x-404:
+          description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/modify':
     put:
       summary: Modify an existing subscription with a new price. Returns new open order to be completed
@@ -4222,6 +4258,25 @@ definitions:
           uniqueReference:
             type: string
 
+  CalculateSubscriptionRefund:
+    description: Response from calculating a refund on a subscription
+    properties:
+      amountWithTax:
+        type: number
+        format: float
+      amountWithoutTax:
+        type: number
+        format: float
+      tax:
+        type: number
+        format: float
+      terminationFee:
+        type: number
+        format: float
+      terminationFeeWithTax:
+        type: number
+        format: float
+
   Invoices:
     description: Generic Response
     allOf:
@@ -5075,6 +5130,21 @@ definitions:
         $ref: '#/definitions/ModifySubscriptionMode'
     required:
       - priceFid
+
+  CalculateRefundPayload:
+      properties:
+        subscriptionRefundType:
+          $ref: '#/definitions/SubscriptionRefundType'
+        refundFromDate:
+          description: Timestamp of when to calculate the refund from. Rounded down to the start of the day. Default to start of tomorrow
+          type: number
+          format: int32
+        includeDetails:
+          type: boolean
+        withTerminationFee:
+          type: boolean
+      required:
+        - subscriptionRefundType
 
   SubscriptionCancelPayload:
     properties:
