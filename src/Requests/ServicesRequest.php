@@ -33,13 +33,11 @@ class ServicesRequest
 
     if(!empty($return->services))
     {
-      $tmp = [];
-      foreach($return->services as $itm)
+      foreach($return->services as $itmKey => $itm)
       {
-        $tmp[] = (new ServiceRequest())
+        $return->services[$itmKey] = (new ServiceRequest())
           ->hydrate($itm);
       }
-      $return->services = $tmp;
     }
 
     return $return;

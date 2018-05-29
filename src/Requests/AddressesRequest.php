@@ -33,13 +33,11 @@ class AddressesRequest
 
     if(!empty($return->addresses))
     {
-      $tmp = [];
-      foreach($return->addresses as $itm)
+      foreach($return->addresses as $itmKey => $itm)
       {
-        $tmp[] = (new AddressRequest())
+        $return->addresses[$itmKey] = (new AddressRequest())
           ->hydrate($itm);
       }
-      $return->addresses = $tmp;
     }
 
     return $return;

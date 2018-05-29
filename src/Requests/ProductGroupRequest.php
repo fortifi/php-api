@@ -35,13 +35,11 @@ class ProductGroupRequest
 
     if(!empty($return->products))
     {
-      $tmp = [];
-      foreach($return->products as $itm)
+      foreach($return->products as $itmKey => $itm)
       {
-        $tmp[] = (new FidRequest())
+        $return->products[$itmKey] = (new FidRequest())
           ->hydrate($itm);
       }
-      $return->products = $tmp;
     }
 
     return $return;
