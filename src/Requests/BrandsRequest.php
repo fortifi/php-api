@@ -33,13 +33,11 @@ class BrandsRequest
 
     if(!empty($return->brands))
     {
-      $tmp = [];
-      foreach($return->brands as $itm)
+      foreach($return->brands as $itmKey => $itm)
       {
-        $tmp[] = (new BrandRequest())
+        $return->brands[$itmKey] = (new BrandRequest())
           ->hydrate($itm);
       }
-      $return->brands = $tmp;
     }
 
     return $return;

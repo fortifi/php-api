@@ -33,13 +33,11 @@ class ReasonsRequest
 
     if(!empty($return->reasons))
     {
-      $tmp = [];
-      foreach($return->reasons as $itm)
+      foreach($return->reasons as $itmKey => $itm)
       {
-        $tmp[] = (new ReasonRequest())
+        $return->reasons[$itmKey] = (new ReasonRequest())
           ->hydrate($itm);
       }
-      $return->reasons = $tmp;
     }
 
     return $return;

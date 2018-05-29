@@ -35,13 +35,11 @@ class InvoicesRequest
 
     if(!empty($return->invoices))
     {
-      $tmp = [];
-      foreach($return->invoices as $itm)
+      foreach($return->invoices as $itmKey => $itm)
       {
-        $tmp[] = (new InvoiceSummaryRequest())
+        $return->invoices[$itmKey] = (new InvoiceSummaryRequest())
           ->hydrate($itm);
       }
-      $return->invoices = $tmp;
     }
 
     return $return;
