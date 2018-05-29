@@ -33,13 +33,11 @@ class TicketsRequest
 
     if(!empty($return->tickets))
     {
-      $tmp = [];
-      foreach($return->tickets as $itm)
+      foreach($return->tickets as $itmKey => $itm)
       {
-        $tmp[] = (new TicketRequest())
+        $return->tickets[$itemKey] = (new TicketRequest())
           ->hydrate($itm);
       }
-      $return->tickets = $tmp;
     }
 
     return $return;

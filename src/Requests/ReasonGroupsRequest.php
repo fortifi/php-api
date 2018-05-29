@@ -33,13 +33,11 @@ class ReasonGroupsRequest
 
     if(!empty($return->reasonGroups))
     {
-      $tmp = [];
-      foreach($return->reasonGroups as $itm)
+      foreach($return->reasonGroups as $itmKey => $itm)
       {
-        $tmp[] = (new ReasonGroupRequest())
+        $return->reasonGroups[$itemKey] = (new ReasonGroupRequest())
           ->hydrate($itm);
       }
-      $return->reasonGroups = $tmp;
     }
 
     return $return;

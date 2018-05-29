@@ -35,13 +35,11 @@ class SubscriptionsRequest
 
     if(!empty($return->subscriptions))
     {
-      $tmp = [];
-      foreach($return->subscriptions as $itm)
+      foreach($return->subscriptions as $itmKey => $itm)
       {
-        $tmp[] = (new SubscriptionSummaryRequest())
+        $return->subscriptions[$itemKey] = (new SubscriptionSummaryRequest())
           ->hydrate($itm);
       }
-      $return->subscriptions = $tmp;
     }
 
     return $return;

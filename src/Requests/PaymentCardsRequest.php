@@ -33,13 +33,11 @@ class PaymentCardsRequest
 
     if(!empty($return->cards))
     {
-      $tmp = [];
-      foreach($return->cards as $itm)
+      foreach($return->cards as $itmKey => $itm)
       {
-        $tmp[] = (new PaymentCardRequest())
+        $return->cards[$itemKey] = (new PaymentCardRequest())
           ->hydrate($itm);
       }
-      $return->cards = $tmp;
     }
 
     return $return;
