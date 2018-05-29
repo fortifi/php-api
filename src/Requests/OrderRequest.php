@@ -21,6 +21,7 @@ class OrderRequest
         "couponCode" => $this->getCouponCode(),
         "amount" => $this->getAmount(),
         "setupAmount" => $this->getSetupAmount(),
+        "setupDiscountAmount" => $this->getSetupDiscountAmount(),
         "taxAmount" => $this->getTaxAmount(),
         "totalAmount" => $this->getTotalAmount(),
         "currency" => $this->getCurrency(),
@@ -119,6 +120,16 @@ class OrderRequest
   public function getSetupAmount($default = null)
   {
     return Objects::property($this->_getResultJson(), 'setupAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getSetupDiscountAmount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'setupDiscountAmount', $default);
   }
 
   /**
