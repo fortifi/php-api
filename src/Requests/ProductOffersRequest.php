@@ -33,13 +33,11 @@ class ProductOffersRequest
 
     if(!empty($return->offers))
     {
-      $tmp = [];
-      foreach($return->offers as $itm)
+      foreach($return->offers as $itmKey => $itm)
       {
-        $tmp[] = (new ProductOfferRequest())
+        $return->offers[$itmKey] = (new ProductOfferRequest())
           ->hydrate($itm);
       }
-      $return->offers = $tmp;
     }
 
     return $return;

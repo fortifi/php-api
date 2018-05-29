@@ -33,13 +33,11 @@ class IncidentUpdatesRequest
 
     if(!empty($return->incidentUpdates))
     {
-      $tmp = [];
-      foreach($return->incidentUpdates as $itm)
+      foreach($return->incidentUpdates as $itmKey => $itm)
       {
-        $tmp[] = (new IncidentUpdateRequest())
+        $return->incidentUpdates[$itmKey] = (new IncidentUpdateRequest())
           ->hydrate($itm);
       }
-      $return->incidentUpdates = $tmp;
     }
 
     return $return;
