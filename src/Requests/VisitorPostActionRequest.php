@@ -148,13 +148,11 @@ class VisitorPostActionRequest
 
     if(!empty($return->pixels))
     {
-      $tmp = [];
-      foreach($return->pixels as $itm)
+      foreach($return->pixels as $itmKey => $itm)
       {
-        $tmp[] = (new AdvertiserPixelRequest())
+        $return->pixels[$itemKey] = (new AdvertiserPixelRequest())
           ->hydrate($itm);
       }
-      $return->pixels = $tmp;
     }
 
     return $return;
