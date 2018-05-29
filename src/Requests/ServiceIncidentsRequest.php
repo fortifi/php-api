@@ -33,13 +33,11 @@ class ServiceIncidentsRequest
 
     if(!empty($return->serviceIncidents))
     {
-      $tmp = [];
-      foreach($return->serviceIncidents as $itm)
+      foreach($return->serviceIncidents as $itmKey => $itm)
       {
-        $tmp[] = (new ServiceIncidentRequest())
+        $return->serviceIncidents[$itemKey] = (new ServiceIncidentRequest())
           ->hydrate($itm);
       }
-      $return->serviceIncidents = $tmp;
     }
 
     return $return;
