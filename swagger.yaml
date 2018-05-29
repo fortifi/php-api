@@ -2115,6 +2115,49 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/invoices/retry':
+    put:
+      summary: Retry payment of all customer invoices which are in invoice
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Invoice set to retry payment
+        x-404:
+          description: Customer or Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/invoices/{invoiceFid}/retry':
+    put:
+      summary: Retry payment of invoice
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+      responses:
+        200:
+          description: Invoice set to retry payment
+        x-404:
+          description: Customer or Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/invoices/{invoiceFid}/creditNote':
     post:
       security:
