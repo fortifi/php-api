@@ -2319,6 +2319,43 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/calculateModification':
+    put:
+      summary: Calculates the changes before a modification to a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ModifySubscriptionPayload'
+      responses:
+        200:
+          description: Calculated result of modification
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CalculatedSubscriptionModification'
+        x-400:
+          description: Invalid payload data
+        x-404:
+          description: Subscription or Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/modify':
     put:
       summary: Modify an existing subscription with a new price. Returns new open order to be completed
@@ -4493,6 +4530,37 @@ definitions:
             format: int32
           cycleExact:
             type: string
+
+  CalculatedSubscriptionModification:
+    description: Generic Response
+    properties:
+      nextRenewalAmount:
+        type: number
+        format: float
+      nextRenewalDiscount:
+        type: number
+        format: float
+      nextRenewalTax:
+        type: number
+        format: float
+      nextRenewalTotal:
+        type: number
+        format: float
+      setupAmount:
+        type: number
+        format: float
+      setupDiscount:
+        type: number
+        format: float
+      chargeAmount:
+        type: number
+        format: float
+      chargeTax:
+        type: number
+        format: float
+      chargeTotal:
+        type: number
+        format: float
 
   Order:
     description: Generic Response
