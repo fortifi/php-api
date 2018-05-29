@@ -33,13 +33,11 @@ class ProductGroupsRequest
 
     if(!empty($return->groups))
     {
-      $tmp = [];
-      foreach($return->groups as $itm)
+      foreach($return->groups as $itmKey => $itm)
       {
-        $tmp[] = (new ProductGroupRequest())
+        $return->groups[$itmKey] = (new ProductGroupRequest())
           ->hydrate($itm);
       }
-      $return->groups = $tmp;
     }
 
     return $return;

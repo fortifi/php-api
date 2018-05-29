@@ -33,13 +33,11 @@ class ConfigItemsRequest
 
     if(!empty($return->items))
     {
-      $tmp = [];
-      foreach($return->items as $itm)
+      foreach($return->items as $itmKey => $itm)
       {
-        $tmp[] = (new ConfigItemRequest())
+        $return->items[$itmKey] = (new ConfigItemRequest())
           ->hydrate($itm);
       }
-      $return->items = $tmp;
     }
 
     return $return;
