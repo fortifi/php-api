@@ -20,6 +20,17 @@ class OrderProductRequest
         "productFid" => $this->getProductFid(),
         "quantity" => $this->getQuantity(),
         "renewalDate" => $this->getRenewalDate(),
+        "purchaseFid" => $this->getPurchaseFid(),
+        "currency" => $this->getCurrency(),
+        "discountAmount" => $this->getDiscountAmount(),
+        "setupFee" => $this->getSetupFee(),
+        "setupDiscountAmount" => $this->getSetupDiscountAmount(),
+        "taxAmount" => $this->getTaxAmount(),
+        "totalAmount" => $this->getTotalAmount(),
+        "cycleType" => $this->getCycleType(),
+        "cycleTerm" => $this->getCycleTerm(),
+        "cycleExact" => $this->getCycleExact(),
+        "parentFid" => $this->getParentFid(),
       ]
     );
   }
@@ -91,6 +102,122 @@ class OrderProductRequest
   public function getRenewalDate($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'renewalDate', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPurchaseFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'purchaseFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCurrency($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'currency', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getDiscountAmount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'discountAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getSetupFee($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'setupFee', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getSetupDiscountAmount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'setupDiscountAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getTaxAmount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'taxAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getTotalAmount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'totalAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleType($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cycleType', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleTerm($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cycleTerm', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleExact($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cycleExact', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getParentFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'parentFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

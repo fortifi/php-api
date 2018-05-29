@@ -4516,6 +4516,9 @@ definitions:
           setupAmount:
             type: number
             format: float
+          setupDiscountAmount:
+            type: number
+            format: float
           taxAmount:
             type: number
             format: float
@@ -4594,6 +4597,39 @@ definitions:
             description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
             type: string
             format: date-time
+          purchaseFid:
+            type: string
+          currency:
+            type: string
+          discountAmount:
+            type: number
+            format: float
+          setupFee:
+            type: number
+            format: float
+          setupDiscountAmount:
+            type: number
+            format: float
+          taxAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          cycleType:
+            type: number
+            format: int32
+          cycleTerm:
+            type: number
+            format: int32
+          cycleExact:
+            type: number
+            format: int32
+          renewalDate:
+            type: number
+            format: int32
+          parentFid:
+            type: string
 
   OrderVerification:
     description: Generic Response
