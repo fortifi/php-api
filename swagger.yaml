@@ -1193,6 +1193,35 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/payments/{paymentFid}':
+    get:
+      summary: Retrieve a payment
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+          - customer.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentFid'
+      responses:
+        200:
+          description: Loaded Payment
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Payment'
+        x-404:
+          description: Customer or payment not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/payments/{paymentFid}/chargeback':
     post:
       summary: Initiate a chargeback on a payment
@@ -1206,11 +1235,7 @@ paths:
         - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
-        - name: paymentFid
-          in: path
-          type: string
-          required: true
-          description: Payment FID to use
+        - $ref: '#/parameters/paymentFid'
         - name: dateSubmitted
           type: string
           format: date-time
@@ -3585,6 +3610,12 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  paymentFid:
+    name: paymentFid
+    in: path
+    type: string
+    required: true
+    description: Payment FID to use
   invoiceFid:
     name: invoiceFid
     in: path
@@ -3842,6 +3873,68 @@ definitions:
         type: string
       brandFid:
         type: string
+
+  Payment:
+    description: Payment
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          direction:
+            type: string
+          currency:
+            type: string
+          amount:
+            type: number
+            format: float
+          fee:
+            type: number
+            format: float
+          feeCurrency:
+            type: string
+          type:
+            type: string
+            enum:
+              - affiliate
+              - invoice
+              - order
+              - unknown
+              - preauth
+          status:
+            type: string
+            enum:
+              - pending
+              - paid
+              - refund-pending
+              - refunded
+              - partially-refunded
+              - chargeback
+              - chargeback-pending
+          transactionId:
+            type: string
+          statusCode:
+            type: string
+          statusMessage:
+            type: string
+          statementDescriptor:
+            type: string
+          orderFid:
+            type: string
+          invoiceFid:
+            type: string
+          fraudFid:
+            type: string
+          processed:
+            type: boolean
+          processedDate:
+            type: number
+            format: int64
+          subGatewayFid:
+            type: string
+          subGatewayTransactionId:
+            type: string
+          disputeFid:
+            type: string
+
 
   Customer:
     description: Customer
