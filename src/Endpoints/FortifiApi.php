@@ -158,6 +158,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return ConfigurationEndpoint
+   */
+  public function configuration()
+  {
+    $endpoint = new ConfigurationEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return OrganisationEndpoint
    */
   public function organisation()

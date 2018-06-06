@@ -130,6 +130,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidChatSessionsEndpoint
+   */
+  public function chatSessions()
+  {
+    $endpoint = new CustomersCustomerFidChatSessionsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidPaymentAccountsEndpoint
    */
   public function paymentAccounts()
@@ -516,6 +528,34 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->addPostField('currency', $currency);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Link visitor to customer record
+   *
+   * @param $visitorId
+   *
+   * @return ApiRequest
+   */
+  public function setLinkVisitor($visitorId)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/linkVisitor'
+      )
+    ));
+    $detail->addPostField('visitorId', $visitorId);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

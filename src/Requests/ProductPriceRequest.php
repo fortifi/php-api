@@ -21,6 +21,7 @@ class ProductPriceRequest
         "cycleType" => $this->getCycleType(),
         "cycleTerm" => $this->getCycleTerm(),
         "cycleExact" => $this->getCycleExact(),
+        "cycle" => $this->getCycle(),
       ]
     );
   }
@@ -74,13 +75,17 @@ class ProductPriceRequest
   }
 
   /**
+   * Term Type
+   * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
-   * @return integer
+   * @return string
    */
-  public function getCycleType($default = null)
+  public function getCycleType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'cycleType', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycleType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -102,6 +107,20 @@ class ProductPriceRequest
   public function getCycleExact($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycleExact', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Interval in ISO 8601 standard
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCycle($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

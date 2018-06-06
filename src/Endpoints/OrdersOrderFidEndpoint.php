@@ -47,6 +47,18 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return OrdersOrderFidFraudScanEndpoint
+   */
+  public function fraudScan()
+  {
+    $endpoint = new OrdersOrderFidFraudScanEndpoint(
+      $this->_replacements['{orderFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retrieve an order
    *
    * @return OrderRequest

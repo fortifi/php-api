@@ -14,6 +14,7 @@ class SubscriptionCancelPayload
    * @required
    */
   protected $_subscriptionRefundType;
+  protected $_cancelAtNextRenewal;
 
   public function hydrate($data)
   {
@@ -26,6 +27,10 @@ class SubscriptionCancelPayload
     {
       $this->_subscriptionRefundType = (string)$data["subscriptionRefundType"];
     }
+    if(isset($data["cancelAtNextRenewal"]))
+    {
+      $this->_cancelAtNextRenewal = $data["cancelAtNextRenewal"];
+    }
     return $this;
   }
 
@@ -34,6 +39,7 @@ class SubscriptionCancelPayload
     return [
       "reasonFid"              => $this->_reasonFid,
       "subscriptionRefundType" => $this->_subscriptionRefundType,
+      "cancelAtNextRenewal"    => $this->_cancelAtNextRenewal,
     ];
   }
 
@@ -85,5 +91,26 @@ class SubscriptionCancelPayload
   {
     $value = $this->_subscriptionRefundType ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param boolean $value
+   *
+   * @return $this
+   */
+  public function setCancelAtNextRenewal($value)
+  {
+    $this->_cancelAtNextRenewal = $value;
+    return $this;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isCancelAtNextRenewal($default = false)
+  {
+    return (bool)$this->_cancelAtNextRenewal ?: $default;
   }
 }

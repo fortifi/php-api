@@ -22,6 +22,8 @@ class SubscriptionRequest
         "cancelReason" => $this->getCancelReason(),
         "currency" => $this->getCurrency(),
         "cycle" => $this->getCycle(),
+        "priceFid" => $this->getPriceFid(),
+        "offerFid" => $this->getOfferFid(),
         "dateCancelled" => $this->getDateCancelled(),
         "dateCreated" => $this->getDateCreated(),
         "dateInactive" => $this->getDateInactive(),
@@ -143,6 +145,8 @@ class SubscriptionRequest
   }
 
   /**
+   * Interval in ISO 8601 standard
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -151,6 +155,30 @@ class SubscriptionRequest
   public function getCycle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPriceFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'priceFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOfferFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'offerFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

@@ -24,6 +24,7 @@ class ProductOfferRequest
         "setupDiscountType" => $this->getSetupDiscountType(),
         "term" => $this->getTerm(),
         "termType" => $this->getTermType(),
+        "period" => $this->getPeriod(),
         "restrictive" => $this->isRestrictive(),
       ]
     );
@@ -146,6 +147,20 @@ class ProductOfferRequest
   public function getTermType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'termType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Interval in ISO 8601 standard
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPeriod($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'period', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

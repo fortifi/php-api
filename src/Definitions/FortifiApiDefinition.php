@@ -213,6 +213,7 @@ DESCRIPTION
     $secDef->addScope('support.readonly','Read Only on Support');
     $secDef->addScope('reasons','Read/Write On reasons');
     $secDef->addScope('reasons.readonly','Read Only on reasons');
+    $secDef->addScope('configuration.readonly','Read only for configuration');
     $secDef->setType('oauth2');
     $secDef->setTokenUrl('https://api.fortifi.io/oauth/token');
     $this->addSecurityDefinition($secDef);

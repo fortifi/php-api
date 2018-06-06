@@ -29,6 +29,7 @@ class LicenceRequest
       "cycleTerm" => $this->getCycleTerm(),
       "cycleExact" => $this->getCycleExact(),
       "cycleType" => $this->getCycleType(),
+      "cycle" => $this->getCycle(),
     ];
   }
 
@@ -233,6 +234,8 @@ class LicenceRequest
   }
 
   /**
+   * Term Type
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -241,6 +244,20 @@ class LicenceRequest
   public function getCycleType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycleType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Interval in ISO 8601 standard
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCycle($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

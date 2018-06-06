@@ -69,6 +69,8 @@ class SubscriptionSummaryRequest
   }
 
   /**
+   * Interval in ISO 8601 standard
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *

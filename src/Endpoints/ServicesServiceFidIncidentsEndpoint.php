@@ -2,7 +2,6 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\ServiceIncidentsRequest;
-use Fortifi\Api\V1\Payloads\ServiceIncidentsPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -34,11 +33,12 @@ class ServicesServiceFidIncidentsEndpoint extends ApiEndpoint
   /**
    * @summary Retrieve incidents for service within timeframe
    *
-   * @param ServiceIncidentsPayload $payload
+   * @param $startDate
+   * @param $endDate
    *
    * @return ServiceIncidentsRequest
    */
-  public function all(ServiceIncidentsPayload $payload)
+  public function all($startDate = null, $endDate = null)
   {
     $request = new ServiceIncidentsRequest();
     $request->setConnection($this->_getConnection());
@@ -53,7 +53,8 @@ class ServicesServiceFidIncidentsEndpoint extends ApiEndpoint
         'services/{serviceFid}/incidents'
       )
     ));
-    $detail->setBody(json_encode($payload));
+    $detail->addQueryField('startDate', $startDate);
+    $detail->addQueryField('endDate', $endDate);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

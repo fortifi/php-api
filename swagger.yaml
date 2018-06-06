@@ -203,6 +203,7 @@ securityDefinitions:
       'support.readonly': Read Only on Support
       'reasons': Read/Write On reasons
       'reasons.readonly': Read Only on reasons
+      'configuration.readonly': Read only for configuration
 
   accessToken:
     type: apiKey
@@ -1193,6 +1194,101 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/chatSessions':
+    get:
+      summary: Retrieve chat sessions for customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+          - customer.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: Chat sessions
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ChatSessions'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/payments/{paymentFid}':
+    get:
+      summary: Retrieve a payment
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+          - customer.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentFid'
+      responses:
+        200:
+          description: Loaded Payment
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Payment'
+        x-404:
+          description: Customer or payment not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/linkVisitor':
+    put:
+      summary: Link visitor to customer record
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: visitorId
+          in: formData
+          required: true
+          description: Visitors Id
+          type: string
+      responses:
+        200:
+          description: Visitor ID linked to customer
+        x-404:
+          description: Customer or visitor not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/payments/{paymentFid}/chargeback':
     post:
       summary: Initiate a chargeback on a payment
@@ -1206,11 +1302,7 @@ paths:
         - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
-        - name: paymentFid
-          in: path
-          type: string
-          required: true
-          description: Payment FID to use
+        - $ref: '#/parameters/paymentFid'
         - name: dateSubmitted
           type: string
           format: date-time
@@ -2115,6 +2207,49 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/invoices/retry':
+    put:
+      summary: Retry payment of all customer invoices which are in invoice
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Invoice set to retry payment
+        x-404:
+          description: Customer or Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/invoices/{invoiceFid}/retry':
+    put:
+      summary: Retry payment of invoice
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+      responses:
+        200:
+          description: Invoice set to retry payment
+        x-404:
+          description: Customer or Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/invoices/{invoiceFid}/creditNote':
     post:
       security:
@@ -2318,6 +2453,106 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/calculateModification':
+    put:
+      summary: Calculates the changes before a modification to a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ModifySubscriptionPayload'
+      responses:
+        200:
+          description: Calculated result of modification
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CalculatedSubscriptionModification'
+        x-400:
+          description: Invalid payload data
+        x-404:
+          description: Subscription or Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/calculateRefund':
+    put:
+      summary: Calculates the result of a potential refund on a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+          - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CalculateRefundPayload'
+      responses:
+        200:
+          description: Returns calculated refund amounts
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CalculateSubscriptionRefund'
+        x-400:
+          description: Invalid payload data
+        x-404:
+          description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/setPaymentAccount':
+      put:
+        summary: Set paymentAccount for subscription. If changing a payment method from an Automatic Payment Method such as PayPal Recurring Payments, any other subscriptions paid with the same Agreement will be set to Default Payment Method and the Agreement will be cancelled
+        tags:
+          - customers
+        security:
+          - OAuth:
+            - customer
+          - accessToken: []
+        consumes:
+          - multipart/form-data
+        parameters:
+          - $ref: '#/parameters/customerFid'
+          - $ref: '#/parameters/subscriptionFid'
+          - name: paymentAccountFid
+            in: formData
+            type: string
+        responses:
+          200:
+            description: New payment method set
+          x-404:
+            description: Subscription or PaymentAccount not found
+          default:
+            description: Error
+            schema:
+              $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/modify':
     put:
@@ -2907,6 +3142,33 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/orders/{orderFid}/fraudScan':
+    get:
+      summary: Retrieve fraud scan
+      tags:
+        - orders
+      security:
+        - OAuth:
+          - orders.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/orderFid'
+      responses:
+        200:
+          description: Fraud scan result
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/FraudScan'
+        x-404:
+          description: Fraud scan not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/orders/{orderFid}/products':
     get:
       summary: Retrieve order products
@@ -3028,6 +3290,7 @@ paths:
           in: formData
           required: true
           type: number
+          format: int64
       responses:
         200:
           description: Quantity updated
@@ -3470,11 +3733,14 @@ paths:
         - accessToken: []
       parameters:
         - $ref: '#/parameters/serviceFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ServiceIncidentsPayload'
+        - name: startDate
+          in: query
+          type: string
+          format: date-time
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
       responses:
         200:
           description: Service incidents
@@ -3510,6 +3776,40 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/IncidentUpdates'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/configuration/finance/gateways':
+    get:
+      summary: Lists all the current gateways
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+          - configuration.readonly
+        - accessToken: []
+      parameters:
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of payment gateways
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PaymentGateways'
         default:
           description: Error
           schema:
@@ -3585,6 +3885,12 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  paymentFid:
+    name: paymentFid
+    in: path
+    type: string
+    required: true
+    description: Payment FID to use
   invoiceFid:
     name: invoiceFid
     in: path
@@ -3843,6 +4149,68 @@ definitions:
       brandFid:
         type: string
 
+  Payment:
+    description: Payment
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          direction:
+            type: string
+          currency:
+            type: string
+          amount:
+            type: number
+            format: float
+          fee:
+            type: number
+            format: float
+          feeCurrency:
+            type: string
+          type:
+            type: string
+            enum:
+              - affiliate
+              - invoice
+              - order
+              - unknown
+              - preauth
+          status:
+            type: string
+            enum:
+              - pending
+              - paid
+              - refund-pending
+              - refunded
+              - partially-refunded
+              - chargeback
+              - chargeback-pending
+          transactionId:
+            type: string
+          statusCode:
+            type: string
+          statusMessage:
+            type: string
+          statementDescriptor:
+            type: string
+          orderFid:
+            type: string
+          invoiceFid:
+            type: string
+          fraudFid:
+            type: string
+          processed:
+            type: boolean
+          processedDate:
+            type: number
+            format: int64
+          subGatewayFid:
+            type: string
+          subGatewayTransactionId:
+            type: string
+          disputeFid:
+            type: string
+
+
   Customer:
     description: Customer
     allOf:
@@ -4042,6 +4410,9 @@ definitions:
       cycleExact:
         type: string
       cycleType:
+        $ref: '#/definitions/cycleTermType'
+      cycle:
+        description: Interval in ISO 8601 standard
         type: string
 
   Subscriptions:
@@ -4072,6 +4443,7 @@ definitions:
             type: string
             format: date-time
           cycle:
+            description: Interval in ISO 8601 standard
             type: string
           autoCharge:
             type: boolean
@@ -4109,6 +4481,11 @@ definitions:
           currency:
             type: string
           cycle:
+            description: Interval in ISO 8601 standard
+            type: string
+          priceFid:
+            type: string
+          offerFid:
             type: string
           dateCancelled:
             description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
@@ -4221,6 +4598,25 @@ definitions:
             format: date-time
           uniqueReference:
             type: string
+
+  CalculateSubscriptionRefund:
+    description: Response from calculating a refund on a subscription
+    properties:
+      amountWithTax:
+        type: number
+        format: float
+      amountWithoutTax:
+        type: number
+        format: float
+      tax:
+        type: number
+        format: float
+      terminationFee:
+        type: number
+        format: float
+      terminationFeeWithTax:
+        type: number
+        format: float
 
   Invoices:
     description: Generic Response
@@ -4486,13 +4882,72 @@ definitions:
           setupFee:
             type: string
           cycleType:
-            type: number
-            format: int32
+            $ref: '#/definitions/cycleTermType'
           cycleTerm:
             type: number
             format: int32
           cycleExact:
             type: string
+          cycle:
+            description: Interval in ISO 8601 standard
+            type: string
+
+  FraudScan:
+    description: Result of a fraud scan
+    properties:
+      service:
+        type: string
+      score:
+        type: string
+      message:
+        type: string
+      requestId:
+        type: string
+      recommendation:
+        type: string
+      metaDataItems:
+        type: array
+        items:
+          $ref: '#/definitions/FraudScanMetaData'
+
+  FraudScanMetaData:
+    description: Individual fraud scan metadata item
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+
+  CalculatedSubscriptionModification:
+    description: Generic Response
+    properties:
+      nextRenewalAmount:
+        type: number
+        format: float
+      nextRenewalDiscount:
+        type: number
+        format: float
+      nextRenewalTax:
+        type: number
+        format: float
+      nextRenewalTotal:
+        type: number
+        format: float
+      setupAmount:
+        type: number
+        format: float
+      setupDiscount:
+        type: number
+        format: float
+      chargeAmount:
+        type: number
+        format: float
+      chargeTax:
+        type: number
+        format: float
+      chargeTotal:
+        type: number
+        format: float
 
   Order:
     description: Generic Response
@@ -4514,6 +4969,9 @@ definitions:
             type: number
             format: float
           setupAmount:
+            type: number
+            format: float
+          setupDiscountAmount:
             type: number
             format: float
           taxAmount:
@@ -4594,6 +5052,38 @@ definitions:
             description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
             type: string
             format: date-time
+          purchaseFid:
+            type: string
+          currency:
+            type: string
+          discountAmount:
+            type: number
+            format: float
+          setupFee:
+            type: number
+            format: float
+          setupDiscountAmount:
+            type: number
+            format: float
+          taxAmount:
+            type: number
+            format: float
+          totalAmount:
+            type: number
+            format: float
+          cycleType:
+            type: number
+            format: int32
+          cycleTerm:
+            type: number
+            format: int32
+          cycleExact:
+            type: string
+          cycle:
+            description: Interval in ISO 8601 standard
+            type: string
+          parentFid:
+            type: string
 
   OrderVerification:
     description: Generic Response
@@ -4717,6 +5207,40 @@ definitions:
           value:
             type: string
 
+  PaymentGateways:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          gateways:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentGateway'
+
+  PaymentGateway:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          externalId:
+            type: string
+          enabled:
+            type: boolean
+          brands:
+            type: array
+            items:
+              type: string
+          currencies:
+            type: array
+            items:
+              type: string
+          cardTypes:
+            type: array
+            items:
+              type: string
+          provider:
+            type: string
+
   ProductOffers:
     description: Generic Response
     properties:
@@ -4756,6 +5280,9 @@ definitions:
             format: int32
           termType:
             $ref: '#/definitions/cycleTermType'
+          period:
+            description: Interval in ISO 8601 standard
+            type: string
           restrictive:
             type: boolean
 
@@ -4901,7 +5428,6 @@ definitions:
         description: Property Value
         type: string
 
-
   Services:
     description: Services
     properties:
@@ -4909,7 +5435,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Service'
-
 
   Service:
     description: Service
@@ -4951,6 +5476,28 @@ definitions:
         type: string
       brandFid:
         type: string
+
+  ChatSessions:
+    description: List of chat sessions
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          chatSessions:
+            type: array
+            items:
+              $ref: '#/definitions/ChatSession'
+
+  ChatSession:
+    description: Chat session
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          timeStarted:
+            type: number
+            format: int64
+          timeEnded:
+            type: number
+            format: int64
 
   IncidentUpdates:
     description: Incident updates
@@ -5076,6 +5623,21 @@ definitions:
     required:
       - priceFid
 
+  CalculateRefundPayload:
+      properties:
+        subscriptionRefundType:
+          $ref: '#/definitions/SubscriptionRefundType'
+        refundFromDate:
+          description: Timestamp of when to calculate the refund from. Rounded down to the start of the day. Default to start of tomorrow
+          type: number
+          format: int32
+        includeDetails:
+          type: boolean
+        withTerminationFee:
+          type: boolean
+      required:
+        - subscriptionRefundType
+
   SubscriptionCancelPayload:
     properties:
       reasonFid:
@@ -5083,6 +5645,8 @@ definitions:
         type: string
       subscriptionRefundType:
         $ref: '#/definitions/SubscriptionRefundType'
+      cancelAtNextRenewal:
+        type: boolean
     required:
       - subscriptionRefundType
 
@@ -5731,15 +6295,6 @@ definitions:
         type: string
       htmlBody:
         type: string
-
-  ServiceIncidentsPayload:
-      properties:
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
 
 #Properties
   creditAmountType:

@@ -4,8 +4,11 @@ namespace Fortifi\Api\V1\Endpoints;
 use Fortifi\Api\V1\Requests\SubscriptionRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Requests\CalculatedSubscriptionModificationRequest;
+use Fortifi\Api\V1\Requests\CalculateSubscriptionRefundRequest;
 use Fortifi\Api\V1\Payloads\SubscriptionCancelPayload;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
+use Fortifi\Api\V1\Payloads\CalculateRefundPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -147,6 +150,93 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
       )
     ));
     $detail->addPostField('parentSubscriptionFid', $parentSubscriptionFid);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Calculates the changes before a modification to a subscription
+   *
+   * @param ModifySubscriptionPayload $payload
+   *
+   * @return CalculatedSubscriptionModificationRequest
+   */
+  public function setCalculateModification(ModifySubscriptionPayload $payload)
+  {
+    $request = new CalculatedSubscriptionModificationRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/calculateModification'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Calculates the result of a potential refund on a subscription
+   *
+   * @param CalculateRefundPayload $payload
+   *
+   * @return CalculateSubscriptionRefundRequest
+   */
+  public function setCalculateRefund(CalculateRefundPayload $payload)
+  {
+    $request = new CalculateSubscriptionRefundRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/calculateRefund'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Set paymentAccount for subscription. If changing a payment method from an
+   * Automatic Payment Method such as PayPal Recurring Payments, any other
+   * subscriptions paid with the same Agreement will be set to Default Payment
+   * Method and the Agreement will be cancelled
+   *
+   * @param $paymentAccountFid
+   *
+   * @return ApiRequest
+   */
+  public function setPaymentAccount($paymentAccountFid = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/setPaymentAccount'
+      )
+    ));
+    $detail->addPostField('paymentAccountFid', $paymentAccountFid);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
