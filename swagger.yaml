@@ -885,21 +885,7 @@ paths:
           required: true
           description: Text content of note
           type: string
-        - name: colour
-          in: formData
-          required: false
-          description: Colour of the new ticket
-          type: string
-          enum:
-            - blue
-            - red
-            - orange
-            - yellow
-            - indigo
-            - violet
-            - green
-            - pink
-            - grey
+        - $ref: '#/parameters/noteColor'
       responses:
         200:
           description: Customer note saved
@@ -1325,27 +1311,8 @@ paths:
           in: formData
           required: true
           description: Disputed Amount
-        - name: state
-          type: string
-          in: formData
-          enum:
-            - alert
-            - initiated
-            - disputed
-            - won
-            - lost
-            - undisputed_loss
-          required: true
-          description: Current State
-        - name: source
-          type: string
-          enum:
-            - gateway
-            - ethoca
-            - verifi
-          in: formData
-          required: true
-          description: Source of the alert, or gateway for everything else
+        - $ref: '#/parameters/chargebackState'
+        - $ref: '#/parameters/chargebackSource'
         - name: refunded
           type: boolean
           in: formData
@@ -1413,18 +1380,7 @@ paths:
           in: formData
           required: true
           description: Case Number
-        - name: state
-          type: string
-          in: formData
-          enum:
-            - alert
-            - initiated
-            - disputed
-            - won
-            - lost
-            - undisputed_loss
-          required: true
-          description: Current State
+        - $ref: '#/parameters/chargebackState'
         - name: refunded
           type: boolean
           in: formData
@@ -3858,6 +3814,29 @@ parameters:
     type: array
     items:
       type: string
+  chargebackState:
+    name: state
+    type: string
+    in: formData
+    enum:
+      - alert
+      - initiated
+      - disputed
+      - won
+      - lost
+      - undisputed_loss
+    description: Current State
+    required: true
+  chargebackSource:
+    name: source
+    type: string
+    in: formData
+    enum:
+      - gateway
+      - ethoca
+      - verifi
+    description: Source of the alert, or gateway for everything else
+    required: true
   visitorId:
     name: visitorId
     in: path
@@ -3885,6 +3864,22 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  noteColor:
+    name: colour
+    in: formData
+    required: false
+    description: Colour of the new ticket
+    type: string
+    enum:
+      - blue
+      - red
+      - orange
+      - yellow
+      - indigo
+      - violet
+      - green
+      - pink
+      - grey
   paymentFid:
     name: paymentFid
     in: path
@@ -6438,23 +6433,6 @@ definitions:
     - prepayment
     - fortifipay
     - coinbase
-  ChargebackState:
-    type: string
-    enum:
-      - alert
-      - initiated
-      - disputed
-      - won
-      - lost
-      - undisputed_loss
-    description: Current State
-  ChargebackSource:
-    type: string
-    enum:
-      - gateway
-      - ethoca
-      - verifi
-    description: Source of the alert, or gateway for everything else
   CreateOrderType:
     description: Order Type (Must be initial to Auth Cards)
     type: string
