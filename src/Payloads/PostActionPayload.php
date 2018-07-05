@@ -85,6 +85,10 @@ class PostActionPayload
    * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
    */
   protected $_time;
+  /**
+   * If an existing device exists for the visitor, prefer that over the user agent sent in this payload
+   */
+  protected $_useExistingDeviceIfAvailable;
 
   public function hydrate($data)
   {
@@ -175,32 +179,37 @@ class PostActionPayload
     {
       $this->_time = (string)$data["time"];
     }
+    if(isset($data["useExistingDeviceIfAvailable"]))
+    {
+      $this->_useExistingDeviceIfAvailable = $data["useExistingDeviceIfAvailable"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "transactionId"     => $this->_transactionId,
-      "transactionValue"  => $this->_transactionValue,
-      "couponCode"        => $this->_couponCode,
-      "returnPixels"      => $this->_returnPixels,
-      "productCode"       => $this->_productCode,
-      "productTerm"       => $this->_productTerm,
-      "paymentMethod"     => $this->_paymentMethod,
-      "username"          => $this->_username,
-      "userAgent"         => $this->_userAgent,
-      "encoding"          => $this->_encoding,
-      "language"          => $this->_language,
-      "clientIp"          => $this->_clientIp,
-      "externalReference" => $this->_externalReference,
-      "brandFid"          => $this->_brandFid,
-      "campaignHash"      => $this->_campaignHash,
-      "sid1"              => $this->_sid1,
-      "sid2"              => $this->_sid2,
-      "sid3"              => $this->_sid3,
-      "metaData"          => $this->_metaData,
-      "time"              => $this->_time,
+      "transactionId"                => $this->_transactionId,
+      "transactionValue"             => $this->_transactionValue,
+      "couponCode"                   => $this->_couponCode,
+      "returnPixels"                 => $this->_returnPixels,
+      "productCode"                  => $this->_productCode,
+      "productTerm"                  => $this->_productTerm,
+      "paymentMethod"                => $this->_paymentMethod,
+      "username"                     => $this->_username,
+      "userAgent"                    => $this->_userAgent,
+      "encoding"                     => $this->_encoding,
+      "language"                     => $this->_language,
+      "clientIp"                     => $this->_clientIp,
+      "externalReference"            => $this->_externalReference,
+      "brandFid"                     => $this->_brandFid,
+      "campaignHash"                 => $this->_campaignHash,
+      "sid1"                         => $this->_sid1,
+      "sid2"                         => $this->_sid2,
+      "sid3"                         => $this->_sid3,
+      "metaData"                     => $this->_metaData,
+      "time"                         => $this->_time,
+      "useExistingDeviceIfAvailable" => $this->_useExistingDeviceIfAvailable,
     ];
   }
 
@@ -705,5 +714,28 @@ class PostActionPayload
   {
     $value = $this->_time ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param boolean $value
+   *
+   * @return $this
+   */
+  public function setUseExistingDeviceIfAvailable($value)
+  {
+    $this->_useExistingDeviceIfAvailable = $value;
+    return $this;
+  }
+
+  /**
+   * If an existing device exists for the visitor, prefer that over the user agent sent in this payload
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isUseExistingDeviceIfAvailable($default = false)
+  {
+    return (bool)$this->_useExistingDeviceIfAvailable ?: $default;
   }
 }

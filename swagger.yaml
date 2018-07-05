@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '2.25.0'
+  version: '2.26.0'
   termsOfService: 'http://fortifi.co/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -5275,6 +5275,9 @@ definitions:
             format: int32
           termType:
             $ref: '#/definitions/cycleTermType'
+          cycle:
+            description: Interval in ISO 8601 standard
+            type: string
           period:
             description: Interval in ISO 8601 standard
             type: string
@@ -5791,6 +5794,9 @@ definitions:
         description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
         type: string
         format: date-time
+      useExistingDeviceIfAvailable:
+        type: boolean
+        description: If an existing device exists for the visitor, prefer that over the user agent sent in this payload
     required:
       - brandFid
 
