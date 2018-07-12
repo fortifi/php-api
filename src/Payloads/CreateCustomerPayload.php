@@ -66,6 +66,10 @@ class CreateCustomerPayload
    * Customer Subscription Status
    */
   protected $_subscriptionType;
+  /**
+   * Language
+   */
+  protected $_language;
 
   public function hydrate($data)
   {
@@ -130,6 +134,10 @@ class CreateCustomerPayload
     {
       $this->_subscriptionType = (string)$data["subscriptionType"];
     }
+    if(isset($data["language"]))
+    {
+      $this->_language = (string)$data["language"];
+    }
     return $this;
   }
 
@@ -151,6 +159,7 @@ class CreateCustomerPayload
       "accountStatus"     => $this->_accountStatus,
       "lifecycle"         => $this->_lifecycle,
       "subscriptionType"  => $this->_subscriptionType,
+      "language"          => $this->_language,
     ];
   }
 
@@ -526,6 +535,31 @@ class CreateCustomerPayload
   public function getSubscriptionType($default = null, $trim = true)
   {
     $value = $this->_subscriptionType ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setLanguage($value)
+  {
+    $this->_language = $value;
+    return $this;
+  }
+
+  /**
+   * Language
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLanguage($default = null, $trim = true)
+  {
+    $value = $this->_language ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
