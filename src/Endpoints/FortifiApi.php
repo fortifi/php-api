@@ -168,6 +168,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return IntegrationsEndpoint
+   */
+  public function integrations()
+  {
+    $endpoint = new IntegrationsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return OrganisationEndpoint
    */
   public function organisation()
