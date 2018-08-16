@@ -31,8 +31,10 @@ class PaymentRequest
         "processed" => $this->isProcessed(),
         "processedDate" => $this->getProcessedDate(),
         "subGatewayFid" => $this->getSubGatewayFid(),
+        "subGatewayName" => $this->getSubGatewayName(),
         "subGatewayTransactionId" => $this->getSubGatewayTransactionId(),
         "disputeFid" => $this->getDisputeFid(),
+        "sourceAccountType" => $this->getSourceAccountType(),
       ]
     );
   }
@@ -239,6 +241,18 @@ class PaymentRequest
    *
    * @return string
    */
+  public function getSubGatewayName($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'subGatewayName', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
   public function getSubGatewayTransactionId($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'subGatewayTransactionId', $default);
@@ -254,6 +268,18 @@ class PaymentRequest
   public function getDisputeFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'disputeFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSourceAccountType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'sourceAccountType', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

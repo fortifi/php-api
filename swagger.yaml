@@ -147,32 +147,32 @@ info:
     ```
 host: api.fortifi.io
 schemes:
-  - https
+- https
 basePath: /v1
 produces:
-  - application/json
+- application/json
 consumes:
-  - application/json
+- application/json
 externalDocs:
   description: Find out more about the Fortifi api
   url: http://developers.fortifi.io/
 
 
 tags:
-  - name: Marketing
-  - name: Customers
-  - name: Entities
-  - name: Orders
-  - name: Custom Properties
-  - name: Configuration
-  - name: Contacts
-  - name: Polymers
-  - name: Messenger
-  - name: Products
-  - name: Licence
-  - name: Support
-  - name: ServiceStatus
-  - name: Reasons
+- name: Marketing
+- name: Customers
+- name: Entities
+- name: Orders
+- name: Custom Properties
+- name: Configuration
+- name: Contacts
+- name: Polymers
+- name: Messenger
+- name: Products
+- name: Licence
+- name: Support
+- name: ServiceStatus
+- name: Reasons
 
 securityDefinitions:
   OAuth:
@@ -214,9 +214,9 @@ paths:
   /version:
     get:
       security:
-        - OAuth:
-          - basic
-        - accessToken: []
+      - OAuth:
+        - basic
+      - accessToken: []
       summary: Current Version
       operationId: getVersion
       description: |
@@ -226,10 +226,10 @@ paths:
           description: Version
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    type: string
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  type: string
         default:
           description: Error
           schema:
@@ -242,20 +242,20 @@ paths:
       description: |
         User service account credentials to retrieve an API token
       parameters:
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ServiceAccountCredentialsPayload'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ServiceAccountCredentialsPayload'
       responses:
         200:
           description: Token
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/AuthToken'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/AuthToken'
         default:
           description: Error
           schema:
@@ -264,9 +264,9 @@ paths:
   /me:
     get:
       security:
-        - OAuth:
-          - basic
-        - accessToken: []
+      - OAuth:
+        - basic
+      - accessToken: []
       summary: Current User
       operationId: getMe
       description: |
@@ -276,10 +276,10 @@ paths:
           description: User Information
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/User'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/User'
         default:
           description: Error
           schema:
@@ -288,9 +288,9 @@ paths:
   /organisation:
     get:
       security:
-        - OAuth:
-          - basic
-        - accessToken: []
+      - OAuth:
+        - basic
+      - accessToken: []
       summary: Current Organisation
       operationId: getOrganisation
       description: |
@@ -300,10 +300,10 @@ paths:
           description: Organisation Information
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Organisation'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Organisation'
         default:
           description: Error
           schema:
@@ -312,9 +312,9 @@ paths:
   /brands:
     get:
       security:
-        - OAuth:
-          - basic
-        - accessToken: []
+      - OAuth:
+        - basic
+      - accessToken: []
       summary: Your Brand
       operationId: getBrands
       description: |
@@ -324,10 +324,10 @@ paths:
           description: Brand Information
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Brands'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Brands'
         default:
           description: Error
           schema:
@@ -337,26 +337,26 @@ paths:
     post:
       summary: Create a new advertiser
       security:
-        - OAuth:
-          - advertiser
-        - accessToken: []
+      - OAuth:
+        - advertiser
+      - accessToken: []
       tags:
-        - marketing
+      - marketing
       parameters:
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CreateAdvertiserPayload'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateAdvertiserPayload'
       responses:
         200:
           description: Advertiser Created
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         x-400:
           description: |
             Invalid data supplied
@@ -368,31 +368,31 @@ paths:
     get:
       summary: List advertisers
       security:
-        - OAuth:
-          - advertiser
-        - accessToken: []
+      - OAuth:
+        - advertiser
+      - accessToken: []
       tags:
-        - marketing
+      - marketing
       parameters:
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
+      - name: limit
+        in: query
+        description: 'Maximum number of records per page (default: 20)'
+        required: false
+        type: integer
+      - name: page
+        in: query
+        description: 'Page number (default: 1)'
+        required: false
+        type: integer
       responses:
         200:
           description: List of advertisers
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Advertisers'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Advertisers'
         default:
           description: Error
           schema:
@@ -401,23 +401,23 @@ paths:
   /advertisers/{advertiserFid}:
     get:
       security:
-        - OAuth:
-          - advertiser
-        - accessToken: []
+      - OAuth:
+        - advertiser
+      - accessToken: []
       tags:
-       - marketing
+      - marketing
       summary: Retrieve an advertiser
       parameters:
-        - $ref: '#/parameters/advertiserFid'
+      - $ref: '#/parameters/advertiserFid'
       responses:
         200:
           description: Loaded Advertiser
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Advertiser'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Advertiser'
         x-404:
           description: Advertiser not found
         default:
@@ -428,14 +428,14 @@ paths:
   /advertisers/{advertiserFid}/approved:
     put:
       security:
-        - OAuth:
-          - advertiser
-        - accessToken: []
+      - OAuth:
+        - advertiser
+      - accessToken: []
       tags:
-        - marketing
+      - marketing
       summary: Set approved status on an advertiser
       parameters:
-        - $ref: '#/parameters/advertiserFid'
+      - $ref: '#/parameters/advertiserFid'
       responses:
         200:
           description: Approved Advertiser
@@ -449,13 +449,13 @@ paths:
     delete:
       summary: Remove approved status on an advertiser
       tags:
-        - marketing
+      - marketing
       security:
-        - OAuth:
-          - advertiser
-        - accessToken: []
+      - OAuth:
+        - advertiser
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/advertiserFid'
+      - $ref: '#/parameters/advertiserFid'
       responses:
         200:
           description: Advertiser no longer approved
@@ -470,27 +470,27 @@ paths:
     post:
       summary: Create a new advertiser campaign
       security:
-        - OAuth:
-          - advertiser
-        - accessToken: []
+      - OAuth:
+        - advertiser
+      - accessToken: []
       tags:
-       - marketing
+      - marketing
       parameters:
-        - $ref: '#/parameters/advertiserFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CreateAdvertiserCampaignPayload'
+      - $ref: '#/parameters/advertiserFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateAdvertiserCampaignPayload'
       responses:
         200:
           description: Campaign Created
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         x-400:
           description: Invalid data supplied
         default:
@@ -501,26 +501,52 @@ paths:
   /advertisers/{advertiserFid}/campaigns/{advertiserCampaignFid}:
     get:
       security:
-        - OAuth:
-          - advertiser
-        - accessToken: []
+      - OAuth:
+        - advertiser
+      - accessToken: []
       tags:
-       - marketing
+      - marketing
       summary: Retrieve an advertiser campaign
       parameters:
-        - $ref: '#/parameters/advertiserFid'
-        - $ref: '#/parameters/advertiserCampaignFid'
+      - $ref: '#/parameters/advertiserFid'
+      - $ref: '#/parameters/advertiserCampaignFid'
       responses:
         200:
           description: Loaded Campaign
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/AdvertiserCampaign'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/AdvertiserCampaign'
         x-404:
           description: Campaign not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/visitors/{visitorId}':
+    get:
+      security:
+      - OAuth:
+        - visitor
+      - accessToken: []
+      tags:
+      - marketing
+      summary: Retrieve information about a visitor
+      description: This call will return information related to how a visitor arrived
+      parameters:
+      - $ref: '#/parameters/visitorId'
+      responses:
+        200:
+          description: Pixels
+          schema:
+            allOf:
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/VisitorResponse'
         default:
           description: Error
           schema:
@@ -529,26 +555,26 @@ paths:
   '/visitors/{visitorId}/pixels':
     get:
       security:
-        - OAuth:
-          - visitor
-        - accessToken: []
+      - OAuth:
+        - visitor
+      - accessToken: []
       tags:
-        - marketing
+      - marketing
       summary: Retrieve pending pixels for this visitor
       description: This call will release pixels from the pending queue on read
       parameters:
-        - $ref: '#/parameters/visitorId'
+      - $ref: '#/parameters/visitorId'
       responses:
         200:
           description: Pixels
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/definitions/AdvertiserPixel'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/definitions/AdvertiserPixel'
         default:
           description: Error
           schema:
@@ -558,35 +584,35 @@ paths:
     post:
       summary: Track an action
       tags:
-        - marketing
+      - marketing
       description: |
         Track an action such as a lead or acquisition
       security:
-        - OAuth:
-          - visitor
-        - accessToken: []
+      - OAuth:
+        - visitor
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/visitorId'
-        - name: actionKey
-          description: Action key of the action to track e.g. lead
-          in: path
-          required: true
-          type: string
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PostActionPayload'
+      - $ref: '#/parameters/visitorId'
+      - name: actionKey
+        description: Action key of the action to track e.g. lead
+        in: path
+        required: true
+        type: string
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PostActionPayload'
 
       responses:
         200:
           description: Action Tracked
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/VisitorPostAction'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/VisitorPostAction'
         x-409:
           description: |
             The transaction ID specified has already been used for this action
@@ -606,35 +632,35 @@ paths:
     post:
       summary: Reverse a previously tracked action
       tags:
-        - marketing
+      - marketing
       description: |
         When an action has been reversed, e.g. cancelled, refunded
       security:
-        - OAuth:
-          - visitor
-        - accessToken: []
+      - OAuth:
+        - visitor
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/visitorId'
-        - name: actionKey
-          description: Action key of the action to reverse e.g. lead
-          in: path
-          required: true
-          type: string
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ReverseActionPayload'
+      - $ref: '#/parameters/visitorId'
+      - name: actionKey
+        description: Action key of the action to reverse e.g. lead
+        in: path
+        required: true
+        type: string
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReverseActionPayload'
 
       responses:
         200:
           description: Action Reversed
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/VisitorReversalAction'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/VisitorReversalAction'
         x-404:
           description: |
             The action you are trying to reverse cannot be found
@@ -650,49 +676,49 @@ paths:
     get:
       summary: Get the public key needed to encrypt a credit card number
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       parameters:
-        - name: format
-          in: query
-          description: Format for the generated key xml, raw, pkcs1 or pkcs8.
-          type: string
+      - name: format
+        in: query
+        description: Format for the generated key xml, raw, pkcs1 or pkcs8.
+        type: string
       responses:
         200:
           description: RSA Public Key
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PubKey'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/PubKey'
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
 
   /pay/coinbase:
-     get:
-       summary: Get a new checkout ID
-       security:
-         - OAuth:
-           - payment.methods
-         - accessToken: []
-       parameters:
-         - name: orderFID
-           in: query
-           description: FID of the order for which to retrieve a checkout ID
-           type: string
-       responses:
+    get:
+      summary: Get a new checkout ID
+      security:
+      - OAuth:
+        - payment.methods
+      - accessToken: []
+      parameters:
+      - name: orderFID
+        in: query
+        description: FID of the order for which to retrieve a checkout ID
+        type: string
+      responses:
         200:
           description: Coinbase checkout ID
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/CoinbaseCheckout'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/CoinbaseCheckout'
         default:
           description: Error
           schema:
@@ -702,11 +728,11 @@ paths:
     post:
       summary: Create a new customer
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       tags:
-       - customers
+      - customers
       parameters:
       - name: payload
         in: body
@@ -718,10 +744,10 @@ paths:
           description: Customer Created
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Customer'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Customer'
         x-404:
           description: |
             The brand Fid you are trying to add a customer to does not exist
@@ -736,27 +762,27 @@ paths:
   /customers/findByReference:
     get:
       security:
-        - OAuth:
-          - customer
-          - customer.readonly
-        - accessToken: []
+      - OAuth:
+        - customer
+        - customer.readonly
+      - accessToken: []
       tags:
-        - customers
+      - customers
       summary: Find a customer by your reference
       parameters:
-        - name: reference
-          in: query
-          description: Your reference for the customer
-          type: string
+      - name: reference
+        in: query
+        description: Your reference for the customer
+        type: string
       responses:
         200:
           description: Located Customer
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Customer'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Customer'
         x-404:
           description: Customer not found
         default:
@@ -767,24 +793,24 @@ paths:
   '/customers/{customerFid}':
     get:
       security:
-        - OAuth:
-          - customer
-          - customer.readonly
-        - accessToken: []
+      - OAuth:
+        - customer
+        - customer.readonly
+      - accessToken: []
       tags:
-        - customers
+      - customers
       summary: Retrieve a customer
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Loaded Customer
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Customer'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Customer'
         x-404:
           description: Customer not found
         default:
@@ -793,23 +819,23 @@ paths:
             $ref: '#/definitions/Envelope'
     put:
       security:
-        - OAuth:
-          - customer
-          - customer.readonly
-        - accessToken: []
+      - OAuth:
+        - customer
+        - customer.readonly
+      - accessToken: []
       tags:
-        - customers
+      - customers
       summary: Update a customer
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: firstName
-          in: formData
-          type: string
-        - name: lastName
-          in: formData
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - name: firstName
+        in: formData
+        type: string
+      - name: lastName
+        in: formData
+        type: string
       responses:
         200:
           description: Customer Updated
@@ -821,14 +847,14 @@ paths:
             $ref: '#/definitions/Envelope'
     delete:
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       tags:
-        - customers
+      - customers
       summary: Archive a customer
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Customer Archived
@@ -845,18 +871,18 @@ paths:
     put:
       summary: Update a customers status
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/SetAccountStatusPayload'
+      - $ref: '#/parameters/customerFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SetAccountStatusPayload'
       responses:
         200:
           description: Customer Status Updated
@@ -871,21 +897,21 @@ paths:
     post:
       summary: Save a note against a customer
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: note
-          in: formData
-          required: true
-          description: Text content of note
-          type: string
-        - $ref: '#/parameters/noteColor'
+      - $ref: '#/parameters/customerFid'
+      - name: note
+        in: formData
+        required: true
+        description: Text content of note
+        type: string
+      - $ref: '#/parameters/noteColor'
       responses:
         200:
           description: Customer note saved
@@ -900,18 +926,18 @@ paths:
     put:
       summary: Update a customers location
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/SetCustomerLocationPayload'
+      - $ref: '#/parameters/customerFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SetCustomerLocationPayload'
       responses:
         200:
           description: Customer Status Updated
@@ -926,18 +952,18 @@ paths:
     put:
       summary: Update a customers status
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/SetAccountTypePayload'
+      - $ref: '#/parameters/customerFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SetAccountTypePayload'
       responses:
         200:
           description: Customer Status Updated
@@ -952,18 +978,18 @@ paths:
     put:
       summary: Update a customers status
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/SetSubscriptionTypePayload'
+      - $ref: '#/parameters/customerFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SetSubscriptionTypePayload'
       responses:
         200:
           description: Customer Status Updated
@@ -978,16 +1004,16 @@ paths:
     put:
       summary: Mark customer as qualified, this action cannot be undone.
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/isoTime'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/isoTime'
       responses:
         200:
           description: Customer Marked
@@ -1002,16 +1028,16 @@ paths:
     put:
       summary: Mark customer as charged back, this action cannot be undone.
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/isoTime'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/isoTime'
       responses:
         200:
           description: Customer Marked
@@ -1026,16 +1052,16 @@ paths:
     put:
       summary: Mark customer as fraudulent, this action cannot be undone.
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/isoTime'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/isoTime'
       responses:
         200:
           description: Customer Marked
@@ -1050,16 +1076,16 @@ paths:
     put:
       summary: Mark customer as purchased, this action cannot be undone.
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/isoTime'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/isoTime'
       responses:
         200:
           description: Customer Marked
@@ -1074,13 +1100,13 @@ paths:
     put:
       summary: Set customer loyalty flag
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Customer Loyalty Acknowledged
@@ -1094,13 +1120,13 @@ paths:
     delete:
       summary: Remove customer loyalty flag
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Customer No Longer Loyal
@@ -1115,13 +1141,13 @@ paths:
     put:
       summary: Set customer as VIP
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Customer Now VIP
@@ -1135,13 +1161,13 @@ paths:
     delete:
       summary: Remove customer VIP Status
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Customer No Longer VIP
@@ -1156,20 +1182,20 @@ paths:
     put:
       summary: Set customer Currency
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: currency
-          in: formData
-          required: true
-          description: Currency (ISO 4217, 3 Character Code)
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - name: currency
+        in: formData
+        required: true
+        description: Currency (ISO 4217, 3 Character Code)
+        type: string
       responses:
         200:
           description: Customer Currency Updated
@@ -1184,33 +1210,33 @@ paths:
     get:
       summary: Retrieve chat sessions for customer
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-          - customer.readonly
-        - accessToken: []
+      - OAuth:
+        - customer
+        - customer.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
+      - $ref: '#/parameters/customerFid'
+      - name: limit
+        in: query
+        description: 'Maximum number of records per page (default: 20)'
+        required: false
+        type: integer
+      - name: page
+        in: query
+        description: 'Page number (default: 1)'
+        required: false
+        type: integer
       responses:
         200:
           description: Chat sessions
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ChatSessions'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ChatSessions'
         x-404:
           description: Customer not found
         default:
@@ -1222,24 +1248,24 @@ paths:
     get:
       summary: Retrieve a payment
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-          - customer.readonly
-        - accessToken: []
+      - OAuth:
+        - customer
+        - customer.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentFid'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/paymentFid'
       responses:
         200:
           description: Loaded Payment
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Payment'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Payment'
         x-404:
           description: Customer or payment not found
         default:
@@ -1251,20 +1277,20 @@ paths:
     put:
       summary: Link visitor to customer record
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: visitorId
-          in: formData
-          required: true
-          description: Visitors Id
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - name: visitorId
+        in: formData
+        required: true
+        description: Visitors Id
+        type: string
       responses:
         200:
           description: Visitor ID linked to customer
@@ -1279,70 +1305,70 @@ paths:
     post:
       summary: Initiate a chargeback on a payment
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentFid'
-        - name: dateSubmitted
-          type: string
-          format: date-time
-          in: formData
-          required: true
-          description: Date the chargeback was received (Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z)
-        - name: reasonCode
-          type: string
-          in: formData
-          required: true
-          description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
-        - name: caseNumber
-          type: string
-          in: formData
-          required: true
-          description: Case Number
-        - name: amount
-          type: number
-          format: float
-          in: formData
-          required: true
-          description: Disputed Amount
-        - $ref: '#/parameters/chargebackState'
-        - $ref: '#/parameters/chargebackSource'
-        - name: refunded
-          type: boolean
-          in: formData
-          required: true
-          description: If this payment has been refunded by the alert
-        - name: description
-          type: string
-          in: formData
-          required: false
-          description: Notes
-        - name: feeCurrency
-          type: string
-          in: formData
-          required: false
-          description: 3 Character Currency code for the fee
-        - name: feeAmount
-          type: number
-          format: float
-          in: formData
-          required: false
-          description: Fee Amount
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/paymentFid'
+      - name: dateSubmitted
+        type: string
+        format: date-time
+        in: formData
+        required: true
+        description: Date the chargeback was received (Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z)
+      - name: reasonCode
+        type: string
+        in: formData
+        required: true
+        description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
+      - name: caseNumber
+        type: string
+        in: formData
+        required: true
+        description: Case Number
+      - name: amount
+        type: number
+        format: float
+        in: formData
+        required: true
+        description: Disputed Amount
+      - $ref: '#/parameters/chargebackState'
+      - $ref: '#/parameters/chargebackSource'
+      - name: refunded
+        type: boolean
+        in: formData
+        required: true
+        description: If this payment has been refunded by the alert
+      - name: description
+        type: string
+        in: formData
+        required: false
+        description: Notes
+      - name: feeCurrency
+        type: string
+        in: formData
+        required: false
+        description: 3 Character Currency code for the fee
+      - name: feeAmount
+        type: number
+        format: float
+        in: formData
+        required: false
+        description: Fee Amount
       responses:
         200:
           description: Chargeback Opened
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         x-400:
           description: Invalid Payload
         x-404:
@@ -1356,50 +1382,50 @@ paths:
     put:
       summary: Action a chargeback
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: chargebackFid
-          in: path
-          type: string
-          required: true
-          description: Chargeback FID to use
-        - name: reasonCode
-          type: string
-          in: formData
-          required: true
-          description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
-        - name: caseNumber
-          type: string
-          in: formData
-          required: true
-          description: Case Number
-        - $ref: '#/parameters/chargebackState'
-        - name: refunded
-          type: boolean
-          in: formData
-          required: true
-          description: If this payment has been refunded by the alert
-        - name: description
-          type: string
-          in: formData
-          required: false
-          description: Notes
+      - $ref: '#/parameters/customerFid'
+      - name: chargebackFid
+        in: path
+        type: string
+        required: true
+        description: Chargeback FID to use
+      - name: reasonCode
+        type: string
+        in: formData
+        required: true
+        description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
+      - name: caseNumber
+        type: string
+        in: formData
+        required: true
+        description: Case Number
+      - $ref: '#/parameters/chargebackState'
+      - name: refunded
+        type: boolean
+        in: formData
+        required: true
+        description: If this payment has been refunded by the alert
+      - name: description
+        type: string
+        in: formData
+        required: false
+        description: Notes
       responses:
         200:
           description: Chargeback Actioned
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/BoolMessage'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/BoolMessage'
         x-400:
           description: Invalid Payload
         default:
@@ -1411,41 +1437,41 @@ paths:
     post:
       summary: Create a new support ticket
       tags:
-        - customers
-        - support
+      - customers
+      - support
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: subject
-          in: formData
-          required: true
-          description: Subject of the support ticket
-          type: string
-        - name: content
-          in: formData
-          required: true
-          description: Content of the support ticket
-          type: string
-        - name: recipient
-          in: formData
-          required: true
-          description: Receiver email address e.g. support@yourdomain.com
-          type: string
-        - name: sender
-          in: formData
-          required: true
-          description: Sender email address e.g. user@customer.com
-          type: string
-        - name: departmentFid
-          in: formData
-          required: false
-          description: Department FID
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - name: subject
+        in: formData
+        required: true
+        description: Subject of the support ticket
+        type: string
+      - name: content
+        in: formData
+        required: true
+        description: Content of the support ticket
+        type: string
+      - name: recipient
+        in: formData
+        required: true
+        description: Receiver email address e.g. support@yourdomain.com
+        type: string
+      - name: sender
+        in: formData
+        required: true
+        description: Sender email address e.g. user@customer.com
+        type: string
+      - name: departmentFid
+        in: formData
+        required: false
+        description: Department FID
+        type: string
       responses:
         200:
           description: Customer Currency Updated
@@ -1458,22 +1484,22 @@ paths:
     get:
       summary: Get support tickets for customer
       tags:
-       - customers
-       - support
+      - customers
+      - support
       security:
-        - OAuth:
-          - entity.config
-        - accessToken: []
+      - OAuth:
+        - entity.config
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Tickets'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Tickets'
           description: Ticket collection
         default:
           description: Error
@@ -1485,19 +1511,19 @@ paths:
     delete:
       summary: Remove a config section, or property from an entity
       tags:
-        - Configuration
+      - Configuration
       security:
-        - OAuth:
-          - entity.config
-        - accessToken: []
+      - OAuth:
+        - entity.config
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
-        - name: itemName
-          in: formData
-          type: string
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/sectionName'
+      - name: itemName
+        in: formData
+        type: string
       responses:
         200:
           description: Config Item Deleted
@@ -1509,22 +1535,22 @@ paths:
     get:
       summary: Retrieve a config section
       tags:
-        - Configuration
+      - Configuration
       security:
-        - OAuth:
-          - entity.config
-        - accessToken: []
+      - OAuth:
+        - entity.config
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/sectionName'
       responses:
         200:
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ConfigItems'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ConfigItems'
           description: List Of Config Items
         default:
           description: Error
@@ -1534,24 +1560,24 @@ paths:
     post:
       summary: Write a config item
       tags:
-        - Configuration
+      - Configuration
       security:
-        - OAuth:
-          - entity.config
-        - accessToken: []
+      - OAuth:
+        - entity.config
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
-        - name: itemName
-          in: formData
-          required: true
-          type: string
-        - name: value
-          in: formData
-          required: true
-          type: string
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/sectionName'
+      - name: itemName
+        in: formData
+        required: true
+        type: string
+      - name: value
+        in: formData
+        required: true
+        type: string
       responses:
         200:
           description: Config Item Saved
@@ -1566,24 +1592,24 @@ paths:
     get:
       summary: Retrieve a config item
       tags:
-        - Configuration
+      - Configuration
       security:
-        - OAuth:
-          - entity.config
-        - accessToken: []
+      - OAuth:
+        - entity.config
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
-        - $ref: '#/parameters/itemName'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/sectionName'
+      - $ref: '#/parameters/itemName'
       responses:
         200:
           description: Config Item
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ConfigItem'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ConfigItem'
         default:
           description: Error
           schema:
@@ -1593,18 +1619,18 @@ paths:
     put:
       summary: Write multiple entity properties
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyBulkSetPayload'
+      - $ref: '#/parameters/entityFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PropertyBulkSetPayload'
       responses:
         200:
           description: Properties Saved
@@ -1619,23 +1645,23 @@ paths:
     get:
       summary: Get a property value from an entity
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
       responses:
         200:
           description: Property Value
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PropertyValue'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/PropertyValue'
         default:
           description: Error
           schema:
@@ -1643,19 +1669,19 @@ paths:
     delete:
       summary: Remove a value property from an entity
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyValuePayload'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PropertyValuePayload'
       responses:
         200:
           description: Property Deleted
@@ -1667,19 +1693,19 @@ paths:
     put:
       summary: Write an entity value property
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyValuePayload'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PropertyValuePayload'
 
       responses:
         200:
@@ -1695,14 +1721,14 @@ paths:
     delete:
       summary: Remove a flag from an entity
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
 
       responses:
         200:
@@ -1715,19 +1741,19 @@ paths:
     put:
       summary: Write an entity flag
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyFlagPayload'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PropertyFlagPayload'
 
       responses:
         200:
@@ -1744,14 +1770,14 @@ paths:
     delete:
       summary: Remove a counter from an entity
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
 
       responses:
         200:
@@ -1765,19 +1791,19 @@ paths:
     put:
       summary: Increment an entity counter
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyCounterPayload'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PropertyCounterPayload'
 
       responses:
         200:
@@ -1793,19 +1819,19 @@ paths:
     put:
       summary: Decrement an entity counter
       tags:
-        - Custom Properties
+      - Custom Properties
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyCounterPayload'
+      - $ref: '#/parameters/entityFid'
+      - $ref: '#/parameters/propertyName'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PropertyCounterPayload'
 
       responses:
         200:
@@ -1821,16 +1847,16 @@ paths:
     post:
       summary: Trigger a new event
       security:
-        - OAuth:
-          - entity.events
-        - accessToken: []
+      - OAuth:
+        - entity.events
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/entityFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/TriggerActionPayload'
+      - $ref: '#/parameters/entityFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/TriggerActionPayload'
       responses:
         200:
           description: Event Triggered
@@ -1843,22 +1869,22 @@ paths:
     get:
       summary: List customers payment accounts
       tags:
-        - customers
-        - payment.methods
+      - customers
+      - payment.methods
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PaymentAccounts'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/PaymentAccounts'
           description: List of payment accounts
         x-400:
           description: Error retrieving payment accounts
@@ -1871,38 +1897,38 @@ paths:
     post:
       summary: Initialise a new paypal agreement for existing subscriptions
       tags:
-        - customers
-        - payment.methods
+      - customers
+      - payment.methods
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentServiceFid'
-        - $ref: '#/parameters/subscriptionFids'
-        - name: successUrl
-          type: string
-          in: formData
-          required: true
-        - name: cancelUrl
-          type: string
-          in: formData
-          required: true
-        - name: failUrl
-          type: string
-          in: formData
-          required: true
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/paymentServiceFid'
+      - $ref: '#/parameters/subscriptionFids'
+      - name: successUrl
+        type: string
+        in: formData
+        required: true
+      - name: cancelUrl
+        type: string
+        in: formData
+        required: true
+      - name: failUrl
+        type: string
+        in: formData
+        required: true
       responses:
         200:
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PaypalInit'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/PaypalInit'
           description: Redirect instructions
         x-501:
           description: Inable to initialise Paypal agreement
@@ -1915,22 +1941,22 @@ paths:
     post:
       summary: Complete a paypal agreement created with initialise
       tags:
-        - customers
-        - payment.methods
+      - customers
+      - payment.methods
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentServiceFid'
-        - $ref: '#/parameters/subscriptionFids'
-        - name: token
-          type: string
-          in: formData
-          required: true
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/paymentServiceFid'
+      - $ref: '#/parameters/subscriptionFids'
+      - name: token
+        type: string
+        in: formData
+        required: true
       responses:
         200:
           description: Successfully created agreement
@@ -1945,19 +1971,19 @@ paths:
     post:
       summary: Add a new card
       tags:
-        - customers
-        - paymentMethods
+      - customers
+      - paymentMethods
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CardDataPayload'
+      - $ref: '#/parameters/customerFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CardDataPayload'
       responses:
         200:
           schema:
@@ -1971,14 +1997,14 @@ paths:
     get:
       summary: List customers card payment methods
       tags:
-        - customers
-        - payment.methods
+      - customers
+      - payment.methods
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           schema:
@@ -1992,15 +2018,15 @@ paths:
   '/customers/{customerFid}/paymentMethods/cards/{cardFid}':
     delete:
       tags:
-        - customers
-        - paymentMethods
+      - customers
+      - paymentMethods
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/cardFid'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/cardFid'
       responses:
         200:
           description: Card Removed
@@ -2011,20 +2037,20 @@ paths:
 
     put:
       tags:
-        - customers
-        - paymentMethods
+      - customers
+      - paymentMethods
       security:
-        - OAuth:
-          - payment.methods
-        - accessToken: []
+      - OAuth:
+        - payment.methods
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/cardFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CardUpdatePayload'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/cardFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CardUpdatePayload'
       summary: Update a card
       responses:
         200:
@@ -2038,38 +2064,38 @@ paths:
     get:
       summary: List customers addresses
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
-         200:
-           schema:
-             $ref: '#/definitions/Addresses'
-           description: List of addresses
-         default:
-           description: Error
-           schema:
-             $ref: '#/definitions/Envelope'
+        200:
+          schema:
+            $ref: '#/definitions/Addresses'
+          description: List of addresses
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/emails':
     post:
       summary: Add an email address to a customer
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: emailAddress
-          in: formData
-          required: true
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - name: emailAddress
+        in: formData
+        required: true
+        type: string
       responses:
         200:
           description: Email Added
@@ -2083,21 +2109,21 @@ paths:
   '/customers/{customerFid}/phones':
     post:
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       summary: Add a phone number to a customer
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: phoneNumber
-          in: formData
-          required: true
-          type: string
-        - name: displayName
-          in: formData
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - name: phoneNumber
+        in: formData
+        required: true
+        type: string
+      - name: displayName
+        in: formData
+        type: string
       responses:
         200:
           description: Phone Number Added
@@ -2112,23 +2138,23 @@ paths:
     get:
       summary: List of invoice summaries for given customer
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
+      - $ref: '#/parameters/customerFid'
+      - name: limit
+        in: query
+        description: 'Maximum number of records per page (default: 20)'
+        required: false
+        type: integer
+      - name: page
+        in: query
+        description: 'Page number (default: 1)'
+        required: false
+        type: integer
       responses:
         200:
           description: List of invoices summaries
@@ -2143,14 +2169,14 @@ paths:
     get:
       summary: Retreive a specific itemised invoice
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/invoiceFid'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/invoiceFid'
       responses:
         200:
           description: Loaded invoice
@@ -2167,13 +2193,13 @@ paths:
     put:
       summary: Retry payment of all customer invoices which are in invoice
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Invoice set to retry payment
@@ -2188,14 +2214,14 @@ paths:
     put:
       summary: Retry payment of invoice
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/invoiceFid'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/invoiceFid'
       responses:
         200:
           description: Invoice set to retry payment
@@ -2209,27 +2235,27 @@ paths:
   '/customers/{customerFid}/invoices/{invoiceFid}/creditNote':
     post:
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       summary: Add a credit note to a customers invoice
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/invoiceFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/InvoiceCreditNotePayload'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/invoiceFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/InvoiceCreditNotePayload'
       responses:
         200:
           description: Credit Note Added
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/InvoiceCreditNote'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/InvoiceCreditNote'
         x-404:
           description: Invoice not found
         x-400:
@@ -2243,32 +2269,32 @@ paths:
     get:
       summary: List of subscription summaries for given customer
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
+      - $ref: '#/parameters/customerFid'
+      - name: limit
+        in: query
+        description: 'Maximum number of records per page (default: 20)'
+        required: false
+        type: integer
+      - name: page
+        in: query
+        description: 'Page number (default: 1)'
+        required: false
+        type: integer
       responses:
         200:
           description: List of subscription summaries
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Subscriptions'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Subscriptions'
         default:
           description: Error
           schema:
@@ -2278,23 +2304,23 @@ paths:
     get:
       summary: Retreive a specific subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
       responses:
         200:
           description: Loaded subscription
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Subscription'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Subscription'
         x-404:
           description: Subscription not found
         default:
@@ -2306,14 +2332,14 @@ paths:
     put:
       summary: Enable auto charge on specific subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
       responses:
         200:
           description: Auto charge enabled
@@ -2328,14 +2354,14 @@ paths:
     put:
       summary: Disable auto charge on specific subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
       responses:
         200:
           description: Auto charge disabled
@@ -2350,20 +2376,20 @@ paths:
     put:
       summary: Re-enable renewals on a subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: reason
-          in: formData
-          required: true
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: reason
+        in: formData
+        required: true
+        type: string
       responses:
         200:
           description: Renewals Enabled
@@ -2378,29 +2404,29 @@ paths:
     put:
       summary: Set parent subscription on a subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: parentSubscriptionFid
-          in: formData
-          required: true
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: parentSubscriptionFid
+        in: formData
+        required: true
+        type: string
       responses:
         200:
           description: Parent subscription set
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         x-400:
           description: Cannot create cyclic reference
         x-404:
@@ -2414,30 +2440,30 @@ paths:
     put:
       summary: Calculates the changes before a modification to a subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ModifySubscriptionPayload'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ModifySubscriptionPayload'
       responses:
         200:
           description: Calculated result of modification
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/CalculatedSubscriptionModification'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/CalculatedSubscriptionModification'
         x-400:
           description: Invalid payload data
         x-404:
@@ -2451,28 +2477,28 @@ paths:
     put:
       summary: Calculates the result of a potential refund on a subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CalculateRefundPayload'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CalculateRefundPayload'
       responses:
         200:
           description: Returns calculated refund amounts
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/CalculateSubscriptionRefund'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/CalculateSubscriptionRefund'
         x-400:
           description: Invalid payload data
         x-404:
@@ -2484,58 +2510,58 @@ paths:
 
 
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/setPaymentAccount':
-      put:
-        summary: Set paymentAccount for subscription. If changing a payment method from an Automatic Payment Method such as PayPal Recurring Payments, any other subscriptions paid with the same Agreement will be set to Default Payment Method and the Agreement will be cancelled
-        tags:
-          - customers
-        security:
-          - OAuth:
-            - customer
-          - accessToken: []
-        consumes:
-          - multipart/form-data
-        parameters:
-          - $ref: '#/parameters/customerFid'
-          - $ref: '#/parameters/subscriptionFid'
-          - name: paymentAccountFid
-            in: formData
-            type: string
-        responses:
-          200:
-            description: New payment method set
-          x-404:
-            description: Subscription or PaymentAccount not found
-          default:
-            description: Error
-            schema:
-              $ref: '#/definitions/Envelope'
+    put:
+      summary: Set paymentAccount for subscription. If changing a payment method from an Automatic Payment Method such as PayPal Recurring Payments, any other subscriptions paid with the same Agreement will be set to Default Payment Method and the Agreement will be cancelled
+      tags:
+      - customers
+      security:
+      - OAuth:
+        - customer
+      - accessToken: []
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: paymentAccountFid
+        in: formData
+        type: string
+      responses:
+        200:
+          description: New payment method set
+        x-404:
+          description: Subscription or PaymentAccount not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/modify':
     put:
       summary: Modify an existing subscription with a new price. Returns new open order to be completed
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ModifySubscriptionPayload'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ModifySubscriptionPayload'
       responses:
         200:
           description: Created new open order
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Order'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Order'
         x-400:
           description: Invalid payload data
         x-404:
@@ -2549,29 +2575,29 @@ paths:
     put:
       summary: Modify an existing subscription with a new price which will be used for the next renewal
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: priceFid
-          in: formData
-          required: true
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: priceFid
+        in: formData
+        required: true
+        type: string
       responses:
         200:
           description: Subscription price updated
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         x-400:
           description: Invalid payload data
         x-404:
@@ -2585,20 +2611,20 @@ paths:
     put:
       summary: Apply an offer to a subscription
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: offerFid
-          in: formData
-          required: true
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: offerFid
+        in: formData
+        required: true
+        type: string
       responses:
         200:
           description: Offer applied
@@ -2611,30 +2637,30 @@ paths:
     put:
       summary: Pre-renew an existing subscription with a different price. Returns new open order to be completed
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: priceFid
-          in: formData
-          required: true
-          description: Price FID
-          type: string
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: priceFid
+        in: formData
+        required: true
+        description: Price FID
+        type: string
       responses:
         200:
           description: Created new open order
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         x-400:
           description: Invalid payload data
         x-404:
@@ -2648,28 +2674,28 @@ paths:
     put:
       summary: Cancel a subscripion. Returns subscription FID.
       tags:
-        - customers
+      - customers
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/subscriptionFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/SubscriptionCancelPayload'
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/subscriptionFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubscriptionCancelPayload'
       responses:
         200:
           description: Subscription cancelled
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Subscription'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Subscription'
         x-400:
           description: Invalid payload data
         x-404:
@@ -2683,24 +2709,24 @@ paths:
     post:
       summary: Subject Access Request
       tags:
-        - customers
+      - customers
       description: |
-              Initiate a Subject Access Request.  A URL will be sent via a webhook (CustomerWHE::SUBJECT_ACCESS_REQUEST), once the archive is ready for download
+        Initiate a Subject Access Request.  A URL will be sent via a webhook (CustomerWHE::SUBJECT_ACCESS_REQUEST), once the archive is ready for download
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/customerFid'
       responses:
         200:
           description: Subject Access Request
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/BoolMessage'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/BoolMessage'
         x-400:
           description: Invalid payload data
         default:
@@ -2713,48 +2739,48 @@ paths:
     post:
       summary: Anonymize customer data
       tags:
-        - customers
+      - customers
       description: |
-              Anonymize customer data
+        Anonymize customer data
       security:
-        - OAuth:
-          - customer
-        - accessToken: []
+      - OAuth:
+        - customer
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: customer
-          in: formData
-          type: boolean
-        - name: tickets
-          in: formData
-          type: boolean
-        - name: chats
-          in: formData
-          type: boolean
-        - name: orders
-          in: formData
-          type: boolean
-        - name: emails
-          in: formData
-          type: boolean
-        - name: phones
-          in: formData
-          type: boolean
-        - name: addresses
-          in: formData
-          type: boolean
-        - name: paymentAccounts
-          in: formData
-          type: boolean
+      - $ref: '#/parameters/customerFid'
+      - name: customer
+        in: formData
+        type: boolean
+      - name: tickets
+        in: formData
+        type: boolean
+      - name: chats
+        in: formData
+        type: boolean
+      - name: orders
+        in: formData
+        type: boolean
+      - name: emails
+        in: formData
+        type: boolean
+      - name: phones
+        in: formData
+        type: boolean
+      - name: addresses
+        in: formData
+        type: boolean
+      - name: paymentAccounts
+        in: formData
+        type: boolean
       responses:
         200:
           description: Anonymize Request
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/BoolMessage'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/BoolMessage'
         x-400:
           description: Invalid payload data
         default:
@@ -2766,20 +2792,20 @@ paths:
     get:
       summary: List all products
       tags:
-        - products
+      - products
       security:
-        - OAuth:
-          - product.readonly
-        - accessToken: []
+      - OAuth:
+        - product.readonly
+      - accessToken: []
       responses:
         200:
           description: Products retrieved
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Products'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Products'
         default:
           description: Error
           schema:
@@ -2789,26 +2815,26 @@ paths:
     get:
       summary: Retrieve Product Prices
       tags:
-        - products
+      - products
       security:
-        - OAuth:
-          - product.readonly
-        - accessToken: []
+      - OAuth:
+        - product.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/productFid'
-        - name: currency
-          in: formData
-          required: false
-          type: string
+      - $ref: '#/parameters/productFid'
+      - name: currency
+        in: formData
+        required: false
+        type: string
       responses:
         200:
           description: List of product prices
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ProductPrices'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ProductPrices'
         x-404:
           description: Product not found
         default:
@@ -2820,20 +2846,20 @@ paths:
     get:
       summary: Get a list of all product groups
       tags:
-        - products
+      - products
       security:
-        - OAuth:
-          - product.readonly
-        - accessToken: []
+      - OAuth:
+        - product.readonly
+      - accessToken: []
       responses:
         200:
           description: Products groups
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ProductGroups'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ProductGroups'
         default:
           description: Error
           schema:
@@ -2843,22 +2869,22 @@ paths:
     get:
       summary: Get a list of products belonging to the group
       tags:
-        - products
+      - products
       security:
-        - OAuth:
-          - product.readonly
-        - accessToken: []
+      - OAuth:
+        - product.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/productGroupFid'
+      - $ref: '#/parameters/productGroupFid'
       responses:
         200:
           description: Products
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Products'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Products'
         default:
           description: Error
           schema:
@@ -2868,26 +2894,26 @@ paths:
     post:
       summary: Create a new order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CreateOrderPayload'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateOrderPayload'
       responses:
         200:
           description: Order created successfully
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         default:
           description: Error
           schema:
@@ -2897,22 +2923,22 @@ paths:
     get:
       summary: Retrieve an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders.readonly
-        - accessToken: []
+      - OAuth:
+        - orders.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/orderFid'
       responses:
         200:
           description: Order retrieved
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Order'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Order'
         x-404:
           description: Order not found
         default:
@@ -2924,27 +2950,27 @@ paths:
     put:
       summary: Verify an order, returning any security urls
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/VerifyOrderPayload'
+      - $ref: '#/parameters/orderFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/VerifyOrderPayload'
       responses:
         200:
           description: Order payment account verified
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderVerification'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderVerification'
         default:
           description: Error
           schema:
@@ -2954,22 +2980,22 @@ paths:
     put:
       summary: Cancel an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/orderFid'
       responses:
         200:
           description: Order cancelled
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/BoolMessage'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/BoolMessage'
         default:
           description: Error
           schema:
@@ -2979,27 +3005,27 @@ paths:
     put:
       summary: Confirm an order, authorize the payment
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ConfirmCardOrderPayload'
+      - $ref: '#/parameters/orderFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ConfirmCardOrderPayload'
       responses:
         200:
           description: Order confirmed and payment authroized
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderConfirmation'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderConfirmation'
         x-503:
           description: There are no payment gateways available to handle your request
         default:
@@ -3011,27 +3037,27 @@ paths:
     put:
       summary: Confirm an order, authorize the payment
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ConfirmPayPalOrderPayload'
+      - $ref: '#/parameters/orderFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ConfirmPayPalOrderPayload'
       responses:
         200:
           description: Order confirmed and payment authroized
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderConfirmation'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderConfirmation'
         x-503:
           description: There are no payment gateways available to handle your request
         default:
@@ -3043,22 +3069,22 @@ paths:
     put:
       summary: Confirm an order, await payment
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/orderFid'
       responses:
         200:
           description: Order confirmed; awaiting blockchain confirmation.
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderConfirmation'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderConfirmation'
         x-503:
           description: There are no payment gateways available to handle your request
         default:
@@ -3070,27 +3096,27 @@ paths:
     put:
       summary: Confirm an order with a new card, authorize the payment
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ConfirmOrderWithNewCardPayload'
+      - $ref: '#/parameters/orderFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ConfirmOrderWithNewCardPayload'
       responses:
         200:
           description: Order confirmed and payment authroized
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderConfirmation'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderConfirmation'
         x-503:
           description: There are no payment gateways available to handle your request
         default:
@@ -3102,22 +3128,22 @@ paths:
     get:
       summary: Retrieve fraud scan
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders.readonly
-        - accessToken: []
+      - OAuth:
+        - orders.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/orderFid'
       responses:
         200:
           description: Fraud scan result
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/FraudScan'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/FraudScan'
         x-404:
           description: Fraud scan not found
         default:
@@ -3129,22 +3155,22 @@ paths:
     get:
       summary: Retrieve order products
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders.readonly
-        - accessToken: []
+      - OAuth:
+        - orders.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/orderFid'
       responses:
         200:
           description: List of order products
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderProducts'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderProducts'
         x-404:
           description: Order not found
         default:
@@ -3154,27 +3180,27 @@ paths:
     post:
       summary: Add a product to an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/AddOrderProductsPayload'
+      - $ref: '#/parameters/orderFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AddOrderProductsPayload'
       responses:
         200:
           description: Product added to the order successfully
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderAddProducts'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderAddProducts'
         default:
           description: Error
           schema:
@@ -3182,27 +3208,27 @@ paths:
     put:
       summary: Set the products on an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/OrderProductsPayload'
+      - $ref: '#/parameters/orderFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/OrderProductsPayload'
       responses:
         200:
           description: Order products successfully updated
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderAddProducts'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/OrderAddProducts'
         default:
           description: Error
           schema:
@@ -3212,14 +3238,14 @@ paths:
     delete:
       summary: Remove a product from an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - $ref: '#/parameters/orderProductFid'
+      - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/orderProductFid'
       responses:
         200:
           description: Product removed from the order successfully
@@ -3232,21 +3258,21 @@ paths:
     put:
       summary: Set the quantity of a product on an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - $ref: '#/parameters/orderProductFid'
-        - name: quantity
-          in: formData
-          required: true
-          type: number
-          format: int64
+      - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/orderProductFid'
+      - name: quantity
+        in: formData
+        required: true
+        type: number
+        format: int64
       responses:
         200:
           description: Quantity updated
@@ -3259,28 +3285,28 @@ paths:
     post:
       summary: Add an offer to an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: offerFid
-          in: formData
-          required: true
-          type: string
-        - name: productFid
-          in: formData
-          type: string
-        - name: orderItemFid
-          in: formData
-          type: string
-        - name: replace
-          in: formData
-          type: boolean
+      - $ref: '#/parameters/orderFid'
+      - name: offerFid
+        in: formData
+        required: true
+        type: string
+      - name: productFid
+        in: formData
+        type: string
+      - name: orderItemFid
+        in: formData
+        type: string
+      - name: replace
+        in: formData
+        type: boolean
       responses:
         200:
           description: Offer added to the order successfully
@@ -3295,14 +3321,14 @@ paths:
     delete:
       summary: Remove an offer from an order
       tags:
-        - orders
+      - orders
       security:
-        - OAuth:
-          - orders
-        - accessToken: []
+      - OAuth:
+        - orders
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/orderFid'
-        - $ref: '#/parameters/offerFid'
+      - $ref: '#/parameters/orderFid'
+      - $ref: '#/parameters/offerFid'
       responses:
         200:
           description: Offer removed from the order successfully
@@ -3317,20 +3343,20 @@ paths:
     put:
       summary: Unsubscribe an email based on the delivery fid
       tags:
-        - Contacts
-        - Messenger
+      - Contacts
+      - Messenger
       security:
-        - OAuth:
-          - contact
-        - accessToken: []
+      - OAuth:
+        - contact
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/deliveryFid'
-        - $ref: '#/parameters/userAgent'
-        - $ref: '#/parameters/encoding'
-        - $ref: '#/parameters/language'
-        - $ref: '#/parameters/clientIp'
+      - $ref: '#/parameters/deliveryFid'
+      - $ref: '#/parameters/userAgent'
+      - $ref: '#/parameters/encoding'
+      - $ref: '#/parameters/language'
+      - $ref: '#/parameters/clientIp'
       responses:
         200:
           description: Email Address Unsubscribed
@@ -3345,22 +3371,22 @@ paths:
     put:
       summary: Subscribe an email based on the delivery fid
       tags:
-        - Contacts
-        - Messenger
+      - Contacts
+      - Messenger
       security:
-        - OAuth:
-          - contact
-        - accessToken: []
+      - OAuth:
+        - contact
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/deliveryFid'
-        - $ref: '#/parameters/userAgent'
-        - $ref: '#/parameters/encoding'
-        - $ref: '#/parameters/language'
-        - $ref: '#/parameters/clientIp'
-        - $ref: '#/parameters/optInStatus'
-        - $ref: '#/parameters/optInData'
+      - $ref: '#/parameters/deliveryFid'
+      - $ref: '#/parameters/userAgent'
+      - $ref: '#/parameters/encoding'
+      - $ref: '#/parameters/language'
+      - $ref: '#/parameters/clientIp'
+      - $ref: '#/parameters/optInStatus'
+      - $ref: '#/parameters/optInData'
       responses:
         200:
           description: Email Address Subscribed
@@ -3375,13 +3401,13 @@ paths:
     put:
       summary: Confirm email address
       tags:
-        - Contacts
+      - Contacts
       security:
-        - OAuth:
-          - contact
-        - accessToken: []
+      - OAuth:
+        - contact
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/emailAddress'
+      - $ref: '#/parameters/emailAddress'
       responses:
         200:
           description: Email Address Confirmed
@@ -3396,23 +3422,23 @@ paths:
     put:
       summary: Unsubscribe an email address
       tags:
-        - Contacts
+      - Contacts
       security:
-        - OAuth:
-          - contact
-        - accessToken: []
+      - OAuth:
+        - contact
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/emailAddress'
-        - name: brandFid
-          in: formData
-          type: string
-          description: Brand to unsubscribe the email address from
-        - name: groupFid
-          in: formData
-          type: string
-          description: Group to unsubscribe the email address from
+      - $ref: '#/parameters/emailAddress'
+      - name: brandFid
+        in: formData
+        type: string
+        description: Brand to unsubscribe the email address from
+      - name: groupFid
+        in: formData
+        type: string
+        description: Group to unsubscribe the email address from
       responses:
         200:
           description: Email Address Unsubscribed
@@ -3427,29 +3453,29 @@ paths:
     put:
       summary: Subscribe an email address
       tags:
-        - Contacts
+      - Contacts
       security:
-        - OAuth:
-          - contact
-        - accessToken: []
+      - OAuth:
+        - contact
+      - accessToken: []
       consumes:
-        - multipart/form-data
+      - multipart/form-data
       parameters:
-        - $ref: '#/parameters/emailAddress'
-        - name: brandFid
-          in: formData
-          type: string
-          description: Brand to subscribe the email address from
-        - name: groupFid
-          in: formData
-          type: string
-          description: Group to unsubscribe the email address from
-        - $ref: '#/parameters/userAgent'
-        - $ref: '#/parameters/encoding'
-        - $ref: '#/parameters/language'
-        - $ref: '#/parameters/clientIp'
-        - $ref: '#/parameters/optInStatus'
-        - $ref: '#/parameters/optInData'
+      - $ref: '#/parameters/emailAddress'
+      - name: brandFid
+        in: formData
+        type: string
+        description: Brand to subscribe the email address from
+      - name: groupFid
+        in: formData
+        type: string
+        description: Group to unsubscribe the email address from
+      - $ref: '#/parameters/userAgent'
+      - $ref: '#/parameters/encoding'
+      - $ref: '#/parameters/language'
+      - $ref: '#/parameters/clientIp'
+      - $ref: '#/parameters/optInStatus'
+      - $ref: '#/parameters/optInData'
       responses:
         200:
           description: Email Address Subscribed
@@ -3464,26 +3490,26 @@ paths:
     post:
       summary: Create a new polymer
       tags:
-        - polymers
+      - polymers
       security:
-        - OAuth:
-          - polymer
-        - accessToken: []
+      - OAuth:
+        - polymer
+      - accessToken: []
       parameters:
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CreatePolymerPayload'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreatePolymerPayload'
       responses:
         200:
           description: Polymer created
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Fid'
         x-400:
           description: Information provided is not valid
         default:
@@ -3495,25 +3521,25 @@ paths:
     get:
       summary: Read a polymer
       tags:
-        - polymers
+      - polymers
       security:
-        - OAuth:
-          - polymer.readonly
-        - accessToken: []
+      - OAuth:
+        - polymer.readonly
+      - accessToken: []
       parameters:
-        - name: polymerFid
-          in: path
-          required: true
-          type: string
+      - name: polymerFid
+        in: path
+        required: true
+        type: string
       responses:
         200:
           description: Polymer Information
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Entity'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Entity'
         x-404:
           description: Polymer not found
         default:
@@ -3525,20 +3551,20 @@ paths:
     get:
       summary: Retrieve all offers
       tags:
-        - products
+      - products
       security:
-        - OAuth:
-          - product.readonly
-        - accessToken: []
+      - OAuth:
+        - product.readonly
+      - accessToken: []
       responses:
         200:
           description: Available Offers
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ProductOffers'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ProductOffers'
         default:
           description: Error
           schema:
@@ -3548,24 +3574,24 @@ paths:
     get:
       summary: Retrieve A Licence
       tags:
-        - licence
+      - licence
       security:
-        - OAuth:
-          - purchase.readonly
-        - accessToken: []
+      - OAuth:
+        - purchase.readonly
+      - accessToken: []
       parameters:
-        - name: key
-          in: query
-          type: string
+      - name: key
+        in: query
+        type: string
       responses:
         200:
           description: Licence Information
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Licence'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Licence'
         x-404:
           description: Licence Not Valid
         default:
@@ -3577,22 +3603,22 @@ paths:
     get:
       summary: Get a list of all reason groups
       tags:
-        - reasons
+      - reasons
       security:
-        - OAuth:
-          - reasons.readonly
-        - accessToken: []
+      - OAuth:
+        - reasons.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/reasonGroupType'
+      - $ref: '#/parameters/reasonGroupType'
       responses:
         200:
           description: Reason groups
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ReasonGroups'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ReasonGroups'
         default:
           description: Error
           schema:
@@ -3602,22 +3628,22 @@ paths:
     get:
       summary: Get all the reasons for the reason group
       tags:
-        - reasons
+      - reasons
       security:
-        - OAuth:
-          - reasons.readonly
-        - accessToken: []
+      - OAuth:
+        - reasons.readonly
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/reasonGroupFid'
+      - $ref: '#/parameters/reasonGroupFid'
       responses:
         200:
           description: Reason Group retrieved
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Reasons'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Reasons'
         x-404:
           description: reasonGroupFid not found
         default:
@@ -3629,11 +3655,11 @@ paths:
     post:
       summary: Create a support ticket
       tags:
-        - support
+      - support
       security:
-        - OAuth:
-          - support
-        - accessToken: []
+      - OAuth:
+        - support
+      - accessToken: []
       parameters:
       - name: payload
         in: body
@@ -3645,10 +3671,10 @@ paths:
           description: Ticket Information
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Ticket'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Ticket'
         default:
           description: Error
           schema:
@@ -3658,20 +3684,20 @@ paths:
     get:
       summary: Retrieve all services
       tags:
-        - ServiceStatus
+      - ServiceStatus
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       responses:
         200:
           description: Service listing
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Services'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/Services'
         default:
           description: Error
           schema:
@@ -3682,30 +3708,30 @@ paths:
     get:
       summary: Retrieve incidents for service within timeframe
       tags:
-        - ServiceStatus
+      - ServiceStatus
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/serviceFid'
-        - name: startDate
-          in: query
-          type: string
-          format: date-time
-        - name: endDate
-          in: query
-          type: string
-          format: date-time
+      - $ref: '#/parameters/serviceFid'
+      - name: startDate
+        in: query
+        type: string
+        format: date-time
+      - name: endDate
+        in: query
+        type: string
+        format: date-time
       responses:
         200:
           description: Service incidents
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ServiceIncidents'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/ServiceIncidents'
         default:
           description: Error
           schema:
@@ -3715,23 +3741,23 @@ paths:
     get:
       summary: Retrieve incident updates for incident
       tags:
-        - ServiceStatus
+      - ServiceStatus
       security:
-        - OAuth:
-          - entity.properties
-        - accessToken: []
+      - OAuth:
+        - entity.properties
+      - accessToken: []
       parameters:
-        - $ref: '#/parameters/serviceFid'
-        - $ref: '#/parameters/incidentFid'
+      - $ref: '#/parameters/serviceFid'
+      - $ref: '#/parameters/incidentFid'
       responses:
         200:
           description: Service incidents
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/IncidentUpdates'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/IncidentUpdates'
         default:
           description: Error
           schema:
@@ -3741,31 +3767,31 @@ paths:
     get:
       summary: Lists all the current gateways
       tags:
-        - Configuration
+      - Configuration
       security:
-        - OAuth:
-          - configuration.readonly
-        - accessToken: []
+      - OAuth:
+        - configuration.readonly
+      - accessToken: []
       parameters:
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
+      - name: limit
+        in: query
+        description: 'Maximum number of records per page (default: 20)'
+        required: false
+        type: integer
+      - name: page
+        in: query
+        description: 'Page number (default: 1)'
+        required: false
+        type: integer
       responses:
         200:
           description: List of payment gateways
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PaymentGateways'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/PaymentGateways'
         default:
           description: Error
           schema:
@@ -3775,27 +3801,27 @@ paths:
     get:
       summary: Verify a user
       security:
-        - accessToken: []
+      - accessToken: []
       parameters:
-        - name: verifyKey
-          in: query
-          description: 'Verify key found in ?fortifiverify=VERIFYKEY'
-          required: true
-          type: string
-        - name: remoteIp
-          in: query
-          description: 'IP of the user connecting'
-          required: true
-          type: string
+      - name: verifyKey
+        in: query
+        description: 'Verify key found in ?fortifiverify=VERIFYKEY'
+        required: true
+        type: string
+      - name: remoteIp
+        in: query
+        description: 'IP of the user connecting'
+        required: true
+        type: string
       responses:
         200:
           description: List of payment gateways
           schema:
             allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/IntegrationUser'
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/IntegrationUser'
         x-403:
           description: Unable to verify user
         default:
@@ -3836,9 +3862,9 @@ parameters:
     in: formData
     type: string
     enum:
-      - no
-      - clicked
-      - confirmed
+    - no
+    - clicked
+    - confirmed
   optInData:
     name: optInData
     description: Additional data to store against opt-in
@@ -3851,12 +3877,12 @@ parameters:
     type: string
     in: formData
     enum:
-      - alert
-      - initiated
-      - disputed
-      - won
-      - lost
-      - undisputed_loss
+    - alert
+    - initiated
+    - disputed
+    - won
+    - lost
+    - undisputed_loss
     description: Current State
     required: true
   chargebackSource:
@@ -3864,9 +3890,9 @@ parameters:
     type: string
     in: formData
     enum:
-      - gateway
-      - ethoca
-      - verifi
+    - gateway
+    - ethoca
+    - verifi
     description: Source of the alert, or gateway for everything else
     required: true
   visitorId:
@@ -3903,15 +3929,15 @@ parameters:
     description: Colour of the new ticket
     type: string
     enum:
-      - blue
-      - red
-      - orange
-      - yellow
-      - indigo
-      - violet
-      - green
-      - pink
-      - grey
+    - blue
+    - red
+    - orange
+    - yellow
+    - indigo
+    - violet
+    - green
+    - pink
+    - grey
   paymentFid:
     name: paymentFid
     in: path
@@ -4035,7 +4061,7 @@ parameters:
 
 definitions:
 
-#Responses
+  #Responses
 
   EnvelopeMeta:
     description: Envelope Meta
@@ -4051,9 +4077,9 @@ definitions:
         type: string
         description: Status message
     required:
-      - requestId
-      - code
-      - message
+    - requestId
+    - code
+    - message
 
   Envelope:
     description: Envelope
@@ -4064,8 +4090,8 @@ definitions:
       data:
         type: object
     required:
-      - meta
-      - data
+    - meta
+    - data
 
   Fid:
     description: Generic Response
@@ -4074,19 +4100,19 @@ definitions:
         type: string
         description: Object FID
     required:
-      - fid
+    - fid
 
   Entity:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Fid'
-      - properties:
-          displayName:
-            type: string
-            description: Display Name
-          description:
-            type: string
-            description: Description
+    - $ref: '#/definitions/Fid'
+    - properties:
+        displayName:
+          type: string
+          description: Display Name
+        description:
+          type: string
+          description: Description
 
   BoolMessage:
     description: Generic Response
@@ -4098,8 +4124,8 @@ definitions:
         type: boolean
         description: Success or Not
     required:
-      - message
-      - result
+    - message
+    - result
 
   AuthToken:
     description: Authentication token used to access services
@@ -4113,7 +4139,7 @@ definitions:
   AuthTokenResponse:
     description: Authentication token used to access services
     allOf:
-      - $ref: '#/definitions/AuthToken'
+    - $ref: '#/definitions/AuthToken'
 
   PubKey:
     description: Generic Response
@@ -4132,17 +4158,17 @@ definitions:
   User:
     description: User
     allOf:
-      - $ref: '#/definitions/Fid'
-      - properties:
-          username:
-            type: string
-            description: Username
-          language:
-            type: string
-            description: Language
-          timezone:
-            type: string
-            description: Timezone for this user
+    - $ref: '#/definitions/Fid'
+    - properties:
+        username:
+          type: string
+          description: Username
+        language:
+          type: string
+          description: Language
+        timezone:
+          type: string
+          description: Timezone for this user
 
   Organisation:
     description: Organisation
@@ -4179,146 +4205,150 @@ definitions:
   Payment:
     description: Payment
     allOf:
-      - $ref: '#/definitions/Fid'
-      - properties:
-          direction:
-            type: string
-          currency:
-            type: string
-          amount:
-            type: number
-            format: float
-          fee:
-            type: number
-            format: float
-          feeCurrency:
-            type: string
-          type:
-            type: string
-            enum:
-              - affiliate
-              - invoice
-              - order
-              - unknown
-              - preauth
-          status:
-            type: string
-            enum:
-              - pending
-              - paid
-              - refund-pending
-              - refunded
-              - partially-refunded
-              - chargeback
-              - chargeback-pending
-          transactionId:
-            type: string
-          statusCode:
-            type: string
-          statusMessage:
-            type: string
-          statementDescriptor:
-            type: string
-          orderFid:
-            type: string
-          invoiceFid:
-            type: string
-          fraudFid:
-            type: string
-          processed:
-            type: boolean
-          processedDate:
-            type: number
-            format: int64
-          subGatewayFid:
-            type: string
-          subGatewayTransactionId:
-            type: string
-          disputeFid:
-            type: string
+    - $ref: '#/definitions/Fid'
+    - properties:
+        direction:
+          type: string
+        currency:
+          type: string
+        amount:
+          type: number
+          format: float
+        fee:
+          type: number
+          format: float
+        feeCurrency:
+          type: string
+        type:
+          type: string
+          enum:
+          - affiliate
+          - invoice
+          - order
+          - unknown
+          - preauth
+        status:
+          type: string
+          enum:
+          - pending
+          - paid
+          - refund-pending
+          - refunded
+          - partially-refunded
+          - chargeback
+          - chargeback-pending
+        transactionId:
+          type: string
+        statusCode:
+          type: string
+        statusMessage:
+          type: string
+        statementDescriptor:
+          type: string
+        orderFid:
+          type: string
+        invoiceFid:
+          type: string
+        fraudFid:
+          type: string
+        processed:
+          type: boolean
+        processedDate:
+          type: number
+          format: int64
+        subGatewayFid:
+          type: string
+        subGatewayName:
+          type: string
+        subGatewayTransactionId:
+          type: string
+        disputeFid:
+          type: string
+        sourceAccountType:
+          type: string
 
 
   Customer:
     description: Customer
     allOf:
-      - $ref: '#/definitions/Fid'
-      - properties:
-          name:
-            type: string
-          firstName:
-            type: string
-          lastName:
-            type: string
-          email:
-            type: string
-          phone:
-            type: string
-          currency:
-            type: string
-          externalReference:
-            type: string
-          companyFid:
-            type: string
+    - $ref: '#/definitions/Fid'
+    - properties:
+        name:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        currency:
+          type: string
+        externalReference:
+          type: string
+        companyFid:
+          type: string
 
   Advertiser:
     description: Advertiser
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          type:
-            type: string
-          contactName:
-            type: string
-          companyName:
-            type: string
-          phoneFid:
-            type: string
-          emailFid:
-            type: string
-          website:
-            type: string
-          acceptedTerms:
-            type: string
-          suspended:
-            type: string
-          accountManagerFid:
-            type: string
-          foundationFid:
-            type: string
-          companyFid:
-            type: string
-          isDisabled:
-            type: string
-          email:
-            type: string
-          phone:
-            type: string
-          payoutType:
-            type: string
-          approved:
-            type: boolean
+    - $ref: '#/definitions/Entity'
+    - properties:
+        type:
+          type: string
+        contactName:
+          type: string
+        companyName:
+          type: string
+        phoneFid:
+          type: string
+        emailFid:
+          type: string
+        website:
+          type: string
+        acceptedTerms:
+          type: string
+        suspended:
+          type: string
+        accountManagerFid:
+          type: string
+        foundationFid:
+          type: string
+        companyFid:
+          type: string
+        isDisabled:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        payoutType:
+          type: string
+        approved:
+          type: boolean
 
   Advertisers:
     description: Advertisers
     allOf:
-      - $ref: '#/definitions/Pagination'
-      - properties:
-          advertisers:
-            type: array
-            items:
-              $ref: '#/definitions/Advertiser'
+    - $ref: '#/definitions/Pagination'
+    - properties:
+        advertisers:
+          type: array
+          items:
+            $ref: '#/definitions/Advertiser'
 
   AdvertiserCampaign:
     description: Campaign
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          hash:
-            type: string
-          affiliateFid:
-            type: string
-          brandFid:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        hash:
+          type: string
+        affiliateFid:
+          type: string
+        brandFid:
+          type: string
 
   AdvertiserPixel:
     description: Pixel
@@ -4328,19 +4358,37 @@ definitions:
       method:
         type: string
         enum:
-          - iframe
-          - img
-          - js
-          - curl
-          - html
+        - iframe
+        - img
+        - js
+        - curl
+        - html
       content:
+        type: string
+
+  VisitorResponse:
+    description: Traffic Visitor
+    properties:
+      deviceFid:
+        type: string
+      referrerUrl:
+        type: string
+      affiliateFid:
+        type: string
+      campaignHash:
+        type: string
+      sid1:
+        type: string
+      sid2:
+        type: string
+      sid3:
         type: string
 
   VisitorPostAction:
     description: Vistor Action
     properties:
       visitorId:
-       type: string
+        type: string
       eventId:
         type: string
       sid1:
@@ -4367,7 +4415,7 @@ definitions:
     description: Visitor Action Reversal
     properties:
       visitorId:
-       type: string
+        type: string
       eventId:
         type: string
       advertiserFid:
@@ -4445,186 +4493,186 @@ definitions:
   Subscriptions:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Pagination'
-      - properties:
-          subscriptions:
-            type: array
-            items:
-              $ref: '#/definitions/SubscriptionSummary'
+    - $ref: '#/definitions/Pagination'
+    - properties:
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/definitions/SubscriptionSummary'
 
   SubscriptionSummary:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          lastRenewed:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          renewalDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          paidUntil:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          cycle:
-            description: Interval in ISO 8601 standard
-            type: string
-          autoCharge:
-            type: boolean
-          productFid:
-            type: string
-          renewalPrice:
-            type: number
-            format: float
-          status:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        lastRenewed:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        renewalDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        paidUntil:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        cycle:
+          description: Interval in ISO 8601 standard
+          type: string
+        autoCharge:
+          type: boolean
+        productFid:
+          type: string
+        renewalPrice:
+          type: number
+          format: float
+        status:
+          type: string
 
   Subscription:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          amount:
-            type: number
-            format: float
-          autoCancelDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          autoCharge:
-            type: boolean
-          autoSuspendDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          cancelDays:
-            type: integer
-            format: int32
-          cancelReason:
-            type: string
-          currency:
-            type: string
-          cycle:
-            description: Interval in ISO 8601 standard
-            type: string
-          priceFid:
-            type: string
-          offerFid:
-            type: string
-          dateCancelled:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          dateCreated:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          dateInactive:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          dateModified:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          dateStateChanged:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          dateSuspended:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          dateUpgraded:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          discount:
-            type: number
-            format: float
-          endDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          invoiceFid:
-            type: string
-          isPaid:
-            type: boolean
-          lastRenewDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          nextPaymentDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          nextRenewalAmount:
-            type: number
-            format: float
-          nextRenewDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          paidRenewals:
-            type: integer
-            format: int32
-          paidUntil:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          quantity:
-            type: integer
-            format: int32
-          renewalAdvanceDays:
-            type: integer
-            format: int32
-          renewDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          setupAmount:
-            type: number
-            format: float
-          setupDiscount:
-            type: number
-            format: float
-          shouldCancel:
-            type: boolean
-          shouldSuspend:
-            type: boolean
-          startDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          status:
-            type: string
-          suspendDays:
-            type: integer
-            format: int32
-          suspendReason:
-            type: string
-          taxAmount:
-            type: number
-            format: float
-          totalAmount:
-            type: number
-            format: float
-          totalRenewals:
-            type: integer
-            format: int32
-          trialEndDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          trialStartDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          uniqueReference:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        amount:
+          type: number
+          format: float
+        autoCancelDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        autoCharge:
+          type: boolean
+        autoSuspendDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        cancelDays:
+          type: integer
+          format: int32
+        cancelReason:
+          type: string
+        currency:
+          type: string
+        cycle:
+          description: Interval in ISO 8601 standard
+          type: string
+        priceFid:
+          type: string
+        offerFid:
+          type: string
+        dateCancelled:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        dateCreated:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        dateInactive:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        dateModified:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        dateStateChanged:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        dateSuspended:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        dateUpgraded:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        discount:
+          type: number
+          format: float
+        endDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        invoiceFid:
+          type: string
+        isPaid:
+          type: boolean
+        lastRenewDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        nextPaymentDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        nextRenewalAmount:
+          type: number
+          format: float
+        nextRenewDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        paidRenewals:
+          type: integer
+          format: int32
+        paidUntil:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        quantity:
+          type: integer
+          format: int32
+        renewalAdvanceDays:
+          type: integer
+          format: int32
+        renewDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        setupAmount:
+          type: number
+          format: float
+        setupDiscount:
+          type: number
+          format: float
+        shouldCancel:
+          type: boolean
+        shouldSuspend:
+          type: boolean
+        startDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        status:
+          type: string
+        suspendDays:
+          type: integer
+          format: int32
+        suspendReason:
+          type: string
+        taxAmount:
+          type: number
+          format: float
+        totalAmount:
+          type: number
+          format: float
+        totalRenewals:
+          type: integer
+          format: int32
+        trialEndDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        trialStartDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        uniqueReference:
+          type: string
 
   CalculateSubscriptionRefund:
     description: Response from calculating a refund on a subscription
@@ -4648,187 +4696,187 @@ definitions:
   Invoices:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Pagination'
-      - properties:
-          invoices:
-            type: array
-            items:
-              $ref: '#/definitions/InvoiceSummary'
+    - $ref: '#/definitions/Pagination'
+    - properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/definitions/InvoiceSummary'
 
   InvoiceSummary:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          invoiceNumber:
-            type: integer
-            format: int32
-          invoiceDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          currency:
-            type: string
-          dueDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          paymentDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          amountPaid:
-            type: number
-            format: float
-          baseAmount:
-            type: number
-            format: float
-          discountAmount:
-            type: number
-            format: float
-          taxAmount:
-            type: number
-            format: float
-          creditedAmount:
-            type: number
-            format: float
-          totalAmount:
-            type: number
-            format: float
-          outstandingAmount:
-            type: number
-            format: float
-          refundAmount:
-            type: number
-            format: float
-          invoiceStatus:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        invoiceNumber:
+          type: integer
+          format: int32
+        invoiceDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        currency:
+          type: string
+        dueDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        paymentDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        amountPaid:
+          type: number
+          format: float
+        baseAmount:
+          type: number
+          format: float
+        discountAmount:
+          type: number
+          format: float
+        taxAmount:
+          type: number
+          format: float
+        creditedAmount:
+          type: number
+          format: float
+        totalAmount:
+          type: number
+          format: float
+        outstandingAmount:
+          type: number
+          format: float
+        refundAmount:
+          type: number
+          format: float
+        invoiceStatus:
+          type: string
 
   Invoice:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          invoiceDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          invoiceNumber:
-            type: integer
-            format: int32
-          currency:
-            type: string
-          dueDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          paymentDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          amountPaid:
-            type: number
-            format: float
-          baseAmount:
-            type: number
-            format: float
-          discountAmount:
-            type: number
-            format: float
-          taxAmount:
-            type: number
-            format: float
-          creditedAmount:
-            type: number
-            format: float
-          totalAmount:
-            type: number
-            format: float
-          outstandingAmount:
-            type: number
-            format: float
-          refundAmount:
-            type: number
-            format: float
-          invoiceStatus:
-            type: string
-          totalItems:
-            type: integer
-            format: int32
-          invoiceItems:
-            type: array
-            items:
-              $ref: '#/definitions/InvoiceItem'
+    - $ref: '#/definitions/Entity'
+    - properties:
+        invoiceDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        invoiceNumber:
+          type: integer
+          format: int32
+        currency:
+          type: string
+        dueDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        paymentDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        amountPaid:
+          type: number
+          format: float
+        baseAmount:
+          type: number
+          format: float
+        discountAmount:
+          type: number
+          format: float
+        taxAmount:
+          type: number
+          format: float
+        creditedAmount:
+          type: number
+          format: float
+        totalAmount:
+          type: number
+          format: float
+        outstandingAmount:
+          type: number
+          format: float
+        refundAmount:
+          type: number
+          format: float
+        invoiceStatus:
+          type: string
+        totalItems:
+          type: integer
+          format: int32
+        invoiceItems:
+          type: array
+          items:
+            $ref: '#/definitions/InvoiceItem'
 
   InvoiceItem:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          totalAmount:
-            type: number
-            format: float
-          subItems:
-            type: array
-            items:
-              $ref: '#/definitions/InvoiceSubItem'
+    - $ref: '#/definitions/Entity'
+    - properties:
+        totalAmount:
+          type: number
+          format: float
+        subItems:
+          type: array
+          items:
+            $ref: '#/definitions/InvoiceSubItem'
 
   InvoiceSubItem:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          fromDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          toDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          perUnitAmount:
-            type: number
-            format: float
-          totalAmount:
-            type: number
-            format: float
-          itemType:
-            type: string
-          quantity:
-            type: integer
-            format: int32
+    - $ref: '#/definitions/Entity'
+    - properties:
+        fromDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        toDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        perUnitAmount:
+          type: number
+          format: float
+        totalAmount:
+          type: number
+          format: float
+        itemType:
+          type: string
+        quantity:
+          type: integer
+          format: int32
 
   InvoiceCreditNote:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          invoiceFid:
-            type: string
-          chargeRequestFid:
-            type: string
-          creditDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          amount:
-            type: number
-            format: float
-          currency:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        invoiceFid:
+          type: string
+        chargeRequestFid:
+          type: string
+        creditDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        amount:
+          type: number
+          format: float
+        currency:
+          type: string
 
   Pagination:
     description: Generic Response
     properties:
-        limit:
-          type: integer
-          format: int32
-        page:
-          type: integer
-          format: int32
-        totalItems:
-          type: integer
-          format: int32
+      limit:
+        type: integer
+        format: int32
+      page:
+        type: integer
+        format: int32
+      totalItems:
+        type: integer
+        format: int32
 
   Products:
     description: Generic Response
@@ -4841,33 +4889,33 @@ definitions:
   Product:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          productType:
-            type: integer
-            format: int32
-          parentFid:
-            type: string
-          statementDescription:
-            type: string
-          trialDays:
-            type: integer
-            format: int32
-          defaultPriceFid:
-            type: string
-          defaultPrice:
-            $ref: '#/definitions/ProductPrice'
-          taxable:
-            type: integer
-            format: int64
-          taxGroupFid:
-            type: string
-          maxQuantity:
-            type: integer
-            format: int64
-          allowQuantity:
-            type: integer
-            format: int32
+    - $ref: '#/definitions/Entity'
+    - properties:
+        productType:
+          type: integer
+          format: int32
+        parentFid:
+          type: string
+        statementDescription:
+          type: string
+        trialDays:
+          type: integer
+          format: int32
+        defaultPriceFid:
+          type: string
+        defaultPrice:
+          $ref: '#/definitions/ProductPrice'
+        taxable:
+          type: integer
+          format: int64
+        taxGroupFid:
+          type: string
+        maxQuantity:
+          type: integer
+          format: int64
+        allowQuantity:
+          type: integer
+          format: int32
 
   ProductGroups:
     description: Generic Response
@@ -4880,12 +4928,12 @@ definitions:
   ProductGroup:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          products:
-            type: array
-            items:
-              $ref: '#/definitions/Fid'
+    - $ref: '#/definitions/Entity'
+    - properties:
+        products:
+          type: array
+          items:
+            $ref: '#/definitions/Fid'
 
   ProductPrices:
     description: Generic Response
@@ -4898,26 +4946,26 @@ definitions:
   ProductPrice:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          productFid:
-            type: string
-          currency:
-            type: string
-          price:
-            type: string
-          setupFee:
-            type: string
-          cycleType:
-            $ref: '#/definitions/cycleTermType'
-          cycleTerm:
-            type: number
-            format: int32
-          cycleExact:
-            type: string
-          cycle:
-            description: Interval in ISO 8601 standard
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        productFid:
+          type: string
+        currency:
+          type: string
+        price:
+          type: string
+        setupFee:
+          type: string
+        cycleType:
+          $ref: '#/definitions/cycleTermType'
+        cycleTerm:
+          type: number
+          format: int32
+        cycleExact:
+          type: string
+        cycle:
+          description: Interval in ISO 8601 standard
+          type: string
 
   FraudScan:
     description: Result of a fraud scan
@@ -4979,68 +5027,68 @@ definitions:
   Order:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Fid'
-      - properties:
-          orderHash:
-            type: string
-          state:
-            type: number
-            format: int32
-          queueFid:
-            type: string
-          offerFid:
-            type: string
-          couponCode:
-            type: string
-          amount:
-            type: number
-            format: float
-          setupAmount:
-            type: number
-            format: float
-          setupDiscountAmount:
-            type: number
-            format: float
-          taxAmount:
-            type: number
-            format: float
-          totalAmount:
-            type: number
-            format: float
-          currency:
-            type: string
-          country:
-            type: string
-          discountAmount:
-            type: number
-            format: float
-          discountType:
-            type: string
-          approvedByFid:
-            type: string
-          userAgent:
-            type: string
-          userIp:
-            type: string
-          paymentAccountFid:
-            type: string
-          paymentServiceType:
-            type: string
-          lastPaymentFid:
-            type: string
-          brandFid:
-            type: string
-          customerFid:
-            type: string
-          fraudFid:
-            type: string
-          invoiceFid:
-            type: string
-          amountPaid:
-            type: number
-            format: float
-          authorizeId:
-            type: string
+    - $ref: '#/definitions/Fid'
+    - properties:
+        orderHash:
+          type: string
+        state:
+          type: number
+          format: int32
+        queueFid:
+          type: string
+        offerFid:
+          type: string
+        couponCode:
+          type: string
+        amount:
+          type: number
+          format: float
+        setupAmount:
+          type: number
+          format: float
+        setupDiscountAmount:
+          type: number
+          format: float
+        taxAmount:
+          type: number
+          format: float
+        totalAmount:
+          type: number
+          format: float
+        currency:
+          type: string
+        country:
+          type: string
+        discountAmount:
+          type: number
+          format: float
+        discountType:
+          type: string
+        approvedByFid:
+          type: string
+        userAgent:
+          type: string
+        userIp:
+          type: string
+        paymentAccountFid:
+          type: string
+        paymentServiceType:
+          type: string
+        lastPaymentFid:
+          type: string
+        brandFid:
+          type: string
+        customerFid:
+          type: string
+        fraudFid:
+          type: string
+        invoiceFid:
+          type: string
+        amountPaid:
+          type: number
+          format: float
+        authorizeId:
+          type: string
 
   OrderProducts:
     description: Generic Response
@@ -5053,64 +5101,64 @@ definitions:
   OrderAddProducts:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/OrderProducts'
-      - properties:
-          order:
-            $ref: '#/definitions/Order'
+    - $ref: '#/definitions/OrderProducts'
+    - properties:
+        order:
+          $ref: '#/definitions/Order'
 
   OrderProduct:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          price:
-            type: number
-            format: float
-          priceFid:
-            type: string
-          offerFid:
-            type: string
-          productFid:
-            type: string
-          quantity:
-            type: integer
-            format: int64
-          renewalDate:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          purchaseFid:
-            type: string
-          currency:
-            type: string
-          discountAmount:
-            type: number
-            format: float
-          setupFee:
-            type: number
-            format: float
-          setupDiscountAmount:
-            type: number
-            format: float
-          taxAmount:
-            type: number
-            format: float
-          totalAmount:
-            type: number
-            format: float
-          cycleType:
-            type: number
-            format: int32
-          cycleTerm:
-            type: number
-            format: int32
-          cycleExact:
-            type: string
-          cycle:
-            description: Interval in ISO 8601 standard
-            type: string
-          parentFid:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        price:
+          type: number
+          format: float
+        priceFid:
+          type: string
+        offerFid:
+          type: string
+        productFid:
+          type: string
+        quantity:
+          type: integer
+          format: int64
+        renewalDate:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        purchaseFid:
+          type: string
+        currency:
+          type: string
+        discountAmount:
+          type: number
+          format: float
+        setupFee:
+          type: number
+          format: float
+        setupDiscountAmount:
+          type: number
+          format: float
+        taxAmount:
+          type: number
+          format: float
+        totalAmount:
+          type: number
+          format: float
+        cycleType:
+          type: number
+          format: int32
+        cycleTerm:
+          type: number
+          format: int32
+        cycleExact:
+          type: string
+        cycle:
+          description: Interval in ISO 8601 standard
+          type: string
+        parentFid:
+          type: string
 
   OrderVerification:
     description: Generic Response
@@ -5149,14 +5197,14 @@ definitions:
   PaymentAccount:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          accountType:
-            $ref: '#/definitions/PaymentAccountType'
-          paymentMethod:
-            $ref: '#/definitions/PaymentMethod'
-          paymentMode:
-            $ref: '#/definitions/PaymentMode'
+    - $ref: '#/definitions/Entity'
+    - properties:
+        accountType:
+          $ref: '#/definitions/PaymentAccountType'
+        paymentMethod:
+          $ref: '#/definitions/PaymentMethod'
+        paymentMode:
+          $ref: '#/definitions/PaymentMode'
 
   PaymentCards:
     description: Generic Response
@@ -5169,20 +5217,20 @@ definitions:
   PaymentCard:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          nameOnCard:
-            type: string
-          expiryMonth:
-            type: number
-          expiryYear:
-            type: number
-          issue:
-            type: number
-          last4:
-            type: number
-          cardType:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        nameOnCard:
+          type: string
+        expiryMonth:
+          type: number
+        expiryYear:
+          type: number
+        issue:
+          type: number
+        last4:
+          type: number
+        cardType:
+          type: string
 
   Addresses:
     description: Generic Response
@@ -5195,22 +5243,22 @@ definitions:
   Address:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          address1:
-            type: string
-          address2:
-            type: string
-          address3:
-            type: string
-          town:
-            type: string
-          county:
-            type: string
-          country:
-            type: string
-          postalCode:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        town:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
 
   ConfigItems:
     description: Generic Response
@@ -5223,50 +5271,50 @@ definitions:
   ConfigItem:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          entityFid:
-            type: string
-          sectionName:
-            type: string
-          itemName:
-            type: string
-          value:
-            type: string
+    - $ref: '#/definitions/Entity'
+    - properties:
+        entityFid:
+          type: string
+        sectionName:
+          type: string
+        itemName:
+          type: string
+        value:
+          type: string
 
   PaymentGateways:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Pagination'
-      - properties:
-          gateways:
-            type: array
-            items:
-              $ref: '#/definitions/PaymentGateway'
+    - $ref: '#/definitions/Pagination'
+    - properties:
+        gateways:
+          type: array
+          items:
+            $ref: '#/definitions/PaymentGateway'
 
   PaymentGateway:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          externalId:
+    - $ref: '#/definitions/Entity'
+    - properties:
+        externalId:
+          type: string
+        enabled:
+          type: boolean
+        brands:
+          type: array
+          items:
             type: string
-          enabled:
-            type: boolean
-          brands:
-            type: array
-            items:
-              type: string
-          currencies:
-            type: array
-            items:
-              type: string
-          cardTypes:
-            type: array
-            items:
-              type: string
-          provider:
+        currencies:
+          type: array
+          items:
             type: string
+        cardTypes:
+          type: array
+          items:
+            type: string
+        provider:
+          type: string
 
   ProductOffers:
     description: Generic Response
@@ -5279,42 +5327,42 @@ definitions:
   ProductOffer:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          couponCode:
-            type: string
-          applyFid:
-            type: string
-          maxUsages:
-            type: integer
-            format: int32
-          expiryTime:
-            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-            type: string
-            format: date-time
-          discountAmount:
-            type: number
-            format: float
-          discountType:
-            $ref: '#/definitions/discountType'
-          setupDiscountAmount:
-            type: number
-            format: float
-          setupDiscountType:
-            $ref: '#/definitions/discountType'
-          term:
-            type: integer
-            format: int32
-          termType:
-            $ref: '#/definitions/cycleTermType'
-          cycle:
-            description: Interval in ISO 8601 standard
-            type: string
-          period:
-            description: Interval in ISO 8601 standard
-            type: string
-          restrictive:
-            type: boolean
+    - $ref: '#/definitions/Entity'
+    - properties:
+        couponCode:
+          type: string
+        applyFid:
+          type: string
+        maxUsages:
+          type: integer
+          format: int32
+        expiryTime:
+          description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+          type: string
+          format: date-time
+        discountAmount:
+          type: number
+          format: float
+        discountType:
+          $ref: '#/definitions/discountType'
+        setupDiscountAmount:
+          type: number
+          format: float
+        setupDiscountType:
+          $ref: '#/definitions/discountType'
+        term:
+          type: integer
+          format: int32
+        termType:
+          $ref: '#/definitions/cycleTermType'
+        cycle:
+          description: Interval in ISO 8601 standard
+          type: string
+        period:
+          description: Interval in ISO 8601 standard
+          type: string
+        restrictive:
+          type: boolean
 
   Tickets:
     description: Generic Response
@@ -5327,88 +5375,88 @@ definitions:
   Ticket:
     description: Generic Response
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          hash:
-            type: string
-          customerFid:
-            type: string
-          companyFid:
-            type: string
-          departmentFid:
-            type: string
-          queueFid:
-            type: string
-          agentFid:
-            type: string
-          slaFid:
-            type: string
-          ticketType:
-            type: string
-          status:
-            type: number
-            format: int64
-          impact:
-            type: number
-            format: int64
-          urgency:
-            type: number
-            format: int64
-          priority:
-            type: number
-            format: int64
-          tier:
-            type: number
-            format: int64
-          outboundEmail:
-            type: string
-          outboundName:
-            type: string
-          inboundEmail:
-            type: string
-          inboundName:
-            type: string
-          isSpam:
-            type: boolean
-          responseTargetTime:
-            type: number
-            format: int64
-          resolveTargetTime:
-            type: number
-            format: int64
-          postCount:
-            type: number
-            format: int64
-          lastReplySentTime:
-            type: number
-            format: int64
-          lastReplyReceivedTime:
-            type: number
-            format: int64
-          priorityAdjustment:
-            type: number
-            format: int64
-          locked:
-            type: boolean
-          lockedByFid:
-            type: string
-          attachments:
-            type: number
-            format: int64
-          restrictedAccess:
-            type: boolean
-          cc:
-            type: string
-          bcc:
-            type: string
-          language:
-            type: string
-          dataCreated:
-            type: number
-            format: int64
-          dateModified:
-            type: number
-            format: int64
+    - $ref: '#/definitions/Entity'
+    - properties:
+        hash:
+          type: string
+        customerFid:
+          type: string
+        companyFid:
+          type: string
+        departmentFid:
+          type: string
+        queueFid:
+          type: string
+        agentFid:
+          type: string
+        slaFid:
+          type: string
+        ticketType:
+          type: string
+        status:
+          type: number
+          format: int64
+        impact:
+          type: number
+          format: int64
+        urgency:
+          type: number
+          format: int64
+        priority:
+          type: number
+          format: int64
+        tier:
+          type: number
+          format: int64
+        outboundEmail:
+          type: string
+        outboundName:
+          type: string
+        inboundEmail:
+          type: string
+        inboundName:
+          type: string
+        isSpam:
+          type: boolean
+        responseTargetTime:
+          type: number
+          format: int64
+        resolveTargetTime:
+          type: number
+          format: int64
+        postCount:
+          type: number
+          format: int64
+        lastReplySentTime:
+          type: number
+          format: int64
+        lastReplyReceivedTime:
+          type: number
+          format: int64
+        priorityAdjustment:
+          type: number
+          format: int64
+        locked:
+          type: boolean
+        lockedByFid:
+          type: string
+        attachments:
+          type: number
+          format: int64
+        restrictedAccess:
+          type: boolean
+        cc:
+          type: string
+        bcc:
+          type: string
+        language:
+          type: string
+        dataCreated:
+          type: number
+          format: int64
+        dateModified:
+          type: number
+          format: int64
 
   ReasonGroups:
     description: Reason Groups
@@ -5421,15 +5469,15 @@ definitions:
   ReasonGroup:
     description: Reason Group
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          builtIn:
-            type: boolean
-          reasonCount:
-            type: number
-            format: int64
-          type:
-            $ref: '#/definitions/reasonGroupType'
+    - $ref: '#/definitions/Entity'
+    - properties:
+        builtIn:
+          type: boolean
+        reasonCount:
+          type: number
+          format: int64
+        type:
+          $ref: '#/definitions/reasonGroupType'
 
   Reasons:
     description: Reasons
@@ -5442,14 +5490,14 @@ definitions:
   Reason:
     description: Reason
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          groupFid:
-            type: string
-            description: FID for the reason group
-          usedCount:
-            type: number
-            format: int64
+    - $ref: '#/definitions/Entity'
+    - properties:
+        groupFid:
+          type: string
+          description: FID for the reason group
+        usedCount:
+          type: number
+          format: int64
 
   PropertyValue:
     description: Reason
@@ -5510,24 +5558,24 @@ definitions:
   ChatSessions:
     description: List of chat sessions
     allOf:
-      - $ref: '#/definitions/Pagination'
-      - properties:
-          chatSessions:
-            type: array
-            items:
-              $ref: '#/definitions/ChatSession'
+    - $ref: '#/definitions/Pagination'
+    - properties:
+        chatSessions:
+          type: array
+          items:
+            $ref: '#/definitions/ChatSession'
 
   ChatSession:
     description: Chat session
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          timeStarted:
-            type: number
-            format: int64
-          timeEnded:
-            type: number
-            format: int64
+    - $ref: '#/definitions/Entity'
+    - properties:
+        timeStarted:
+          type: number
+          format: int64
+        timeEnded:
+          type: number
+          format: int64
 
   IncidentUpdates:
     description: Incident updates
@@ -5581,27 +5629,27 @@ definitions:
   ServiceIncident:
     description: Service Incident
     allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          timeStarted:
-            type: number
-            format: int64
-          timeEnded:
-            type: number
-            format: int64
-          serviceFid:
-            type: string
-          status:
-            type: string
-          dateCreated:
-            type: number
-            format: int64
-          dateModified:
-            type: number
-            format: int64
-          dateStateChanged:
-            type: number
-            format: int64
+    - $ref: '#/definitions/Entity'
+    - properties:
+        timeStarted:
+          type: number
+          format: int64
+        timeEnded:
+          type: number
+          format: int64
+        serviceFid:
+          type: string
+        status:
+          type: string
+        dateCreated:
+          type: number
+          format: int64
+        dateModified:
+          type: number
+          format: int64
+        dateStateChanged:
+          type: number
+          format: int64
 
   IntegrationUser:
     description: Information about the user attempting to integrate
@@ -5618,18 +5666,18 @@ definitions:
         items:
           type: string
 
-#Payloads
+  #Payloads
 
   ServiceAccountCredentialsPayload:
-      description: Service credentials used to verify ownership of a user account
-      properties:
-        id:
-          type: string
-        key:
-          type: string
-      required:
-        - id
-        - key
+    description: Service credentials used to verify ownership of a user account
+    properties:
+      id:
+        type: string
+      key:
+        type: string
+    required:
+    - id
+    - key
 
   InvoiceCreditNotePayload:
     properties:
@@ -5652,8 +5700,8 @@ definitions:
         description: Currency
         type: string
     required:
-      - creditAmountType
-      - amount
+    - creditAmountType
+    - amount
 
   ModifySubscriptionPayload:
     properties:
@@ -5666,22 +5714,22 @@ definitions:
       mode:
         $ref: '#/definitions/ModifySubscriptionMode'
     required:
-      - priceFid
+    - priceFid
 
   CalculateRefundPayload:
-      properties:
-        subscriptionRefundType:
-          $ref: '#/definitions/SubscriptionRefundType'
-        refundFromDate:
-          description: Timestamp of when to calculate the refund from. Rounded down to the start of the day. Default to start of tomorrow
-          type: number
-          format: int32
-        includeDetails:
-          type: boolean
-        withTerminationFee:
-          type: boolean
-      required:
-        - subscriptionRefundType
+    properties:
+      subscriptionRefundType:
+        $ref: '#/definitions/SubscriptionRefundType'
+      refundFromDate:
+        description: Timestamp of when to calculate the refund from. Rounded down to the start of the day. Default to start of tomorrow
+        type: number
+        format: int32
+      includeDetails:
+        type: boolean
+      withTerminationFee:
+        type: boolean
+    required:
+    - subscriptionRefundType
 
   SubscriptionCancelPayload:
     properties:
@@ -5693,7 +5741,7 @@ definitions:
       cancelAtNextRenewal:
         type: boolean
     required:
-      - subscriptionRefundType
+    - subscriptionRefundType
 
   CreatePolymerPayload:
     properties:
@@ -5749,10 +5797,10 @@ definitions:
         description: FID of a valid Brand
         type: string
     required:
-      - username
-      - password
-      - type
-      - contactName
+    - username
+    - password
+    - type
+    - contactName
 
   CreateAdvertiserCampaignPayload:
     description: Payload for creating an advertiser campaign
@@ -5764,8 +5812,8 @@ definitions:
         description: Visible Display Name
         type: string
     required:
-      - brandFid
-      - displayName
+    - brandFid
+    - displayName
 
   keyValuePayload:
     description: Key Value Payload
@@ -5845,7 +5893,7 @@ definitions:
         type: boolean
         description: If an existing device exists for the visitor, prefer that over the user agent sent in this payload
     required:
-      - brandFid
+    - brandFid
 
   ReverseActionPayload:
     properties:
@@ -5935,7 +5983,7 @@ definitions:
         type: string
         description: Language
     required:
-      - brandFid
+    - brandFid
 
   SetCustomerLocationPayload:
     properties:
@@ -6100,9 +6148,9 @@ definitions:
         description:  Postal/Zip Code of the card
         type: string
       preAuthAmount:
-          description: Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
-          type: number
-          format: float
+        description: Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
+        type: number
+        format: float
       isDefault:
         description: Is this card should be used as the primary card on the account
         type: boolean
@@ -6205,7 +6253,7 @@ definitions:
 
   AddOrderProductsPayload:
     allOf:
-      - $ref: '#/definitions/OrderProductsPayload'
+    - $ref: '#/definitions/OrderProductsPayload'
 
   OrderProductQuantityPayload:
     properties:
@@ -6217,7 +6265,7 @@ definitions:
         format: int64
         default: 1
     required:
-      - priceFid
+    - priceFid
 
   ConfirmOrderPayload:
     properties:
@@ -6232,10 +6280,10 @@ definitions:
 
   ConfirmCardOrderPayload:
     allOf:
-      - $ref: '#/definitions/ConfirmOrderPayload'
-      - properties:
-          cvv:
-            type: string
+    - $ref: '#/definitions/ConfirmOrderPayload'
+    - properties:
+        cvv:
+          type: string
 
   ConfirmOrderWithNewCardPayload:
     properties:
@@ -6304,21 +6352,21 @@ definitions:
 
   ConfirmPayPalOrderPayload:
     allOf:
-      - $ref: '#/definitions/ConfirmOrderPayload'
-      - properties:
-          token:
-            type: string
+    - $ref: '#/definitions/ConfirmOrderPayload'
+    - properties:
+        token:
+          type: string
 
   VerifyOrderPayload:
     allOf:
-      - $ref: '#/definitions/ConfirmOrderPayload'
-      - properties:
-          successUrl:
-            type: string
-          cancelUrl:
-            type: string
-          failUrl:
-            type: string
+    - $ref: '#/definitions/ConfirmOrderPayload'
+    - properties:
+        successUrl:
+          type: string
+        cancelUrl:
+          type: string
+        failUrl:
+          type: string
 
   CreateTicketPayload:
     properties:
@@ -6347,7 +6395,7 @@ definitions:
       htmlBody:
         type: string
 
-#Properties
+  #Properties
   creditAmountType:
     description: Credit amount type
     type: string
@@ -6451,18 +6499,18 @@ definitions:
     description: Term Type
     type: string
     enum:
-      - onetime
-      - lifetime
-      - day
-      - week
-      - month
-      - year
+    - onetime
+    - lifetime
+    - day
+    - week
+    - month
+    - year
   discountType:
     description: Discount Type
     type: string
     enum:
-      - fixed
-      - percentage
+    - fixed
+    - percentage
   customerLifecycle:
     description: Customer Lifecycle Stage
     type: string

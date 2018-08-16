@@ -1,6 +1,8 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\VisitorResponseRequest;
+use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class VisitorsVisitorIdEndpoint extends ApiEndpoint
@@ -35,5 +37,32 @@ class VisitorsVisitorIdEndpoint extends ApiEndpoint
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
+  }
+
+  /**
+   * @summary Retrieve information about a visitor
+   *
+   * This call will return information related to how a visitor arrived
+   *
+   * @return VisitorResponseRequest
+   */
+  public function retrieve()
+  {
+    $request = new VisitorResponseRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'visitors/{visitorId}'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 }
