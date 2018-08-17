@@ -22,6 +22,7 @@ class CustomerRequest
         "currency" => $this->getCurrency(),
         "externalReference" => $this->getExternalReference(),
         "companyFid" => $this->getCompanyFid(),
+        "timezone" => $this->getTimezone(),
       ]
     );
   }
@@ -119,6 +120,18 @@ class CustomerRequest
   public function getCompanyFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTimezone($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'timezone', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

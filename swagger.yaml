@@ -4289,6 +4289,8 @@ definitions:
           type: string
         companyFid:
           type: string
+        timezone:
+          type: string
 
   Advertiser:
     description: Advertiser
