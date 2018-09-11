@@ -2096,6 +2096,10 @@ paths:
         in: formData
         required: true
         type: string
+      - name: setAsDefault
+        in: formData
+        required: false
+        type: boolean
       responses:
         200:
           description: Email Added
@@ -2372,33 +2376,33 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/customers/{customerFid}/subscriptions/{subscriptionFid}/reEnableRenewal':
-    put:
-      summary: Re-enable renewals on a subscription
-      tags:
-      - customers
-      security:
-      - OAuth:
-        - customer
-      - accessToken: []
-      consumes:
-      - multipart/form-data
-      parameters:
-      - $ref: '#/parameters/customerFid'
-      - $ref: '#/parameters/subscriptionFid'
-      - name: reason
-        in: formData
-        required: true
-        type: string
-      responses:
-        200:
-          description: Renewals Enabled
-        x-404:
-          description: Subscription not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
+  #  '/customers/{customerFid}/subscriptions/{subscriptionFid}/reEnableRenewal':
+  #    put:
+  #      summary: Re-enable renewals on a subscription
+  #      tags:
+  #      - customers
+  #      security:
+  #      - OAuth:
+  #        - customer
+  #      - accessToken: []
+  #      consumes:
+  #      - multipart/form-data
+  #      parameters:
+  #      - $ref: '#/parameters/customerFid'
+  #      - $ref: '#/parameters/subscriptionFid'
+  #      - name: reason
+  #        in: formData
+  #        required: true
+  #        type: string
+  #      responses:
+  #        200:
+  #          description: Renewals Enabled
+  #        x-404:
+  #          description: Subscription not found
+  #        default:
+  #          description: Error
+  #          schema:
+  #            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/setParentSubscription':
     put:

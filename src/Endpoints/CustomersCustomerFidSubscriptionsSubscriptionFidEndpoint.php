@@ -100,34 +100,6 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
-   * @summary Re-enable renewals on a subscription
-   *
-   * @param $reason
-   *
-   * @return ApiRequest
-   */
-  public function setReEnableRenewal($reason)
-  {
-    $request = new ApiRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/subscriptions/{subscriptionFid}/reEnableRenewal'
-      )
-    ));
-    $detail->addPostField('reason', $reason);
-    $detail->setMethod('PUT');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
    * @summary Set parent subscription on a subscription
    *
    * @param $parentSubscriptionFid

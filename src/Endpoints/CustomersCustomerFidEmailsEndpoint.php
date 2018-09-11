@@ -19,10 +19,11 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
    * @summary Add an email address to a customer
    *
    * @param $emailAddress
+   * @param $setAsDefault
    *
    * @return ApiRequest
    */
-  public function create($emailAddress)
+  public function create($emailAddress, $setAsDefault = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -38,6 +39,7 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
       )
     ));
     $detail->addPostField('emailAddress', $emailAddress);
+    $detail->addPostField('setAsDefault', $setAsDefault);
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
