@@ -20,10 +20,11 @@ class CustomersCustomerFidPhonesEndpoint extends ApiEndpoint
    *
    * @param $phoneNumber
    * @param $displayName
+   * @param $setAsDefault
    *
    * @return ApiRequest
    */
-  public function create($phoneNumber, $displayName = null)
+  public function create($phoneNumber, $displayName = null, $setAsDefault = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -40,6 +41,7 @@ class CustomersCustomerFidPhonesEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('phoneNumber', $phoneNumber);
     $detail->addPostField('displayName', $displayName);
+    $detail->addPostField('setAsDefault', $setAsDefault);
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
