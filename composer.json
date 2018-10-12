@@ -1,7 +1,7 @@
 {
   "name": "fortifi/php-api",
   "description": "Fortifi Business Platform",
-  "homepage": "http://fortifi.co",
+  "homepage": "http://fortifi.io",
   "require": {
     "fortifi/api": "~1.0",
     "packaged/helpers": "~1.1"
