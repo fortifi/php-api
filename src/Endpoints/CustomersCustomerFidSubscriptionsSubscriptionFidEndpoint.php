@@ -100,6 +100,38 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @summary Set the renewal mode of a subscription
+   *
+   * @param $renewalMode
+   * @param $reason
+   * @param $note
+   *
+   * @return ApiRequest
+   */
+  public function setRenewalMode($renewalMode, $reason = null, $note = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/renewalMode'
+      )
+    ));
+    $detail->addPostField('renewalMode', $renewalMode);
+    $detail->addPostField('reason', $reason);
+    $detail->addPostField('note', $note);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Set parent subscription on a subscription
    *
    * @param $parentSubscriptionFid
