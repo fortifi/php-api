@@ -103,7 +103,7 @@ callbackFunction({
 
 DESCRIPTION
     );
-    $this->setTermsOfService('http://fortifi.co/legal/terms/api');
+    $this->setTermsOfService('http://fortifi.io/legal/terms/api');
     $this->setHost('api.fortifi.io');
     $this->setBasePath('/v1');
     $this->setSchemas(['https']);
