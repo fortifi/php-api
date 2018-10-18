@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.2.0'
+  version: '3.3.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1610,6 +1610,39 @@ paths:
             - properties:
                 data:
                   $ref: '#/definitions/ConfigItem'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/attachments/uploadUrl':
+    post:
+      summary: Create an upload url
+      security:
+      - OAuth:
+        - entity.attachments
+      - accessToken: []
+      tags:
+      - entity
+      parameters:
+      - $ref: '#/parameters/entityFid'
+      - name: payload
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/RequestUploadUrlPayload'
+      responses:
+        200:
+          description: Attachment upload URL
+          schema:
+            allOf:
+            - $ref: '#/definitions/Envelope'
+            - properties:
+                data:
+                  $ref: '#/definitions/AttachmentUrl'
+        x-400:
+          description: |
+            Invalid data supplied
         default:
           description: Error
           schema:
@@ -4208,6 +4241,13 @@ definitions:
         items:
           $ref: '#/definitions/Brand'
 
+  AttachmentUrl:
+    description: AttachmentUrl
+    properties:
+      url:
+        type: string
+        description: URL to upload attachment to
+
   Brand:
     description: Brand
     properties:
@@ -5774,6 +5814,21 @@ definitions:
         type: string
       description:
         description: Description for this polymer
+        type: string
+
+  RequestUploadUrlPayload:
+    properties:
+      filename:
+        description: Attachment file name
+        type: string
+      filesize:
+        description: Attachment file size
+        type: string
+      md5checksum:
+        description: Attachment checksum md5
+        type: string
+      mimeType:
+        description: Attachment mime type
         type: string
 
   CreateAdvertiserPayload:

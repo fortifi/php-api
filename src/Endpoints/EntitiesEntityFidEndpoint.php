@@ -26,6 +26,18 @@ class EntitiesEntityFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return EntitiesEntityFidAttachmentsEndpoint
+   */
+  public function attachments()
+  {
+    $endpoint = new EntitiesEntityFidAttachmentsEndpoint(
+      $this->_replacements['{entityFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return EntitiesEntityFidPropertiesEndpoint
    */
   public function properties()
