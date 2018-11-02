@@ -12,6 +12,10 @@ class OrderProductsPayload
    * Products to add with specified quantity
    */
   protected $_quantityProductPriceFids;
+  /**
+   * Products to add with display names
+   */
+  protected $_namesProductPriceFids;
 
   public function hydrate($data)
   {
@@ -30,6 +34,16 @@ class OrderProductsPayload
         $this->_quantityProductPriceFids[] = $dObj;
       }
     }
+    if(isset($data["namesProductPriceFids"]))
+    {
+      $this->_namesProductPriceFids = [];
+      foreach($data["namesProductPriceFids"] as $dItem)
+      {
+        $dObj = new OrderProductDisplayNamePayload();
+        $dObj->hydrate($dItem);
+        $this->_namesProductPriceFids[] = $dObj;
+      }
+    }
     return $this;
   }
 
@@ -38,6 +52,7 @@ class OrderProductsPayload
     return [
       "productPriceFids"         => $this->_productPriceFids,
       "quantityProductPriceFids" => $this->_quantityProductPriceFids,
+      "namesProductPriceFids"    => $this->_namesProductPriceFids,
     ];
   }
 
@@ -107,5 +122,39 @@ class OrderProductsPayload
   public function getQuantityProductPriceFids($default = [])
   {
     return $this->_quantityProductPriceFids ?: $default;
+  }
+
+  /**
+   * @param OrderProductDisplayNamePayload[] $value
+   *
+   * @return $this
+   */
+  public function setNamesProductPriceFids(array $value)
+  {
+    $this->_namesProductPriceFids = $value;
+    return $this;
+  }
+
+  /**
+   * @param OrderProductDisplayNamePayload $item
+   *
+   * @return $this
+   */
+  public function addNamesProductPriceFid(OrderProductDisplayNamePayload $item)
+  {
+    $this->_namesProductPriceFids[] = $item;
+    return $this;
+  }
+
+  /**
+   * Products to add with display names
+   *
+   * @param mixed $default
+   *
+   * @return OrderProductDisplayNamePayload[]
+   */
+  public function getNamesProductPriceFids($default = [])
+  {
+    return $this->_namesProductPriceFids ?: $default;
   }
 }

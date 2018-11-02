@@ -1273,6 +1273,48 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/payments/{paymentFid}/refund':
+    put:
+      summary: Refund a payment
+      tags:
+      - customers
+      security:
+      - OAuth:
+        - customer
+      - accessToken: []
+      parameters:
+      - $ref: '#/parameters/customerFid'
+      - $ref: '#/parameters/paymentFid'
+      - name: totalRefund
+        in: formData
+        required: true
+        description: Total Refund
+        type: number
+      - name: reasonFid
+        in: formData
+        required: true
+        description: Reason FID
+        type: string
+      - name: refundType
+        in: formData
+        required: true
+        description: Refund Type
+        type: string
+      - name: addCreditToInvoice
+        in: formData
+        required: true
+        description: Add Credit to Invoice
+        type: boolean
+      responses:
+        200:
+          description: Payment Refunded
+        x-404:
+          description: Payment Not Found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/linkVisitor':
     put:
       summary: Link visitor to customer record
@@ -6323,6 +6365,11 @@ definitions:
         description: Products to add with specified quantity
         items:
           $ref: '#/definitions/OrderProductQuantityPayload'
+      namesProductPriceFids:
+        type: array
+        description: Products to add with display names
+        items:
+          $ref: '#/definitions/OrderProductDisplayNamePayload'
 
   AddOrderProductsPayload:
     allOf:
@@ -6337,6 +6384,16 @@ definitions:
         type: integer
         format: int64
         default: 1
+    required:
+    - priceFid
+
+  OrderProductDisplayNamePayload:
+    properties:
+      priceFid:
+        description: Price FID to modify subscription with
+        type: string
+      displayName:
+        type: string
     required:
     - priceFid
 
