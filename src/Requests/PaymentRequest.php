@@ -35,6 +35,7 @@ class PaymentRequest
         "subGatewayTransactionId" => $this->getSubGatewayTransactionId(),
         "disputeFid" => $this->getDisputeFid(),
         "sourceAccountType" => $this->getSourceAccountType(),
+        "sourceAccountFid" => $this->getSourceAccountFid(),
       ]
     );
   }
@@ -280,6 +281,18 @@ class PaymentRequest
   public function getSourceAccountType($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'sourceAccountType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSourceAccountFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'sourceAccountFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

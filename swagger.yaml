@@ -4373,7 +4373,8 @@ definitions:
           type: string
         sourceAccountType:
           type: string
-
+        sourceAccountFid:
+          type: string
 
   Customer:
     description: Customer
