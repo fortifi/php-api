@@ -81,6 +81,10 @@ class ConfirmOrderWithNewCardPayload
    * Postal/Zip Code of the card
    */
   protected $_addressPostal;
+  /**
+   * Is this card should be used as the primary card on the account
+   */
+  protected $_isDefault;
 
   public function hydrate($data)
   {
@@ -161,6 +165,10 @@ class ConfirmOrderWithNewCardPayload
     {
       $this->_addressPostal = (string)$data["addressPostal"];
     }
+    if(isset($data["isDefault"]))
+    {
+      $this->_isDefault = $data["isDefault"];
+    }
     return $this;
   }
 
@@ -186,6 +194,7 @@ class ConfirmOrderWithNewCardPayload
       "addressState"        => $this->_addressState,
       "addressCountry"      => $this->_addressCountry,
       "addressPostal"       => $this->_addressPostal,
+      "isDefault"           => $this->_isDefault,
     ];
   }
 
@@ -652,5 +661,28 @@ class ConfirmOrderWithNewCardPayload
   {
     $value = $this->_addressPostal ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param boolean $value
+   *
+   * @return $this
+   */
+  public function setIsDefault($value)
+  {
+    $this->_isDefault = $value;
+    return $this;
+  }
+
+  /**
+   * Is this card should be used as the primary card on the account
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isDefault($default = false)
+  {
+    return (bool)$this->_isDefault ?: $default;
   }
 }
