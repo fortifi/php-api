@@ -4,7 +4,7 @@
   "homepage": "http://fortifi.io",
   "require": {
     "fortifi/api": "~1.0",
-    "packaged/helpers": "~1.1"
+    "packaged/helpers": "~1.1|~2.2"
   },
   "autoload": {
     "psr-4": {
