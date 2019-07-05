@@ -310,6 +310,34 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @summary Update a customers lifecycle stage
+   *
+   * @param $customerLifecycle
+   *
+   * @return ApiRequest
+   */
+  public function setLifecycleStage($customerLifecycle)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/lifecycleStage'
+      )
+    ));
+    $detail->addPostField('customerLifecycle', $customerLifecycle);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Update a customers location
    *
    * @param SetCustomerLocationPayload $payload

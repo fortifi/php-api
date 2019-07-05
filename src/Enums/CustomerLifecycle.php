@@ -3,9 +3,18 @@ namespace Fortifi\Api\V1\Enums;
 
 final class CustomerLifecycle
 {
-  const PROSPECT = 'prospect';
-  const CUSTOMER = 'customer';
   const CLOSED = 'closed';
+  const COLD = 'cold';
+  const CUSTOMER = 'customer';
+  const EVANGELIST = 'evangelist';
+  const LEAD = 'lead';
+  const MQL = 'mql';
+  const OPPORTUNITY = 'opportunity';
+  const OTHER = 'other';
+  const PROSPECT = 'prospect';
+  const RECOMMENDED = 'recommended';
+  const SQL = 'sql';
+  const SUBSCRIBER = 'subscriber';
 
   public static function getDisplayValue($value)
   {
@@ -15,9 +24,18 @@ final class CustomerLifecycle
   public static function getValues()
   {
     return [
-      'prospect',
-      'customer',
       'closed',
+      'cold',
+      'customer',
+      'evangelist',
+      'lead',
+      'mql',
+      'opportunity',
+      'other',
+      'prospect',
+      'recommended',
+      'sql',
+      'subscriber',
     ];
   }
 }
