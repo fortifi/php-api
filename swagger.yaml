@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.11.0'
+  version: '3.12.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1335,6 +1335,247 @@ paths:
           description: Payment Refunded
         x-404:
           description: Payment Not Found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/contacts':
+    post:
+      summary: Create a new contact for a customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: email
+          in: formData
+          required: false
+          description: Email
+          type: string
+        - name: phone
+          in: formData
+          required: false
+          description: Phone
+          type: string
+        - name: prefix
+          in: formData
+          required: false
+          description: Prefix
+          type: string
+        - name: firstName
+          in: formData
+          required: false
+          description: First Name
+          type: string
+        - name: middleNames
+          in: formData
+          required: false
+          description: Middle Names
+          type: string
+        - name: lastName
+          in: formData
+          required: false
+          description: Last Name
+          type: string
+        - name: suffix
+          in: formData
+          required: false
+          description: Suffix
+          type: string
+        - name: nickname
+          in: formData
+          required: false
+          description: Nickname
+          type: string
+        - name: birthday
+          in: formData
+          required: false
+          description: Birthday
+          type: string
+        - name: jobTitle
+          in: formData
+          required: false
+          description: Job Title
+          type: string
+        - name: address1
+          in: formData
+          required: false
+          description: Address 1
+          type: string
+        - name: address2
+          in: formData
+          required: false
+          description: Address 2
+          type: string
+        - name: address3
+          in: formData
+          required: false
+          description: Address 3
+          type: string
+        - name: town
+          in: formData
+          required: false
+          description: Town
+          type: string
+        - name: county
+          in: formData
+          required: false
+          description: County
+          type: string
+        - name: country
+          in: formData
+          required: false
+          description: Country
+          type: string
+        - name: postalCode
+          in: formData
+          required: false
+          description: Postal Code
+          type: string
+      responses:
+        200:
+          description: FID of the new contact
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
+
+  '/customers/{customerFid}/contacts/{contactFid}':
+    put:
+      summary: Update a contacts information
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/contactFid'
+        - name: prefix
+          in: formData
+          required: false
+          description: Prefix
+          type: string
+        - name: firstName
+          in: formData
+          required: false
+          description: First Name
+          type: string
+        - name: middleNames
+          in: formData
+          required: false
+          description: Middle Names
+          type: string
+        - name: lastName
+          in: formData
+          required: false
+          description: Last Name
+          type: string
+        - name: suffix
+          in: formData
+          required: false
+          description: Suffix
+          type: string
+        - name: nickname
+          in: formData
+          required: false
+          description: Nickname
+          type: string
+        - name: birthday
+          in: formData
+          required: false
+          description: Birthday
+          type: string
+        - name: jobTitle
+          in: formData
+          required: false
+          description: Job Title
+          type: string
+        - name: defaultEmailFid
+          in: formData
+          required: false
+          description: Default Email FID
+          type: string
+        - name: defaultPhoneFid
+          in: formData
+          required: false
+          description: Default Phone FID
+          type: string
+        - name: defaultAddressFid
+          in: formData
+          required: false
+          description: Default Address FID
+          type: string
+      responses:
+        200:
+          description: Contact Updated
+        x-404:
+          description: Contact or Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    get:
+      summary: Retrieve information about a contact
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/contactFid'
+      responses:
+        200:
+          description: Contact Info
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CustomerContact'
+        x-404:
+          description: Contact or Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    delete:
+      summary: Remove a contact
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/contactFid'
+      responses:
+        200:
+          description: Contact removed
+        x-404:
+          description: Contact or Customer not found
         default:
           description: Error
           schema:
@@ -4129,6 +4370,12 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  contactFid:
+    name: contactFid
+    in: path
+    type: string
+    required: true
+    description: Contact FID to use
   noteColor:
     name: colour
     in: formData
@@ -4505,6 +4752,36 @@ definitions:
           companyFid:
             type: string
           timezone:
+            type: string
+
+  CustomerContact:
+    description: Customer Contact
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          ownerFid:
+            type: string
+          prefix:
+            type: string
+          firstName:
+            type: string
+          middleNames:
+            type: string
+          lastName:
+            type: string
+          suffix:
+            type: string
+          nickname:
+            type: string
+          birthday:
+            type: string
+          jobTitle:
+            type: string
+          defaultEmailFid:
+            type: string
+          defaultPhoneFid:
+            type: string
+          defaultAddressFid:
             type: string
 
   Advertiser:

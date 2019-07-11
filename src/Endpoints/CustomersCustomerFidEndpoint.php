@@ -58,6 +58,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidContactsEndpoint
+   */
+  public function contacts()
+  {
+    $endpoint = new CustomersCustomerFidContactsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidChargebacksEndpoint
    */
   public function chargebacks()
