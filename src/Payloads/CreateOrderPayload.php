@@ -37,6 +37,10 @@ class CreateOrderPayload
    * Offer FIDs to apply to the order
    */
   protected $_offerFids;
+  /**
+   * Charge ID provided by ChargeHive.com
+   */
+  protected $_chargeId;
 
   public function hydrate($data)
   {
@@ -73,6 +77,10 @@ class CreateOrderPayload
     {
       $this->_offerFids = $data["offerFids"];
     }
+    if(isset($data["chargeId"]))
+    {
+      $this->_chargeId = (string)$data["chargeId"];
+    }
     return $this;
   }
 
@@ -87,6 +95,7 @@ class CreateOrderPayload
       "type"              => $this->_type,
       "productPriceFids"  => $this->_productPriceFids,
       "offerFids"         => $this->_offerFids,
+      "chargeId"          => $this->_chargeId,
     ];
   }
 
@@ -306,5 +315,30 @@ class CreateOrderPayload
   public function getOfferFids($default = [])
   {
     return $this->_offerFids ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setChargeId($value)
+  {
+    $this->_chargeId = $value;
+    return $this;
+  }
+
+  /**
+   * Charge ID provided by ChargeHive.com
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getChargeId($default = null, $trim = true)
+  {
+    $value = $this->_chargeId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

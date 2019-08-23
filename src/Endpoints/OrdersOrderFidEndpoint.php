@@ -4,6 +4,7 @@ namespace Fortifi\Api\V1\Endpoints;
 use Fortifi\Api\V1\Requests\OrderVerificationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
+use Fortifi\Api\V1\Requests\EnvelopeRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
@@ -193,13 +194,15 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Confirm an order, await payment
+   * @summary Set a ChargeHive.com Charge ID on an order
    *
-   * @return OrderConfirmationRequest
+   * @param $chargeId
+   *
+   * @return EnvelopeRequest
    */
-  public function confirmCoinbase()
+  public function setChargeId($chargeId)
   {
-    $request = new OrderConfirmationRequest();
+    $request = new EnvelopeRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -209,9 +212,10 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'orders/{orderFid}/confirmCoinbase'
+        'orders/{orderFid}/setChargeId'
       )
     ));
+    $detail->addPostField('chargeId', $chargeId);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

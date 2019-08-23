@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\PeopleRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -28,6 +29,36 @@ class CustomersCustomerFidContactsEndpoint extends ApiEndpoint
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
+  }
+
+  /**
+   * @summary List contacts
+   *
+   * @param $limit
+   * @param $page
+   *
+   * @return PeopleRequest
+   */
+  public function all($limit = null, $page = null)
+  {
+    $request = new PeopleRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/contacts'
+      )
+    ));
+    $detail->addQueryField('limit', $limit);
+    $detail->addQueryField('page', $page);
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 
   /**

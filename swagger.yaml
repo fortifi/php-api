@@ -1341,6 +1341,41 @@ paths:
             $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/contacts':
+    get:
+      summary: List contacts
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of people
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/People'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
     post:
       summary: Create a new contact for a customer
       tags:
@@ -3504,28 +3539,33 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/orders/{orderFid}/confirmCoinbase':
+  '/orders/{orderFid}/setChargeId':
     put:
-      summary: Confirm an order, await payment
+      summary: Set a ChargeHive.com Charge ID on an order
       tags:
         - orders
       security:
         - OAuth:
             - orders
         - accessToken: []
+      consumes:
+        - multipart/form-data
       parameters:
         - $ref: '#/parameters/orderFid'
+        - name: chargeId
+          in: formData
+          required: true
+          description: Charge ID provided by ChargeHive.com
+          type: string
       responses:
         200:
-          description: Order confirmed; awaiting blockchain confirmation.
+          description: Charge ID Accepted
           schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderConfirmation'
-        x-503:
-          description: There are no payment gateways available to handle your request
+            $ref: '#/definitions/Envelope'
+        400:
+          description: Invalid Charge ID
+          schema:
+            $ref: '#/definitions/Envelope'
         default:
           description: Error
           schema:
@@ -4608,6 +4648,46 @@ definitions:
       checkoutID:
         type: string
         description: Coinbase checkout ID
+
+  People:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          items:
+            type: array
+            items:
+              $ref: '#/definitions/Person'
+
+  Person:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          prefix:
+            type: string
+          firstName:
+            type: string
+          middleNames:
+            type: string
+          lastName:
+            type: string
+          suffix:
+            type: string
+          nickname:
+            type: string
+          birthday:
+            type: string
+          jobTitle:
+            type: string
+          ownerFid:
+            type: string
+          defaultEmailFid:
+            type: string
+          defaultPhoneFid:
+            type: string
+          defaultAddressFid:
+            type: string
 
   User:
     description: User
@@ -6746,6 +6826,9 @@ definitions:
         description: Offer FIDs to apply to the order
         items:
           type: string
+      chargeId:
+        description: Charge ID provided by ChargeHive.com
+        type: string
 
   OrderProductsPayload:
     properties:
