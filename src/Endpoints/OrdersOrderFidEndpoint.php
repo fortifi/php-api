@@ -7,10 +7,12 @@ use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
 use Fortifi\Api\V1\Requests\EnvelopeRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
+use Fortifi\Api\V1\Payloads\FinalizeOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmOrderWithNewCardPayload;
 use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
+use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class OrdersOrderFidEndpoint extends ApiEndpoint
@@ -132,6 +134,34 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
         'orders/{orderFid}/cancel'
       )
     ));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Mark an order as finalized
+   *
+   * @param FinalizeOrderPayload $payload
+   *
+   * @return ApiRequest
+   */
+  public function setFinalize(FinalizeOrderPayload $payload)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/finalize'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
