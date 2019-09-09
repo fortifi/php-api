@@ -10,6 +10,10 @@ class FinalizeOrderPayload
    */
   protected $_chargeId;
   /**
+   * Payment Method ID
+   */
+  protected $_methodId;
+  /**
    * Transaction ID which authorized this order
    */
   protected $_transactionId;
@@ -20,6 +24,10 @@ class FinalizeOrderPayload
     if(isset($data["chargeId"]))
     {
       $this->_chargeId = (string)$data["chargeId"];
+    }
+    if(isset($data["methodId"]))
+    {
+      $this->_methodId = (string)$data["methodId"];
     }
     if(isset($data["transactionId"]))
     {
@@ -32,6 +40,7 @@ class FinalizeOrderPayload
   {
     return [
       "chargeId"      => $this->_chargeId,
+      "methodId"      => $this->_methodId,
       "transactionId" => $this->_transactionId,
     ];
   }
@@ -58,6 +67,31 @@ class FinalizeOrderPayload
   public function getChargeId($default = null, $trim = true)
   {
     $value = $this->_chargeId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setMethodId($value)
+  {
+    $this->_methodId = $value;
+    return $this;
+  }
+
+  /**
+   * Payment Method ID
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getMethodId($default = null, $trim = true)
+  {
+    $value = $this->_methodId ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
