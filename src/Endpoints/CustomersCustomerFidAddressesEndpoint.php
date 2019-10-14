@@ -2,7 +2,7 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\AddressesRequest;
-use Fortifi\Api\V1\Payloads\AddressResponse;
+use Fortifi\Api\V1\Payloads\AddressPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -45,11 +45,11 @@ class CustomersCustomerFidAddressesEndpoint extends ApiEndpoint
   /**
    * @summary Add an address to a customer
    *
-   * @param AddressResponse $payload
+   * @param AddressPayload $payload
    *
    * @return ApiRequest
    */
-  public function create(AddressResponse $payload)
+  public function create(AddressPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());

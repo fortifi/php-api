@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.17.0'
+  version: '3.17.1'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2470,7 +2470,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/Address'
+            $ref: '#/definitions/AddressPayload'
       responses:
         200:
           description: Address Added
@@ -6289,6 +6289,30 @@ definitions:
           type: string
 
   #Payloads
+
+  AddressPayload:
+    description: Address Payload
+    properties:
+      displayName:
+        type: string
+      description:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      address3:
+        type: string
+      town:
+        type: string
+      county:
+        type: string
+      country:
+        type: string
+      postalCode:
+        type: string
+      setAsDefault:
+        type: boolean
 
   ServiceAccountCredentialsPayload:
     description: Service credentials used to verify ownership of a user account
