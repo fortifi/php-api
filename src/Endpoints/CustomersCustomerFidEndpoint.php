@@ -106,6 +106,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidAddressesEndpoint
+   */
+  public function addresses()
+  {
+    $endpoint = new CustomersCustomerFidAddressesEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidInvoicesEndpoint
    */
   public function invoices()
@@ -159,18 +171,6 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   public function paymentAccounts()
   {
     $endpoint = new CustomersCustomerFidPaymentAccountsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidAddressesEndpoint
-   */
-  public function addresses()
-  {
-    $endpoint = new CustomersCustomerFidAddressesEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);

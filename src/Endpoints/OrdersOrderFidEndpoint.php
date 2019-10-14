@@ -146,7 +146,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function finalize(FinalizeOrderPayload $payload)
+  public function setFinalize(FinalizeOrderPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
