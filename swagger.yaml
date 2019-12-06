@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.17.1'
+  version: '3.18.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -774,6 +774,9 @@ paths:
           in: query
           description: Your reference for the customer
           type: string
+        - name: retrieveBillingData
+          in: query
+          type: boolean
       responses:
         200:
           description: Located Customer
@@ -802,6 +805,9 @@ paths:
       summary: Retrieve a customer
       parameters:
         - $ref: '#/parameters/customerFid'
+        - name: retrieveBillingData
+          in: query
+          type: boolean
       responses:
         200:
           description: Loaded Customer
@@ -883,6 +889,39 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/SetAccountStatusPayload'
+      responses:
+        200:
+          description: Customer Status Updated
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/billingData':
+    put:
+      summary: Update a customers billing data
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: billingType
+          in: formData
+          type: string
+        - name: taxNumber
+          in: formData
+          type: string
+        - name: companyNumber
+          in: formData
+          type: string
+        - name: knownIP
+          in: formData
+          type: string
       responses:
         200:
           description: Customer Status Updated
@@ -1268,6 +1307,35 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/interactions':
+    post:
+      summary: Create an interaction
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/interactionType'
+      responses:
+        200:
+          description: Create Interaction Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CreateInteraction'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
 
   '/customers/{customerFid}/payments/{paymentFid}':
     get:
@@ -4358,6 +4426,22 @@ paths:
             $ref: '#/definitions/Envelope'
 
 parameters:
+  interactionType:
+    name: interactionType
+    description: Interaction Type
+    required: true
+    type: string
+    in: formData
+    enum:
+      - unknown
+      - voice
+      - email
+      - chat
+      - ticket
+      - meeting
+      - remote
+      - letter
+      - social
   isoTime:
     name: isoTime
     description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
@@ -4858,6 +4942,14 @@ definitions:
           sourceAccountFid:
             type: string
 
+  CreateInteraction:
+    description: Create Interaction Response
+    properties:
+      link:
+        type: string
+      code:
+        type: string
+
   Customer:
     description: Customer
     allOf:
@@ -4880,6 +4972,14 @@ definitions:
           companyFid:
             type: string
           timezone:
+            type: string
+          billingType:
+            type: string
+          taxNumber:
+            type: string
+          companyNumber:
+            type: string
+          knownIP:
             type: string
 
   CustomerContact:

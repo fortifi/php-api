@@ -55,10 +55,11 @@ class CustomersEndpoint extends ApiEndpoint
    * @summary Find a customer by your reference
    *
    * @param $reference
+   * @param $retrieveBillingData
    *
    * @return CustomerRequest
    */
-  public function findByReference($reference = null)
+  public function findByReference($reference = null, $retrieveBillingData = null)
   {
     $request = new CustomerRequest();
     $request->setConnection($this->_getConnection());
@@ -68,6 +69,7 @@ class CustomersEndpoint extends ApiEndpoint
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('customers/findByReference'));
     $detail->addQueryField('reference', $reference);
+    $detail->addQueryField('retrieveBillingData', $retrieveBillingData);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

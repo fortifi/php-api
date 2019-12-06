@@ -166,6 +166,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidInteractionsEndpoint
+   */
+  public function interactions()
+  {
+    $endpoint = new CustomersCustomerFidInteractionsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidPaymentAccountsEndpoint
    */
   public function paymentAccounts()
@@ -216,9 +228,11 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   /**
    * @summary Retrieve a customer
    *
+   * @param $retrieveBillingData
+   *
    * @return CustomerRequest
    */
-  public function retrieve()
+  public function retrieve($retrieveBillingData = null)
   {
     $request = new CustomerRequest();
     $request->setConnection($this->_getConnection());
@@ -233,6 +247,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
         'customers/{customerFid}'
       )
     ));
+    $detail->addQueryField('retrieveBillingData', $retrieveBillingData);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
@@ -316,6 +331,40 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Update a customers billing data
+   *
+   * @param $billingType
+   * @param $taxNumber
+   * @param $companyNumber
+   * @param $knownIP
+   *
+   * @return ApiRequest
+   */
+  public function setBillingData($billingType = null, $taxNumber = null, $companyNumber = null, $knownIP = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/billingData'
+      )
+    ));
+    $detail->addPostField('billingType', $billingType);
+    $detail->addPostField('taxNumber', $taxNumber);
+    $detail->addPostField('companyNumber', $companyNumber);
+    $detail->addPostField('knownIP', $knownIP);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

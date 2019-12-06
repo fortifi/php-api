@@ -23,6 +23,10 @@ class CustomerRequest
         "externalReference" => $this->getExternalReference(),
         "companyFid" => $this->getCompanyFid(),
         "timezone" => $this->getTimezone(),
+        "billingType" => $this->getBillingType(),
+        "taxNumber" => $this->getTaxNumber(),
+        "companyNumber" => $this->getCompanyNumber(),
+        "knownIP" => $this->getKnownIP(),
       ]
     );
   }
@@ -132,6 +136,54 @@ class CustomerRequest
   public function getTimezone($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'timezone', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getBillingType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'billingType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTaxNumber($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'taxNumber', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCompanyNumber($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'companyNumber', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getKnownIP($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'knownIP', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
