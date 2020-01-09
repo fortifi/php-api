@@ -258,10 +258,11 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
    *
    * @param $firstName
    * @param $lastName
+   * @param $displayName
    *
    * @return ApiRequest
    */
-  public function update($firstName = null, $lastName = null)
+  public function update($firstName = null, $lastName = null, $displayName = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -278,6 +279,7 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('firstName', $firstName);
     $detail->addPostField('lastName', $lastName);
+    $detail->addPostField('displayName', $displayName);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

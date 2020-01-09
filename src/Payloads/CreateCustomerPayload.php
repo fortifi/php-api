@@ -70,6 +70,7 @@ class CreateCustomerPayload
    * Language
    */
   protected $_language;
+  protected $_displayName;
 
   public function hydrate($data)
   {
@@ -138,6 +139,10 @@ class CreateCustomerPayload
     {
       $this->_language = (string)$data["language"];
     }
+    if(isset($data["displayName"]))
+    {
+      $this->_displayName = (string)$data["displayName"];
+    }
     return $this;
   }
 
@@ -160,6 +165,7 @@ class CreateCustomerPayload
       "lifecycle"         => $this->_lifecycle,
       "subscriptionType"  => $this->_subscriptionType,
       "language"          => $this->_language,
+      "displayName"       => $this->_displayName,
     ];
   }
 
@@ -560,6 +566,29 @@ class CreateCustomerPayload
   public function getLanguage($default = null, $trim = true)
   {
     $value = $this->_language ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setDisplayName($value)
+  {
+    $this->_displayName = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDisplayName($default = null, $trim = true)
+  {
+    $value = $this->_displayName ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

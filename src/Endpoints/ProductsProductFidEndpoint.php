@@ -14,6 +14,18 @@ class ProductsProductFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return ProductsProductFidAvailabilityEndpoint
+   */
+  public function availability()
+  {
+    $endpoint = new ProductsProductFidAvailabilityEndpoint(
+      $this->_replacements['{productFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ProductsProductFidPricesEndpoint
    */
   public function prices()

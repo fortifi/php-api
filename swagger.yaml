@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.18.0'
+  version: '3.20.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -840,6 +840,9 @@ paths:
           in: formData
           type: string
         - name: lastName
+          in: formData
+          type: string
+        - name: displayName
           in: formData
           type: string
       responses:
@@ -3372,6 +3375,38 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/Products'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/{productFid}/availability/check':
+    get:
+      summary: Check Product Availability
+      tags:
+        - products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AvailabilityCheckPayload'
+      responses:
+        200:
+          description: Result of availability check
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/AvailabilityCheckResponse'
+        x-404:
+          description: Product not found
         default:
           description: Error
           schema:
@@ -6743,6 +6778,8 @@ definitions:
       language:
         type: string
         description: Language
+      displayName:
+        type: string
     required:
       - brandFid
 
@@ -6816,6 +6853,29 @@ definitions:
         description: Additional information to store
         items:
           $ref: '#/definitions/keyValuePayload'
+
+  AvailabilityCheckPayload:
+    description: Product information to check availability
+    properties:
+      productSkuFid:
+        type: string
+      priceFid:
+        type: string
+      properties:
+        type: array
+        description: Additional information to store
+        items:
+          $ref: '#/definitions/keyValuePayload'
+
+  AvailabilityCheckResponse:
+    description: Product information to check availability
+    properties:
+      isAvailable:
+        type: boolean
+      availableSkuFids:
+        type: array
+        items:
+          type: string
 
   PropertyFlagPayload:
     description: Flag Property
