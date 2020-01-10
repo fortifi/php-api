@@ -23,7 +23,7 @@ class ProductsProductFidAvailabilityEndpoint extends ApiEndpoint
    *
    * @return AvailabilityCheckResponseRequest
    */
-  public function check(AvailabilityCheckPayload $payload)
+  public function createCheck(AvailabilityCheckPayload $payload)
   {
     $request = new AvailabilityCheckResponseRequest();
     $request->setConnection($this->_getConnection());
@@ -39,7 +39,7 @@ class ProductsProductFidAvailabilityEndpoint extends ApiEndpoint
       )
     ));
     $detail->setBody(json_encode($payload));
-    $detail->setMethod('GET');
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

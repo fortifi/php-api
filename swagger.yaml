@@ -3381,7 +3381,7 @@ paths:
             $ref: '#/definitions/Envelope'
 
   '/products/{productFid}/availability/check':
-    get:
+    post:
       summary: Check Product Availability
       tags:
         - products
