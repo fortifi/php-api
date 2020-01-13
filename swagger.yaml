@@ -6857,7 +6857,7 @@ definitions:
   AvailabilityCheckPayload:
     description: Product information to check availability
     properties:
-      productSkuFid:
+      productSku:
         type: string
       priceFid:
         type: string
@@ -6872,7 +6872,7 @@ definitions:
     properties:
       isAvailable:
         type: boolean
-      availableSkuFids:
+      availableSkus:
         type: array
         items:
           type: string

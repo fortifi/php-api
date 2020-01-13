@@ -14,7 +14,7 @@ class AvailabilityCheckResponseRequest
   {
     return [
       "isAvailable" => $this->isAvailable(),
-      "availableSkuFids" => $this->getAvailableSkuFids(),
+      "availableSkus" => $this->getAvailableSkus(),
     ];
   }
 
@@ -33,9 +33,9 @@ class AvailabilityCheckResponseRequest
    *
    * @return string[]
    */
-  public function getAvailableSkuFids($default = [])
+  public function getAvailableSkus($default = [])
   {
-    return Objects::property($this->_getResultJson(), 'availableSkuFids', $default);
+    return Objects::property($this->_getResultJson(), 'availableSkus', $default);
   }
 
   protected function _prepareResult($result)

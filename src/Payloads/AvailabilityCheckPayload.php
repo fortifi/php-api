@@ -5,7 +5,7 @@ use Packaged\Helpers\Strings;
 class AvailabilityCheckPayload
   implements \JsonSerializable
 {
-  protected $_productSkuFid;
+  protected $_productSku;
   protected $_priceFid;
   /**
    * Additional information to store
@@ -15,9 +15,9 @@ class AvailabilityCheckPayload
   public function hydrate($data)
   {
     $data = (array)$data;
-    if(isset($data["productSkuFid"]))
+    if(isset($data["productSku"]))
     {
-      $this->_productSkuFid = (string)$data["productSkuFid"];
+      $this->_productSku = (string)$data["productSku"];
     }
     if(isset($data["priceFid"]))
     {
@@ -39,9 +39,9 @@ class AvailabilityCheckPayload
   public function jsonSerialize()
   {
     return [
-      "productSkuFid" => $this->_productSkuFid,
-      "priceFid"      => $this->_priceFid,
-      "properties"    => $this->_properties,
+      "productSku" => $this->_productSku,
+      "priceFid"   => $this->_priceFid,
+      "properties" => $this->_properties,
     ];
   }
 
@@ -50,9 +50,9 @@ class AvailabilityCheckPayload
    *
    * @return $this
    */
-  public function setProductSkuFid($value)
+  public function setProductSku($value)
   {
-    $this->_productSkuFid = $value;
+    $this->_productSku = $value;
     return $this;
   }
 
@@ -62,9 +62,9 @@ class AvailabilityCheckPayload
    *
    * @return string
    */
-  public function getProductSkuFid($default = null, $trim = true)
+  public function getProductSku($default = null, $trim = true)
   {
-    $value = $this->_productSkuFid ?: $default;
+    $value = $this->_productSku ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
