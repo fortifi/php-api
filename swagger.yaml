@@ -7297,6 +7297,11 @@ definitions:
         description: Products to add with display names
         items:
           $ref: '#/definitions/OrderProductDisplayNamePayload'
+      products:
+        type: array
+        description: Products to add with display names
+        items:
+          $ref: '#/definitions/OrderProductPayload'
 
   OrderProductPayload:
     description: Product information to add to order

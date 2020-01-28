@@ -16,6 +16,10 @@ class OrderProductsPayload
    * Products to add with display names
    */
   protected $_namesProductPriceFids;
+  /**
+   * Products to add with display names
+   */
+  protected $_products;
 
   public function hydrate($data)
   {
@@ -44,6 +48,16 @@ class OrderProductsPayload
         $this->_namesProductPriceFids[] = $dObj;
       }
     }
+    if(isset($data["products"]))
+    {
+      $this->_products = [];
+      foreach($data["products"] as $dItem)
+      {
+        $dObj = new OrderProductPayload();
+        $dObj->hydrate($dItem);
+        $this->_products[] = $dObj;
+      }
+    }
     return $this;
   }
 
@@ -53,6 +67,7 @@ class OrderProductsPayload
       "productPriceFids"         => $this->_productPriceFids,
       "quantityProductPriceFids" => $this->_quantityProductPriceFids,
       "namesProductPriceFids"    => $this->_namesProductPriceFids,
+      "products"                 => $this->_products,
     ];
   }
 
@@ -156,5 +171,39 @@ class OrderProductsPayload
   public function getNamesProductPriceFids($default = [])
   {
     return $this->_namesProductPriceFids ?: $default;
+  }
+
+  /**
+   * @param OrderProductPayload[] $value
+   *
+   * @return $this
+   */
+  public function setProducts(?array $value)
+  {
+    $this->_products = $value;
+    return $this;
+  }
+
+  /**
+   * @param OrderProductPayload $item
+   *
+   * @return $this
+   */
+  public function addProduct(OrderProductPayload $item)
+  {
+    $this->_products[] = $item;
+    return $this;
+  }
+
+  /**
+   * Products to add with display names
+   *
+   * @param mixed $default
+   *
+   * @return OrderProductPayload[]
+   */
+  public function getProducts($default = [])
+  {
+    return $this->_products ?: $default;
   }
 }
