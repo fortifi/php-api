@@ -86,7 +86,7 @@ class SetCustomerLocationPayload
    *
    * @return $this
    */
-  public function setContinent($value)
+  public function setContinent(?string $value)
   {
     $this->_continent = $value;
     return $this;
@@ -111,7 +111,7 @@ class SetCustomerLocationPayload
    *
    * @return $this
    */
-  public function setCountry($value)
+  public function setCountry(?string $value)
   {
     $this->_country = $value;
     return $this;
@@ -136,7 +136,7 @@ class SetCustomerLocationPayload
    *
    * @return $this
    */
-  public function setCounty($value)
+  public function setCounty(?string $value)
   {
     $this->_county = $value;
     return $this;
@@ -161,7 +161,7 @@ class SetCustomerLocationPayload
    *
    * @return $this
    */
-  public function setCity($value)
+  public function setCity(?string $value)
   {
     $this->_city = $value;
     return $this;
@@ -186,7 +186,7 @@ class SetCustomerLocationPayload
    *
    * @return $this
    */
-  public function setPostal($value)
+  public function setPostal(?string $value)
   {
     $this->_postal = $value;
     return $this;
@@ -211,7 +211,7 @@ class SetCustomerLocationPayload
    *
    * @return $this
    */
-  public function setTimezone($value)
+  public function setTimezone(?string $value)
   {
     $this->_timezone = $value;
     return $this;
@@ -236,7 +236,7 @@ class SetCustomerLocationPayload
    *
    * @return $this
    */
-  public function setClientIp($value)
+  public function setClientIp(?string $value)
   {
     $this->_clientIp = $value;
     return $this;

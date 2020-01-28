@@ -142,6 +142,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidOrdersEndpoint
+   */
+  public function orders()
+  {
+    $endpoint = new CustomersCustomerFidOrdersEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidNoteEndpoint
    */
   public function note()

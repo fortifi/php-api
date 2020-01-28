@@ -62,7 +62,7 @@ class TriggerActionPayload
    *
    * @return $this
    */
-  public function setMetaData(array $value)
+  public function setMetaData(?array $value)
   {
     $this->_metaData = $value;
     return $this;
@@ -73,7 +73,7 @@ class TriggerActionPayload
    *
    * @return $this
    */
-  public function addMetaData(KeyValuePayload $item)
+  public function addMetaDatum(KeyValuePayload $item)
   {
     $this->_metaData[] = $item;
     return $this;
@@ -94,7 +94,7 @@ class TriggerActionPayload
    *
    * @return $this
    */
-  public function setTime($value)
+  public function setTime(?string $value)
   {
     $this->_time = $value;
     return $this;
@@ -119,7 +119,7 @@ class TriggerActionPayload
    *
    * @return $this
    */
-  public function setAlias($value)
+  public function setAlias(?string $value)
   {
     $this->_alias = $value;
     return $this;
@@ -140,11 +140,11 @@ class TriggerActionPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setTriggerMessenger($value)
+  public function setTriggerMessenger(?bool $value)
   {
     $this->_triggerMessenger = $value;
     return $this;

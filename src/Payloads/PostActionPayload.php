@@ -218,7 +218,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setTransactionId($value)
+  public function setTransactionId(?string $value)
   {
     $this->_transactionId = $value;
     return $this;
@@ -243,7 +243,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setTransactionValue($value)
+  public function setTransactionValue(?float $value)
   {
     $this->_transactionValue = $value;
     return $this;
@@ -266,7 +266,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setCouponCode($value)
+  public function setCouponCode(?string $value)
   {
     $this->_couponCode = $value;
     return $this;
@@ -287,11 +287,11 @@ class PostActionPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setReturnPixels($value)
+  public function setReturnPixels(?bool $value)
   {
     $this->_returnPixels = $value;
     return $this;
@@ -314,7 +314,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setProductCode($value)
+  public function setProductCode(?string $value)
   {
     $this->_productCode = $value;
     return $this;
@@ -339,7 +339,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setProductTerm($value)
+  public function setProductTerm(?string $value)
   {
     $this->_productTerm = $value;
     return $this;
@@ -364,7 +364,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setPaymentMethod($value)
+  public function setPaymentMethod(?string $value)
   {
     $this->_paymentMethod = $value;
     return $this;
@@ -389,7 +389,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setUsername($value)
+  public function setUsername(?string $value)
   {
     $this->_username = $value;
     return $this;
@@ -414,7 +414,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setUserAgent($value)
+  public function setUserAgent(?string $value)
   {
     $this->_userAgent = $value;
     return $this;
@@ -439,7 +439,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setEncoding($value)
+  public function setEncoding(?string $value)
   {
     $this->_encoding = $value;
     return $this;
@@ -464,7 +464,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setLanguage($value)
+  public function setLanguage(?string $value)
   {
     $this->_language = $value;
     return $this;
@@ -489,7 +489,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setClientIp($value)
+  public function setClientIp(?string $value)
   {
     $this->_clientIp = $value;
     return $this;
@@ -514,7 +514,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setExternalReference($value)
+  public function setExternalReference(?string $value)
   {
     $this->_externalReference = $value;
     return $this;
@@ -539,7 +539,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setBrandFid($value)
+  public function setBrandFid(?string $value)
   {
     $this->_brandFid = $value;
     return $this;
@@ -564,7 +564,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setCampaignHash($value)
+  public function setCampaignHash(?string $value)
   {
     $this->_campaignHash = $value;
     return $this;
@@ -589,7 +589,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setSid1($value)
+  public function setSid1(?string $value)
   {
     $this->_sid1 = $value;
     return $this;
@@ -614,7 +614,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setSid2($value)
+  public function setSid2(?string $value)
   {
     $this->_sid2 = $value;
     return $this;
@@ -639,7 +639,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setSid3($value)
+  public function setSid3(?string $value)
   {
     $this->_sid3 = $value;
     return $this;
@@ -664,7 +664,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setMetaData(array $value)
+  public function setMetaData(?array $value)
   {
     $this->_metaData = $value;
     return $this;
@@ -675,7 +675,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function addMetaData(KeyValuePayload $item)
+  public function addMetaDatum(KeyValuePayload $item)
   {
     $this->_metaData[] = $item;
     return $this;
@@ -696,7 +696,7 @@ class PostActionPayload
    *
    * @return $this
    */
-  public function setTime($value)
+  public function setTime(?string $value)
   {
     $this->_time = $value;
     return $this;
@@ -717,11 +717,11 @@ class PostActionPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setUseExistingDeviceIfAvailable($value)
+  public function setUseExistingDeviceIfAvailable(?bool $value)
   {
     $this->_useExistingDeviceIfAvailable = $value;
     return $this;

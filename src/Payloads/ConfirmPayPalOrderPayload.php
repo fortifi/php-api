@@ -34,7 +34,7 @@ class ConfirmPayPalOrderPayload
    *
    * @return $this
    */
-  public function setToken($value)
+  public function setToken(?string $value)
   {
     $this->_token = $value;
     return $this;

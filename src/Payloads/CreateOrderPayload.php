@@ -33,6 +33,7 @@ class CreateOrderPayload
    * Product price FIDs to add
    */
   protected $_productPriceFids;
+  protected $_products;
   /**
    * Offer FIDs to apply to the order
    */
@@ -41,6 +42,10 @@ class CreateOrderPayload
    * Charge ID provided by ChargeHive.com
    */
   protected $_chargeId;
+  /**
+   * Reference for this order
+   */
+  protected $_externalReference;
 
   public function hydrate($data)
   {
@@ -73,6 +78,16 @@ class CreateOrderPayload
     {
       $this->_productPriceFids = $data["productPriceFids"];
     }
+    if(isset($data["products"]))
+    {
+      $this->_products = [];
+      foreach($data["products"] as $dItem)
+      {
+        $dObj = new OrderProductPayload();
+        $dObj->hydrate($dItem);
+        $this->_products[] = $dObj;
+      }
+    }
     if(isset($data["offerFids"]))
     {
       $this->_offerFids = $data["offerFids"];
@@ -80,6 +95,10 @@ class CreateOrderPayload
     if(isset($data["chargeId"]))
     {
       $this->_chargeId = (string)$data["chargeId"];
+    }
+    if(isset($data["externalReference"]))
+    {
+      $this->_externalReference = (string)$data["externalReference"];
     }
     return $this;
   }
@@ -94,8 +113,10 @@ class CreateOrderPayload
       "userAgent"         => $this->_userAgent,
       "type"              => $this->_type,
       "productPriceFids"  => $this->_productPriceFids,
+      "products"          => $this->_products,
       "offerFids"         => $this->_offerFids,
       "chargeId"          => $this->_chargeId,
+      "externalReference" => $this->_externalReference,
     ];
   }
 
@@ -104,7 +125,7 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setPaymentAccountFid($value)
+  public function setPaymentAccountFid(?string $value)
   {
     $this->_paymentAccountFid = $value;
     return $this;
@@ -129,7 +150,7 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setBrandFid($value)
+  public function setBrandFid(?string $value)
   {
     $this->_brandFid = $value;
     return $this;
@@ -154,7 +175,7 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setCustomerFid($value)
+  public function setCustomerFid(?string $value)
   {
     $this->_customerFid = $value;
     return $this;
@@ -179,7 +200,7 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setClientIp($value)
+  public function setClientIp(?string $value)
   {
     $this->_clientIp = $value;
     return $this;
@@ -204,7 +225,7 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setUserAgent($value)
+  public function setUserAgent(?string $value)
   {
     $this->_userAgent = $value;
     return $this;
@@ -229,7 +250,7 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setType($value)
+  public function setType(?string $value)
   {
     $this->_type = $value;
     return $this;
@@ -250,22 +271,22 @@ class CreateOrderPayload
   }
 
   /**
-   * @param array $value
+   * @param string[] $value
    *
    * @return $this
    */
-  public function setProductPriceFids(array $value)
+  public function setProductPriceFids(?array $value)
   {
     $this->_productPriceFids = $value;
     return $this;
   }
 
   /**
-   * @param $item
+   * @param string $item
    *
    * @return $this
    */
-  public function addProductPriceFid($item)
+  public function addProductPriceFid(string $item)
   {
     $this->_productPriceFids[] = $item;
     return $this;
@@ -284,22 +305,54 @@ class CreateOrderPayload
   }
 
   /**
-   * @param array $value
+   * @param OrderProductPayload[] $value
    *
    * @return $this
    */
-  public function setOfferFids(array $value)
+  public function setProducts(?array $value)
+  {
+    $this->_products = $value;
+    return $this;
+  }
+
+  /**
+   * @param OrderProductPayload $item
+   *
+   * @return $this
+   */
+  public function addProduct(OrderProductPayload $item)
+  {
+    $this->_products[] = $item;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return OrderProductPayload[]
+   */
+  public function getProducts($default = [])
+  {
+    return $this->_products ?: $default;
+  }
+
+  /**
+   * @param string[] $value
+   *
+   * @return $this
+   */
+  public function setOfferFids(?array $value)
   {
     $this->_offerFids = $value;
     return $this;
   }
 
   /**
-   * @param $item
+   * @param string $item
    *
    * @return $this
    */
-  public function addOfferFid($item)
+  public function addOfferFid(string $item)
   {
     $this->_offerFids[] = $item;
     return $this;
@@ -322,7 +375,7 @@ class CreateOrderPayload
    *
    * @return $this
    */
-  public function setChargeId($value)
+  public function setChargeId(?string $value)
   {
     $this->_chargeId = $value;
     return $this;
@@ -339,6 +392,31 @@ class CreateOrderPayload
   public function getChargeId($default = null, $trim = true)
   {
     $value = $this->_chargeId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setExternalReference(?string $value)
+  {
+    $this->_externalReference = $value;
+    return $this;
+  }
+
+  /**
+   * Reference for this order
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getExternalReference($default = null, $trim = true)
+  {
+    $value = $this->_externalReference ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

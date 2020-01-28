@@ -50,7 +50,7 @@ class ConfirmOrderPayload
    *
    * @return $this
    */
-  public function setPaymentServiceFid($value)
+  public function setPaymentServiceFid(?string $value)
   {
     $this->_paymentServiceFid = $value;
     return $this;
@@ -75,7 +75,7 @@ class ConfirmOrderPayload
    *
    * @return $this
    */
-  public function setPaymentAccountFid($value)
+  public function setPaymentAccountFid(?string $value)
   {
     $this->_paymentAccountFid = $value;
     return $this;
@@ -100,7 +100,7 @@ class ConfirmOrderPayload
    *
    * @return $this
    */
-  public function setPaymentServiceProcessor($value)
+  public function setPaymentServiceProcessor(?string $value)
   {
     $this->_paymentServiceProcessor = $value;
     return $this;

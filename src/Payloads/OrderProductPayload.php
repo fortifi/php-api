@@ -2,15 +2,16 @@
 namespace Fortifi\Api\V1\Payloads;
 use Packaged\Helpers\Strings;
 
-class OrderProductDisplayNamePayload
+class OrderProductPayload
   implements \JsonSerializable
 {
   /**
-   * Price FID to modify subscription with
-   * @required
+   * Product Price FID
    */
   protected $_priceFid;
+  protected $_quantity;
   protected $_displayName;
+  protected $_properties;
 
   public function hydrate($data)
   {
@@ -19,9 +20,18 @@ class OrderProductDisplayNamePayload
     {
       $this->_priceFid = (string)$data["priceFid"];
     }
+    if(isset($data["quantity"]))
+    {
+      $this->_quantity = (int)$data["quantity"];
+    }
     if(isset($data["displayName"]))
     {
       $this->_displayName = (string)$data["displayName"];
+    }
+    if(isset($data["properties"]))
+    {
+      $this->_properties = new PropertyBulkSetPayload();
+      $this->_properties->hydrate($data["properties"]);
     }
     return $this;
   }
@@ -30,7 +40,9 @@ class OrderProductDisplayNamePayload
   {
     return [
       "priceFid"    => $this->_priceFid,
+      "quantity"    => $this->_quantity,
       "displayName" => $this->_displayName,
+      "properties"  => $this->_properties,
     ];
   }
 
@@ -46,7 +58,7 @@ class OrderProductDisplayNamePayload
   }
 
   /**
-   * Price FID to modify subscription with
+   * Product Price FID
    *
    * @param mixed $default
    * @param bool $trim Trim Value
@@ -57,6 +69,27 @@ class OrderProductDisplayNamePayload
   {
     $value = $this->_priceFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setQuantity(?int $value)
+  {
+    $this->_quantity = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getQuantity($default = null)
+  {
+    return $this->_quantity ?: $default;
   }
 
   /**
@@ -80,5 +113,26 @@ class OrderProductDisplayNamePayload
   {
     $value = $this->_displayName ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param PropertyBulkSetPayload $value
+   *
+   * @return $this
+   */
+  public function setProperties(?PropertyBulkSetPayload $value)
+  {
+    $this->_properties = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return PropertyBulkSetPayload
+   */
+  public function getProperties($default = null)
+  {
+    return $this->_properties ?: $default;
   }
 }

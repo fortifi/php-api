@@ -35,7 +35,7 @@ class KeyValuePayload
    *
    * @return $this
    */
-  public function setKey($value)
+  public function setKey(?string $value)
   {
     $this->_key = $value;
     return $this;
@@ -58,7 +58,7 @@ class KeyValuePayload
    *
    * @return $this
    */
-  public function setValue($value)
+  public function setValue(?string $value)
   {
     $this->_value = $value;
     return $this;

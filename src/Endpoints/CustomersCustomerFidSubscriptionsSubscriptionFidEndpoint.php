@@ -25,6 +25,19 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @return CustomersCustomerFidSubscriptionsSubscriptionFidAllocationsEndpoint
+   */
+  public function allocations()
+  {
+    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidAllocationsEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{subscriptionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retreive a specific subscription
    *
    * @return SubscriptionRequest

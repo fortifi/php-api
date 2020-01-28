@@ -95,7 +95,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setCustomerEmail($value)
+  public function setCustomerEmail(?string $value)
   {
     $this->_customerEmail = $value;
     return $this;
@@ -118,7 +118,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setCustomerName($value)
+  public function setCustomerName(?string $value)
   {
     $this->_customerName = $value;
     return $this;
@@ -141,7 +141,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setCustomerFid($value)
+  public function setCustomerFid(?string $value)
   {
     $this->_customerFid = $value;
     return $this;
@@ -164,7 +164,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setTicketType($value)
+  public function setTicketType(?string $value)
   {
     $this->_ticketType = $value;
     return $this;
@@ -187,7 +187,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setBrandFid($value)
+  public function setBrandFid(?string $value)
   {
     $this->_brandFid = $value;
     return $this;
@@ -210,7 +210,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setQueueFid($value)
+  public function setQueueFid(?string $value)
   {
     $this->_queueFid = $value;
     return $this;
@@ -233,7 +233,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setDepartmentFid($value)
+  public function setDepartmentFid(?string $value)
   {
     $this->_departmentFid = $value;
     return $this;
@@ -256,7 +256,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setDepartmentEmail($value)
+  public function setDepartmentEmail(?string $value)
   {
     $this->_departmentEmail = $value;
     return $this;
@@ -279,7 +279,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setDepartmentName($value)
+  public function setDepartmentName(?string $value)
   {
     $this->_departmentName = $value;
     return $this;
@@ -302,7 +302,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setSubject($value)
+  public function setSubject(?string $value)
   {
     $this->_subject = $value;
     return $this;
@@ -325,7 +325,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setTextBody($value)
+  public function setTextBody(?string $value)
   {
     $this->_textBody = $value;
     return $this;
@@ -348,7 +348,7 @@ class CreateTicketPayload
    *
    * @return $this
    */
-  public function setHtmlBody($value)
+  public function setHtmlBody(?string $value)
   {
     $this->_htmlBody = $value;
     return $this;

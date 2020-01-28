@@ -59,7 +59,7 @@ class RequestUploadUrlPayload
    *
    * @return $this
    */
-  public function setFilename($value)
+  public function setFilename(?string $value)
   {
     $this->_filename = $value;
     return $this;
@@ -84,7 +84,7 @@ class RequestUploadUrlPayload
    *
    * @return $this
    */
-  public function setFilesize($value)
+  public function setFilesize(?string $value)
   {
     $this->_filesize = $value;
     return $this;
@@ -109,7 +109,7 @@ class RequestUploadUrlPayload
    *
    * @return $this
    */
-  public function setMd5checksum($value)
+  public function setMd5checksum(?string $value)
   {
     $this->_md5checksum = $value;
     return $this;
@@ -134,7 +134,7 @@ class RequestUploadUrlPayload
    *
    * @return $this
    */
-  public function setMimeType($value)
+  public function setMimeType(?string $value)
   {
     $this->_mimeType = $value;
     return $this;

@@ -57,22 +57,22 @@ class OrderProductsPayload
   }
 
   /**
-   * @param array $value
+   * @param string[] $value
    *
    * @return $this
    */
-  public function setProductPriceFids(array $value)
+  public function setProductPriceFids(?array $value)
   {
     $this->_productPriceFids = $value;
     return $this;
   }
 
   /**
-   * @param $item
+   * @param string $item
    *
    * @return $this
    */
-  public function addProductPriceFid($item)
+  public function addProductPriceFid(string $item)
   {
     $this->_productPriceFids[] = $item;
     return $this;
@@ -95,7 +95,7 @@ class OrderProductsPayload
    *
    * @return $this
    */
-  public function setQuantityProductPriceFids(array $value)
+  public function setQuantityProductPriceFids(?array $value)
   {
     $this->_quantityProductPriceFids = $value;
     return $this;
@@ -129,7 +129,7 @@ class OrderProductsPayload
    *
    * @return $this
    */
-  public function setNamesProductPriceFids(array $value)
+  public function setNamesProductPriceFids(?array $value)
   {
     $this->_namesProductPriceFids = $value;
     return $this;

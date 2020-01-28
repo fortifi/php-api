@@ -48,7 +48,7 @@ class SubscriptionCancelPayload
    *
    * @return $this
    */
-  public function setReasonFid($value)
+  public function setReasonFid(?string $value)
   {
     $this->_reasonFid = $value;
     return $this;
@@ -73,7 +73,7 @@ class SubscriptionCancelPayload
    *
    * @return $this
    */
-  public function setSubscriptionRefundType($value)
+  public function setSubscriptionRefundType(?string $value)
   {
     $this->_subscriptionRefundType = $value;
     return $this;
@@ -94,11 +94,11 @@ class SubscriptionCancelPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setCancelAtNextRenewal($value)
+  public function setCancelAtNextRenewal(?bool $value)
   {
     $this->_cancelAtNextRenewal = $value;
     return $this;

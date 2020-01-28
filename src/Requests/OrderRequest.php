@@ -15,6 +15,7 @@ class OrderRequest
       parent::jsonSerialize(),
       [
         "orderHash" => $this->getOrderHash(),
+        "externalReference" => $this->getExternalReference(),
         "state" => $this->getState(),
         "queueFid" => $this->getQueueFid(),
         "offerFid" => $this->getOfferFid(),
@@ -53,6 +54,18 @@ class OrderRequest
   public function getOrderHash($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'orderHash', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getExternalReference($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

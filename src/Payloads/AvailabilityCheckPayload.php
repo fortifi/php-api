@@ -50,7 +50,7 @@ class AvailabilityCheckPayload
    *
    * @return $this
    */
-  public function setProductSku($value)
+  public function setProductSku(?string $value)
   {
     $this->_productSku = $value;
     return $this;
@@ -73,7 +73,7 @@ class AvailabilityCheckPayload
    *
    * @return $this
    */
-  public function setPriceFid($value)
+  public function setPriceFid(?string $value)
   {
     $this->_priceFid = $value;
     return $this;
@@ -96,7 +96,7 @@ class AvailabilityCheckPayload
    *
    * @return $this
    */
-  public function setProperties(array $value)
+  public function setProperties(?array $value)
   {
     $this->_properties = $value;
     return $this;
@@ -107,7 +107,7 @@ class AvailabilityCheckPayload
    *
    * @return $this
    */
-  public function addPropertie(KeyValuePayload $item)
+  public function addProperty(KeyValuePayload $item)
   {
     $this->_properties[] = $item;
     return $this;

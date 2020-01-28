@@ -27,11 +27,11 @@ class PropertyFlagPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setPropertyValue($value)
+  public function setPropertyValue(?bool $value)
   {
     $this->_propertyValue = $value;
     return $this;

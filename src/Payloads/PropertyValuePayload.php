@@ -32,7 +32,7 @@ class PropertyValuePayload
    *
    * @return $this
    */
-  public function setPropertyValue($value)
+  public function setPropertyValue(?string $value)
   {
     $this->_propertyValue = $value;
     return $this;

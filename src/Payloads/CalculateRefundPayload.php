@@ -54,7 +54,7 @@ class CalculateRefundPayload
    *
    * @return $this
    */
-  public function setSubscriptionRefundType($value)
+  public function setSubscriptionRefundType(?string $value)
   {
     $this->_subscriptionRefundType = $value;
     return $this;
@@ -75,11 +75,11 @@ class CalculateRefundPayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setRefundFromDate($value)
+  public function setRefundFromDate(?int $value)
   {
     $this->_refundFromDate = $value;
     return $this;
@@ -98,11 +98,11 @@ class CalculateRefundPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setIncludeDetails($value)
+  public function setIncludeDetails(?bool $value)
   {
     $this->_includeDetails = $value;
     return $this;
@@ -119,11 +119,11 @@ class CalculateRefundPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setWithTerminationFee($value)
+  public function setWithTerminationFee(?bool $value)
   {
     $this->_withTerminationFee = $value;
     return $this;

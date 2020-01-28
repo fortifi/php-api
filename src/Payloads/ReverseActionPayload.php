@@ -134,7 +134,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setUserAgent($value)
+  public function setUserAgent(?string $value)
   {
     $this->_userAgent = $value;
     return $this;
@@ -159,7 +159,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setEncoding($value)
+  public function setEncoding(?string $value)
   {
     $this->_encoding = $value;
     return $this;
@@ -184,7 +184,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setLanguage($value)
+  public function setLanguage(?string $value)
   {
     $this->_language = $value;
     return $this;
@@ -209,7 +209,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setClientIp($value)
+  public function setClientIp(?string $value)
   {
     $this->_clientIp = $value;
     return $this;
@@ -234,7 +234,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setExternalReference($value)
+  public function setExternalReference(?string $value)
   {
     $this->_externalReference = $value;
     return $this;
@@ -259,7 +259,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setTime($value)
+  public function setTime(?string $value)
   {
     $this->_time = $value;
     return $this;
@@ -284,7 +284,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setMetaData(array $value)
+  public function setMetaData(?array $value)
   {
     $this->_metaData = $value;
     return $this;
@@ -295,7 +295,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function addMetaData(KeyValuePayload $item)
+  public function addMetaDatum(KeyValuePayload $item)
   {
     $this->_metaData[] = $item;
     return $this;
@@ -316,7 +316,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setSourceTransactionId($value)
+  public function setSourceTransactionId(?string $value)
   {
     $this->_sourceTransactionId = $value;
     return $this;
@@ -341,7 +341,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setReason($value)
+  public function setReason(?string $value)
   {
     $this->_reason = $value;
     return $this;
@@ -366,7 +366,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setReversalAmount($value)
+  public function setReversalAmount(?float $value)
   {
     $this->_reversalAmount = $value;
     return $this;
@@ -389,7 +389,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setReversalId($value)
+  public function setReversalId(?string $value)
   {
     $this->_reversalId = $value;
     return $this;
@@ -414,7 +414,7 @@ class ReverseActionPayload
    *
    * @return $this
    */
-  public function setEventId($value)
+  public function setEventId(?string $value)
   {
     $this->_eventId = $value;
     return $this;

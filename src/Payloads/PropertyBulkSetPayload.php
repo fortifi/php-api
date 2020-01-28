@@ -82,7 +82,7 @@ class PropertyBulkSetPayload
    *
    * @return $this
    */
-  public function setValues(array $value)
+  public function setValues(?array $value)
   {
     $this->_values = $value;
     return $this;
@@ -116,7 +116,7 @@ class PropertyBulkSetPayload
    *
    * @return $this
    */
-  public function setFlags(array $value)
+  public function setFlags(?array $value)
   {
     $this->_flags = $value;
     return $this;
@@ -150,7 +150,7 @@ class PropertyBulkSetPayload
    *
    * @return $this
    */
-  public function setIncrementCounters(array $value)
+  public function setIncrementCounters(?array $value)
   {
     $this->_incrementCounters = $value;
     return $this;
@@ -184,7 +184,7 @@ class PropertyBulkSetPayload
    *
    * @return $this
    */
-  public function setDecrementCounters(array $value)
+  public function setDecrementCounters(?array $value)
   {
     $this->_decrementCounters = $value;
     return $this;

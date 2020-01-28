@@ -24,6 +24,7 @@ class ProductRequest
         "taxGroupFid" => $this->getTaxGroupFid(),
         "maxQuantity" => $this->getMaxQuantity(),
         "allowQuantity" => $this->getAllowQuantity(),
+        "managerType" => $this->getManagerType(),
       ]
     );
   }
@@ -134,6 +135,18 @@ class ProductRequest
   public function getAllowQuantity($default = null)
   {
     return Objects::property($this->_getResultJson(), 'allowQuantity', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getManagerType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'managerType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   protected function _prepareResult($result)

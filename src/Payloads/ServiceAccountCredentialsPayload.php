@@ -41,7 +41,7 @@ class ServiceAccountCredentialsPayload
    *
    * @return $this
    */
-  public function setId($value)
+  public function setId(?string $value)
   {
     $this->_id = $value;
     return $this;
@@ -64,7 +64,7 @@ class ServiceAccountCredentialsPayload
    *
    * @return $this
    */
-  public function setKey($value)
+  public function setKey(?string $value)
   {
     $this->_key = $value;
     return $this;

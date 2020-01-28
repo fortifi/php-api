@@ -34,7 +34,7 @@ class ConfirmCardOrderPayload
    *
    * @return $this
    */
-  public function setCvv($value)
+  public function setCvv(?string $value)
   {
     $this->_cvv = $value;
     return $this;

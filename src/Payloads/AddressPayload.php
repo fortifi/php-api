@@ -83,7 +83,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setDisplayName($value)
+  public function setDisplayName(?string $value)
   {
     $this->_displayName = $value;
     return $this;
@@ -106,7 +106,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setDescription($value)
+  public function setDescription(?string $value)
   {
     $this->_description = $value;
     return $this;
@@ -129,7 +129,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setAddress1($value)
+  public function setAddress1(?string $value)
   {
     $this->_address1 = $value;
     return $this;
@@ -152,7 +152,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setAddress2($value)
+  public function setAddress2(?string $value)
   {
     $this->_address2 = $value;
     return $this;
@@ -175,7 +175,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setAddress3($value)
+  public function setAddress3(?string $value)
   {
     $this->_address3 = $value;
     return $this;
@@ -198,7 +198,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setTown($value)
+  public function setTown(?string $value)
   {
     $this->_town = $value;
     return $this;
@@ -221,7 +221,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setCounty($value)
+  public function setCounty(?string $value)
   {
     $this->_county = $value;
     return $this;
@@ -244,7 +244,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setCountry($value)
+  public function setCountry(?string $value)
   {
     $this->_country = $value;
     return $this;
@@ -267,7 +267,7 @@ class AddressPayload
    *
    * @return $this
    */
-  public function setPostalCode($value)
+  public function setPostalCode(?string $value)
   {
     $this->_postalCode = $value;
     return $this;
@@ -286,11 +286,11 @@ class AddressPayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setSetAsDefault($value)
+  public function setSetAsDefault(?bool $value)
   {
     $this->_setAsDefault = $value;
     return $this;

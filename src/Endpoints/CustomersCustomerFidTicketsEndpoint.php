@@ -17,6 +17,21 @@ class CustomersCustomerFidTicketsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $ticketFid
+   *
+   * @return CustomersCustomerFidTicketsTicketFidEndpoint
+   */
+  public function with($ticketFid)
+  {
+    $endpoint = new CustomersCustomerFidTicketsTicketFidEndpoint(
+      $this->_replacements['{customerFid}'],
+      $ticketFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Create a new support ticket
    *
    * @param $subject

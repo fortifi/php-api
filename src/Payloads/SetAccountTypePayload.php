@@ -32,7 +32,7 @@ class SetAccountTypePayload
    *
    * @return $this
    */
-  public function setAccountType($value)
+  public function setAccountType(?string $value)
   {
     $this->_accountType = $value;
     return $this;

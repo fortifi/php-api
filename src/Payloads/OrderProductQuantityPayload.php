@@ -39,7 +39,7 @@ class OrderProductQuantityPayload
    *
    * @return $this
    */
-  public function setPriceFid($value)
+  public function setPriceFid(?string $value)
   {
     $this->_priceFid = $value;
     return $this;
@@ -60,11 +60,11 @@ class OrderProductQuantityPayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setQuantity($value)
+  public function setQuantity(?int $value)
   {
     $this->_quantity = $value;
     return $this;

@@ -135,7 +135,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setUsername($value)
+  public function setUsername(?string $value)
   {
     $this->_username = $value;
     return $this;
@@ -160,7 +160,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setEmail($value)
+  public function setEmail(?string $value)
   {
     $this->_email = $value;
     return $this;
@@ -185,7 +185,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setPassword($value)
+  public function setPassword(?string $value)
   {
     $this->_password = $value;
     return $this;
@@ -210,7 +210,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setType($value)
+  public function setType(?string $value)
   {
     $this->_type = $value;
     return $this;
@@ -235,7 +235,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setDisplayName($value)
+  public function setDisplayName(?string $value)
   {
     $this->_displayName = $value;
     return $this;
@@ -260,7 +260,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setContactName($value)
+  public function setContactName(?string $value)
   {
     $this->_contactName = $value;
     return $this;
@@ -285,7 +285,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setCompanyName($value)
+  public function setCompanyName(?string $value)
   {
     $this->_companyName = $value;
     return $this;
@@ -310,7 +310,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setPhone($value)
+  public function setPhone(?string $value)
   {
     $this->_phone = $value;
     return $this;
@@ -335,7 +335,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setWebsite($value)
+  public function setWebsite(?string $value)
   {
     $this->_website = $value;
     return $this;
@@ -360,7 +360,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setAccountManagerFid($value)
+  public function setAccountManagerFid(?string $value)
   {
     $this->_accountManagerFid = $value;
     return $this;
@@ -385,7 +385,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setFoundationFid($value)
+  public function setFoundationFid(?string $value)
   {
     $this->_foundationFid = $value;
     return $this;
@@ -410,7 +410,7 @@ class CreateAdvertiserPayload
    *
    * @return $this
    */
-  public function setBrandFid($value)
+  public function setBrandFid(?string $value)
   {
     $this->_brandFid = $value;
     return $this;

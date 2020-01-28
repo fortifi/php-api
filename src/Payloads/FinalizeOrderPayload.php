@@ -50,7 +50,7 @@ class FinalizeOrderPayload
    *
    * @return $this
    */
-  public function setChargeId($value)
+  public function setChargeId(?string $value)
   {
     $this->_chargeId = $value;
     return $this;
@@ -75,7 +75,7 @@ class FinalizeOrderPayload
    *
    * @return $this
    */
-  public function setMethodId($value)
+  public function setMethodId(?string $value)
   {
     $this->_methodId = $value;
     return $this;
@@ -100,7 +100,7 @@ class FinalizeOrderPayload
    *
    * @return $this
    */
-  public function setTransactionId($value)
+  public function setTransactionId(?string $value)
   {
     $this->_transactionId = $value;
     return $this;

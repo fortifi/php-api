@@ -174,7 +174,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setVisitorId($value)
+  public function setVisitorId(?string $value)
   {
     $this->_visitorId = $value;
     return $this;
@@ -199,7 +199,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setClientIp($value)
+  public function setClientIp(?string $value)
   {
     $this->_clientIp = $value;
     return $this;
@@ -224,7 +224,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setExternalReference($value)
+  public function setExternalReference(?string $value)
   {
     $this->_externalReference = $value;
     return $this;
@@ -249,7 +249,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setTime($value)
+  public function setTime(?string $value)
   {
     $this->_time = $value;
     return $this;
@@ -274,7 +274,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setBrandFid($value)
+  public function setBrandFid(?string $value)
   {
     $this->_brandFid = $value;
     return $this;
@@ -299,7 +299,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setCurrency($value)
+  public function setCurrency(?string $value)
   {
     $this->_currency = $value;
     return $this;
@@ -324,7 +324,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setPhoneNumber($value)
+  public function setPhoneNumber(?string $value)
   {
     $this->_phoneNumber = $value;
     return $this;
@@ -349,7 +349,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setEmail($value)
+  public function setEmail(?string $value)
   {
     $this->_email = $value;
     return $this;
@@ -374,7 +374,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setFirstName($value)
+  public function setFirstName(?string $value)
   {
     $this->_firstName = $value;
     return $this;
@@ -399,7 +399,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setLastName($value)
+  public function setLastName(?string $value)
   {
     $this->_lastName = $value;
     return $this;
@@ -424,7 +424,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setAccountManagerFid($value)
+  public function setAccountManagerFid(?string $value)
   {
     $this->_accountManagerFid = $value;
     return $this;
@@ -449,7 +449,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setAccountType($value)
+  public function setAccountType(?string $value)
   {
     $this->_accountType = $value;
     return $this;
@@ -474,7 +474,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setAccountStatus($value)
+  public function setAccountStatus(?string $value)
   {
     $this->_accountStatus = $value;
     return $this;
@@ -499,7 +499,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setLifecycle($value)
+  public function setLifecycle(?string $value)
   {
     $this->_lifecycle = $value;
     return $this;
@@ -524,7 +524,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setSubscriptionType($value)
+  public function setSubscriptionType(?string $value)
   {
     $this->_subscriptionType = $value;
     return $this;
@@ -549,7 +549,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setLanguage($value)
+  public function setLanguage(?string $value)
   {
     $this->_language = $value;
     return $this;
@@ -574,7 +574,7 @@ class CreateCustomerPayload
    *
    * @return $this
    */
-  public function setDisplayName($value)
+  public function setDisplayName(?string $value)
   {
     $this->_displayName = $value;
     return $this;

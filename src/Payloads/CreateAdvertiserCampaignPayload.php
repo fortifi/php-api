@@ -43,7 +43,7 @@ class CreateAdvertiserCampaignPayload
    *
    * @return $this
    */
-  public function setBrandFid($value)
+  public function setBrandFid(?string $value)
   {
     $this->_brandFid = $value;
     return $this;
@@ -68,7 +68,7 @@ class CreateAdvertiserCampaignPayload
    *
    * @return $this
    */
-  public function setDisplayName($value)
+  public function setDisplayName(?string $value)
   {
     $this->_displayName = $value;
     return $this;

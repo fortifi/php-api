@@ -46,7 +46,7 @@ class VerifyOrderPayload
    *
    * @return $this
    */
-  public function setSuccessUrl($value)
+  public function setSuccessUrl(?string $value)
   {
     $this->_successUrl = $value;
     return $this;
@@ -69,7 +69,7 @@ class VerifyOrderPayload
    *
    * @return $this
    */
-  public function setCancelUrl($value)
+  public function setCancelUrl(?string $value)
   {
     $this->_cancelUrl = $value;
     return $this;
@@ -92,7 +92,7 @@ class VerifyOrderPayload
    *
    * @return $this
    */
-  public function setFailUrl($value)
+  public function setFailUrl(?string $value)
   {
     $this->_failUrl = $value;
     return $this;

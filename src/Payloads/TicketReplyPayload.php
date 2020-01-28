@@ -2,20 +2,17 @@
 namespace Fortifi\Api\V1\Payloads;
 use Packaged\Helpers\Strings;
 
-class SetAccountStatusPayload
+class TicketReplyPayload
   implements \JsonSerializable
 {
-  /**
-   * Account Status
-   */
-  protected $_accountStatus;
+  protected $_textBody;
 
   public function hydrate($data)
   {
     $data = (array)$data;
-    if(isset($data["accountStatus"]))
+    if(isset($data["textBody"]))
     {
-      $this->_accountStatus = (string)$data["accountStatus"];
+      $this->_textBody = (string)$data["textBody"];
     }
     return $this;
   }
@@ -23,7 +20,7 @@ class SetAccountStatusPayload
   public function jsonSerialize()
   {
     return [
-      "accountStatus" => $this->_accountStatus,
+      "textBody" => $this->_textBody,
     ];
   }
 
@@ -32,23 +29,21 @@ class SetAccountStatusPayload
    *
    * @return $this
    */
-  public function setAccountStatus(?string $value)
+  public function setTextBody(?string $value)
   {
-    $this->_accountStatus = $value;
+    $this->_textBody = $value;
     return $this;
   }
 
   /**
-   * Account Status
-   *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAccountStatus($default = null, $trim = true)
+  public function getTextBody($default = null, $trim = true)
   {
-    $value = $this->_accountStatus ?: $default;
+    $value = $this->_textBody ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

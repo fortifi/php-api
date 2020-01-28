@@ -51,7 +51,7 @@ class ModifySubscriptionPayload
    *
    * @return $this
    */
-  public function setPriceFid($value)
+  public function setPriceFid(?string $value)
   {
     $this->_priceFid = $value;
     return $this;
@@ -76,7 +76,7 @@ class ModifySubscriptionPayload
    *
    * @return $this
    */
-  public function setOfferFid($value)
+  public function setOfferFid(?string $value)
   {
     $this->_offerFid = $value;
     return $this;
@@ -101,7 +101,7 @@ class ModifySubscriptionPayload
    *
    * @return $this
    */
-  public function setMode($value)
+  public function setMode(?string $value)
   {
     $this->_mode = $value;
     return $this;

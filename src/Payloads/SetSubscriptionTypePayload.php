@@ -32,7 +32,7 @@ class SetSubscriptionTypePayload
    *
    * @return $this
    */
-  public function setSubscriptionType($value)
+  public function setSubscriptionType(?string $value)
   {
     $this->_subscriptionType = $value;
     return $this;

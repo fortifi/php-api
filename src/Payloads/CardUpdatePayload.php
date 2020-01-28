@@ -155,7 +155,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setCardHolder($value)
+  public function setCardHolder(?string $value)
   {
     $this->_cardHolder = $value;
     return $this;
@@ -176,11 +176,11 @@ class CardUpdatePayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setStartMonth($value)
+  public function setStartMonth(?int $value)
   {
     $this->_startMonth = $value;
     return $this;
@@ -199,11 +199,11 @@ class CardUpdatePayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setStartYear($value)
+  public function setStartYear(?int $value)
   {
     $this->_startYear = $value;
     return $this;
@@ -222,11 +222,11 @@ class CardUpdatePayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setExpiryMonth($value)
+  public function setExpiryMonth(?int $value)
   {
     $this->_expiryMonth = $value;
     return $this;
@@ -245,11 +245,11 @@ class CardUpdatePayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setExpiryYear($value)
+  public function setExpiryYear(?int $value)
   {
     $this->_expiryYear = $value;
     return $this;
@@ -268,11 +268,11 @@ class CardUpdatePayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setIssue($value)
+  public function setIssue(?int $value)
   {
     $this->_issue = $value;
     return $this;
@@ -295,7 +295,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressFid($value)
+  public function setAddressFid(?string $value)
   {
     $this->_addressFid = $value;
     return $this;
@@ -320,7 +320,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressLine1($value)
+  public function setAddressLine1(?string $value)
   {
     $this->_addressLine1 = $value;
     return $this;
@@ -345,7 +345,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressLine2($value)
+  public function setAddressLine2(?string $value)
   {
     $this->_addressLine2 = $value;
     return $this;
@@ -370,7 +370,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressLine3($value)
+  public function setAddressLine3(?string $value)
   {
     $this->_addressLine3 = $value;
     return $this;
@@ -395,7 +395,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressCity($value)
+  public function setAddressCity(?string $value)
   {
     $this->_addressCity = $value;
     return $this;
@@ -420,7 +420,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressState($value)
+  public function setAddressState(?string $value)
   {
     $this->_addressState = $value;
     return $this;
@@ -445,7 +445,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressCountry($value)
+  public function setAddressCountry(?string $value)
   {
     $this->_addressCountry = $value;
     return $this;
@@ -470,7 +470,7 @@ class CardUpdatePayload
    *
    * @return $this
    */
-  public function setAddressPostal($value)
+  public function setAddressPostal(?string $value)
   {
     $this->_addressPostal = $value;
     return $this;
@@ -491,11 +491,11 @@ class CardUpdatePayload
   }
 
   /**
-   * @param boolean $value
+   * @param bool $value
    *
    * @return $this
    */
-  public function setAsDefault($value)
+  public function setAsDefault(?bool $value)
   {
     $this->_asDefault = $value;
     return $this;

@@ -59,7 +59,7 @@ class CreatePolymerPayload
    *
    * @return $this
    */
-  public function setPolymerCode($value)
+  public function setPolymerCode(?string $value)
   {
     $this->_polymerCode = $value;
     return $this;
@@ -84,7 +84,7 @@ class CreatePolymerPayload
    *
    * @return $this
    */
-  public function setName($value)
+  public function setName(?string $value)
   {
     $this->_name = $value;
     return $this;
@@ -109,7 +109,7 @@ class CreatePolymerPayload
    *
    * @return $this
    */
-  public function setParentFid($value)
+  public function setParentFid(?string $value)
   {
     $this->_parentFid = $value;
     return $this;
@@ -134,7 +134,7 @@ class CreatePolymerPayload
    *
    * @return $this
    */
-  public function setDescription($value)
+  public function setDescription(?string $value)
   {
     $this->_description = $value;
     return $this;

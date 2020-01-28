@@ -81,7 +81,7 @@ class InvoiceCreditNotePayload
    *
    * @return $this
    */
-  public function setDisplayName($value)
+  public function setDisplayName(?string $value)
   {
     $this->_displayName = $value;
     return $this;
@@ -104,7 +104,7 @@ class InvoiceCreditNotePayload
    *
    * @return $this
    */
-  public function setDescription($value)
+  public function setDescription(?string $value)
   {
     $this->_description = $value;
     return $this;
@@ -127,7 +127,7 @@ class InvoiceCreditNotePayload
    *
    * @return $this
    */
-  public function setChargeRequestFid($value)
+  public function setChargeRequestFid(?string $value)
   {
     $this->_chargeRequestFid = $value;
     return $this;
@@ -152,7 +152,7 @@ class InvoiceCreditNotePayload
    *
    * @return $this
    */
-  public function setCreditAmountType($value)
+  public function setCreditAmountType(?string $value)
   {
     $this->_creditAmountType = $value;
     return $this;
@@ -177,7 +177,7 @@ class InvoiceCreditNotePayload
    *
    * @return $this
    */
-  public function setAmount($value)
+  public function setAmount(?float $value)
   {
     $this->_amount = $value;
     return $this;
@@ -198,7 +198,7 @@ class InvoiceCreditNotePayload
    *
    * @return $this
    */
-  public function setReasonFid($value)
+  public function setReasonFid(?string $value)
   {
     $this->_reasonFid = $value;
     return $this;
@@ -223,7 +223,7 @@ class InvoiceCreditNotePayload
    *
    * @return $this
    */
-  public function setCurrency($value)
+  public function setCurrency(?string $value)
   {
     $this->_currency = $value;
     return $this;

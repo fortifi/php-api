@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.20.0'
+  version: '3.22.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -895,6 +895,41 @@ paths:
       responses:
         200:
           description: Customer Status Updated
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/orders':
+    get:
+      summary: List customer orders
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: externalReference
+          in: query
+          required: false
+          type: string
+        - name: state
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: Customer Orders
+          schema:
+            $ref: '#/definitions/Orders'
         x-404:
           description: Customer not found
         default:
@@ -1920,6 +1955,89 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/tickets/{ticketFid}/posts':
+    get:
+      summary: Retrieve ticket posts for a ticket
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/ticketFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/TicketPosts'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Post a reply to a ticket
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/ticketFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TicketReplyPayload'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/TicketPost'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/tickets/{ticketFid}':
+    get:
+      summary: Retrieve a single ticket for a customer
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/ticketFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Ticket'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/entities/{entityFid}/config/{sectionName}':
     delete:
@@ -3273,6 +3391,33 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/allocations':
+    get:
+      summary: Retreive a subscriptions resource allocations
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Loaded allocations
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ResourceAllocations'
+        x-404:
+          description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/sar':
     post:
@@ -4577,6 +4722,12 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  ticketFid:
+    name: ticketFid
+    in: path
+    type: string
+    required: true
+    description: Ticket FID to use
   contactFid:
     name: contactFid
     in: path
@@ -5247,6 +5398,26 @@ definitions:
         description: Interval in ISO 8601 standard
         type: string
 
+  ResourceAllocations:
+    description: Resource Allocations
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          allocations:
+            type: array
+            items:
+              $ref: '#/definitions/ResourceAllocation'
+
+  ResourceAllocation:
+    description: Resource Allocation
+    properties:
+      resourceFid:
+        type: string
+      allocation:
+        type: string
+      resourceGatewayPath:
+        type: string
+
   Subscriptions:
     description: Generic Response
     allOf:
@@ -5673,6 +5844,8 @@ definitions:
           allowQuantity:
             type: integer
             format: int32
+          managerType:
+            type: string
 
   ProductGroups:
     description: Generic Response
@@ -5781,12 +5954,22 @@ definitions:
         type: number
         format: float
 
+  Orders:
+    description: Generic Response
+    properties:
+      orders:
+        type: array
+        items:
+          $ref: '#/definitions/Order'
+
   Order:
     description: Generic Response
     allOf:
       - $ref: '#/definitions/Fid'
       - properties:
           orderHash:
+            type: string
+          externalReference:
             type: string
           state:
             type: number
@@ -6214,6 +6397,34 @@ definitions:
           dateModified:
             type: number
             format: int64
+
+  TicketPosts:
+    description: Ticket Posts
+    properties:
+      posts:
+        type: array
+        items:
+          $ref: '#/definitions/TicketPost'
+
+  TicketPost:
+    description: Post On a Ticket
+    properties:
+      timestamp:
+        type: number
+        format: int64
+      authorFid:
+        type: string
+      senderFid:
+        type: string
+      textBody:
+        type: string
+      language:
+        type: string
+      hasAttachments:
+        type: boolean
+      attachmentCount:
+        type: number
+        format: int64
 
   ReasonGroups:
     description: Reason Groups
@@ -7053,6 +7264,10 @@ definitions:
         description: Product price FIDs to add
         items:
           type: string
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/OrderProductPayload'
       offerFids:
         type: array
         description: Offer FIDs to apply to the order
@@ -7060,6 +7275,9 @@ definitions:
           type: string
       chargeId:
         description: Charge ID provided by ChargeHive.com
+        type: string
+      externalReference:
+        description: Reference for this order
         type: string
 
   OrderProductsPayload:
@@ -7079,6 +7297,20 @@ definitions:
         description: Products to add with display names
         items:
           $ref: '#/definitions/OrderProductDisplayNamePayload'
+
+  OrderProductPayload:
+    description: Product information to add to order
+    properties:
+      priceFid:
+        description: Product Price FID
+        type: string
+      quantity:
+        type: integer
+      displayName:
+        type: string
+      properties:
+        type: object
+        $ref: '#/definitions/PropertyBulkSetPayload'
 
   AddOrderProductsPayload:
     allOf:
@@ -7247,6 +7479,11 @@ definitions:
       textBody:
         type: string
       htmlBody:
+        type: string
+
+  TicketReplyPayload:
+    properties:
+      textBody:
         type: string
 
   #Properties

@@ -27,11 +27,11 @@ class PropertyCounterPayload
   }
 
   /**
-   * @param integer $value
+   * @param int $value
    *
    * @return $this
    */
-  public function setPropertyValue($value)
+  public function setPropertyValue(?int $value)
   {
     $this->_propertyValue = $value;
     return $this;
