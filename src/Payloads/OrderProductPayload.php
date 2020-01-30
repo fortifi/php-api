@@ -6,9 +6,21 @@ class OrderProductPayload
   implements \JsonSerializable
 {
   /**
+   * Product Parent FID or reference
+   */
+  protected $_parent;
+  /**
+   * Reference for use with parent field
+   */
+  protected $_transportReference;
+  /**
    * Product Price FID
    */
   protected $_priceFid;
+  /**
+   * Product SKU
+   */
+  protected $_sku;
   protected $_quantity;
   protected $_displayName;
   protected $_properties;
@@ -16,9 +28,21 @@ class OrderProductPayload
   public function hydrate($data)
   {
     $data = (array)$data;
+    if(isset($data["parent"]))
+    {
+      $this->_parent = (string)$data["parent"];
+    }
+    if(isset($data["transportReference"]))
+    {
+      $this->_transportReference = (string)$data["transportReference"];
+    }
     if(isset($data["priceFid"]))
     {
       $this->_priceFid = (string)$data["priceFid"];
+    }
+    if(isset($data["sku"]))
+    {
+      $this->_sku = (string)$data["sku"];
     }
     if(isset($data["quantity"]))
     {
@@ -39,11 +63,64 @@ class OrderProductPayload
   public function jsonSerialize()
   {
     return [
-      "priceFid"    => $this->_priceFid,
-      "quantity"    => $this->_quantity,
-      "displayName" => $this->_displayName,
-      "properties"  => $this->_properties,
+      "parent"             => $this->_parent,
+      "transportReference" => $this->_transportReference,
+      "priceFid"           => $this->_priceFid,
+      "sku"                => $this->_sku,
+      "quantity"           => $this->_quantity,
+      "displayName"        => $this->_displayName,
+      "properties"         => $this->_properties,
     ];
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setParent(?string $value)
+  {
+    $this->_parent = $value;
+    return $this;
+  }
+
+  /**
+   * Product Parent FID or reference
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getParent($default = null, $trim = true)
+  {
+    $value = $this->_parent ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setTransportReference(?string $value)
+  {
+    $this->_transportReference = $value;
+    return $this;
+  }
+
+  /**
+   * Reference for use with parent field
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTransportReference($default = null, $trim = true)
+  {
+    $value = $this->_transportReference ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -68,6 +145,31 @@ class OrderProductPayload
   public function getPriceFid($default = null, $trim = true)
   {
     $value = $this->_priceFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setSku(?string $value)
+  {
+    $this->_sku = $value;
+    return $this;
+  }
+
+  /**
+   * Product SKU
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSku($default = null, $trim = true)
+  {
+    $value = $this->_sku ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
