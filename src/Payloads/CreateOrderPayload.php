@@ -6,6 +6,10 @@ class CreateOrderPayload
   implements \JsonSerializable
 {
   /**
+   * Custom display name for this order
+   */
+  protected $_displayName;
+  /**
    * FID for the payment account you wish to charge the customer through
    */
   protected $_paymentAccountFid;
@@ -50,6 +54,10 @@ class CreateOrderPayload
   public function hydrate($data)
   {
     $data = (array)$data;
+    if(isset($data["displayName"]))
+    {
+      $this->_displayName = (string)$data["displayName"];
+    }
     if(isset($data["paymentAccountFid"]))
     {
       $this->_paymentAccountFid = (string)$data["paymentAccountFid"];
@@ -106,6 +114,7 @@ class CreateOrderPayload
   public function jsonSerialize()
   {
     return [
+      "displayName"       => $this->_displayName,
       "paymentAccountFid" => $this->_paymentAccountFid,
       "brandFid"          => $this->_brandFid,
       "customerFid"       => $this->_customerFid,
@@ -118,6 +127,31 @@ class CreateOrderPayload
       "chargeId"          => $this->_chargeId,
       "externalReference" => $this->_externalReference,
     ];
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setDisplayName(?string $value)
+  {
+    $this->_displayName = $value;
+    return $this;
+  }
+
+  /**
+   * Custom display name for this order
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDisplayName($default = null, $trim = true)
+  {
+    $value = $this->_displayName ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
