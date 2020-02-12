@@ -18,16 +18,6 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @return SvcauthEndpoint
-   */
-  public function svcauth()
-  {
-    $endpoint = new SvcauthEndpoint();
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
    * @return AdvertisersEndpoint
    */
   public function advertisers()
@@ -38,21 +28,11 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @return VisitorsEndpoint
+   * @return ContactsEndpoint
    */
-  public function visitors()
+  public function contacts()
   {
-    $endpoint = new VisitorsEndpoint();
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return PayEndpoint
-   */
-  public function pay()
-  {
-    $endpoint = new PayEndpoint();
+    $endpoint = new ContactsEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
@@ -78,21 +58,41 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @return ProductsEndpoint
+   * @return PayEndpoint
    */
-  public function products()
+  public function pay()
   {
-    $endpoint = new ProductsEndpoint();
+    $endpoint = new PayEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
   /**
-   * @return OrdersEndpoint
+   * @return ConfigurationEndpoint
    */
-  public function orders()
+  public function configuration()
   {
-    $endpoint = new OrdersEndpoint();
+    $endpoint = new ConfigurationEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return LicenceEndpoint
+   */
+  public function licence()
+  {
+    $endpoint = new LicenceEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return IntegrationsEndpoint
+   */
+  public function integrations()
+  {
+    $endpoint = new IntegrationsEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
@@ -108,11 +108,11 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @return ContactsEndpoint
+   * @return OrdersEndpoint
    */
-  public function contacts()
+  public function orders()
   {
-    $endpoint = new ContactsEndpoint();
+    $endpoint = new OrdersEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
@@ -128,11 +128,11 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @return LicenceEndpoint
+   * @return ProductsEndpoint
    */
-  public function licence()
+  public function products()
   {
-    $endpoint = new LicenceEndpoint();
+    $endpoint = new ProductsEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
@@ -158,31 +158,21 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @return ConfigurationEndpoint
+   * @return SvcauthEndpoint
    */
-  public function configuration()
+  public function svcauth()
   {
-    $endpoint = new ConfigurationEndpoint();
+    $endpoint = new SvcauthEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
   /**
-   * @return IntegrationsEndpoint
+   * @return VisitorsEndpoint
    */
-  public function integrations()
+  public function visitors()
   {
-    $endpoint = new IntegrationsEndpoint();
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return OrganisationEndpoint
-   */
-  public function organisation()
-  {
-    $endpoint = new OrganisationEndpoint();
+    $endpoint = new VisitorsEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
@@ -198,6 +188,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return OrganisationEndpoint
+   */
+  public function organisation()
+  {
+    $endpoint = new OrganisationEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return TicketsEndpoint
    */
   public function tickets()
@@ -205,27 +205,6 @@ class FortifiApi extends ApiEndpoint
     $endpoint = new TicketsEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
-  }
-
-  /**
-   * @summary Current Version
-   *
-   * Retrieve the current version of the Fortifi api
-   *
-   * @return ApiRequest
-   */
-  public function version()
-  {
-    $request = new ApiRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('version'));
-    $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
   }
 
   /**
@@ -244,6 +223,27 @@ class FortifiApi extends ApiEndpoint
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('me'));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Current Version
+   *
+   * Retrieve the current version of the Fortifi api
+   *
+   * @return ApiRequest
+   */
+  public function version()
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl('version'));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

@@ -50,6 +50,10 @@ class CreateOrderPayload
    * Reference for this order
    */
   protected $_externalReference;
+  /**
+   * Automatically confirm this order
+   */
+  protected $_confirm = false;
 
   public function hydrate($data)
   {
@@ -108,6 +112,10 @@ class CreateOrderPayload
     {
       $this->_externalReference = (string)$data["externalReference"];
     }
+    if(isset($data["confirm"]))
+    {
+      $this->_confirm = $data["confirm"];
+    }
     return $this;
   }
 
@@ -126,6 +134,7 @@ class CreateOrderPayload
       "offerFids"         => $this->_offerFids,
       "chargeId"          => $this->_chargeId,
       "externalReference" => $this->_externalReference,
+      "confirm"           => $this->_confirm,
     ];
   }
 
@@ -452,5 +461,28 @@ class CreateOrderPayload
   {
     $value = $this->_externalReference ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $value
+   *
+   * @return $this
+   */
+  public function setConfirm(?bool $value)
+  {
+    $this->_confirm = $value;
+    return $this;
+  }
+
+  /**
+   * Automatically confirm this order
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isConfirm($default = false)
+  {
+    return (bool)$this->_confirm ?: $default;
   }
 }

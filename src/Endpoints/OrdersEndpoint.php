@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Payloads\CreateOrderPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -34,11 +34,11 @@ class OrdersEndpoint extends ApiEndpoint
    *
    * @param CreateOrderPayload $payload
    *
-   * @return FidRequest
+   * @return OrderRequest
    */
   public function create(CreateOrderPayload $payload)
   {
-    $request = new FidRequest();
+    $request = new OrderRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 

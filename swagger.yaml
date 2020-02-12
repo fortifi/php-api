@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.23.1'
+  version: '3.24.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -153,26 +153,10 @@ produces:
   - application/json
 consumes:
   - application/json
+
 externalDocs:
   description: Find out more about the Fortifi api
   url: http://developers.fortifi.io/
-
-
-tags:
-  - name: Marketing
-  - name: Customers
-  - name: Entities
-  - name: Orders
-  - name: Custom Properties
-  - name: Configuration
-  - name: Contacts
-  - name: Polymers
-  - name: Messenger
-  - name: Products
-  - name: Licence
-  - name: Support
-  - name: ServiceStatus
-  - name: Reasons
 
 securityDefinitions:
   OAuth:
@@ -210,129 +194,23 @@ securityDefinitions:
     in: query
     name: access_token
 
+tags:
+  - name: Marketing
+  - name: Customers
+  - name: Entities
+  - name: Orders
+  - name: Custom Properties
+  - name: Configuration
+  - name: Contacts
+  - name: Polymers
+  - name: Messenger
+  - name: Products
+  - name: Licence
+  - name: Support
+  - name: ServiceStatus
+  - name: Reasons
+
 paths:
-  /version:
-    get:
-      security:
-        - OAuth:
-            - basic
-        - accessToken: []
-      summary: Current Version
-      operationId: getVersion
-      description: |
-        Retrieve the current version of the Fortifi api
-      responses:
-        200:
-          description: Version
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    type: string
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /svcauth/verify:
-    post:
-      summary: Verify service account / Get Access Token
-      operationId: getServiceAuthToken
-      description: |
-        User service account credentials to retrieve an API token
-      parameters:
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ServiceAccountCredentialsPayload'
-      responses:
-        200:
-          description: Token
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/AuthToken'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /me:
-    get:
-      security:
-        - OAuth:
-            - basic
-        - accessToken: []
-      summary: Current User
-      operationId: getMe
-      description: |
-        Retrieve information about the current connected user (you)
-      responses:
-        200:
-          description: User Information
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/User'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /organisation:
-    get:
-      security:
-        - OAuth:
-            - basic
-        - accessToken: []
-      summary: Current Organisation
-      operationId: getOrganisation
-      description: |
-        Retrieve information about the current organisation
-      responses:
-        200:
-          description: Organisation Information
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Organisation'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /brands:
-    get:
-      security:
-        - OAuth:
-            - basic
-        - accessToken: []
-      summary: Your Brand
-      operationId: getBrands
-      description: |
-        Retrieve a list of all the brands within your Fortifi account
-      responses:
-        200:
-          description: Brand Information
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Brands'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
   /advertisers:
     post:
       summary: Create a new advertiser
@@ -525,350 +403,564 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/visitors/{visitorId}':
+  /brands:
     get:
       security:
         - OAuth:
-            - visitor
+            - basic
         - accessToken: []
-      tags:
-        - marketing
-      summary: Retrieve information about a visitor
-      description: This call will return information related to how a visitor arrived
-      parameters:
-        - $ref: '#/parameters/visitorId'
-      responses:
-        200:
-          description: Pixels
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/VisitorResponse'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/visitors/{visitorId}/pixels':
-    get:
-      security:
-        - OAuth:
-            - visitor
-        - accessToken: []
-      tags:
-        - marketing
-      summary: Retrieve pending pixels for this visitor
-      description: This call will release pixels from the pending queue on read
-      parameters:
-        - $ref: '#/parameters/visitorId'
-      responses:
-        200:
-          description: Pixels
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/definitions/AdvertiserPixel'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/visitors/{visitorId}/actions/{actionKey}':
-    post:
-      summary: Track an action
-      tags:
-        - marketing
+      summary: Your Brand
+      operationId: getBrands
       description: |
-        Track an action such as a lead or acquisition
-      security:
-        - OAuth:
-            - visitor
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/visitorId'
-        - name: actionKey
-          description: Action key of the action to track e.g. lead
-          in: path
-          required: true
-          type: string
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PostActionPayload'
-
+        Retrieve a list of all the brands within your Fortifi account
       responses:
         200:
-          description: Action Tracked
+          description: Brand Information
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/VisitorPostAction'
-        x-409:
-          description: |
-            The transaction ID specified has already been used for this action
-        x-400:
-          description: |
-            Not enough information was provided to complete your request
-            e.g. Missing Visitor ID and/or Client IP
-        x-404:
-          description: |
-            The actionKey specified does not exist
+                    $ref: '#/definitions/Brands'
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/visitors/{visitorId}/actions/{actionKey}/reverse':
-    post:
-      summary: Reverse a previously tracked action
-      tags:
-        - marketing
-      description: |
-        When an action has been reversed, e.g. cancelled, refunded
-      security:
-        - OAuth:
-            - visitor
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/visitorId'
-        - name: actionKey
-          description: Action key of the action to reverse e.g. lead
-          in: path
-          required: true
-          type: string
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ReverseActionPayload'
-
-      responses:
-        200:
-          description: Action Reversed
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/VisitorReversalAction'
-        x-404:
-          description: |
-            The action you are trying to reverse cannot be found
-        x-409:
-          description: |
-            The action specified has already been reversed
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /pay/publicKey:
-    get:
-      summary: Get the public key needed to encrypt a credit card number
-      security:
-        - OAuth:
-            - payment.methods
-        - accessToken: []
-      parameters:
-        - name: format
-          in: query
-          description: Format for the generated key xml, raw, pkcs1 or pkcs8.
-          type: string
-      responses:
-        200:
-          description: RSA Public Key
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PubKey'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /pay/coinbase:
-    get:
-      summary: Get a new checkout ID
-      security:
-        - OAuth:
-            - payment.methods
-        - accessToken: []
-      parameters:
-        - name: orderFID
-          in: query
-          description: FID of the order for which to retrieve a checkout ID
-          type: string
-      responses:
-        200:
-          description: Coinbase checkout ID
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/CoinbaseCheckout'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /customers:
-    post:
-      summary: Create a new customer
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      tags:
-        - customers
-      parameters:
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CreateCustomerPayload'
-      responses:
-        200:
-          description: Customer Created
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Customer'
-        x-404:
-          description: |
-            The brand Fid you are trying to add a customer to does not exist
-        x-409:
-          description: |
-            The external reference has already been used to create a customer
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  /customers/findByReference:
-    get:
-      security:
-        - OAuth:
-            - customer
-            - customer.readonly
-        - accessToken: []
-      tags:
-        - customers
-      summary: Find a customer by your reference
-      parameters:
-        - name: reference
-          in: query
-          description: Your reference for the customer
-          type: string
-        - name: retrieveBillingData
-          in: query
-          type: boolean
-      responses:
-        200:
-          description: Located Customer
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Customer'
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}':
-    get:
-      security:
-        - OAuth:
-            - customer
-            - customer.readonly
-        - accessToken: []
-      tags:
-        - customers
-      summary: Retrieve a customer
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: retrieveBillingData
-          in: query
-          type: boolean
-      responses:
-        200:
-          description: Loaded Customer
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Customer'
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
+  '/contacts/emails/{emailAddress}/confirm':
     put:
+      summary: Confirm email address
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/emailAddress'
+      responses:
+        200:
+          description: Email Address Confirmed
+        x-404:
+          description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/emails/{emailAddress}/unsubscribe':
+    put:
+      summary: Unsubscribe an email address
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/emailAddress'
+        - $ref: '#/parameters/unsubscribeType'
+        - name: brandFid
+          in: formData
+          type: string
+          description: Brand to unsubscribe the email address from
+        - name: groupFid
+          in: formData
+          type: string
+          description: Group to unsubscribe the email address from
+      responses:
+        200:
+          description: Email Address Unsubscribed
+        x-404:
+          description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/emails/{emailAddress}/subscribe':
+    put:
+      summary: Subscribe an email address
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/emailAddress'
+        - name: brandFid
+          in: formData
+          type: string
+          description: Brand to subscribe the email address from
+        - name: groupFid
+          in: formData
+          type: string
+          description: Group to unsubscribe the email address from
+        - $ref: '#/parameters/userAgent'
+        - $ref: '#/parameters/encoding'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/clientIp'
+        - $ref: '#/parameters/optInStatus'
+        - $ref: '#/parameters/optInData'
+      responses:
+        200:
+          description: Email Address Subscribed
+        x-404:
+          description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/payments/{paymentFid}/chargeback':
+    post:
+      summary: Initiate a chargeback on a payment
+      tags:
+        - customers
       security:
         - OAuth:
             - customer
-            - customer.readonly
         - accessToken: []
-      tags:
-        - customers
-      summary: Update a customer
       consumes:
         - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentFid'
+        - name: dateSubmitted
+          type: string
+          format: date-time
+          in: formData
+          required: true
+          description: Date the chargeback was received (Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z)
+        - name: reasonCode
+          type: string
+          in: formData
+          required: true
+          description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
+        - name: caseNumber
+          type: string
+          in: formData
+          required: true
+          description: Case Number
+        - name: amount
+          type: number
+          format: float
+          in: formData
+          required: true
+          description: Disputed Amount
+        - $ref: '#/parameters/chargebackState'
+        - $ref: '#/parameters/chargebackSource'
+        - name: refunded
+          type: boolean
+          in: formData
+          required: true
+          description: If this payment has been refunded by the alert
+        - name: description
+          type: string
+          in: formData
+          required: false
+          description: Notes
+        - name: feeCurrency
+          type: string
+          in: formData
+          required: false
+          description: 3 Character Currency code for the fee
+        - name: feeAmount
+          type: number
+          format: float
+          in: formData
+          required: false
+          description: Fee Amount
+      responses:
+        200:
+          description: Chargeback Opened
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
+        x-400:
+          description: Invalid Payload
+        x-404:
+          description: Invalid Payment Fid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/chargebacks/{chargebackFid}':
+    put:
+      summary: Action a chargeback
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: chargebackFid
+          in: path
+          type: string
+          required: true
+          description: Chargeback FID to use
+        - name: reasonCode
+          type: string
+          in: formData
+          required: true
+          description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
+        - name: caseNumber
+          type: string
+          in: formData
+          required: true
+          description: Case Number
+        - $ref: '#/parameters/chargebackState'
+        - name: refunded
+          type: boolean
+          in: formData
+          required: true
+          description: If this payment has been refunded by the alert
+        - name: description
+          type: string
+          in: formData
+          required: false
+          description: Notes
+      responses:
+        200:
+          description: Chargeback Actioned
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-400:
+          description: Invalid Payload
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/contacts':
+    get:
+      summary: List contacts
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of people
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/People'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new contact for a customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: email
+          in: formData
+          required: false
+          description: Email
+          type: string
+        - name: phone
+          in: formData
+          required: false
+          description: Phone
+          type: string
+        - name: prefix
+          in: formData
+          required: false
+          description: Prefix
+          type: string
         - name: firstName
           in: formData
+          required: false
+          description: First Name
+          type: string
+        - name: middleNames
+          in: formData
+          required: false
+          description: Middle Names
           type: string
         - name: lastName
           in: formData
+          required: false
+          description: Last Name
           type: string
-        - name: displayName
+        - name: suffix
           in: formData
+          required: false
+          description: Suffix
+          type: string
+        - name: nickname
+          in: formData
+          required: false
+          description: Nickname
+          type: string
+        - name: birthday
+          in: formData
+          required: false
+          description: Birthday
+          type: string
+        - name: jobTitle
+          in: formData
+          required: false
+          description: Job Title
+          type: string
+        - name: address1
+          in: formData
+          required: false
+          description: Address 1
+          type: string
+        - name: address2
+          in: formData
+          required: false
+          description: Address 2
+          type: string
+        - name: address3
+          in: formData
+          required: false
+          description: Address 3
+          type: string
+        - name: town
+          in: formData
+          required: false
+          description: Town
+          type: string
+        - name: county
+          in: formData
+          required: false
+          description: County
+          type: string
+        - name: country
+          in: formData
+          required: false
+          description: Country
+          type: string
+        - name: postalCode
+          in: formData
+          required: false
+          description: Postal Code
           type: string
       responses:
         200:
-          description: Customer Updated
+          description: FID of the new contact
         x-404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
+
+  '/customers/{customerFid}/contacts/{contactFid}':
+    put:
+      summary: Update a contacts information
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/contactFid'
+        - name: prefix
+          in: formData
+          required: false
+          description: Prefix
+          type: string
+        - name: firstName
+          in: formData
+          required: false
+          description: First Name
+          type: string
+        - name: middleNames
+          in: formData
+          required: false
+          description: Middle Names
+          type: string
+        - name: lastName
+          in: formData
+          required: false
+          description: Last Name
+          type: string
+        - name: suffix
+          in: formData
+          required: false
+          description: Suffix
+          type: string
+        - name: nickname
+          in: formData
+          required: false
+          description: Nickname
+          type: string
+        - name: birthday
+          in: formData
+          required: false
+          description: Birthday
+          type: string
+        - name: jobTitle
+          in: formData
+          required: false
+          description: Job Title
+          type: string
+        - name: defaultEmailFid
+          in: formData
+          required: false
+          description: Default Email FID
+          type: string
+        - name: defaultPhoneFid
+          in: formData
+          required: false
+          description: Default Phone FID
+          type: string
+        - name: defaultAddressFid
+          in: formData
+          required: false
+          description: Default Address FID
+          type: string
+      responses:
+        200:
+          description: Contact Updated
+        x-404:
+          description: Contact or Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    get:
+      summary: Retrieve information about a contact
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/contactFid'
+      responses:
+        200:
+          description: Contact Info
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CustomerContact'
+        x-404:
+          description: Contact or Customer not found
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
     delete:
+      summary: Remove a contact
+      tags:
+        - customers
       security:
         - OAuth:
             - customer
         - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/contactFid'
+      responses:
+        200:
+          description: Contact removed
+        x-404:
+          description: Contact or Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+
+  '/customers/{customerFid}/addresses':
+    get:
+      summary: List customers addresses
       tags:
         - customers
-      summary: Archive a customer
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
       parameters:
         - $ref: '#/parameters/customerFid'
       responses:
         200:
-          description: Customer Archived
-        x-403:
-          description: It is not possible to archive this customer
+          schema:
+            $ref: '#/definitions/Addresses'
+          description: List of addresses
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Add an address to a customer
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AddressPayload'
+      responses:
+        200:
+          description: Address Added
         x-404:
           description: Customer not found
         default:
@@ -876,6 +968,418 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/emails':
+    post:
+      summary: Add an email address to a customer
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: emailAddress
+          in: formData
+          required: true
+          type: string
+        - name: setAsDefault
+          in: formData
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: Email Added
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/phones':
+    post:
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      summary: Add a phone number to a customer
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: phoneNumber
+          in: formData
+          required: true
+          type: string
+        - name: displayName
+          in: formData
+          type: string
+        - name: setAsDefault
+          in: formData
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: Phone Number Added
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/chatSessions':
+    get:
+      summary: Retrieve chat sessions for customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+            - customer.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: Chat sessions
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ChatSessions'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/interactions':
+    post:
+      summary: Create an interaction
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/interactionType'
+      responses:
+        200:
+          description: Create Interaction Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CreateInteraction'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/tickets':
+    post:
+      summary: Create a new support ticket
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: subject
+          in: formData
+          required: true
+          description: Subject of the support ticket
+          type: string
+        - name: content
+          in: formData
+          required: true
+          description: Content of the support ticket
+          type: string
+        - name: recipient
+          in: formData
+          required: true
+          description: Receiver email address e.g. support@yourdomain.com
+          type: string
+        - name: sender
+          in: formData
+          required: true
+          description: Sender email address e.g. user@customer.com
+          type: string
+        - name: departmentFid
+          in: formData
+          required: false
+          description: Department FID
+          type: string
+      responses:
+        200:
+          description: Customer Currency Updated
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    get:
+      summary: Get support tickets for customer
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Tickets'
+          description: Ticket collection
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/tickets/{ticketFid}/posts':
+    get:
+      summary: Retrieve ticket posts for a ticket
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/ticketFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/TicketPosts'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Post a reply to a ticket
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/ticketFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TicketReplyPayload'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/TicketPost'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/tickets/{ticketFid}':
+    get:
+      summary: Retrieve a single ticket for a customer
+      tags:
+        - customers
+        - support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/ticketFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Ticket'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/invoices':
+    get:
+      summary: List of invoice summaries for given customer
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of invoices summaries
+          schema:
+            $ref: '#/definitions/Invoices'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/invoices/{invoiceFid}':
+    get:
+      summary: Retreive a specific itemised invoice
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+      responses:
+        200:
+          description: Loaded invoice
+          schema:
+            $ref: '#/definitions/Invoice'
+        x-404:
+          description: Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/invoices/retry':
+    put:
+      summary: Retry payment of all customer invoices which are in invoice
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Invoice set to retry payment
+        x-404:
+          description: Customer or Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/invoices/{invoiceFid}/retry':
+    put:
+      summary: Retry payment of invoice
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+      responses:
+        200:
+          description: Invoice set to retry payment
+        x-404:
+          description: Customer or Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/invoices/{invoiceFid}/creditNote':
+    post:
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      summary: Add a credit note to a customers invoice
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InvoiceCreditNotePayload'
+      responses:
+        200:
+          description: Credit Note Added
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InvoiceCreditNote'
+        x-404:
+          description: Invoice not found
+        x-400:
+          description: Issue adding credit note to invoice
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/customers/{customerFid}/accountStatus':
     put:
       summary: Update a customers status
@@ -902,73 +1406,6 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/customers/{customerFid}/orders':
-    get:
-      summary: List customer orders
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: filter
-          in: query
-          required: false
-          type: string
-        - name: externalReference
-          in: query
-          required: false
-          type: string
-        - name: state
-          in: query
-          required: false
-          type: string
-      responses:
-        200:
-          description: Customer Orders
-          schema:
-            $ref: '#/definitions/Orders'
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/billingData':
-    put:
-      summary: Update a customers billing data
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: billingType
-          in: formData
-          type: string
-        - name: taxNumber
-          in: formData
-          type: string
-        - name: companyNumber
-          in: formData
-          type: string
-        - name: knownIP
-          in: formData
-          type: string
-      responses:
-        200:
-          description: Customer Status Updated
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/lifecycleStage':
     put:
@@ -990,35 +1427,6 @@ paths:
           description: Customer lifecycle updated
         x-404:
           description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/note':
-    post:
-      summary: Save a note against a customer
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: note
-          in: formData
-          required: true
-          description: Text content of note
-          type: string
-        - $ref: '#/parameters/noteColor'
-      responses:
-        200:
-          description: Customer note saved
-        x-400:
-          description: Invalid Payload
         default:
           description: Error
           schema:
@@ -1308,419 +1716,7 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/customers/{customerFid}/chatSessions':
-    get:
-      summary: Retrieve chat sessions for customer
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-            - customer.readonly
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
-      responses:
-        200:
-          description: Chat sessions
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ChatSessions'
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
 
-  '/customers/{customerFid}/interactions':
-    post:
-      summary: Create an interaction
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/interactionType'
-      responses:
-        200:
-          description: Create Interaction Response
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/CreateInteraction'
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-
-  '/customers/{customerFid}/payments/{paymentFid}':
-    get:
-      summary: Retrieve a payment
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-            - customer.readonly
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentFid'
-      responses:
-        200:
-          description: Loaded Payment
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Payment'
-        x-404:
-          description: Customer or payment not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/payments/{paymentFid}/refund':
-    put:
-      summary: Refund a payment
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentFid'
-        - name: totalRefund
-          in: formData
-          required: true
-          description: Total Refund
-          type: number
-        - name: reasonFid
-          in: formData
-          required: true
-          description: Reason FID
-          type: string
-        - name: refundType
-          in: formData
-          required: true
-          description: Refund Type
-          type: string
-        - name: addCreditToInvoice
-          in: formData
-          required: true
-          description: Add Credit to Invoice
-          type: boolean
-      responses:
-        200:
-          description: Payment Refunded
-        x-404:
-          description: Payment Not Found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/contacts':
-    get:
-      summary: List contacts
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
-      responses:
-        200:
-          description: List of people
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/People'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-    post:
-      summary: Create a new contact for a customer
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: email
-          in: formData
-          required: false
-          description: Email
-          type: string
-        - name: phone
-          in: formData
-          required: false
-          description: Phone
-          type: string
-        - name: prefix
-          in: formData
-          required: false
-          description: Prefix
-          type: string
-        - name: firstName
-          in: formData
-          required: false
-          description: First Name
-          type: string
-        - name: middleNames
-          in: formData
-          required: false
-          description: Middle Names
-          type: string
-        - name: lastName
-          in: formData
-          required: false
-          description: Last Name
-          type: string
-        - name: suffix
-          in: formData
-          required: false
-          description: Suffix
-          type: string
-        - name: nickname
-          in: formData
-          required: false
-          description: Nickname
-          type: string
-        - name: birthday
-          in: formData
-          required: false
-          description: Birthday
-          type: string
-        - name: jobTitle
-          in: formData
-          required: false
-          description: Job Title
-          type: string
-        - name: address1
-          in: formData
-          required: false
-          description: Address 1
-          type: string
-        - name: address2
-          in: formData
-          required: false
-          description: Address 2
-          type: string
-        - name: address3
-          in: formData
-          required: false
-          description: Address 3
-          type: string
-        - name: town
-          in: formData
-          required: false
-          description: Town
-          type: string
-        - name: county
-          in: formData
-          required: false
-          description: County
-          type: string
-        - name: country
-          in: formData
-          required: false
-          description: Country
-          type: string
-        - name: postalCode
-          in: formData
-          required: false
-          description: Postal Code
-          type: string
-      responses:
-        200:
-          description: FID of the new contact
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
-
-  '/customers/{customerFid}/contacts/{contactFid}':
-    put:
-      summary: Update a contacts information
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/contactFid'
-        - name: prefix
-          in: formData
-          required: false
-          description: Prefix
-          type: string
-        - name: firstName
-          in: formData
-          required: false
-          description: First Name
-          type: string
-        - name: middleNames
-          in: formData
-          required: false
-          description: Middle Names
-          type: string
-        - name: lastName
-          in: formData
-          required: false
-          description: Last Name
-          type: string
-        - name: suffix
-          in: formData
-          required: false
-          description: Suffix
-          type: string
-        - name: nickname
-          in: formData
-          required: false
-          description: Nickname
-          type: string
-        - name: birthday
-          in: formData
-          required: false
-          description: Birthday
-          type: string
-        - name: jobTitle
-          in: formData
-          required: false
-          description: Job Title
-          type: string
-        - name: defaultEmailFid
-          in: formData
-          required: false
-          description: Default Email FID
-          type: string
-        - name: defaultPhoneFid
-          in: formData
-          required: false
-          description: Default Phone FID
-          type: string
-        - name: defaultAddressFid
-          in: formData
-          required: false
-          description: Default Address FID
-          type: string
-      responses:
-        200:
-          description: Contact Updated
-        x-404:
-          description: Contact or Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-    get:
-      summary: Retrieve information about a contact
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/contactFid'
-      responses:
-        200:
-          description: Contact Info
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/CustomerContact'
-        x-404:
-          description: Contact or Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-    delete:
-      summary: Remove a contact
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/contactFid'
-      responses:
-        200:
-          description: Contact removed
-        x-404:
-          description: Contact or Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/linkVisitor':
     put:
@@ -1749,10 +1745,9 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/payments/{paymentFid}/chargeback':
+  '/customers/{customerFid}/note':
     post:
-      summary: Initiate a chargeback on a payment
+      summary: Save a note against a customer
       tags:
         - customers
       security:
@@ -1763,673 +1758,21 @@ paths:
         - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/paymentFid'
-        - name: dateSubmitted
-          type: string
-          format: date-time
+        - name: note
           in: formData
           required: true
-          description: Date the chargeback was received (Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z)
-        - name: reasonCode
+          description: Text content of note
           type: string
-          in: formData
-          required: true
-          description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
-        - name: caseNumber
-          type: string
-          in: formData
-          required: true
-          description: Case Number
-        - name: amount
-          type: number
-          format: float
-          in: formData
-          required: true
-          description: Disputed Amount
-        - $ref: '#/parameters/chargebackState'
-        - $ref: '#/parameters/chargebackSource'
-        - name: refunded
-          type: boolean
-          in: formData
-          required: true
-          description: If this payment has been refunded by the alert
-        - name: description
-          type: string
-          in: formData
-          required: false
-          description: Notes
-        - name: feeCurrency
-          type: string
-          in: formData
-          required: false
-          description: 3 Character Currency code for the fee
-        - name: feeAmount
-          type: number
-          format: float
-          in: formData
-          required: false
-          description: Fee Amount
+        - $ref: '#/parameters/noteColor'
       responses:
         200:
-          description: Chargeback Opened
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Fid'
-        x-400:
-          description: Invalid Payload
-        x-404:
-          description: Invalid Payment Fid
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/chargebacks/{chargebackFid}':
-    put:
-      summary: Action a chargeback
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: chargebackFid
-          in: path
-          type: string
-          required: true
-          description: Chargeback FID to use
-        - name: reasonCode
-          type: string
-          in: formData
-          required: true
-          description: Chargeback Reason Code (see https://github.com/packaged/rwd/blob/master/src/Finance/Chargeback/ChargebackReasonHelper.php)
-        - name: caseNumber
-          type: string
-          in: formData
-          required: true
-          description: Case Number
-        - $ref: '#/parameters/chargebackState'
-        - name: refunded
-          type: boolean
-          in: formData
-          required: true
-          description: If this payment has been refunded by the alert
-        - name: description
-          type: string
-          in: formData
-          required: false
-          description: Notes
-      responses:
-        200:
-          description: Chargeback Actioned
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/BoolMessage'
+          description: Customer note saved
         x-400:
           description: Invalid Payload
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/tickets':
-    post:
-      summary: Create a new support ticket
-      tags:
-        - customers
-        - support
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: subject
-          in: formData
-          required: true
-          description: Subject of the support ticket
-          type: string
-        - name: content
-          in: formData
-          required: true
-          description: Content of the support ticket
-          type: string
-        - name: recipient
-          in: formData
-          required: true
-          description: Receiver email address e.g. support@yourdomain.com
-          type: string
-        - name: sender
-          in: formData
-          required: true
-          description: Sender email address e.g. user@customer.com
-          type: string
-        - name: departmentFid
-          in: formData
-          required: false
-          description: Department FID
-          type: string
-      responses:
-        200:
-          description: Customer Currency Updated
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-    get:
-      summary: Get support tickets for customer
-      tags:
-        - customers
-        - support
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-      responses:
-        200:
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Tickets'
-          description: Ticket collection
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/tickets/{ticketFid}/posts':
-    get:
-      summary: Retrieve ticket posts for a ticket
-      tags:
-        - customers
-        - support
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/ticketFid'
-      responses:
-        200:
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/TicketPosts'
-          description: Ticket Data
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-    post:
-      summary: Post a reply to a ticket
-      tags:
-        - customers
-        - support
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/ticketFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/TicketReplyPayload'
-      responses:
-        200:
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/TicketPost'
-          description: Ticket Data
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/tickets/{ticketFid}':
-    get:
-      summary: Retrieve a single ticket for a customer
-      tags:
-        - customers
-        - support
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/ticketFid'
-      responses:
-        200:
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Ticket'
-          description: Ticket Data
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/config/{sectionName}':
-    delete:
-      summary: Remove a config section, or property from an entity
-      tags:
-        - Configuration
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
-        - name: itemName
-          in: formData
-          type: string
-      responses:
-        200:
-          description: Config Item Deleted
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-    get:
-      summary: Retrieve a config section
-      tags:
-        - Configuration
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
-      responses:
-        200:
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ConfigItems'
-          description: List Of Config Items
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-    post:
-      summary: Write a config item
-      tags:
-        - Configuration
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
-        - name: itemName
-          in: formData
-          required: true
-          type: string
-        - name: value
-          in: formData
-          required: true
-          type: string
-      responses:
-        200:
-          description: Config Item Saved
-        x-400:
-          description: Invalid Entity
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/config/{sectionName}/items/{itemName}':
-    get:
-      summary: Retrieve a config item
-      tags:
-        - Configuration
-      security:
-        - OAuth:
-            - entity.config
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/sectionName'
-        - $ref: '#/parameters/itemName'
-      responses:
-        200:
-          description: Config Item
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ConfigItem'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/attachments/uploadUrl':
-    post:
-      summary: Create an upload url
-      security:
-        - OAuth:
-            - entity.attachments
-        - accessToken: []
-      tags:
-        - entity
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/RequestUploadUrlPayload'
-      responses:
-        200:
-          description: Attachment upload URL
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/AttachmentUrl'
-        x-400:
-          description: |
-            Invalid data supplied
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/properties':
-    put:
-      summary: Write multiple entity properties
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyBulkSetPayload'
-      responses:
-        200:
-          description: Properties Saved
-        x-400:
-          description: Invalid Entity
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/properties/values/{propertyName}':
-    get:
-      summary: Get a property value from an entity
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-      responses:
-        200:
-          description: Property Value
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PropertyValue'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-    delete:
-      summary: Remove a value property from an entity
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyValuePayload'
-      responses:
-        200:
-          description: Property Deleted
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-    put:
-      summary: Write an entity value property
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyValuePayload'
-
-      responses:
-        200:
-          description: Property Saved
-        x-400:
-          description: Invalid Entity
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/properties/flags/{propertyName}':
-    delete:
-      summary: Remove a flag from an entity
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-
-      responses:
-        200:
-          description: Property Deleted
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-    put:
-      summary: Write an entity flag
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyFlagPayload'
-
-      responses:
-        200:
-          description: Flag Saved
-        x-400:
-          description: Invalid Entity
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-
-  '/entities/{entityFid}/properties/counters/{propertyName}':
-    delete:
-      summary: Remove a counter from an entity
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-
-      responses:
-        200:
-          description: Property Deleted
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/properties/counters/{propertyName}/increment':
-    put:
-      summary: Increment an entity counter
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyCounterPayload'
-
-      responses:
-        200:
-          description: Counter Incremented
-        x-400:
-          description: Invalid Entity
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/properties/counters/{propertyName}/decrement':
-    put:
-      summary: Decrement an entity counter
-      tags:
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - $ref: '#/parameters/propertyName'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/PropertyCounterPayload'
-
-      responses:
-        200:
-          description: Counter Decremented
-        x-400:
-          description: Invalid Entity
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/entities/{entityFid}/events':
-    post:
-      summary: Trigger a new event
-      security:
-        - OAuth:
-            - entity.events
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/TriggerActionPayload'
-      responses:
-        200:
-          description: Event Triggered
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
   '/customers/{customerFid}/paymentAccounts':
     get:
       summary: List customers payment accounts
@@ -2624,244 +1967,76 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/addresses':
+  '/customers/{customerFid}/payments/{paymentFid}':
     get:
-      summary: List customers addresses
+      summary: Retrieve a payment
       tags:
         - customers
       security:
         - OAuth:
             - customer
+            - customer.readonly
         - accessToken: []
       parameters:
         - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentFid'
       responses:
         200:
-          schema:
-            $ref: '#/definitions/Addresses'
-          description: List of addresses
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-    post:
-      summary: Add an address to a customer
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/AddressPayload'
-      responses:
-        200:
-          description: Address Added
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/emails':
-    post:
-      summary: Add an email address to a customer
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: emailAddress
-          in: formData
-          required: true
-          type: string
-        - name: setAsDefault
-          in: formData
-          required: false
-          type: boolean
-      responses:
-        200:
-          description: Email Added
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/phones':
-    post:
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      summary: Add a phone number to a customer
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: phoneNumber
-          in: formData
-          required: true
-          type: string
-        - name: displayName
-          in: formData
-          type: string
-        - name: setAsDefault
-          in: formData
-          required: false
-          type: boolean
-      responses:
-        200:
-          description: Phone Number Added
-        x-404:
-          description: Customer not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/invoices':
-    get:
-      summary: List of invoice summaries for given customer
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
-      responses:
-        200:
-          description: List of invoices summaries
-          schema:
-            $ref: '#/definitions/Invoices'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/invoices/{invoiceFid}':
-    get:
-      summary: Retreive a specific itemised invoice
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/invoiceFid'
-      responses:
-        200:
-          description: Loaded invoice
-          schema:
-            $ref: '#/definitions/Invoice'
-        x-404:
-          description: Invoice not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/invoices/retry':
-    put:
-      summary: Retry payment of all customer invoices which are in invoice
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-      responses:
-        200:
-          description: Invoice set to retry payment
-        x-404:
-          description: Customer or Invoice not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/invoices/{invoiceFid}/retry':
-    put:
-      summary: Retry payment of invoice
-      tags:
-        - customers
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/invoiceFid'
-      responses:
-        200:
-          description: Invoice set to retry payment
-        x-404:
-          description: Customer or Invoice not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/customers/{customerFid}/invoices/{invoiceFid}/creditNote':
-    post:
-      security:
-        - OAuth:
-            - customer
-        - accessToken: []
-      summary: Add a credit note to a customers invoice
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - $ref: '#/parameters/invoiceFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/InvoiceCreditNotePayload'
-      responses:
-        200:
-          description: Credit Note Added
+          description: Loaded Payment
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/InvoiceCreditNote'
+                    $ref: '#/definitions/Payment'
         x-404:
-          description: Invoice not found
-        x-400:
-          description: Issue adding credit note to invoice
+          description: Customer or payment not found
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/payments/{paymentFid}/refund':
+    put:
+      summary: Refund a payment
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentFid'
+        - name: totalRefund
+          in: formData
+          required: true
+          description: Total Refund
+          type: number
+        - name: reasonFid
+          in: formData
+          required: true
+          description: Reason FID
+          type: string
+        - name: refundType
+          in: formData
+          required: true
+          description: Refund Type
+          type: string
+        - name: addCreditToInvoice
+          in: formData
+          required: true
+          description: Add Credit to Invoice
+          type: boolean
+      responses:
+        200:
+          description: Payment Refunded
+        x-404:
+          description: Payment Not Found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/customers/{customerFid}/subscriptions':
     get:
       summary: List of subscription summaries for given customer
@@ -3418,7 +2593,73 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/orders':
+    get:
+      summary: List customer orders
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: externalReference
+          in: query
+          required: false
+          type: string
+        - name: state
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: Customer Orders
+          schema:
+            $ref: '#/definitions/Orders'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/billingData':
+    put:
+      summary: Update a customers billing data
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: billingType
+          in: formData
+          type: string
+        - name: taxNumber
+          in: formData
+          type: string
+        - name: companyNumber
+          in: formData
+          type: string
+        - name: knownIP
+          in: formData
+          type: string
+      responses:
+        200:
+          description: Customer Status Updated
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/customers/{customerFid}/sar':
     post:
       summary: Subject Access Request
@@ -3501,141 +2742,772 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  /products:
-    get:
-      summary: List all products
-      tags:
-        - products
-      security:
-        - OAuth:
-            - product.readonly
-        - accessToken: []
-      responses:
-        200:
-          description: Products retrieved
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Products'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/products/{productFid}/availability/check':
+  /customers:
     post:
-      summary: Check Product Availability
-      tags:
-        - products
+      summary: Create a new customer
       security:
         - OAuth:
-            - product.readonly
+            - customer
         - accessToken: []
+      tags:
+        - customers
       parameters:
-        - $ref: '#/parameters/productFid'
         - name: payload
           in: body
           required: true
           schema:
-            $ref: '#/definitions/AvailabilityCheckPayload'
+            $ref: '#/definitions/CreateCustomerPayload'
       responses:
         200:
-          description: Result of availability check
+          description: Customer Created
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/AvailabilityCheckResponse'
+                    $ref: '#/definitions/Customer'
         x-404:
-          description: Product not found
+          description: |
+            The brand Fid you are trying to add a customer to does not exist
+        x-409:
+          description: |
+            The external reference has already been used to create a customer
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/products/{productFid}/prices':
+  /customers/findByReference:
     get:
-      summary: Retrieve Product Prices
-      tags:
-        - products
       security:
         - OAuth:
-            - product.readonly
+            - customer
+            - customer.readonly
         - accessToken: []
+      tags:
+        - customers
+      summary: Find a customer by your reference
       parameters:
-        - $ref: '#/parameters/productFid'
-        - name: currency
+        - name: reference
+          in: query
+          description: Your reference for the customer
+          type: string
+        - name: retrieveBillingData
+          in: query
+          type: boolean
+      responses:
+        200:
+          description: Located Customer
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Customer'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}':
+    get:
+      security:
+        - OAuth:
+            - customer
+            - customer.readonly
+        - accessToken: []
+      tags:
+        - customers
+      summary: Retrieve a customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: retrieveBillingData
+          in: query
+          type: boolean
+      responses:
+        200:
+          description: Loaded Customer
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Customer'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      security:
+        - OAuth:
+            - customer
+            - customer.readonly
+        - accessToken: []
+      tags:
+        - customers
+      summary: Update a customer
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: firstName
           in: formData
-          required: false
+          type: string
+        - name: lastName
+          in: formData
+          type: string
+        - name: displayName
+          in: formData
           type: string
       responses:
         200:
-          description: List of product prices
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ProductPrices'
+          description: Customer Updated
         x-404:
-          description: Product not found
+          description: Customer not found
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/products/groups':
-    get:
-      summary: Get a list of all product groups
-      tags:
-        - products
+    delete:
       security:
         - OAuth:
-            - product.readonly
+            - customer
         - accessToken: []
+      tags:
+        - customers
+      summary: Archive a customer
+      parameters:
+        - $ref: '#/parameters/customerFid'
       responses:
         200:
-          description: Products groups
+          description: Customer Archived
+        x-403:
+          description: It is not possible to archive this customer
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
           schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/ProductGroups'
+            $ref: '#/definitions/Envelope'
+  '/entities/{entityFid}/config/{sectionName}':
+    delete:
+      summary: Remove a config section, or property from an entity
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
+        - name: itemName
+          in: formData
+          type: string
+      responses:
+        200:
+          description: Config Item Deleted
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/products/groups/{productGroupFid}/products':
     get:
-      summary: Get a list of products belonging to the group
+      summary: Retrieve a config section
       tags:
-        - products
+        - Configuration
       security:
         - OAuth:
-            - product.readonly
+            - entity.config
         - accessToken: []
       parameters:
-        - $ref: '#/parameters/productGroupFid'
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
       responses:
         200:
-          description: Products
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/Products'
+                    $ref: '#/definitions/ConfigItems'
+          description: List Of Config Items
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
 
+    post:
+      summary: Write a config item
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
+        - name: itemName
+          in: formData
+          required: true
+          type: string
+        - name: value
+          in: formData
+          required: true
+          type: string
+      responses:
+        200:
+          description: Config Item Saved
+        x-400:
+          description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/config/{sectionName}/items/{itemName}':
+    get:
+      summary: Retrieve a config item
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/sectionName'
+        - $ref: '#/parameters/itemName'
+      responses:
+        200:
+          description: Config Item
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ConfigItem'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/attachments/uploadUrl':
+    post:
+      summary: Create an upload url
+      security:
+        - OAuth:
+            - entity.attachments
+        - accessToken: []
+      tags:
+        - entity
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RequestUploadUrlPayload'
+      responses:
+        200:
+          description: Attachment upload URL
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/AttachmentUrl'
+        x-400:
+          description: |
+            Invalid data supplied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/properties':
+    put:
+      summary: Write multiple entity properties
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyBulkSetPayload'
+      responses:
+        200:
+          description: Properties Saved
+        x-400:
+          description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/properties/values/{propertyName}':
+    get:
+      summary: Get a property value from an entity
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+      responses:
+        200:
+          description: Property Value
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PropertyValue'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    delete:
+      summary: Remove a value property from an entity
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyValuePayload'
+      responses:
+        200:
+          description: Property Deleted
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+    put:
+      summary: Write an entity value property
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyValuePayload'
+
+      responses:
+        200:
+          description: Property Saved
+        x-400:
+          description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/properties/flags/{propertyName}':
+    delete:
+      summary: Remove a flag from an entity
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+
+      responses:
+        200:
+          description: Property Deleted
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+    put:
+      summary: Write an entity flag
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyFlagPayload'
+
+      responses:
+        200:
+          description: Flag Saved
+        x-400:
+          description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+
+  '/entities/{entityFid}/properties/counters/{propertyName}':
+    delete:
+      summary: Remove a counter from an entity
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+
+      responses:
+        200:
+          description: Property Deleted
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/properties/counters/{propertyName}/increment':
+    put:
+      summary: Increment an entity counter
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyCounterPayload'
+
+      responses:
+        200:
+          description: Counter Incremented
+        x-400:
+          description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/properties/counters/{propertyName}/decrement':
+    put:
+      summary: Decrement an entity counter
+      tags:
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - $ref: '#/parameters/propertyName'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyCounterPayload'
+
+      responses:
+        200:
+          description: Counter Decremented
+        x-400:
+          description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/events':
+    post:
+      summary: Trigger a new event
+      security:
+        - OAuth:
+            - entity.events
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TriggerActionPayload'
+      responses:
+        200:
+          description: Event Triggered
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  /pay/publicKey:
+    get:
+      summary: Get the public key needed to encrypt a credit card number
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: []
+      parameters:
+        - name: format
+          in: query
+          description: Format for the generated key xml, raw, pkcs1 or pkcs8.
+          type: string
+      responses:
+        200:
+          description: RSA Public Key
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PubKey'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /pay/coinbase:
+    get:
+      summary: Get a new checkout ID
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: []
+      parameters:
+        - name: orderFID
+          in: query
+          description: FID of the order for which to retrieve a checkout ID
+          type: string
+      responses:
+        200:
+          description: Coinbase checkout ID
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CoinbaseCheckout'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/configuration/finance/gateways':
+    get:
+      summary: Lists all the current gateways
+      tags:
+        - Configuration
+      security:
+        - OAuth:
+            - configuration.readonly
+        - accessToken: []
+      parameters:
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of payment gateways
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PaymentGateways'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/licence/check':
+    get:
+      summary: Retrieve A Licence
+      tags:
+        - licence
+      security:
+        - OAuth:
+            - purchase.readonly
+        - accessToken: []
+      parameters:
+        - name: key
+          in: query
+          type: string
+      responses:
+        200:
+          description: Licence Information
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Licence'
+        x-404:
+          description: Licence Not Valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  /me:
+    get:
+      security:
+        - OAuth:
+            - basic
+        - accessToken: []
+      summary: Current User
+      operationId: getMe
+      description: |
+        Retrieve information about the current connected user (you)
+      responses:
+        200:
+          description: User Information
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/User'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/integrations/verifyUser':
+    get:
+      summary: Verify a user
+      security:
+        - accessToken: []
+      parameters:
+        - name: verifyKey
+          in: query
+          description: 'Verify key found in ?fortifiverify=VERIFYKEY'
+          required: true
+          type: string
+        - name: remoteIp
+          in: query
+          description: 'IP of the user connecting'
+          required: true
+          type: string
+      responses:
+        200:
+          description: Integration User
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/IntegrationUser'
+        x-403:
+          description: Unable to verify user
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/messenger/deliveries/{deliveryFid}/unsubscribe':
+    put:
+      summary: Unsubscribe an email based on the delivery fid
+      tags:
+        - Contacts
+        - Messenger
+      security:
+        - OAuth:
+            - contact
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/deliveryFid'
+        - $ref: '#/parameters/userAgent'
+        - $ref: '#/parameters/encoding'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/clientIp'
+      responses:
+        200:
+          description: Email Address Unsubscribed
+        x-404:
+          description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/messenger/deliveries/{deliveryFid}/subscribe':
+    put:
+      summary: Subscribe an email based on the delivery fid
+      tags:
+        - Contacts
+        - Messenger
+      security:
+        - OAuth:
+            - contact
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/deliveryFid'
+        - $ref: '#/parameters/userAgent'
+        - $ref: '#/parameters/encoding'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/clientIp'
+        - $ref: '#/parameters/optInStatus'
+        - $ref: '#/parameters/optInData'
+      responses:
+        200:
+          description: Email Address Subscribed
+        x-404:
+          description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /orders:
     post:
       summary: Create a new order
@@ -3659,7 +3531,7 @@ paths:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/Fid'
+                    $ref: '#/definitions/Order'
         default:
           description: Error
           schema:
@@ -4113,155 +3985,29 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/messenger/deliveries/{deliveryFid}/unsubscribe':
-    put:
-      summary: Unsubscribe an email based on the delivery fid
-      tags:
-        - Contacts
-        - Messenger
+  /organisation:
+    get:
       security:
         - OAuth:
-            - contact
+            - basic
         - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/deliveryFid'
-        - $ref: '#/parameters/userAgent'
-        - $ref: '#/parameters/encoding'
-        - $ref: '#/parameters/language'
-        - $ref: '#/parameters/clientIp'
+      summary: Current Organisation
+      operationId: getOrganisation
+      description: |
+        Retrieve information about the current organisation
       responses:
         200:
-          description: Email Address Unsubscribed
-        x-404:
-          description: Email Address not found
+          description: Organisation Information
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Organisation'
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/messenger/deliveries/{deliveryFid}/subscribe':
-    put:
-      summary: Subscribe an email based on the delivery fid
-      tags:
-        - Contacts
-        - Messenger
-      security:
-        - OAuth:
-            - contact
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/deliveryFid'
-        - $ref: '#/parameters/userAgent'
-        - $ref: '#/parameters/encoding'
-        - $ref: '#/parameters/language'
-        - $ref: '#/parameters/clientIp'
-        - $ref: '#/parameters/optInStatus'
-        - $ref: '#/parameters/optInData'
-      responses:
-        200:
-          description: Email Address Subscribed
-        x-404:
-          description: Email Address not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/contacts/emails/{emailAddress}/confirm':
-    put:
-      summary: Confirm email address
-      tags:
-        - Contacts
-      security:
-        - OAuth:
-            - contact
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/emailAddress'
-      responses:
-        200:
-          description: Email Address Confirmed
-        x-404:
-          description: Email Address not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/contacts/emails/{emailAddress}/unsubscribe':
-    put:
-      summary: Unsubscribe an email address
-      tags:
-        - Contacts
-      security:
-        - OAuth:
-            - contact
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/emailAddress'
-        - $ref: '#/parameters/unsubscribeType'
-        - name: brandFid
-          in: formData
-          type: string
-          description: Brand to unsubscribe the email address from
-        - name: groupFid
-          in: formData
-          type: string
-          description: Group to unsubscribe the email address from
-      responses:
-        200:
-          description: Email Address Unsubscribed
-        x-404:
-          description: Email Address not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/contacts/emails/{emailAddress}/subscribe':
-    put:
-      summary: Subscribe an email address
-      tags:
-        - Contacts
-      security:
-        - OAuth:
-            - contact
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - $ref: '#/parameters/emailAddress'
-        - name: brandFid
-          in: formData
-          type: string
-          description: Brand to subscribe the email address from
-        - name: groupFid
-          in: formData
-          type: string
-          description: Group to unsubscribe the email address from
-        - $ref: '#/parameters/userAgent'
-        - $ref: '#/parameters/encoding'
-        - $ref: '#/parameters/language'
-        - $ref: '#/parameters/clientIp'
-        - $ref: '#/parameters/optInStatus'
-        - $ref: '#/parameters/optInData'
-      responses:
-        200:
-          description: Email Address Subscribed
-        x-404:
-          description: Email Address not found
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
   '/polymers':
     post:
       summary: Create a new polymer
@@ -4322,6 +4068,139 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  /products:
+    get:
+      summary: List all products
+      tags:
+        - products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: []
+      responses:
+        200:
+          description: Products retrieved
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Products'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/{productFid}/availability/check':
+    post:
+      summary: Check Product Availability
+      tags:
+        - products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AvailabilityCheckPayload'
+      responses:
+        200:
+          description: Result of availability check
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/AvailabilityCheckResponse'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/{productFid}/prices':
+    get:
+      summary: Retrieve Product Prices
+      tags:
+        - products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: currency
+          in: formData
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of product prices
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductPrices'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/groups':
+    get:
+      summary: Get a list of all product groups
+      tags:
+        - products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: []
+      responses:
+        200:
+          description: Products groups
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductGroups'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/groups/{productGroupFid}/products':
+    get:
+      summary: Get a list of products belonging to the group
+      tags:
+        - products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/productGroupFid'
+      responses:
+        200:
+          description: Products
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Products'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/products/offers':
     get:
@@ -4345,36 +4224,6 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/licence/check':
-    get:
-      summary: Retrieve A Licence
-      tags:
-        - licence
-      security:
-        - OAuth:
-            - purchase.readonly
-        - accessToken: []
-      parameters:
-        - name: key
-          in: query
-          type: string
-      responses:
-        200:
-          description: Licence Information
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Licence'
-        x-404:
-          description: Licence Not Valid
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
   '/reasons/groups':
     get:
       summary: Get a list of all reason groups
@@ -4426,36 +4275,6 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/tickets':
-    post:
-      summary: Create a support ticket
-      tags:
-        - support
-      security:
-        - OAuth:
-            - support
-        - accessToken: []
-      parameters:
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CreateTicketPayload'
-      responses:
-        200:
-          description: Ticket Information
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Ticket'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
   '/services':
     get:
       summary: Retrieve all services
@@ -4538,68 +4357,223 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-
-  '/configuration/finance/gateways':
-    get:
-      summary: Lists all the current gateways
-      tags:
-        - Configuration
-      security:
-        - OAuth:
-            - configuration.readonly
-        - accessToken: []
+  /svcauth/verify:
+    post:
+      summary: Verify service account / Get Access Token
+      operationId: getServiceAuthToken
+      description: |
+        User service account credentials to retrieve an API token
       parameters:
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ServiceAccountCredentialsPayload'
       responses:
         200:
-          description: List of payment gateways
+          description: Token
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/PaymentGateways'
+                    $ref: '#/definitions/AuthToken'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/tickets':
+    post:
+      summary: Create a support ticket
+      tags:
+        - support
+      security:
+        - OAuth:
+            - support
+        - accessToken: []
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateTicketPayload'
+      responses:
+        200:
+          description: Ticket Information
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Ticket'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  /version:
+    get:
+      security:
+        - OAuth:
+            - basic
+        - accessToken: []
+      summary: Current Version
+      operationId: getVersion
+      description: |
+        Retrieve the current version of the Fortifi api
+      responses:
+        200:
+          description: Version
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    type: string
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/visitors/{visitorId}':
+    get:
+      security:
+        - OAuth:
+            - visitor
+        - accessToken: []
+      tags:
+        - marketing
+      summary: Retrieve information about a visitor
+      description: This call will return information related to how a visitor arrived
+      parameters:
+        - $ref: '#/parameters/visitorId'
+      responses:
+        200:
+          description: Pixels
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/VisitorResponse'
         default:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/integrations/verifyUser':
+  '/visitors/{visitorId}/pixels':
     get:
-      summary: Verify a user
       security:
+        - OAuth:
+            - visitor
         - accessToken: []
+      tags:
+        - marketing
+      summary: Retrieve pending pixels for this visitor
+      description: This call will release pixels from the pending queue on read
       parameters:
-        - name: verifyKey
-          in: query
-          description: 'Verify key found in ?fortifiverify=VERIFYKEY'
-          required: true
-          type: string
-        - name: remoteIp
-          in: query
-          description: 'IP of the user connecting'
-          required: true
-          type: string
+        - $ref: '#/parameters/visitorId'
       responses:
         200:
-          description: List of payment gateways
+          description: Pixels
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/IntegrationUser'
-        x-403:
-          description: Unable to verify user
+                    type: array
+                    items:
+                      $ref: '#/definitions/AdvertiserPixel'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/visitors/{visitorId}/actions/{actionKey}':
+    post:
+      summary: Track an action
+      tags:
+        - marketing
+      description: |
+        Track an action such as a lead or acquisition
+      security:
+        - OAuth:
+            - visitor
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/visitorId'
+        - name: actionKey
+          description: Action key of the action to track e.g. lead
+          in: path
+          required: true
+          type: string
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PostActionPayload'
+
+      responses:
+        200:
+          description: Action Tracked
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/VisitorPostAction'
+        x-409:
+          description: |
+            The transaction ID specified has already been used for this action
+        x-400:
+          description: |
+            Not enough information was provided to complete your request
+            e.g. Missing Visitor ID and/or Client IP
+        x-404:
+          description: |
+            The actionKey specified does not exist
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/visitors/{visitorId}/actions/{actionKey}/reverse':
+    post:
+      summary: Reverse a previously tracked action
+      tags:
+        - marketing
+      description: |
+        When an action has been reversed, e.g. cancelled, refunded
+      security:
+        - OAuth:
+            - visitor
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/visitorId'
+        - name: actionKey
+          description: Action key of the action to reverse e.g. lead
+          in: path
+          required: true
+          type: string
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ReverseActionPayload'
+
+      responses:
+        200:
+          description: Action Reversed
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/VisitorReversalAction'
+        x-404:
+          description: |
+            The action you are trying to reverse cannot be found
+        x-409:
+          description: |
+            The action specified has already been reversed
         default:
           description: Error
           schema:
@@ -4872,9 +4846,174 @@ parameters:
     type: string
 
 definitions:
-
-  #Responses
-
+  creditAmountType:
+    description: Credit amount type
+    type: string
+    enum:
+      - percent_of_remaining
+      - percent_of_total
+      - fixed
+  ModifySubscriptionMode:
+    description: Mode to modify subscription with
+    type: string
+    enum:
+      - prorate
+      - extend
+      - replace
+  PaymentAccountType:
+    description: Payment account type
+    type: string
+    enum:
+      - unknown
+      - visa
+      - mastercard
+      - amex
+      - jcb
+      - discover
+      - diners
+      - encrypted
+      - paypal_personal
+      - paypal_premier
+      - paypal_business
+      - paypal_verified
+      - paypal_unverified
+      - paypal
+      - bitcoin
+      - account_balance
+  PaymentMethod:
+    description: Payment Method
+    type: string
+    enum:
+      - creditcard
+      - debitcard
+      - cheque
+      - cash
+      - prepaidcard
+      - directdebit
+      - bacs
+      - standingorder
+      - chaps
+      - onlineservice
+      - telephone
+      - creditnote
+      - virtualcard
+      - giftcard
+      - unknown
+      - multiple
+      - paypal
+      - bitcoin
+      - account_balance
+  PaymentMode:
+    description: Payment Mode
+    type: string
+    enum:
+      - automatic
+      - request
+  reversalReason:
+    description: The reason for reversing the action
+    type: string
+    enum:
+      - chargeback
+      - cancel
+      - fraud
+  advertiserType:
+    description: Advertiser Type
+    type: string
+    enum:
+      - affiliate
+      - network
+      - customer
+  customerAccountType:
+    description: Account Type
+    type: string
+    enum:
+      - unknown
+      - student
+      - charity
+      - business
+      - residential
+      - enterprise
+      - group
+  customerAccountStatus:
+    description: Account Status
+    type: string
+    enum:
+      - setup
+      - active
+      - suspended
+      - expired
+      - cancelled
+  cycleTermType:
+    description: Term Type
+    type: string
+    enum:
+      - onetime
+      - lifetime
+      - day
+      - week
+      - month
+      - year
+  discountType:
+    description: Discount Type
+    type: string
+    enum:
+      - fixed
+      - percentage
+  customerLifecycle:
+    description: Customer Lifecycle Stage
+    type: string
+    enum:
+      - closed
+      - cold
+      - customer
+      - evangelist
+      - lead
+      - mql
+      - opportunity
+      - other
+      - prospect
+      - recommended
+      - sql
+      - subscriber
+  customerSubscriptionType:
+    description: Customer Subscription Status
+    type: string
+    enum:
+      - none
+      - trial
+      - free
+      - paid
+  PaymentServiceProcessor:
+    description: Payment Service Processor Type
+    type: string
+    enum:
+      - paypal
+      - wire
+      - blackhole
+      - cheque
+      - prepayment
+      - fortifipay
+      - coinbase
+  CreateOrderType:
+    description: Order Type (Must be initial to Auth Cards)
+    type: string
+    enum:
+      - initial
+      - purchase
+  SubscriptionRefundType:
+    description: Subscription Refund Type
+    type: string
+    enum:
+      - prorate
+      - full
+  reasonGroupType:
+    description: Reason Group Type
+    type: string
+    enum:
+      - cancel
+      - suspend
+      - refund
+      - credit
   EnvelopeMeta:
     description: Envelope Meta
     properties:
@@ -4904,7 +5043,6 @@ definitions:
     required:
       - meta
       - data
-
   Fid:
     description: Generic Response
     properties:
@@ -7282,6 +7420,10 @@ definitions:
       externalReference:
         description: Reference for this order
         type: string
+      confirm:
+        type: boolean
+        default: false
+        description: Automatically confirm this order
 
   OrderProductsPayload:
     properties:
@@ -7504,176 +7646,9 @@ definitions:
         type: string
 
   #Properties
-  creditAmountType:
-    description: Credit amount type
-    type: string
-    enum:
-      - percent_of_remaining
-      - percent_of_total
-      - fixed
-  ModifySubscriptionMode:
-    description: Mode to modify subscription with
-    type: string
-    enum:
-      - prorate
-      - extend
-      - replace
-  PaymentAccountType:
-    description: Payment account type
-    type: string
-    enum:
-      - unknown
-      - visa
-      - mastercard
-      - amex
-      - jcb
-      - discover
-      - diners
-      - encrypted
-      - paypal_personal
-      - paypal_premier
-      - paypal_business
-      - paypal_verified
-      - paypal_unverified
-      - paypal
-      - bitcoin
-      - account_balance
-  PaymentMethod:
-    description: Payment Method
-    type: string
-    enum:
-      - creditcard
-      - debitcard
-      - cheque
-      - cash
-      - prepaidcard
-      - directdebit
-      - bacs
-      - standingorder
-      - chaps
-      - onlineservice
-      - telephone
-      - creditnote
-      - virtualcard
-      - giftcard
-      - unknown
-      - multiple
-      - paypal
-      - bitcoin
-      - account_balance
-  PaymentMode:
-    description: Payment Mode
-    type: string
-    enum:
-      - automatic
-      - request
+
   metaData:
     type: array
     description: Additional information to store
     items:
       $ref: '#/definitions/keyValuePayload'
-  reversalReason:
-    description: The reason for reversing the action
-    type: string
-    enum:
-      - chargeback
-      - cancel
-      - fraud
-  advertiserType:
-    description: Advertiser Type
-    type: string
-    enum:
-      - affiliate
-      - network
-      - customer
-  customerAccountType:
-    description: Account Type
-    type: string
-    enum:
-      - unknown
-      - student
-      - charity
-      - business
-      - residential
-      - enterprise
-      - group
-  customerAccountStatus:
-    description: Account Status
-    type: string
-    enum:
-      - setup
-      - active
-      - suspended
-      - expired
-      - cancelled
-  cycleTermType:
-    description: Term Type
-    type: string
-    enum:
-      - onetime
-      - lifetime
-      - day
-      - week
-      - month
-      - year
-  discountType:
-    description: Discount Type
-    type: string
-    enum:
-      - fixed
-      - percentage
-  customerLifecycle:
-    description: Customer Lifecycle Stage
-    type: string
-    enum:
-      - closed
-      - cold
-      - customer
-      - evangelist
-      - lead
-      - mql
-      - opportunity
-      - other
-      - prospect
-      - recommended
-      - sql
-      - subscriber
-  customerSubscriptionType:
-    description: Customer Subscription Status
-    type: string
-    enum:
-      - none
-      - trial
-      - free
-      - paid
-  PaymentServiceProcessor:
-    description: Payment Service Processor Type
-    type: string
-    enum:
-      - paypal
-      - wire
-      - blackhole
-      - cheque
-      - prepayment
-      - fortifipay
-      - coinbase
-  CreateOrderType:
-    description: Order Type (Must be initial to Auth Cards)
-    type: string
-    enum:
-      - initial
-      - purchase
-  SubscriptionRefundType:
-    description: Subscription Refund Type
-    type: string
-    enum:
-      - prorate
-      - full
-  reasonGroupType:
-    description: Reason Group Type
-    type: string
-    enum:
-      - cancel
-      - suspend
-      - refund
-      - credit

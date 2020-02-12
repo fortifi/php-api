@@ -22,6 +22,78 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidPaymentsEndpoint
+   */
+  public function payments()
+  {
+    $endpoint = new CustomersCustomerFidPaymentsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidChargebacksEndpoint
+   */
+  public function chargebacks()
+  {
+    $endpoint = new CustomersCustomerFidChargebacksEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidContactsEndpoint
+   */
+  public function contacts()
+  {
+    $endpoint = new CustomersCustomerFidContactsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidAddressesEndpoint
+   */
+  public function addresses()
+  {
+    $endpoint = new CustomersCustomerFidAddressesEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidTicketsEndpoint
+   */
+  public function tickets()
+  {
+    $endpoint = new CustomersCustomerFidTicketsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidInvoicesEndpoint
+   */
+  public function invoices()
+  {
+    $endpoint = new CustomersCustomerFidInvoicesEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidLoyalEndpoint
    */
   public function loyal()
@@ -46,83 +118,11 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return CustomersCustomerFidPaymentsEndpoint
-   */
-  public function payments()
-  {
-    $endpoint = new CustomersCustomerFidPaymentsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidContactsEndpoint
-   */
-  public function contacts()
-  {
-    $endpoint = new CustomersCustomerFidContactsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidChargebacksEndpoint
-   */
-  public function chargebacks()
-  {
-    $endpoint = new CustomersCustomerFidChargebacksEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidTicketsEndpoint
-   */
-  public function tickets()
-  {
-    $endpoint = new CustomersCustomerFidTicketsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
    * @return CustomersCustomerFidPaymentMethodsEndpoint
    */
   public function paymentMethods()
   {
     $endpoint = new CustomersCustomerFidPaymentMethodsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidAddressesEndpoint
-   */
-  public function addresses()
-  {
-    $endpoint = new CustomersCustomerFidAddressesEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidInvoicesEndpoint
-   */
-  public function invoices()
-  {
-    $endpoint = new CustomersCustomerFidInvoicesEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);
@@ -142,11 +142,11 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return CustomersCustomerFidOrdersEndpoint
+   * @return CustomersCustomerFidEmailsEndpoint
    */
-  public function orders()
+  public function emails()
   {
-    $endpoint = new CustomersCustomerFidOrdersEndpoint(
+    $endpoint = new CustomersCustomerFidEmailsEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);
@@ -154,11 +154,11 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return CustomersCustomerFidNoteEndpoint
+   * @return CustomersCustomerFidPhonesEndpoint
    */
-  public function note()
+  public function phones()
   {
-    $endpoint = new CustomersCustomerFidNoteEndpoint(
+    $endpoint = new CustomersCustomerFidPhonesEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);
@@ -190,6 +190,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidNoteEndpoint
+   */
+  public function note()
+  {
+    $endpoint = new CustomersCustomerFidNoteEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidPaymentAccountsEndpoint
    */
   public function paymentAccounts()
@@ -202,23 +214,11 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return CustomersCustomerFidEmailsEndpoint
+   * @return CustomersCustomerFidOrdersEndpoint
    */
-  public function emails()
+  public function orders()
   {
-    $endpoint = new CustomersCustomerFidEmailsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidPhonesEndpoint
-   */
-  public function phones()
-  {
-    $endpoint = new CustomersCustomerFidPhonesEndpoint(
+    $endpoint = new CustomersCustomerFidOrdersEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);
@@ -345,40 +345,6 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->setBody(json_encode($payload));
-    $detail->setMethod('PUT');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Update a customers billing data
-   *
-   * @param $billingType
-   * @param $taxNumber
-   * @param $companyNumber
-   * @param $knownIP
-   *
-   * @return ApiRequest
-   */
-  public function setBillingData($billingType = null, $taxNumber = null, $companyNumber = null, $knownIP = null)
-  {
-    $request = new ApiRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'customers/{customerFid}/billingData'
-      )
-    ));
-    $detail->addPostField('billingType', $billingType);
-    $detail->addPostField('taxNumber', $taxNumber);
-    $detail->addPostField('companyNumber', $companyNumber);
-    $detail->addPostField('knownIP', $knownIP);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
@@ -659,6 +625,40 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->addPostField('visitorId', $visitorId);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Update a customers billing data
+   *
+   * @param $billingType
+   * @param $taxNumber
+   * @param $companyNumber
+   * @param $knownIP
+   *
+   * @return ApiRequest
+   */
+  public function setBillingData($billingType = null, $taxNumber = null, $companyNumber = null, $knownIP = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/billingData'
+      )
+    ));
+    $detail->addPostField('billingType', $billingType);
+    $detail->addPostField('taxNumber', $taxNumber);
+    $detail->addPostField('companyNumber', $companyNumber);
+    $detail->addPostField('knownIP', $knownIP);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
