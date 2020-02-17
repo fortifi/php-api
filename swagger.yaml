@@ -7463,6 +7463,15 @@ definitions:
       sku:
         description: Product SKU
         type: string
+      productFid:
+        description: Product Fid
+        type: string
+      cycleTerm:
+        description: Cycle Term
+        type: number
+        format: int32
+      cycleType:
+        $ref: '#/definitions/cycleTermType'
       quantity:
         type: integer
       displayName:

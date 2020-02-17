@@ -21,6 +21,18 @@ class OrderProductPayload
    * Product SKU
    */
   protected $_sku;
+  /**
+   * Product Fid
+   */
+  protected $_productFid;
+  /**
+   * Cycle Term
+   */
+  protected $_cycleTerm;
+  /**
+   * Term Type
+   */
+  protected $_cycleType;
   protected $_quantity;
   protected $_displayName;
   protected $_properties;
@@ -43,6 +55,18 @@ class OrderProductPayload
     if(isset($data["sku"]))
     {
       $this->_sku = (string)$data["sku"];
+    }
+    if(isset($data["productFid"]))
+    {
+      $this->_productFid = (string)$data["productFid"];
+    }
+    if(isset($data["cycleTerm"]))
+    {
+      $this->_cycleTerm = (int)$data["cycleTerm"];
+    }
+    if(isset($data["cycleType"]))
+    {
+      $this->_cycleType = (string)$data["cycleType"];
     }
     if(isset($data["quantity"]))
     {
@@ -67,6 +91,9 @@ class OrderProductPayload
       "transportReference" => $this->_transportReference,
       "priceFid"           => $this->_priceFid,
       "sku"                => $this->_sku,
+      "productFid"         => $this->_productFid,
+      "cycleTerm"          => $this->_cycleTerm,
+      "cycleType"          => $this->_cycleType,
       "quantity"           => $this->_quantity,
       "displayName"        => $this->_displayName,
       "properties"         => $this->_properties,
@@ -170,6 +197,79 @@ class OrderProductPayload
   public function getSku($default = null, $trim = true)
   {
     $value = $this->_sku ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setProductFid(?string $value)
+  {
+    $this->_productFid = $value;
+    return $this;
+  }
+
+  /**
+   * Product Fid
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductFid($default = null, $trim = true)
+  {
+    $value = $this->_productFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setCycleTerm(?int $value)
+  {
+    $this->_cycleTerm = $value;
+    return $this;
+  }
+
+  /**
+   * Cycle Term
+   *
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCycleTerm($default = null)
+  {
+    return $this->_cycleTerm ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCycleType(?string $value)
+  {
+    $this->_cycleType = $value;
+    return $this;
+  }
+
+  /**
+   * Term Type
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCycleType($default = null, $trim = true)
+  {
+    $value = $this->_cycleType ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
