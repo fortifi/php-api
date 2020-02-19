@@ -17,6 +17,7 @@ class PaymentAccountRequest
         "accountType" => $this->getAccountType(),
         "paymentMethod" => $this->getPaymentMethod(),
         "paymentMode" => $this->getPaymentMode(),
+        "accountHolder" => $this->getAccountHolder(),
       ]
     );
   }
@@ -60,6 +61,18 @@ class PaymentAccountRequest
   public function getPaymentMode($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'paymentMode', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAccountHolder($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'accountHolder', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.24.1'
+  version: '3.25.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1796,6 +1796,112 @@ paths:
           description: List of payment accounts
         x-400:
           description: Error retrieving payment accounts
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+
+  '/customers/{customerFid}/paymentAccounts/{paymentAccountFid}':
+    get:
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentAccountFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PaymentAccount'
+          description: Payment Method Information
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/paymentMethods':
+    get:
+      summary: List customers payment methods
+      tags:
+        - customers
+        - payment.methods
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PaymentMethods'
+          description: List of payment methods
+        x-400:
+          description: Error retrieving payment methods
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/paymentMethods/{paymentMethodFid}':
+    get:
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentMethodFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PaymentMethodResponse'
+          description: Payment Method Information
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+    put:
+      tags:
+        - customers
+        - paymentMethods
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentMethodFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentMethodUpdatePayload'
+      summary: Update a card
+      responses:
+        200:
+          description: Payment Method Updated
         default:
           description: Error
           schema:
@@ -4696,6 +4802,18 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  paymentMethodFid:
+    name: paymentMethodFid
+    in: path
+    type: string
+    required: true
+    description: Payment Method FID to use
+  paymentAccountFid:
+    name: paymentAccountFid
+    in: path
+    type: string
+    required: true
+    description: Payment Account FID to use
   ticketFid:
     name: ticketFid
     in: path
@@ -5085,11 +5203,6 @@ definitions:
       expiry:
         type: number
         format: int64
-
-  AuthTokenResponse:
-    description: Authentication token used to access services
-    allOf:
-      - $ref: '#/definitions/AuthToken'
 
   PubKey:
     description: Generic Response
@@ -6266,11 +6379,41 @@ definitions:
         items:
           $ref: '#/definitions/PaymentAccount'
 
-  PaypalInit:
+  PaymentMethods:
     description: Generic Response
     properties:
-      redirectUrl:
-        type: string
+      accounts:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentMethodResponse'
+
+  PaymentMethodResponse:
+    description: Payment Method Response
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          methodType:
+            type: string
+          methodSubType:
+            type: string
+          methodScheme:
+            type: string
+          issuerName:
+            type: string
+          issueNumber:
+            type: string
+          validFromDate:
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
+          expiryDate:
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
+          accountHolder:
+            type: string
+          last4:
+            type: string
 
   PaymentAccount:
     description: Generic Response
@@ -6283,6 +6426,8 @@ definitions:
             $ref: '#/definitions/PaymentMethod'
           paymentMode:
             $ref: '#/definitions/PaymentMode'
+          accountHolder:
+            type: string
 
   PaymentCards:
     description: Generic Response
@@ -6309,6 +6454,12 @@ definitions:
             type: number
           cardType:
             type: string
+
+  PaypalInit:
+    description: Generic Response
+    properties:
+      redirectUrl:
+        type: string
 
   Addresses:
     description: Generic Response
@@ -7377,6 +7528,33 @@ definitions:
         type: string
       asDefault:
         type: boolean
+
+  PaymentMethodUpdatePayload:
+    description: Update payment method details
+    properties:
+      accountHolder:
+        description: Name as appears on card/account
+        type: string
+      validMonth:
+        description: Valid from month
+        type: integer
+        format: int32
+      validYear:
+        description: Valid from year
+        type: integer
+        format: int32
+      expiryMonth:
+        description: Expiration Month
+        type: integer
+        format: int32
+      expiryYear:
+        description: Expiration Year
+        type: integer
+        format: int32
+      issue:
+        description: Issue number
+        type: integer
+        format: int32
 
   CreateOrderPayload:
     properties:
