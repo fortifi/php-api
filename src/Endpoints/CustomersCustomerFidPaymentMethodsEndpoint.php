@@ -1,6 +1,8 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\PaymentMethodsRequest;
+use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class CustomersCustomerFidPaymentMethodsEndpoint extends ApiEndpoint
@@ -11,6 +13,21 @@ class CustomersCustomerFidPaymentMethodsEndpoint extends ApiEndpoint
   public function __construct($customerFid)
   {
     $this->_replacements['{customerFid}'] = $customerFid;
+  }
+
+  /**
+   * @param $paymentMethodFid
+   *
+   * @return CustomersCustomerFidPaymentMethodsPaymentMethodFidEndpoint
+   */
+  public function with($paymentMethodFid)
+  {
+    $endpoint = new CustomersCustomerFidPaymentMethodsPaymentMethodFidEndpoint(
+      $this->_replacements['{customerFid}'],
+      $paymentMethodFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
   }
 
   /**
@@ -35,5 +52,30 @@ class CustomersCustomerFidPaymentMethodsEndpoint extends ApiEndpoint
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
+  }
+
+  /**
+   * @summary List customers payment methods
+   *
+   * @return PaymentMethodsRequest
+   */
+  public function all()
+  {
+    $request = new PaymentMethodsRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/paymentMethods'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 }

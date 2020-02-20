@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\VisitorResponseRequest;
+use Fortifi\Api\V1\Requests\VisitorRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -44,11 +44,11 @@ class VisitorsVisitorIdEndpoint extends ApiEndpoint
    *
    * This call will return information related to how a visitor arrived
    *
-   * @return VisitorResponseRequest
+   * @return VisitorRequest
    */
   public function retrieve()
   {
-    $request = new VisitorResponseRequest();
+    $request = new VisitorRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 

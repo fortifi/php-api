@@ -5,7 +5,7 @@ use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class AvailabilityCheckResponseRequest
+class AvailabilityCheckRequest
   extends ApiRequest
   implements \JsonSerializable
 {

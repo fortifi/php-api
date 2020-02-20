@@ -16,6 +16,21 @@ class CustomersCustomerFidPaymentAccountsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $paymentAccountFid
+   *
+   * @return CustomersCustomerFidPaymentAccountsPaymentAccountFidEndpoint
+   */
+  public function with($paymentAccountFid)
+  {
+    $endpoint = new CustomersCustomerFidPaymentAccountsPaymentAccountFidEndpoint(
+      $this->_replacements['{customerFid}'],
+      $paymentAccountFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary List customers payment accounts
    *
    * @return PaymentAccountsRequest

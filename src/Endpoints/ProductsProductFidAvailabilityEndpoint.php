@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\AvailabilityCheckResponseRequest;
+use Fortifi\Api\V1\Requests\AvailabilityCheckRequest;
 use Fortifi\Api\V1\Payloads\AvailabilityCheckPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -21,11 +21,11 @@ class ProductsProductFidAvailabilityEndpoint extends ApiEndpoint
    *
    * @param AvailabilityCheckPayload $payload
    *
-   * @return AvailabilityCheckResponseRequest
+   * @return AvailabilityCheckRequest
    */
   public function createCheck(AvailabilityCheckPayload $payload)
   {
-    $request = new AvailabilityCheckResponseRequest();
+    $request = new AvailabilityCheckRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
