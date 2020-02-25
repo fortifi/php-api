@@ -181,13 +181,17 @@ class OrderProductRequest
   }
 
   /**
+   * Term Type
+   * 
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
-   * @return integer
+   * @return string
    */
-  public function getCycleType($default = null)
+  public function getCycleType($default = null, $trim = true)
   {
-    return Objects::property($this->_getResultJson(), 'cycleType', $default);
+    $value = Objects::property($this->_getResultJson(), 'cycleType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

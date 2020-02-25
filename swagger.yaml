@@ -6338,8 +6338,8 @@ definitions:
             type: number
             format: float
           cycleType:
-            type: number
-            format: int32
+            type: string
+            $ref: '#/definitions/cycleTermType'
           cycleTerm:
             type: number
             format: int32
@@ -7650,6 +7650,9 @@ definitions:
         format: int32
       cycleType:
         $ref: '#/definitions/cycleTermType'
+      cycle:
+        description: Interval in ISO 8601 standard
+        type: string
       quantity:
         type: integer
       displayName:

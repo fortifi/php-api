@@ -33,6 +33,10 @@ class OrderProductPayload
    * Term Type
    */
   protected $_cycleType;
+  /**
+   * Interval in ISO 8601 standard
+   */
+  protected $_cycle;
   protected $_quantity;
   protected $_displayName;
   protected $_properties;
@@ -68,6 +72,10 @@ class OrderProductPayload
     {
       $this->_cycleType = (string)$data["cycleType"];
     }
+    if(isset($data["cycle"]))
+    {
+      $this->_cycle = (string)$data["cycle"];
+    }
     if(isset($data["quantity"]))
     {
       $this->_quantity = (int)$data["quantity"];
@@ -94,6 +102,7 @@ class OrderProductPayload
       "productFid"         => $this->_productFid,
       "cycleTerm"          => $this->_cycleTerm,
       "cycleType"          => $this->_cycleType,
+      "cycle"              => $this->_cycle,
       "quantity"           => $this->_quantity,
       "displayName"        => $this->_displayName,
       "properties"         => $this->_properties,
@@ -270,6 +279,31 @@ class OrderProductPayload
   public function getCycleType($default = null, $trim = true)
   {
     $value = $this->_cycleType ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCycle(?string $value)
+  {
+    $this->_cycle = $value;
+    return $this;
+  }
+
+  /**
+   * Interval in ISO 8601 standard
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCycle($default = null, $trim = true)
+  {
+    $value = $this->_cycle ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
