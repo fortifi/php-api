@@ -54,6 +54,10 @@ class CreateOrderPayload
    * Automatically confirm this order
    */
   protected $_confirm = false;
+  /**
+   * Confirm this order only after this parent is completed
+   */
+  protected $_parentOrderFid;
 
   public function hydrate($data)
   {
@@ -116,6 +120,10 @@ class CreateOrderPayload
     {
       $this->_confirm = $data["confirm"];
     }
+    if(isset($data["parentOrderFid"]))
+    {
+      $this->_parentOrderFid = (string)$data["parentOrderFid"];
+    }
     return $this;
   }
 
@@ -135,6 +143,7 @@ class CreateOrderPayload
       "chargeId"          => $this->_chargeId,
       "externalReference" => $this->_externalReference,
       "confirm"           => $this->_confirm,
+      "parentOrderFid"    => $this->_parentOrderFid,
     ];
   }
 
@@ -484,5 +493,30 @@ class CreateOrderPayload
   public function isConfirm($default = false)
   {
     return (bool)$this->_confirm ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setParentOrderFid(?string $value)
+  {
+    $this->_parentOrderFid = $value;
+    return $this;
+  }
+
+  /**
+   * Confirm this order only after this parent is completed
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getParentOrderFid($default = null, $trim = true)
+  {
+    $value = $this->_parentOrderFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

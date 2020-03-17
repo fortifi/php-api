@@ -7602,6 +7602,9 @@ definitions:
         type: boolean
         default: false
         description: Automatically confirm this order
+      parentOrderFid:
+        type: string
+        description: Confirm this order only after this parent is completed
 
   OrderProductsPayload:
     properties:
