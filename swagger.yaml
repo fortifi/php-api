@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.26.0'
+  version: '3.27.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -7602,6 +7602,9 @@ definitions:
         type: boolean
         default: false
         description: Automatically confirm this order
+      parentOrderFid:
+        type: string
+        description: Confirm this order only after this parent is completed
 
   OrderProductsPayload:
     properties:
