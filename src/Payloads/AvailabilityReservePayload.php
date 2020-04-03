@@ -2,12 +2,13 @@
 namespace Fortifi\Api\V1\Payloads;
 use Packaged\Helpers\Strings;
 
-class AvailabilityCheckPayload
+class AvailabilityReservePayload
   implements \JsonSerializable
 {
   protected $_productSku;
   protected $_priceFid;
   protected $_reserveKey;
+  protected $_reserveTtl;
   /**
    * Additional information to store
    */
@@ -28,6 +29,10 @@ class AvailabilityCheckPayload
     {
       $this->_reserveKey = (string)$data["reserveKey"];
     }
+    if(isset($data["reserveTtl"]))
+    {
+      $this->_reserveTtl = (int)$data["reserveTtl"];
+    }
     if(isset($data["properties"]))
     {
       $this->_properties = [];
@@ -47,6 +52,7 @@ class AvailabilityCheckPayload
       "productSku" => $this->_productSku,
       "priceFid"   => $this->_priceFid,
       "reserveKey" => $this->_reserveKey,
+      "reserveTtl" => $this->_reserveTtl,
       "properties" => $this->_properties,
     ];
   }
@@ -118,6 +124,27 @@ class AvailabilityCheckPayload
   {
     $value = $this->_reserveKey ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setReserveTtl(?int $value)
+  {
+    $this->_reserveTtl = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getReserveTtl($default = null)
+  {
+    return $this->_reserveTtl ?: $default;
   }
 
   /**
