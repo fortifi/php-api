@@ -22,6 +22,8 @@ class SubscriptionRequest
         "cancelReason" => $this->getCancelReason(),
         "currency" => $this->getCurrency(),
         "cycle" => $this->getCycle(),
+        "productFid" => $this->getProductFid(),
+        "productManagerType" => $this->getProductManagerType(),
         "priceFid" => $this->getPriceFid(),
         "offerFid" => $this->getOfferFid(),
         "dateCancelled" => $this->getDateCancelled(),
@@ -155,6 +157,30 @@ class SubscriptionRequest
   public function getCycle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'productFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductManagerType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'productManagerType', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
