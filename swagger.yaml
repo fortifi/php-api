@@ -1305,6 +1305,33 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/invoices/{invoiceFid}/download':
+    get:
+      summary: Retreive a specific itemised invoice PDF
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+        - name: filename
+          in: query
+          type: string
+      responses:
+        200:
+          description: Download URL
+          schema:
+            $ref: '#/definitions/InvoiceDownloadResponse'
+        x-404:
+          description: Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/invoices/retry':
     put:
       summary: Retry payment of all customer invoices which are in invoice
@@ -6022,6 +6049,12 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/InvoiceItem'
+
+  InvoiceDownloadResponse:
+    description: Generic Response
+    properties:
+      url:
+        type: string
 
   InvoiceItem:
     description: Generic Response
