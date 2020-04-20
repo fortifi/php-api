@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\InvoiceRequest;
+use Fortifi\Api\V1\Requests\InvoiceDownloadRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -50,6 +51,34 @@ class CustomersCustomerFidInvoicesInvoiceFidEndpoint extends ApiEndpoint
         'customers/{customerFid}/invoices/{invoiceFid}'
       )
     ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Retreive a specific itemised invoice PDF
+   *
+   * @param $filename
+   *
+   * @return InvoiceDownloadRequest
+   */
+  public function download($filename = null)
+  {
+    $request = new InvoiceDownloadRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/invoices/{invoiceFid}/download'
+      )
+    ));
+    $detail->addQueryField('filename', $filename);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

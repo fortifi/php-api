@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.29.0'
+  version: '3.30.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1298,6 +1298,33 @@ paths:
           description: Loaded invoice
           schema:
             $ref: '#/definitions/Invoice'
+        x-404:
+          description: Invoice not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/invoices/{invoiceFid}/download':
+    get:
+      summary: Retreive a specific itemised invoice PDF
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/invoiceFid'
+        - name: filename
+          in: query
+          type: string
+      responses:
+        200:
+          description: Download URL
+          schema:
+            $ref: '#/definitions/InvoiceDownloadResponse'
         x-404:
           description: Invoice not found
         default:
@@ -6022,6 +6049,12 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/InvoiceItem'
+
+  InvoiceDownloadResponse:
+    description: Generic Response
+    properties:
+      url:
+        type: string
 
   InvoiceItem:
     description: Generic Response
