@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.30.1'
+  version: '3.31.0'
   termsOfService: 'http://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2228,6 +2228,66 @@ paths:
                     $ref: '#/definitions/Subscription'
         x-404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/periods':
+    get:
+      summary: Retreive the periods for a subscription
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: A purchase period
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Periods'
+        x-404:
+          description: Purchase period not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/periods/{periodFid}/refund':
+    put:
+      summary: Refund a subscription period
+      tags:
+        - customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/periodFid'
+        - name: refundAmount
+          in: formData
+          type: number
+        - name: reason
+          in: formData
+          type: string
+        - name: addCreditToInvoice
+          in: formData
+          type: boolean
+      responses:
+        200:
+          description: Refund Actioned
+        x-404:
+          description: Purchase period not found
         default:
           description: Error
           schema:
@@ -4928,6 +4988,12 @@ parameters:
     type: string
     required: true
     description: Subscription FID to use
+  periodFid:
+    name: periodFid
+    in: path
+    type: string
+    required: true
+    description: Period FID to use
   subscriptionFids:
     name: subscriptionFids
     description: Subscription FIDs
@@ -5730,6 +5796,42 @@ definitions:
         type: string
       resourceGatewayPath:
         type: string
+
+  Periods:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          periods:
+            type: array
+            items:
+              $ref: '#/definitions/Period'
+
+  Period:
+    description: A purchase period
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          status:
+            type: string
+          periodFid:
+            type: string
+          refundAmount:
+            type: number
+          taxAmount:
+            type: number
+          totalAmount:
+            type: number
+          creditedAmount:
+            type: number
+          outstandingAmount:
+            type: number
+          periodStart:
+            type: integer
+            format: int64
+          periodEnd:
+            type: integer
+            format: int64
 
   Subscriptions:
     description: Generic Response
