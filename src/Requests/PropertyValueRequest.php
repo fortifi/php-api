@@ -18,7 +18,7 @@ class PropertyValueRequest
   }
 
   /**
-   * Property Value
+   * Property value
    * 
    * @param mixed $default
    * @param bool $trim Trim Value
