@@ -58,6 +58,7 @@ class CreateOrderPayload
    * Confirm this order only after this parent is completed
    */
   protected $_parentOrderFid;
+  protected $_publisher;
 
   public function hydrate($data)
   {
@@ -124,6 +125,11 @@ class CreateOrderPayload
     {
       $this->_parentOrderFid = (string)$data["parentOrderFid"];
     }
+    if(isset($data["publisher"]))
+    {
+      $this->_publisher = new OrderPublisherPayload();
+      $this->_publisher->hydrate($data["publisher"]);
+    }
     return $this;
   }
 
@@ -144,6 +150,7 @@ class CreateOrderPayload
       "externalReference" => $this->_externalReference,
       "confirm"           => $this->_confirm,
       "parentOrderFid"    => $this->_parentOrderFid,
+      "publisher"         => $this->_publisher,
     ];
   }
 
@@ -297,8 +304,11 @@ class CreateOrderPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const TYPE_INITIAL = 'initial';
+  const TYPE_PURCHASE = 'purchase';
+
   /**
-   * @param string $value
+   * @param string $value initial, purchase
    *
    * @return $this
    */
@@ -518,5 +528,26 @@ class CreateOrderPayload
   {
     $value = $this->_parentOrderFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param OrderPublisherPayload $value
+   *
+   * @return $this
+   */
+  public function setPublisher(?OrderPublisherPayload $value)
+  {
+    $this->_publisher = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return OrderPublisherPayload
+   */
+  public function getPublisher($default = null)
+  {
+    return $this->_publisher ?: $default;
   }
 }

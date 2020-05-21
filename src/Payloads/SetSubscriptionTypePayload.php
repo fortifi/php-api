@@ -27,8 +27,13 @@ class SetSubscriptionTypePayload
     ];
   }
 
+  const SUBSCRIPTION_TYPE_NONE = 'none';
+  const SUBSCRIPTION_TYPE_TRIAL = 'trial';
+  const SUBSCRIPTION_TYPE_FREE = 'free';
+  const SUBSCRIPTION_TYPE_PAID = 'paid';
+
   /**
-   * @param string $value
+   * @param string $value none, trial, free, paid
    *
    * @return $this
    */

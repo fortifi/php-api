@@ -205,8 +205,12 @@ class CreateAdvertiserPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const TYPE_AFFILIATE = 'affiliate';
+  const TYPE_NETWORK = 'network';
+  const TYPE_CUSTOMER = 'customer';
+
   /**
-   * @param string $value
+   * @param string $value affiliate, network, customer
    *
    * @return $this
    */

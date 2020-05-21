@@ -27,8 +27,14 @@ class SetAccountStatusPayload
     ];
   }
 
+  const ACCOUNT_STATUS_SETUP = 'setup';
+  const ACCOUNT_STATUS_ACTIVE = 'active';
+  const ACCOUNT_STATUS_SUSPENDED = 'suspended';
+  const ACCOUNT_STATUS_EXPIRED = 'expired';
+  const ACCOUNT_STATUS_CANCELLED = 'cancelled';
+
   /**
-   * @param string $value
+   * @param string $value setup, active, suspended, expired, cancelled
    *
    * @return $this
    */

@@ -257,8 +257,15 @@ class OrderProductPayload
     return $this->_cycleTerm ?: $default;
   }
 
+  const CYCLE_TYPE_ONETIME = 'onetime';
+  const CYCLE_TYPE_LIFETIME = 'lifetime';
+  const CYCLE_TYPE_DAY = 'day';
+  const CYCLE_TYPE_WEEK = 'week';
+  const CYCLE_TYPE_MONTH = 'month';
+  const CYCLE_TYPE_YEAR = 'year';
+
   /**
-   * @param string $value
+   * @param string $value onetime, lifetime, day, week, month, year
    *
    * @return $this
    */
