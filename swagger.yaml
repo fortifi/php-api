@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.32.0'
-  termsOfService: 'http://fortifi.io/legal/terms/api'
+  version: '3.32.1'
+  termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
 
@@ -20,7 +20,7 @@ info:
 
     Once you've
 
-    [registered your service account](http://yourdomain.fortifi.it/developers/service-accounts/) it's easy
+    [registered your service account](https://yourdomain.fortifi.cloud/developers/service-accounts/) it's easy
 
     to start requesting and posting data to and from Fortifi.
 
@@ -54,7 +54,7 @@ info:
 
     We do our best to have all URLs
 
-    [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer).
+    [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer).
 
     Every endpoint (URL) may support one of four different http verbs. GET
 
@@ -156,7 +156,7 @@ consumes:
 
 externalDocs:
   description: Find out more about the Fortifi api
-  url: http://developers.fortifi.io/
+  url: https://docs.fortifi.io/
 
 securityDefinitions:
   OAuth:
@@ -207,7 +207,7 @@ tags:
   - name: Products
   - name: Licence
   - name: Support
-  - name: ServiceStatus
+  - name: Service Status
   - name: Reasons
 
 paths:
@@ -219,7 +219,7 @@ paths:
             - advertiser
         - accessToken: []
       tags:
-        - marketing
+        - Marketing
       parameters:
         - name: payload
           in: body
@@ -250,7 +250,7 @@ paths:
             - advertiser
         - accessToken: []
       tags:
-        - marketing
+        - Marketing
       parameters:
         - name: limit
           in: query
@@ -283,7 +283,7 @@ paths:
             - advertiser
         - accessToken: []
       tags:
-        - marketing
+        - Marketing
       summary: Retrieve an advertiser
       parameters:
         - $ref: '#/parameters/advertiserFid'
@@ -310,7 +310,7 @@ paths:
             - advertiser
         - accessToken: []
       tags:
-        - marketing
+        - Marketing
       summary: Set approved status on an advertiser
       parameters:
         - $ref: '#/parameters/advertiserFid'
@@ -327,7 +327,7 @@ paths:
     delete:
       summary: Remove approved status on an advertiser
       tags:
-        - marketing
+        - Marketing
       security:
         - OAuth:
             - advertiser
@@ -352,7 +352,7 @@ paths:
             - advertiser
         - accessToken: []
       tags:
-        - marketing
+        - Marketing
       parameters:
         - $ref: '#/parameters/advertiserFid'
         - name: payload
@@ -383,7 +383,7 @@ paths:
             - advertiser
         - accessToken: []
       tags:
-        - marketing
+        - Marketing
       summary: Retrieve an advertiser campaign
       parameters:
         - $ref: '#/parameters/advertiserFid'
@@ -519,7 +519,7 @@ paths:
     post:
       summary: Initiate a chargeback on a payment
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -596,7 +596,7 @@ paths:
     put:
       summary: Action a chargeback
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -650,7 +650,7 @@ paths:
     get:
       summary: List contacts
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -685,7 +685,7 @@ paths:
     post:
       summary: Create a new contact for a customer
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -797,7 +797,7 @@ paths:
     put:
       summary: Update a contacts information
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -874,7 +874,7 @@ paths:
     get:
       summary: Retrieve information about a contact
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -902,7 +902,7 @@ paths:
     delete:
       summary: Remove a contact
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -927,7 +927,7 @@ paths:
     get:
       summary: List customers addresses
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1032,7 +1032,7 @@ paths:
     get:
       summary: Retrieve chat sessions for customer
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1070,7 +1070,7 @@ paths:
     post:
       summary: Create an interaction
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1098,8 +1098,8 @@ paths:
     post:
       summary: Create a new support ticket
       tags:
-        - customers
-        - support
+        - Customers
+        - Support
       security:
         - OAuth:
             - customer
@@ -1145,8 +1145,8 @@ paths:
     get:
       summary: Get support tickets for customer
       tags:
-        - customers
-        - support
+        - Customers
+        - Support
       security:
         - OAuth:
             - entity.config
@@ -1171,8 +1171,8 @@ paths:
     get:
       summary: Retrieve ticket posts for a ticket
       tags:
-        - customers
-        - support
+        - Customers
+        - Support
       security:
         - OAuth:
             - entity.config
@@ -1196,8 +1196,8 @@ paths:
     post:
       summary: Post a reply to a ticket
       tags:
-        - customers
-        - support
+        - Customers
+        - Support
       security:
         - OAuth:
             - entity.config
@@ -1228,8 +1228,8 @@ paths:
     get:
       summary: Retrieve a single ticket for a customer
       tags:
-        - customers
-        - support
+        - Customers
+        - Support
       security:
         - OAuth:
             - entity.config
@@ -1254,7 +1254,7 @@ paths:
     get:
       summary: List of invoice summaries for given customer
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1285,7 +1285,7 @@ paths:
     get:
       summary: Retreive a specific itemised invoice
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1309,7 +1309,7 @@ paths:
     get:
       summary: Retreive a specific itemised invoice PDF
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1336,7 +1336,7 @@ paths:
     put:
       summary: Retry payment of all customer invoices which are in invoice
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1357,7 +1357,7 @@ paths:
     put:
       summary: Retry payment of invoice
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1411,7 +1411,7 @@ paths:
     put:
       summary: Update a customers status
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1438,7 +1438,7 @@ paths:
     put:
       summary: Update a customers lifecycle stage
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1463,7 +1463,7 @@ paths:
     put:
       summary: Update a customers location
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1489,7 +1489,7 @@ paths:
     put:
       summary: Update a customers status
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1515,7 +1515,7 @@ paths:
     put:
       summary: Update a customers status
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1541,7 +1541,7 @@ paths:
     put:
       summary: Mark customer as qualified, this action cannot be undone.
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1565,7 +1565,7 @@ paths:
     put:
       summary: Mark customer as charged back, this action cannot be undone.
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1589,7 +1589,7 @@ paths:
     put:
       summary: Mark customer as fraudulent, this action cannot be undone.
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1613,7 +1613,7 @@ paths:
     put:
       summary: Mark customer as purchased, this action cannot be undone.
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1637,7 +1637,7 @@ paths:
     put:
       summary: Set customer loyalty flag
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1657,7 +1657,7 @@ paths:
     delete:
       summary: Remove customer loyalty flag
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1678,7 +1678,7 @@ paths:
     put:
       summary: Set customer as VIP
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1698,7 +1698,7 @@ paths:
     delete:
       summary: Remove customer VIP Status
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1719,7 +1719,7 @@ paths:
     put:
       summary: Set customer Currency
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1749,7 +1749,7 @@ paths:
     put:
       summary: Link visitor to customer record
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1776,7 +1776,7 @@ paths:
     post:
       summary: Save a note against a customer
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1804,8 +1804,8 @@ paths:
     get:
       summary: List customers payment accounts
       tags:
-        - customers
-        - payment.methods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -1832,8 +1832,8 @@ paths:
   '/customers/{customerFid}/paymentAccounts/{paymentAccountFid}':
     get:
       tags:
-        - customers
-        - paymentMethods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -1859,8 +1859,8 @@ paths:
     get:
       summary: List customers payment methods
       tags:
-        - customers
-        - payment.methods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -1886,8 +1886,8 @@ paths:
   '/customers/{customerFid}/paymentMethods/{paymentMethodFid}':
     get:
       tags:
-        - customers
-        - paymentMethods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -1911,8 +1911,8 @@ paths:
 
     put:
       tags:
-        - customers
-        - paymentMethods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -1938,8 +1938,8 @@ paths:
     post:
       summary: Initialise a new paypal agreement for existing subscriptions
       tags:
-        - customers
-        - payment.methods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -1982,8 +1982,8 @@ paths:
     post:
       summary: Complete a paypal agreement created with initialise
       tags:
-        - customers
-        - payment.methods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -2012,8 +2012,8 @@ paths:
     post:
       summary: Add a new card
       tags:
-        - customers
-        - paymentMethods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -2038,8 +2038,8 @@ paths:
     get:
       summary: List customers card payment methods
       tags:
-        - customers
-        - payment.methods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -2059,8 +2059,8 @@ paths:
   '/customers/{customerFid}/paymentMethods/cards/{cardFid}':
     delete:
       tags:
-        - customers
-        - paymentMethods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -2078,8 +2078,8 @@ paths:
 
     put:
       tags:
-        - customers
-        - paymentMethods
+        - Customers
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -2104,7 +2104,7 @@ paths:
     get:
       summary: Retrieve a payment
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2133,7 +2133,7 @@ paths:
     put:
       summary: Refund a payment
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2174,7 +2174,7 @@ paths:
     get:
       summary: List of subscription summaries for given customer
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2209,7 +2209,7 @@ paths:
     get:
       summary: Retreive a specific subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2237,7 +2237,7 @@ paths:
     get:
       summary: Retreive the periods for a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2265,7 +2265,7 @@ paths:
     put:
       summary: Refund a subscription period
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2297,7 +2297,7 @@ paths:
     put:
       summary: Enable auto charge on specific subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2319,7 +2319,7 @@ paths:
     put:
       summary: Disable auto charge on specific subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2341,7 +2341,7 @@ paths:
     put:
       summary: Set auto cancel days on a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2368,7 +2368,7 @@ paths:
     put:
       summary: Set auto suspend days on a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2395,7 +2395,7 @@ paths:
     put:
       summary: Set advance days on a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2423,7 +2423,7 @@ paths:
     put:
       summary: Set the renewal mode of a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2459,7 +2459,7 @@ paths:
     put:
       summary: Set parent subscription on a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2495,7 +2495,7 @@ paths:
     put:
       summary: Calculates the changes before a modification to a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2532,7 +2532,7 @@ paths:
     put:
       summary: Calculates the result of a potential refund on a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2568,7 +2568,7 @@ paths:
     put:
       summary: Set paymentAccount for subscription. If changing a payment method from an Automatic Payment Method such as PayPal Recurring Payments, any other subscriptions paid with the same Agreement will be set to Default Payment Method and the Agreement will be cancelled
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2595,7 +2595,7 @@ paths:
     put:
       summary: Modify an existing subscription with a new price. Returns new open order to be completed
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2630,7 +2630,7 @@ paths:
     put:
       summary: Modify an existing subscription with a new price which will be used for the next renewal
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2666,7 +2666,7 @@ paths:
     put:
       summary: Apply an offer to a subscription
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2692,7 +2692,7 @@ paths:
     put:
       summary: Pre-renew an existing subscription with a different price. Returns new open order to be completed
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2729,7 +2729,7 @@ paths:
     put:
       summary: Cancel a subscripion. Returns subscription FID.
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2763,7 +2763,7 @@ paths:
     get:
       summary: Retreive a subscriptions resource allocations
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2790,7 +2790,7 @@ paths:
     get:
       summary: List customer orders
       tags:
-        - customers
+          - Customers
       security:
         - OAuth:
             - customer
@@ -2825,7 +2825,7 @@ paths:
     put:
       summary: Update a customers billing data
       tags:
-        - customers
+        - Customers
       security:
         - OAuth:
             - customer
@@ -2857,7 +2857,7 @@ paths:
     post:
       summary: Subject Access Request
       tags:
-        - customers
+          - Customers
       description: |
         Initiate a Subject Access Request.  A URL will be sent via a webhook (CustomerWHE::SUBJECT_ACCESS_REQUEST), once the archive is ready for download
       security:
@@ -2887,7 +2887,7 @@ paths:
     post:
       summary: Anonymize customer data
       tags:
-        - customers
+        - Customers
       description: |
         Anonymize customer data
       security:
@@ -2943,7 +2943,7 @@ paths:
             - customer
         - accessToken: []
       tags:
-        - customers
+        - Customers
       parameters:
         - name: payload
           in: body
@@ -2978,7 +2978,7 @@ paths:
             - customer.readonly
         - accessToken: []
       tags:
-        - customers
+        - Customers
       summary: Find a customer by your reference
       parameters:
         - name: reference
@@ -3012,7 +3012,7 @@ paths:
             - customer.readonly
         - accessToken: []
       tags:
-        - customers
+        - Customers
       summary: Retrieve a customer
       parameters:
         - $ref: '#/parameters/customerFid'
@@ -3041,7 +3041,7 @@ paths:
             - customer.readonly
         - accessToken: []
       tags:
-        - customers
+        - Customers
       summary: Update a customer
       consumes:
         - multipart/form-data
@@ -3071,7 +3071,7 @@ paths:
             - customer
         - accessToken: []
       tags:
-        - customers
+        - Customers
       summary: Archive a customer
       parameters:
         - $ref: '#/parameters/customerFid'
@@ -3202,7 +3202,7 @@ paths:
             - entity.attachments
         - accessToken: []
       tags:
-        - entity
+          - Entities
       parameters:
         - $ref: '#/parameters/entityFid'
         - name: payload
@@ -3589,7 +3589,7 @@ paths:
     get:
       summary: Retrieve A Licence
       tags:
-        - licence
+        - Licence
       security:
         - OAuth:
             - purchase.readonly
@@ -3729,7 +3729,7 @@ paths:
     post:
       summary: Create a new order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3758,7 +3758,7 @@ paths:
     get:
       summary: Retrieve an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders.readonly
@@ -3785,7 +3785,7 @@ paths:
     put:
       summary: Verify an order, returning any security urls
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3815,7 +3815,7 @@ paths:
     put:
       summary: Cancel an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3840,7 +3840,7 @@ paths:
     put:
       summary: Mark an order as finalized
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3864,7 +3864,7 @@ paths:
     put:
       summary: Confirm an order, authorize the payment
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3896,7 +3896,7 @@ paths:
     put:
       summary: Confirm an order, authorize the payment
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3928,7 +3928,7 @@ paths:
     put:
       summary: Set a ChargeHive.com Charge ID on an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3960,7 +3960,7 @@ paths:
     put:
       summary: Confirm an order with a new card, authorize the payment
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -3992,7 +3992,7 @@ paths:
     get:
       summary: Retrieve fraud scan
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders.readonly
@@ -4019,7 +4019,7 @@ paths:
     get:
       summary: Retrieve order products
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders.readonly
@@ -4044,7 +4044,7 @@ paths:
     post:
       summary: Add a product to an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -4072,7 +4072,7 @@ paths:
     put:
       summary: Set the products on an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -4102,7 +4102,7 @@ paths:
     delete:
       summary: Remove a product from an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -4122,7 +4122,7 @@ paths:
     put:
       summary: Set the quantity of a product on an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -4149,7 +4149,7 @@ paths:
     post:
       summary: Add an offer to an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -4185,7 +4185,7 @@ paths:
     delete:
       summary: Remove an offer from an order
       tags:
-        - orders
+        - Orders
       security:
         - OAuth:
             - orders
@@ -4229,7 +4229,7 @@ paths:
     post:
       summary: Create a new polymer
       tags:
-        - polymers
+        - Polymers
       security:
         - OAuth:
             - polymer
@@ -4260,7 +4260,7 @@ paths:
     get:
       summary: Read a polymer
       tags:
-        - polymers
+        - Polymers
       security:
         - OAuth:
             - polymer.readonly
@@ -4289,7 +4289,7 @@ paths:
     get:
       summary: List all products
       tags:
-        - products
+        - Products
       security:
         - OAuth:
             - product.readonly
@@ -4312,7 +4312,7 @@ paths:
     post:
       summary: Check Product Availability
       tags:
-        - products
+        - Products
       security:
         - OAuth:
             - product.readonly
@@ -4344,7 +4344,7 @@ paths:
     post:
       summary: Reserve Product
       tags:
-        - products
+        - Products
       security:
         - OAuth:
             - product.readonly
@@ -4376,7 +4376,7 @@ paths:
     get:
       summary: Retrieve Product Prices
       tags:
-        - products
+        - Products
       security:
         - OAuth:
             - product.readonly
@@ -4407,7 +4407,7 @@ paths:
     get:
       summary: Get a list of all product groups
       tags:
-        - products
+        - Products
       security:
         - OAuth:
             - product.readonly
@@ -4430,7 +4430,7 @@ paths:
     get:
       summary: Get a list of products belonging to the group
       tags:
-        - products
+        - Products
       security:
         - OAuth:
             - product.readonly
@@ -4455,7 +4455,7 @@ paths:
     get:
       summary: Retrieve all offers
       tags:
-        - products
+        - Products
       security:
         - OAuth:
             - product.readonly
@@ -4477,7 +4477,7 @@ paths:
     get:
       summary: Get a list of all reason groups
       tags:
-        - reasons
+          - Reasons
       security:
         - OAuth:
             - reasons.readonly
@@ -4502,7 +4502,7 @@ paths:
     get:
       summary: Get all the reasons for the reason group
       tags:
-        - reasons
+        - Reasons
       security:
         - OAuth:
             - reasons.readonly
@@ -4528,7 +4528,7 @@ paths:
     get:
       summary: Retrieve all services
       tags:
-        - ServiceStatus
+          - Service Status
       security:
         - OAuth:
             - entity.properties
@@ -4552,7 +4552,7 @@ paths:
     get:
       summary: Retrieve incidents for service within timeframe
       tags:
-        - ServiceStatus
+        - Service Status
       security:
         - OAuth:
             - entity.properties
@@ -4585,7 +4585,7 @@ paths:
     get:
       summary: Retrieve incident updates for incident
       tags:
-        - ServiceStatus
+        - Service Status
       security:
         - OAuth:
             - entity.properties
@@ -4635,7 +4635,7 @@ paths:
     post:
       summary: Create a support ticket
       tags:
-        - support
+          - Support
       security:
         - OAuth:
             - support
@@ -4689,7 +4689,7 @@ paths:
             - visitor
         - accessToken: []
       tags:
-        - marketing
+          - Marketing
       summary: Retrieve information about a visitor
       description: This call will return information related to how a visitor arrived
       parameters:
@@ -4715,7 +4715,7 @@ paths:
             - visitor
         - accessToken: []
       tags:
-        - marketing
+        - Marketing
       summary: Retrieve pending pixels for this visitor
       description: This call will release pixels from the pending queue on read
       parameters:
@@ -4740,7 +4740,7 @@ paths:
     post:
       summary: Track an action
       tags:
-        - marketing
+        - Marketing
       description: |
         Track an action such as a lead or acquisition
       security:
@@ -4788,7 +4788,7 @@ paths:
     post:
       summary: Reverse a previously tracked action
       tags:
-        - marketing
+        - Marketing
       description: |
         When an action has been reversed, e.g. cancelled, refunded
       security:

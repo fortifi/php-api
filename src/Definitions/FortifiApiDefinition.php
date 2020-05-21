@@ -11,7 +11,7 @@ class FortifiApiDefinition  extends ApiDefinition
   public function __construct()
   {
     $this->setTitle('Fortifi API');
-    $this->setVersion('3.32.0');
+    $this->setVersion('3.32.1');
     $this->setDescription(<<<DESCRIPTION
 The second version of the Fortifi API is an exciting step forward towards
 making it easier for businesses to have open access to their data. We created it
@@ -23,7 +23,7 @@ Build something great!
 
 
 Once you've
-[registered your service account](http://yourdomain.fortifi.it/developers/service-accounts/) it's easy
+[registered your service account](https://yourdomain.fortifi.cloud/developers/service-accounts/) it's easy
 to start requesting and posting data to and from Fortifi.
 
 
@@ -43,7 +43,7 @@ You are limited to 5000 requests per hour per `access_token`.
 
 ## Request Methods
 We do our best to have all URLs
-[RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer).
+[RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer).
 Every endpoint (URL) may support one of four different http verbs. GET
 requests fetch information about an object, POST requests create objects,
 PUT requests update objects, and finally DELETE requests will delete
@@ -103,7 +103,7 @@ callbackFunction({
 
 DESCRIPTION
     );
-    $this->setTermsOfService('http://fortifi.io/legal/terms/api');
+    $this->setTermsOfService('https://fortifi.io/legal/terms/api');
     $this->setHost('api.fortifi.io');
     $this->setBasePath('/v1');
     $this->setSchemas(['https']);
@@ -112,7 +112,7 @@ DESCRIPTION
 
     $docs = new DocumentationDefinition();
     $docs->setDescription('Find out more about the Fortifi api');
-    $docs->setUrl('http://developers.fortifi.io/');
+    $docs->setUrl('https://docs.fortifi.io/');
     $this->setDocumentation($docs);
 
     $tag = new TagDefinition();
@@ -177,7 +177,7 @@ DESCRIPTION
 
     $tag = new TagDefinition();
     $tag->setDescription('');
-    $tag->setName('ServiceStatus');
+    $tag->setName('Service Status');
     $this->addTag($tag);
 
     $tag = new TagDefinition();
