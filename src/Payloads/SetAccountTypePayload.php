@@ -27,8 +27,16 @@ class SetAccountTypePayload
     ];
   }
 
+  const ACCOUNT_TYPE_UNKNOWN = 'unknown';
+  const ACCOUNT_TYPE_STUDENT = 'student';
+  const ACCOUNT_TYPE_CHARITY = 'charity';
+  const ACCOUNT_TYPE_BUSINESS = 'business';
+  const ACCOUNT_TYPE_RESIDENTIAL = 'residential';
+  const ACCOUNT_TYPE_ENTERPRISE = 'enterprise';
+  const ACCOUNT_TYPE_GROUP = 'group';
+
   /**
-   * @param string $value
+   * @param string $value unknown, student, charity, business, residential, enterprise, group
    *
    * @return $this
    */

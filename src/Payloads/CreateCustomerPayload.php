@@ -444,8 +444,16 @@ class CreateCustomerPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const ACCOUNT_TYPE_UNKNOWN = 'unknown';
+  const ACCOUNT_TYPE_STUDENT = 'student';
+  const ACCOUNT_TYPE_CHARITY = 'charity';
+  const ACCOUNT_TYPE_BUSINESS = 'business';
+  const ACCOUNT_TYPE_RESIDENTIAL = 'residential';
+  const ACCOUNT_TYPE_ENTERPRISE = 'enterprise';
+  const ACCOUNT_TYPE_GROUP = 'group';
+
   /**
-   * @param string $value
+   * @param string $value unknown, student, charity, business, residential, enterprise, group
    *
    * @return $this
    */
@@ -469,8 +477,14 @@ class CreateCustomerPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const ACCOUNT_STATUS_SETUP = 'setup';
+  const ACCOUNT_STATUS_ACTIVE = 'active';
+  const ACCOUNT_STATUS_SUSPENDED = 'suspended';
+  const ACCOUNT_STATUS_EXPIRED = 'expired';
+  const ACCOUNT_STATUS_CANCELLED = 'cancelled';
+
   /**
-   * @param string $value
+   * @param string $value setup, active, suspended, expired, cancelled
    *
    * @return $this
    */
@@ -494,8 +508,21 @@ class CreateCustomerPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const LIFECYCLE_CLOSED = 'closed';
+  const LIFECYCLE_COLD = 'cold';
+  const LIFECYCLE_CUSTOMER = 'customer';
+  const LIFECYCLE_EVANGELIST = 'evangelist';
+  const LIFECYCLE_LEAD = 'lead';
+  const LIFECYCLE_MQL = 'mql';
+  const LIFECYCLE_OPPORTUNITY = 'opportunity';
+  const LIFECYCLE_OTHER = 'other';
+  const LIFECYCLE_PROSPECT = 'prospect';
+  const LIFECYCLE_RECOMMENDED = 'recommended';
+  const LIFECYCLE_SQL = 'sql';
+  const LIFECYCLE_SUBSCRIBER = 'subscriber';
+
   /**
-   * @param string $value
+   * @param string $value closed, cold, customer, evangelist, lead, mql, opportunity, other, prospect, recommended, sql, subscriber
    *
    * @return $this
    */
@@ -519,8 +546,13 @@ class CreateCustomerPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const SUBSCRIPTION_TYPE_NONE = 'none';
+  const SUBSCRIPTION_TYPE_TRIAL = 'trial';
+  const SUBSCRIPTION_TYPE_FREE = 'free';
+  const SUBSCRIPTION_TYPE_PAID = 'paid';
+
   /**
-   * @param string $value
+   * @param string $value none, trial, free, paid
    *
    * @return $this
    */

@@ -95,8 +95,16 @@ class ConfirmOrderPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const PAYMENT_SERVICE_PROCESSOR_PAYPAL = 'paypal';
+  const PAYMENT_SERVICE_PROCESSOR_WIRE = 'wire';
+  const PAYMENT_SERVICE_PROCESSOR_BLACKHOLE = 'blackhole';
+  const PAYMENT_SERVICE_PROCESSOR_CHEQUE = 'cheque';
+  const PAYMENT_SERVICE_PROCESSOR_PREPAYMENT = 'prepayment';
+  const PAYMENT_SERVICE_PROCESSOR_FORTIFIPAY = 'fortifipay';
+  const PAYMENT_SERVICE_PROCESSOR_COINBASE = 'coinbase';
+
   /**
-   * @param string $value
+   * @param string $value paypal, wire, blackhole, cheque, prepayment, fortifipay, coinbase
    *
    * @return $this
    */

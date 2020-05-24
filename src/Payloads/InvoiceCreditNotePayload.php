@@ -147,8 +147,12 @@ class InvoiceCreditNotePayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const CREDIT_AMOUNT_TYPE_PERCENT_OF_REMAINING = 'percent_of_remaining';
+  const CREDIT_AMOUNT_TYPE_PERCENT_OF_TOTAL = 'percent_of_total';
+  const CREDIT_AMOUNT_TYPE_FIXED = 'fixed';
+
   /**
-   * @param string $value
+   * @param string $value percent_of_remaining, percent_of_total, fixed
    *
    * @return $this
    */

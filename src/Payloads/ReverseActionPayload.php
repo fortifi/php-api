@@ -336,8 +336,12 @@ class ReverseActionPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const REASON_CHARGEBACK = 'chargeback';
+  const REASON_CANCEL = 'cancel';
+  const REASON_FRAUD = 'fraud';
+
   /**
-   * @param string $value
+   * @param string $value chargeback, cancel, fraud
    *
    * @return $this
    */

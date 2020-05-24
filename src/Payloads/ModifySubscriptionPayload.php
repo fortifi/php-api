@@ -96,8 +96,12 @@ class ModifySubscriptionPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const MODE_PRORATE = 'prorate';
+  const MODE_EXTEND = 'extend';
+  const MODE_REPLACE = 'replace';
+
   /**
-   * @param string $value
+   * @param string $value prorate, extend, replace
    *
    * @return $this
    */

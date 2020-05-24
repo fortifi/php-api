@@ -49,8 +49,11 @@ class CalculateRefundPayload
     ];
   }
 
+  const SUBSCRIPTION_REFUND_TYPE_PRORATE = 'prorate';
+  const SUBSCRIPTION_REFUND_TYPE_FULL = 'full';
+
   /**
-   * @param string $value
+   * @param string $value prorate, full
    *
    * @return $this
    */

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.32.1'
+  version: '3.33.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -195,10 +195,12 @@ securityDefinitions:
     name: access_token
 
 tags:
+  - name: Brands
   - name: Marketing
   - name: Customers
   - name: Entities
   - name: Orders
+  - name: Payment Methods
   - name: Custom Properties
   - name: Configuration
   - name: Contacts
@@ -405,6 +407,8 @@ paths:
             $ref: '#/definitions/Envelope'
   /brands:
     get:
+      tags:
+        - Brands
       security:
         - OAuth:
             - basic
@@ -945,6 +949,8 @@ paths:
             $ref: '#/definitions/Envelope'
     post:
       summary: Add an address to a customer
+      tags:
+        - Customer
       security:
         - OAuth:
             - customer
@@ -971,6 +977,8 @@ paths:
   '/customers/{customerFid}/emails':
     post:
       summary: Add an email address to a customer
+      tags:
+        - Customer
       security:
         - OAuth:
             - customer
@@ -999,11 +1007,13 @@ paths:
 
   '/customers/{customerFid}/phones':
     post:
+      summary: Add a phone number to a customer
+      tags:
+        - Customer
       security:
         - OAuth:
             - customer
         - accessToken: []
-      summary: Add a phone number to a customer
       consumes:
         - multipart/form-data
       parameters:
@@ -1377,11 +1387,13 @@ paths:
 
   '/customers/{customerFid}/invoices/{invoiceFid}/creditNote':
     post:
+      summary: Add a credit note to a customers invoice
+      tags:
+        - Customer
       security:
         - OAuth:
             - customer
         - accessToken: []
-      summary: Add a credit note to a customers invoice
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/invoiceFid'
@@ -3231,6 +3243,7 @@ paths:
     put:
       summary: Write multiple entity properties
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
@@ -3257,6 +3270,7 @@ paths:
     get:
       summary: Get a property value from an entity
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
@@ -3281,6 +3295,7 @@ paths:
     delete:
       summary: Remove a value property from an entity
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
@@ -3305,6 +3320,7 @@ paths:
     put:
       summary: Write an entity value property
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
@@ -3482,6 +3498,9 @@ paths:
   '/entities/{entityFid}/events':
     post:
       summary: Trigger a new event
+      tags:
+        - Entities
+        - Events
       security:
         - OAuth:
             - entity.events
@@ -3503,6 +3522,8 @@ paths:
   /pay/publicKey:
     get:
       summary: Get the public key needed to encrypt a credit card number
+      tags:
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -3529,6 +3550,8 @@ paths:
   /pay/coinbase:
     get:
       summary: Get a new checkout ID
+      tags:
+        - Payment Methods
       security:
         - OAuth:
             - payment.methods
@@ -3556,6 +3579,7 @@ paths:
     get:
       summary: Lists all the current gateways
       tags:
+        - Payment Methods
         - Configuration
       security:
         - OAuth:
@@ -3615,11 +3639,13 @@ paths:
             $ref: '#/definitions/Envelope'
   /me:
     get:
+      summary: Current User
+      tags:
+        - Authentication
       security:
         - OAuth:
             - basic
         - accessToken: []
-      summary: Current User
       operationId: getMe
       description: |
         Retrieve information about the current connected user (you)
@@ -3640,6 +3666,8 @@ paths:
   '/integrations/verifyUser':
     get:
       summary: Verify a user
+      tags:
+        - Authentication
       security:
         - accessToken: []
       parameters:
@@ -4204,11 +4232,13 @@ paths:
             $ref: '#/definitions/Envelope'
   /organisation:
     get:
+      summary: Current Organisation
+      tags:
+        - Authentication
       security:
         - OAuth:
             - basic
         - accessToken: []
-      summary: Current Organisation
       operationId: getOrganisation
       description: |
         Retrieve information about the current organisation
@@ -4609,6 +4639,8 @@ paths:
   /svcauth/verify:
     post:
       summary: Verify service account / Get Access Token
+      tags:
+        - Authentication
       operationId: getServiceAuthToken
       description: |
         User service account credentials to retrieve an API token
@@ -4661,11 +4693,13 @@ paths:
             $ref: '#/definitions/Envelope'
   /version:
     get:
+      summary: Current Version
+      tags:
+        - Authentication
       security:
         - OAuth:
             - basic
         - accessToken: []
-      summary: Current Version
       operationId: getVersion
       description: |
         Retrieve the current version of the Fortifi api
@@ -7835,6 +7869,39 @@ definitions:
       parentOrderFid:
         type: string
         description: Confirm this order only after this parent is completed
+      publisher:
+        $ref: '#/definitions/OrderPublisherPayload'
+
+  OrderPublisherPayload:
+    properties:
+      onState:
+        type: string
+        enum:
+          - approved
+          - setup
+          - complete
+        description: (required) Trigger the publisher action when the order gets to this state
+      visitorId:
+        type: string
+        description: Visitor ID from the browser cookie
+      userReference:
+        type: string
+        description: Your reference for the user (if visitor actions have been triggered before with this ID before, the visitor ID property is not required, and can be looked up by this id.
+      actionKey:
+        type: string
+        description: (required) Marketing Action to trigger e.g. acquisition, lead
+      campaignHash:
+        type: string
+        description: Campaign hash to allocate this action to (leave blank to use visitor ID values)
+      sid1:
+        type: string
+        description: Sub Tracking ID 1 (leave blank to use visitor ID values)
+      sid2:
+        type: string
+        description: Sub Tracking ID 2 (leave blank to use visitor ID values)
+      sid3:
+        type: string
+        description: Sub Tracking ID 3 (leave blank to use visitor ID values)
 
   OrderProductsPayload:
     properties:
