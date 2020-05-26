@@ -117,6 +117,11 @@ DESCRIPTION
 
     $tag = new TagDefinition();
     $tag->setDescription('');
+    $tag->setName('Authentication');
+    $this->addTag($tag);
+
+    $tag = new TagDefinition();
+    $tag->setDescription('');
     $tag->setName('Brands');
     $this->addTag($tag);
 

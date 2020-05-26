@@ -195,6 +195,7 @@ securityDefinitions:
     name: access_token
 
 tags:
+  - name: Authentication
   - name: Brands
   - name: Marketing
   - name: Customers
@@ -5580,6 +5581,8 @@ definitions:
       - properties:
           name:
             type: string
+          displayName:
+            type: string
           firstName:
             type: string
           lastName:
@@ -5587,6 +5590,8 @@ definitions:
           email:
             type: string
           phone:
+            type: string
+          phoneNumber:
             type: string
           currency:
             type: string
@@ -7506,6 +7511,12 @@ definitions:
       accountManagerFid:
         description: FID of an Account Manager
         type: string
+      taxNumber:
+        description: VAT number
+        type: string
+      companyNumber:
+        description: Company registration number (If customer is a company)
+        type: string
       accountType:
         $ref: '#/definitions/customerAccountType'
       accountStatus:
@@ -7844,11 +7855,12 @@ definitions:
         $ref: '#/definitions/CreateOrderType'
       productPriceFids:
         type: array
-        description: Product price FIDs to add
+        description: Add Products based on the price FIDs (For Products with multiple Prices, enter a specific Product Price Fid to add the product with that specified price)
         items:
           type: string
       products:
         type: array
+        description: Add Products based on Product FIDs (For products with multiple Prices, this will  automatically select lowest price)
         items:
           $ref: '#/definitions/OrderProductPayload'
       offerFids:

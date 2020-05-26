@@ -34,9 +34,12 @@ class CreateOrderPayload
    */
   protected $_type;
   /**
-   * Product price FIDs to add
+   * Add Products based on the price FIDs (For Products with multiple Prices, enter a specific Product Price Fid to add the product with that specified price)
    */
   protected $_productPriceFids;
+  /**
+   * Add Products based on Product FIDs (For products with multiple Prices, this will  automatically select lowest price)
+   */
   protected $_products;
   /**
    * Offer FIDs to apply to the order
@@ -355,7 +358,7 @@ class CreateOrderPayload
   }
 
   /**
-   * Product price FIDs to add
+   * Add Products based on the price FIDs (For Products with multiple Prices, enter a specific Product Price Fid to add the product with that specified price)
    *
    * @param mixed $default
    *
@@ -389,6 +392,8 @@ class CreateOrderPayload
   }
 
   /**
+   * Add Products based on Product FIDs (For products with multiple Prices, this will  automatically select lowest price)
+   *
    * @param mixed $default
    *
    * @return OrderProductPayload[]

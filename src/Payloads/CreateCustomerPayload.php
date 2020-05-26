@@ -51,6 +51,14 @@ class CreateCustomerPayload
    */
   protected $_accountManagerFid;
   /**
+   * VAT number
+   */
+  protected $_taxNumber;
+  /**
+   * Company registration number (If customer is a company)
+   */
+  protected $_companyNumber;
+  /**
    * Account Type
    */
   protected $_accountType;
@@ -119,6 +127,14 @@ class CreateCustomerPayload
     {
       $this->_accountManagerFid = (string)$data["accountManagerFid"];
     }
+    if(isset($data["taxNumber"]))
+    {
+      $this->_taxNumber = (string)$data["taxNumber"];
+    }
+    if(isset($data["companyNumber"]))
+    {
+      $this->_companyNumber = (string)$data["companyNumber"];
+    }
     if(isset($data["accountType"]))
     {
       $this->_accountType = (string)$data["accountType"];
@@ -160,6 +176,8 @@ class CreateCustomerPayload
       "firstName"         => $this->_firstName,
       "lastName"          => $this->_lastName,
       "accountManagerFid" => $this->_accountManagerFid,
+      "taxNumber"         => $this->_taxNumber,
+      "companyNumber"     => $this->_companyNumber,
       "accountType"       => $this->_accountType,
       "accountStatus"     => $this->_accountStatus,
       "lifecycle"         => $this->_lifecycle,
@@ -441,6 +459,56 @@ class CreateCustomerPayload
   public function getAccountManagerFid($default = null, $trim = true)
   {
     $value = $this->_accountManagerFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setTaxNumber(?string $value)
+  {
+    $this->_taxNumber = $value;
+    return $this;
+  }
+
+  /**
+   * VAT number
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTaxNumber($default = null, $trim = true)
+  {
+    $value = $this->_taxNumber ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCompanyNumber(?string $value)
+  {
+    $this->_companyNumber = $value;
+    return $this;
+  }
+
+  /**
+   * Company registration number (If customer is a company)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCompanyNumber($default = null, $trim = true)
+  {
+    $value = $this->_companyNumber ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

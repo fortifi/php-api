@@ -15,10 +15,12 @@ class CustomerRequest
       parent::jsonSerialize(),
       [
         "name" => $this->getName(),
+        "displayName" => $this->getDisplayName(),
         "firstName" => $this->getFirstName(),
         "lastName" => $this->getLastName(),
         "email" => $this->getEmail(),
         "phone" => $this->getPhone(),
+        "phoneNumber" => $this->getPhoneNumber(),
         "currency" => $this->getCurrency(),
         "externalReference" => $this->getExternalReference(),
         "companyFid" => $this->getCompanyFid(),
@@ -40,6 +42,18 @@ class CustomerRequest
   public function getName($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'name', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDisplayName($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'displayName', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -88,6 +102,18 @@ class CustomerRequest
   public function getPhone($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'phone', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPhoneNumber($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'phoneNumber', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
