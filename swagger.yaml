@@ -8125,6 +8125,11 @@ definitions:
         type: string
       ticketType:
         type: string
+        enum:
+          - generic
+          - question
+          - problem
+          - incident
       brandFid:
         type: string
       queueFid:
@@ -8141,6 +8146,24 @@ definitions:
         type: string
       htmlBody:
         type: string
+      impact:
+        type: string
+        enum:
+          - none
+          - minor
+          - moderate
+          - significant
+          - extensive
+      urgency:
+        type: string
+        enum:
+          - triage
+          - low
+          - normal
+          - high
+          - urgent
+          - emergency
+          - critical
 
   TicketReplyPayload:
     properties:
