@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\PeopleRequest;
+use Fortifi\Api\V1\Payloads\CreateCustomerContactPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -64,27 +65,11 @@ class CustomersCustomerFidContactsEndpoint extends ApiEndpoint
   /**
    * @summary Create a new contact for a customer
    *
-   * @param $email
-   * @param $phone
-   * @param $prefix
-   * @param $firstName
-   * @param $middleNames
-   * @param $lastName
-   * @param $suffix
-   * @param $nickname
-   * @param $birthday
-   * @param $jobTitle
-   * @param $address1
-   * @param $address2
-   * @param $address3
-   * @param $town
-   * @param $county
-   * @param $country
-   * @param $postalCode
+   * @param CreateCustomerContactPayload $payload
    *
    * @return ApiRequest
    */
-  public function create($email = null, $phone = null, $prefix = null, $firstName = null, $middleNames = null, $lastName = null, $suffix = null, $nickname = null, $birthday = null, $jobTitle = null, $address1 = null, $address2 = null, $address3 = null, $town = null, $county = null, $country = null, $postalCode = null)
+  public function create(CreateCustomerContactPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -99,23 +84,7 @@ class CustomersCustomerFidContactsEndpoint extends ApiEndpoint
         'customers/{customerFid}/contacts'
       )
     ));
-    $detail->addPostField('email', $email);
-    $detail->addPostField('phone', $phone);
-    $detail->addPostField('prefix', $prefix);
-    $detail->addPostField('firstName', $firstName);
-    $detail->addPostField('middleNames', $middleNames);
-    $detail->addPostField('lastName', $lastName);
-    $detail->addPostField('suffix', $suffix);
-    $detail->addPostField('nickname', $nickname);
-    $detail->addPostField('birthday', $birthday);
-    $detail->addPostField('jobTitle', $jobTitle);
-    $detail->addPostField('address1', $address1);
-    $detail->addPostField('address2', $address2);
-    $detail->addPostField('address3', $address3);
-    $detail->addPostField('town', $town);
-    $detail->addPostField('county', $county);
-    $detail->addPostField('country', $country);
-    $detail->addPostField('postalCode', $postalCode);
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
