@@ -17,6 +17,8 @@ class CreateTicketPayload
   protected $_subject;
   protected $_textBody;
   protected $_htmlBody;
+  protected $_impact;
+  protected $_urgency;
 
   public function hydrate($data)
   {
@@ -69,6 +71,14 @@ class CreateTicketPayload
     {
       $this->_htmlBody = (string)$data["htmlBody"];
     }
+    if(isset($data["impact"]))
+    {
+      $this->_impact = (string)$data["impact"];
+    }
+    if(isset($data["urgency"]))
+    {
+      $this->_urgency = (string)$data["urgency"];
+    }
     return $this;
   }
 
@@ -87,6 +97,8 @@ class CreateTicketPayload
       "subject"         => $this->_subject,
       "textBody"        => $this->_textBody,
       "htmlBody"        => $this->_htmlBody,
+      "impact"          => $this->_impact,
+      "urgency"         => $this->_urgency,
     ];
   }
 
@@ -159,8 +171,13 @@ class CreateTicketPayload
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const TICKET_TYPE_GENERIC = 'generic';
+  const TICKET_TYPE_QUESTION = 'question';
+  const TICKET_TYPE_PROBLEM = 'problem';
+  const TICKET_TYPE_INCIDENT = 'incident';
+
   /**
-   * @param string $value
+   * @param string $value generic, question, problem, incident
    *
    * @return $this
    */
@@ -363,6 +380,66 @@ class CreateTicketPayload
   public function getHtmlBody($default = null, $trim = true)
   {
     $value = $this->_htmlBody ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  const IMPACT_NONE = 'none';
+  const IMPACT_MINOR = 'minor';
+  const IMPACT_MODERATE = 'moderate';
+  const IMPACT_SIGNIFICANT = 'significant';
+  const IMPACT_EXTENSIVE = 'extensive';
+
+  /**
+   * @param string $value none, minor, moderate, significant, extensive
+   *
+   * @return $this
+   */
+  public function setImpact(?string $value)
+  {
+    $this->_impact = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getImpact($default = null, $trim = true)
+  {
+    $value = $this->_impact ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  const URGENCY_TRIAGE = 'triage';
+  const URGENCY_LOW = 'low';
+  const URGENCY_NORMAL = 'normal';
+  const URGENCY_HIGH = 'high';
+  const URGENCY_URGENT = 'urgent';
+  const URGENCY_EMERGENCY = 'emergency';
+  const URGENCY_CRITICAL = 'critical';
+
+  /**
+   * @param string $value triage, low, normal, high, urgent, emergency, critical
+   *
+   * @return $this
+   */
+  public function setUrgency(?string $value)
+  {
+    $this->_urgency = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getUrgency($default = null, $trim = true)
+  {
+    $value = $this->_urgency ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
