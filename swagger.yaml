@@ -5802,14 +5802,19 @@ definitions:
             type: string
           refundAmount:
             type: number
+            format: float
           taxAmount:
             type: number
+            format: float
           totalAmount:
             type: number
+            format: float
           creditedAmount:
             type: number
+            format: float
           outstandingAmount:
             type: number
+            format: float
           periodStart:
             type: integer
             format: int64
