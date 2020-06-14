@@ -22,7 +22,7 @@ class SubscriptionsRequest
   /**
    * @param mixed $default
    *
-   * @return SubscriptionSummaryRequest[]
+   * @return SubscriptionRequest[]
    */
   public function getSubscriptions($default = [])
   {
@@ -37,7 +37,7 @@ class SubscriptionsRequest
     {
       foreach($return->subscriptions as $itmKey => $itm)
       {
-        $return->subscriptions[$itmKey] = (new SubscriptionSummaryRequest())
+        $return->subscriptions[$itmKey] = (new SubscriptionRequest())
           ->hydrate($itm);
       }
     }

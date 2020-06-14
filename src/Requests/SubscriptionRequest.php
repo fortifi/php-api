@@ -14,16 +14,18 @@ class SubscriptionRequest
     return array_merge(
       parent::jsonSerialize(),
       [
+        "paidUntil" => $this->getPaidUntil(),
+        "cycle" => $this->getCycle(),
+        "autoCharge" => $this->isAutoCharge(),
+        "productFid" => $this->getProductFid(),
+        "status" => $this->getStatus(),
         "amount" => $this->getAmount(),
         "autoCancelDate" => $this->getAutoCancelDate(),
-        "autoCharge" => $this->isAutoCharge(),
         "autoSuspendDate" => $this->getAutoSuspendDate(),
         "cancelDays" => $this->getCancelDays(),
         "cancelReason" => $this->getCancelReason(),
         "currency" => $this->getCurrency(),
-        "cycle" => $this->getCycle(),
         "parentFid" => $this->getParentFid(),
-        "productFid" => $this->getProductFid(),
         "productManagerType" => $this->getProductManagerType(),
         "priceFid" => $this->getPriceFid(),
         "offerFid" => $this->getOfferFid(),
@@ -43,7 +45,6 @@ class SubscriptionRequest
         "nextRenewalAmount" => $this->getNextRenewalAmount(),
         "nextRenewDate" => $this->getNextRenewDate(),
         "paidRenewals" => $this->getPaidRenewals(),
-        "paidUntil" => $this->getPaidUntil(),
         "quantity" => $this->getQuantity(),
         "renewalAdvanceDays" => $this->getRenewalAdvanceDays(),
         "renewDate" => $this->getRenewDate(),
@@ -52,7 +53,6 @@ class SubscriptionRequest
         "shouldCancel" => $this->isShouldCancel(),
         "shouldSuspend" => $this->isShouldSuspend(),
         "startDate" => $this->getStartDate(),
-        "status" => $this->getStatus(),
         "suspendDays" => $this->getSuspendDays(),
         "suspendReason" => $this->getSuspendReason(),
         "taxAmount" => $this->getTaxAmount(),
@@ -63,6 +63,70 @@ class SubscriptionRequest
         "uniqueReference" => $this->getUniqueReference(),
       ]
     );
+  }
+
+  /**
+   * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaidUntil($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paidUntil', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Interval in ISO 8601 standard
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCycle($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isAutoCharge($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'autoCharge', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'productFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Purchase Status
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getStatus($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'status', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -87,16 +151,6 @@ class SubscriptionRequest
   {
     $value = Objects::property($this->_getResultJson(), 'autoCancelDate', $default);
     return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param bool $default
-   *
-   * @return boolean
-   */
-  public function isAutoCharge($default = false)
-  {
-    return Objects::property($this->_getResultJson(), 'autoCharge', $default);
   }
 
   /**
@@ -148,20 +202,6 @@ class SubscriptionRequest
   }
 
   /**
-   * Interval in ISO 8601 standard
-   * 
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCycle($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'cycle', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -170,18 +210,6 @@ class SubscriptionRequest
   public function getParentFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'parentFid', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getProductFid($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'productFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -428,20 +456,6 @@ class SubscriptionRequest
   }
 
   /**
-   * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
-   * 
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPaidUntil($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'paidUntil', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
    * @param mixed $default
    *
    * @return integer
@@ -526,18 +540,6 @@ class SubscriptionRequest
   public function getStartDate($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'startDate', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getStatus($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'status', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
