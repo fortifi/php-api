@@ -7914,6 +7914,9 @@ definitions:
       priceFid:
         description: Product Price FID
         type: string
+      offerFid:
+        description: Offer FID to apply to product
+        type: string
       sku:
         description: Product SKU
         type: string
