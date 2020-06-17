@@ -54,7 +54,7 @@ class PeriodRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getRefundAmount($default = null)
   {
@@ -64,7 +64,7 @@ class PeriodRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getTaxAmount($default = null)
   {
@@ -74,7 +74,7 @@ class PeriodRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getTotalAmount($default = null)
   {
@@ -84,7 +84,7 @@ class PeriodRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getCreditedAmount($default = null)
   {
@@ -94,7 +94,7 @@ class PeriodRequest
   /**
    * @param mixed $default
    *
-   * @return integer
+   * @return float
    */
   public function getOutstandingAmount($default = null)
   {

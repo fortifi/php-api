@@ -18,6 +18,10 @@ class OrderProductPayload
    */
   protected $_priceFid;
   /**
+   * Offer FID to apply to product
+   */
+  protected $_offerFid;
+  /**
    * Product SKU
    */
   protected $_sku;
@@ -55,6 +59,10 @@ class OrderProductPayload
     if(isset($data["priceFid"]))
     {
       $this->_priceFid = (string)$data["priceFid"];
+    }
+    if(isset($data["offerFid"]))
+    {
+      $this->_offerFid = (string)$data["offerFid"];
     }
     if(isset($data["sku"]))
     {
@@ -98,6 +106,7 @@ class OrderProductPayload
       "parent"             => $this->_parent,
       "transportReference" => $this->_transportReference,
       "priceFid"           => $this->_priceFid,
+      "offerFid"           => $this->_offerFid,
       "sku"                => $this->_sku,
       "productFid"         => $this->_productFid,
       "cycleTerm"          => $this->_cycleTerm,
@@ -181,6 +190,31 @@ class OrderProductPayload
   public function getPriceFid($default = null, $trim = true)
   {
     $value = $this->_priceFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setOfferFid(?string $value)
+  {
+    $this->_offerFid = $value;
+    return $this;
+  }
+
+  /**
+   * Offer FID to apply to product
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOfferFid($default = null, $trim = true)
+  {
+    $value = $this->_offerFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
