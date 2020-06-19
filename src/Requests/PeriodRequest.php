@@ -14,7 +14,9 @@ class PeriodRequest
     return array_merge(
       parent::jsonSerialize(),
       [
+        "chargeDate" => $this->getChargeDate(),
         "status" => $this->getStatus(),
+        "refundReason" => $this->getRefundReason(),
         "periodFid" => $this->getPeriodFid(),
         "refundAmount" => $this->getRefundAmount(),
         "taxAmount" => $this->getTaxAmount(),
@@ -29,6 +31,16 @@ class PeriodRequest
 
   /**
    * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getChargeDate($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'chargeDate', $default);
+  }
+
+  /**
+   * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
@@ -36,6 +48,18 @@ class PeriodRequest
   public function getStatus($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'status', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getRefundReason($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'refundReason', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
