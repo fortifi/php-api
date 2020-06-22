@@ -4355,6 +4355,33 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/products/{productFid}/addons':
+    get:
+      summary: Retrieve Addons for product
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/productFid'
+      responses:
+        200:
+          description: List of addon products related to the specified product
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Products'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/products/groups':
     get:
       summary: Get a list of all product groups

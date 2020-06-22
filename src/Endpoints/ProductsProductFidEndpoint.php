@@ -36,4 +36,16 @@ class ProductsProductFidEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return ProductsProductFidAddonsEndpoint
+   */
+  public function addons()
+  {
+    $endpoint = new ProductsProductFidAddonsEndpoint(
+      $this->_replacements['{productFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }
