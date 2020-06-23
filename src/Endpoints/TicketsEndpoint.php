@@ -16,6 +16,20 @@ class TicketsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $ticketFid
+   *
+   * @return TicketsTicketFidEndpoint
+   */
+  public function with($ticketFid)
+  {
+    $endpoint = new TicketsTicketFidEndpoint(
+      $ticketFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Create a support ticket
    *
    * @param CreateTicketPayload $payload

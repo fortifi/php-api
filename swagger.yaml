@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.35.1'
+  version: '3.37.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4589,7 +4589,7 @@ paths:
     post:
       summary: Create a support ticket
       tags:
-          - Support
+        - Support
       security:
         - OAuth:
             - support
@@ -4609,6 +4609,36 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/Ticket'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/tickets/{ticketFid}/status':
+    put:
+      summary: Set the status of a ticket
+      tags:
+        - Support
+      security:
+        - OAuth:
+            - support
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/ticketFid'
+        - name: status
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ticketStatus'
+      responses:
+        200:
+          description: Success Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
         default:
           description: Error
           schema:
@@ -5257,6 +5287,18 @@ definitions:
       - invalid
       - provisioning
       - provisioned
+  ticketStatus:
+    description: Ticket Status
+    type: string
+    enum:
+      - open
+      - on_hold
+      - pending_reply
+      - resolved
+      - invalid
+      - duplicate
+      - closed
+      - trash
   EnvelopeMeta:
     description: Envelope Meta
     properties:
@@ -5813,7 +5855,12 @@ definitions:
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
+          chargeDate:
+            type: integer
+            format: int64
           status:
+            type: string
+          refundReason:
             type: string
           periodFid:
             type: string
@@ -7451,57 +7498,57 @@ definitions:
   CreateCustomerContactPayload:
     description: Payload for creating a customer contact
     properties:
-        email:
-          description: Email
-          type: string
-        phone:
-          description: Phone
-          type: string
-        prefix:
-          description: Prefix
-          type: string
-        firstName:
-          description: First name
-          type: string
-        middleNames:
-          description: Middles names
-          type: string
-        lastName:
-          description: Last name
-          type: string
-        suffix:
-          description: Suffix
-          type: string
-        nickname:
-          description: Nick name
-          type: string
-        birthday:
-          description: Birthday
-          type: string
-        jobTitle:
-          description: Job Title
-          type: string
-        address1:
-          description: Address Line 1
-          type: string
-        address2:
-          description: Address Line 2
-          type: string
-        address3:
-          description: Address Line 3
-          type: string
-        town:
-          description: Town
-          type: string
-        county:
-          description: County
-          type: string
-        country:
-          description: Country
-          type: string
-        postalCode:
-          description: Post Code
-          type: string
+      email:
+        description: Email
+        type: string
+      phone:
+        description: Phone
+        type: string
+      prefix:
+        description: Prefix
+        type: string
+      firstName:
+        description: First name
+        type: string
+      middleNames:
+        description: Middles names
+        type: string
+      lastName:
+        description: Last name
+        type: string
+      suffix:
+        description: Suffix
+        type: string
+      nickname:
+        description: Nick name
+        type: string
+      birthday:
+        description: Birthday
+        type: string
+      jobTitle:
+        description: Job Title
+        type: string
+      address1:
+        description: Address Line 1
+        type: string
+      address2:
+        description: Address Line 2
+        type: string
+      address3:
+        description: Address Line 3
+        type: string
+      town:
+        description: Town
+        type: string
+      county:
+        description: County
+        type: string
+      country:
+        description: Country
+        type: string
+      postalCode:
+        description: Post Code
+        type: string
   SetCustomerLocationPayload:
     properties:
       continent:
@@ -8141,6 +8188,8 @@ definitions:
     properties:
       textBody:
         type: string
+      status:
+        $ref: '#/definitions/ticketStatus'
 
   #Properties
 

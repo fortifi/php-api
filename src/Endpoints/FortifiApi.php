@@ -168,6 +168,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return TicketsEndpoint
+   */
+  public function tickets()
+  {
+    $endpoint = new TicketsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return VisitorsEndpoint
    */
   public function visitors()
@@ -193,16 +203,6 @@ class FortifiApi extends ApiEndpoint
   public function organisation()
   {
     $endpoint = new OrganisationEndpoint();
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return TicketsEndpoint
-   */
-  public function tickets()
-  {
-    $endpoint = new TicketsEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
