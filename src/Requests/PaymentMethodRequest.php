@@ -23,6 +23,17 @@ class PaymentMethodRequest
         "expiryDate" => $this->getExpiryDate(),
         "accountHolder" => $this->getAccountHolder(),
         "last4" => $this->getLast4(),
+        "tokenUuid" => $this->getTokenUuid(),
+        "isPrimary" => $this->isPrimary(),
+        "lockExpiresAt" => $this->getLockExpiresAt(),
+        "lastIdentifyTime" => $this->getLastIdentifyTime(),
+        "identifyCount" => $this->getIdentifyCount(),
+        "lastChallengeTime" => $this->getLastChallengeTime(),
+        "lastSuccessChallengeTime" => $this->getLastSuccessChallengeTime(),
+        "challengeCount" => $this->getChallengeCount(),
+        "successfulChallenges" => $this->getSuccessfulChallenges(),
+        "successfulTransactions" => $this->getSuccessfulTransactions(),
+        "declineCount" => $this->getDeclineCount(),
       ]
     );
   }
@@ -137,5 +148,133 @@ class PaymentMethodRequest
   {
     $value = Objects::property($this->_getResultJson(), 'last4', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTokenUuid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'tokenUuid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isPrimary($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'isPrimary', $default);
+  }
+
+  /**
+   * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLockExpiresAt($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'lockExpiresAt', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLastIdentifyTime($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'lastIdentifyTime', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getIdentifyCount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'identifyCount', $default);
+  }
+
+  /**
+   * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLastChallengeTime($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'lastChallengeTime', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLastSuccessChallengeTime($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'lastSuccessChallengeTime', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getChallengeCount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'challengeCount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getSuccessfulChallenges($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'successfulChallenges', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getSuccessfulTransactions($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'successfulTransactions', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getDeclineCount($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'declineCount', $default);
   }
 }
