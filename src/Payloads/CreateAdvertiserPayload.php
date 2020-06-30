@@ -208,9 +208,19 @@ class CreateAdvertiserPayload
   const TYPE_AFFILIATE = 'affiliate';
   const TYPE_NETWORK = 'network';
   const TYPE_CUSTOMER = 'customer';
+  const TYPE_DISPLAY = 'display';
+  const TYPE_PRIORITY_AFFILIATE = 'priority_affiliate';
+  const TYPE_OFFLINE = 'offline';
+  const TYPE_PPC = 'ppc';
+  const TYPE_INTERNAL = 'internal';
+  const TYPE_SEARCH_ENGINE = 'search_engine';
+  const TYPE_MOBILE = 'mobile';
+  const TYPE_EMAIL = 'email';
+  const TYPE_RETARGET = 'retarget';
+  const TYPE_CONTENT = 'content';
 
   /**
-   * @param string $value affiliate, network, customer
+   * @param string $value affiliate, network, customer, display, priority_affiliate, offline, ppc, internal, search_engine, mobile, email, retarget, content
    *
    * @return $this
    */

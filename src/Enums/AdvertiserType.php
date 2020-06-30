@@ -6,6 +6,16 @@ final class AdvertiserType
   const AFFILIATE = 'affiliate';
   const NETWORK = 'network';
   const CUSTOMER = 'customer';
+  const DISPLAY = 'display';
+  const PRIORITY_AFFILIATE = 'priority_affiliate';
+  const OFFLINE = 'offline';
+  const PPC = 'ppc';
+  const INTERNAL = 'internal';
+  const SEARCH_ENGINE = 'search_engine';
+  const MOBILE = 'mobile';
+  const EMAIL = 'email';
+  const RETARGET = 'retarget';
+  const CONTENT = 'content';
 
   public static function getDisplayValue($value)
   {
@@ -18,6 +28,16 @@ final class AdvertiserType
       'affiliate',
       'network',
       'customer',
+      'display',
+      'priority_affiliate',
+      'offline',
+      'ppc',
+      'internal',
+      'search_engine',
+      'mobile',
+      'email',
+      'retarget',
+      'content',
     ];
   }
 }
