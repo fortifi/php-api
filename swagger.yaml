@@ -4629,7 +4629,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/ticketStatus'
+            $ref: '#/definitions/TicketStatusPayload'
       responses:
         200:
           description: Success Response
@@ -7475,6 +7475,12 @@ definitions:
       eventId:
         description: If known, the Fortifi event ID for this visitors action
         type: string
+
+  TicketStatusPayload:
+    description: Set the ticket status
+    properties:
+      ticketStatus:
+        $ref: '#/definitions/ticketStatus'
 
   CreateCustomerPayload:
     description: Payload for creating a customer
