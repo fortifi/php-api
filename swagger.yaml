@@ -237,7 +237,7 @@ paths:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/Fid'
+                    $ref: '#/definitions/Advertiser'
         x-400:
           description: |
             Invalid data supplied
@@ -371,7 +371,7 @@ paths:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/Fid'
+                    $ref: '#/definitions/AdvertiserCampaign'
         x-400:
           description: Invalid data supplied
         default:

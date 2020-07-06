@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\FidRequest;
+use Fortifi\Api\V1\Requests\AdvertiserCampaignRequest;
 use Fortifi\Api\V1\Payloads\CreateAdvertiserCampaignPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -36,11 +36,11 @@ class AdvertisersAdvertiserFidCampaignsEndpoint extends ApiEndpoint
    *
    * @param CreateAdvertiserCampaignPayload $payload
    *
-   * @return FidRequest
+   * @return AdvertiserCampaignRequest
    */
   public function create(CreateAdvertiserCampaignPayload $payload)
   {
-    $request = new FidRequest();
+    $request = new AdvertiserCampaignRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
