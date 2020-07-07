@@ -10,6 +10,7 @@ class TicketReplyPayload
    * Ticket Status
    */
   protected $_status;
+  protected $_attachments;
 
   public function hydrate($data)
   {
@@ -22,14 +23,19 @@ class TicketReplyPayload
     {
       $this->_status = (string)$data["status"];
     }
+    if(isset($data["attachments"]))
+    {
+      $this->_attachments = $data["attachments"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "textBody" => $this->_textBody,
-      "status"   => $this->_status,
+      "textBody"    => $this->_textBody,
+      "status"      => $this->_status,
+      "attachments" => $this->_attachments,
     ];
   }
 
@@ -88,5 +94,37 @@ class TicketReplyPayload
   {
     $value = $this->_status ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string[] $value
+   *
+   * @return $this
+   */
+  public function setAttachments(?array $value)
+  {
+    $this->_attachments = $value;
+    return $this;
+  }
+
+  /**
+   * @param string $item
+   *
+   * @return $this
+   */
+  public function addAttachment(string $item)
+  {
+    $this->_attachments[] = $item;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string[]
+   */
+  public function getAttachments($default = [])
+  {
+    return $this->_attachments ?: $default;
   }
 }
