@@ -46,6 +46,9 @@ class CustomersCustomerFidTicketsTicketFidPostsEndpoint extends ApiEndpoint
   /**
    * @summary Post a reply to a ticket
    *
+   * The attachments property is an array of unique filenames that have been
+   * created using ```/upload/uploadUrl```
+   *
    * @param TicketReplyPayload $payload
    *
    * @return TicketPostRequest

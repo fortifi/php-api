@@ -14,6 +14,7 @@ class AttachmentUrlRequest
   {
     return [
       "url" => $this->getUrl(),
+      "file" => $this->getFile(),
     ];
   }
 
@@ -28,6 +29,18 @@ class AttachmentUrlRequest
   public function getUrl($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'url', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getFile($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'file', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
