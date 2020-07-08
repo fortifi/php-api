@@ -22,6 +22,8 @@ class ProductPriceRequest
         "cycleTerm" => $this->getCycleTerm(),
         "cycleExact" => $this->getCycleExact(),
         "cycle" => $this->getCycle(),
+        "priceBandFid" => $this->getPriceBandFid(),
+        "skuFid" => $this->getSkuFid(),
       ]
     );
   }
@@ -121,6 +123,30 @@ class ProductPriceRequest
   public function getCycle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPriceBandFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'priceBandFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSkuFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'skuFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

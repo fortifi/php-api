@@ -32,6 +32,9 @@ class TicketsEndpoint extends ApiEndpoint
   /**
    * @summary Create a support ticket
    *
+   * The attachments property is an array of unique filenames that have been
+   * created using ```/upload/uploadUrl```
+   *
    * @param CreateTicketPayload $payload
    *
    * @return TicketRequest

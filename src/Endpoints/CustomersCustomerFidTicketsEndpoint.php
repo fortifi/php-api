@@ -34,15 +34,19 @@ class CustomersCustomerFidTicketsEndpoint extends ApiEndpoint
   /**
    * @summary Create a new support ticket
    *
+   * The attachments property is an array of unique filenames that have been
+   * created using ```/upload/uploadUrl```
+   *
    * @param $subject
    * @param $content
    * @param $recipient
    * @param $sender
    * @param $departmentFid
+   * @param $attachments
    *
    * @return ApiRequest
    */
-  public function create($subject, $content, $recipient, $sender, $departmentFid = null)
+  public function create($subject, $content, $recipient, $sender, $departmentFid = null, $attachments = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -62,6 +66,7 @@ class CustomersCustomerFidTicketsEndpoint extends ApiEndpoint
     $detail->addPostField('recipient', $recipient);
     $detail->addPostField('sender', $sender);
     $detail->addPostField('departmentFid', $departmentFid);
+    $detail->addPostField('attachments', $attachments);
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;

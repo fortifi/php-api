@@ -36,4 +36,16 @@ class ProductsProductFidEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return ProductsProductFidSkusEndpoint
+   */
+  public function skus()
+  {
+    $endpoint = new ProductsProductFidSkusEndpoint(
+      $this->_replacements['{productFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }

@@ -2,7 +2,7 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\ticketStatusResponse;
+use Fortifi\Api\V1\Payloads\TicketStatusPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -19,11 +19,11 @@ class TicketsTicketFidEndpoint extends ApiEndpoint
   /**
    * @summary Set the status of a ticket
    *
-   * @param ticketStatusResponse $status
+   * @param TicketStatusPayload $payload
    *
    * @return BoolMessageRequest
    */
-  public function setStatus(ticketStatusResponse $status)
+  public function setStatus(TicketStatusPayload $payload)
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());
@@ -38,7 +38,7 @@ class TicketsTicketFidEndpoint extends ApiEndpoint
         'tickets/{ticketFid}/status'
       )
     ));
-    $detail->setBody(json_encode($status));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

@@ -178,6 +178,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return UploadEndpoint
+   */
+  public function upload()
+  {
+    $endpoint = new UploadEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return VisitorsEndpoint
    */
   public function visitors()

@@ -19,6 +19,7 @@ class CreateTicketPayload
   protected $_htmlBody;
   protected $_impact;
   protected $_urgency;
+  protected $_attachments;
 
   public function hydrate($data)
   {
@@ -79,6 +80,10 @@ class CreateTicketPayload
     {
       $this->_urgency = (string)$data["urgency"];
     }
+    if(isset($data["attachments"]))
+    {
+      $this->_attachments = $data["attachments"];
+    }
     return $this;
   }
 
@@ -99,6 +104,7 @@ class CreateTicketPayload
       "htmlBody"        => $this->_htmlBody,
       "impact"          => $this->_impact,
       "urgency"         => $this->_urgency,
+      "attachments"     => $this->_attachments,
     ];
   }
 
@@ -441,5 +447,37 @@ class CreateTicketPayload
   {
     $value = $this->_urgency ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string[] $value
+   *
+   * @return $this
+   */
+  public function setAttachments(?array $value)
+  {
+    $this->_attachments = $value;
+    return $this;
+  }
+
+  /**
+   * @param string $item
+   *
+   * @return $this
+   */
+  public function addAttachment(string $item)
+  {
+    $this->_attachments[] = $item;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string[]
+   */
+  public function getAttachments($default = [])
+  {
+    return $this->_attachments ?: $default;
   }
 }
