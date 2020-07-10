@@ -40,7 +40,7 @@ class AdvertisersAdvertiserFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Retrieve an advertiser
+   * @summary DEPRECATED
    *
    * @return AdvertiserRequest
    */

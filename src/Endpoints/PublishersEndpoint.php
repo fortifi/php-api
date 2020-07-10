@@ -1,15 +1,15 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\FidRequest;
-use Fortifi\Api\V1\Requests\AdvertisersRequest;
-use Fortifi\Api\V1\Payloads\CreateAdvertiserPayload;
+use Fortifi\Api\V1\Requests\PublishersRequest;
+use Fortifi\Api\V1\Requests\PublisherRequest;
+use Fortifi\Api\V1\Payloads\CreatePublisherPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class AdvertisersEndpoint extends ApiEndpoint
+class PublishersEndpoint extends ApiEndpoint
 {
-  protected $_path = 'advertisers';
+  protected $_path = 'publishers';
   protected $_replacements = [];
 
   public function __construct()
@@ -17,35 +17,35 @@ class AdvertisersEndpoint extends ApiEndpoint
   }
 
   /**
-   * @param $advertiserFid
+   * @param $publisherFid
    *
-   * @return AdvertisersAdvertiserFidEndpoint
+   * @return PublishersPublisherFidEndpoint
    */
-  public function with($advertiserFid)
+  public function with($publisherFid)
   {
-    $endpoint = new AdvertisersAdvertiserFidEndpoint(
-      $advertiserFid
+    $endpoint = new PublishersPublisherFidEndpoint(
+      $publisherFid
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
   /**
-   * @summary DEPRECATED
+   * @summary Create a new publisher
    *
-   * @param CreateAdvertiserPayload $payload
+   * @param CreatePublisherPayload $payload
    *
-   * @return FidRequest
+   * @return PublisherRequest
    */
-  public function create(CreateAdvertiserPayload $payload)
+  public function create(CreatePublisherPayload $payload)
   {
-    $request = new FidRequest();
+    $request = new PublisherRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('advertisers'));
+    $detail->setUrl($this->_buildUrl('publishers'));
     $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
@@ -53,22 +53,22 @@ class AdvertisersEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary DEPRECATED
+   * @summary List publishers
    *
    * @param $limit
    * @param $page
    *
-   * @return AdvertisersRequest
+   * @return PublishersRequest
    */
   public function all($limit = null, $page = null)
   {
-    $request = new AdvertisersRequest();
+    $request = new PublishersRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('advertisers'));
+    $detail->setUrl($this->_buildUrl('publishers'));
     $detail->addQueryField('limit', $limit);
     $detail->addQueryField('page', $page);
     $detail->setMethod('GET');

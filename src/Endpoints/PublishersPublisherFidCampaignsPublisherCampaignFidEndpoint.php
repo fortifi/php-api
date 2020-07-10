@@ -1,29 +1,29 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\AdvertiserCampaignRequest;
+use Fortifi\Api\V1\Requests\PublisherCampaignRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class AdvertisersAdvertiserFidCampaignsAdvertiserCampaignFidEndpoint extends ApiEndpoint
+class PublishersPublisherFidCampaignsPublisherCampaignFidEndpoint extends ApiEndpoint
 {
-  protected $_path = 'advertisers/{advertiserFid}/campaigns/{advertiserCampaignFid}';
+  protected $_path = 'publishers/{publisherFid}/campaigns/{publisherCampaignFid}';
   protected $_replacements = [];
 
-  public function __construct($advertiserFid, $advertiserCampaignFid)
+  public function __construct($publisherFid, $publisherCampaignFid)
   {
-    $this->_replacements['{advertiserFid}'] = $advertiserFid;
-    $this->_replacements['{advertiserCampaignFid}'] = $advertiserCampaignFid;
+    $this->_replacements['{publisherFid}'] = $publisherFid;
+    $this->_replacements['{publisherCampaignFid}'] = $publisherCampaignFid;
   }
 
   /**
-   * @summary DEPRECATED
+   * @summary Retrieve an publisher campaign
    *
-   * @return AdvertiserCampaignRequest
+   * @return PublisherCampaignRequest
    */
   public function retrieve()
   {
-    $request = new AdvertiserCampaignRequest();
+    $request = new PublisherCampaignRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -33,7 +33,7 @@ class AdvertisersAdvertiserFidCampaignsAdvertiserCampaignFidEndpoint extends Api
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'advertisers/{advertiserFid}/campaigns/{advertiserCampaignFid}'
+        'publishers/{publisherFid}/campaigns/{publisherCampaignFid}'
       )
     ));
     $detail->setMethod('GET');

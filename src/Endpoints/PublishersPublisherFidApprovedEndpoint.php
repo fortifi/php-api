@@ -5,18 +5,18 @@ use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class AdvertisersAdvertiserFidApprovedEndpoint extends ApiEndpoint
+class PublishersPublisherFidApprovedEndpoint extends ApiEndpoint
 {
-  protected $_path = 'advertisers/{advertiserFid}/approved';
+  protected $_path = 'publishers/{publisherFid}/approved';
   protected $_replacements = [];
 
-  public function __construct($advertiserFid)
+  public function __construct($publisherFid)
   {
-    $this->_replacements['{advertiserFid}'] = $advertiserFid;
+    $this->_replacements['{publisherFid}'] = $publisherFid;
   }
 
   /**
-   * @summary DEPRECATED
+   * @summary Set approved status on an publisher
    *
    * @return ApiRequest
    */
@@ -32,7 +32,7 @@ class AdvertisersAdvertiserFidApprovedEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'advertisers/{advertiserFid}/approved'
+        'publishers/{publisherFid}/approved'
       )
     ));
     $detail->setMethod('PUT');
@@ -41,7 +41,7 @@ class AdvertisersAdvertiserFidApprovedEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary DEPRECATED
+   * @summary Remove approved status on an publisher
    *
    * @return ApiRequest
    */
@@ -57,7 +57,7 @@ class AdvertisersAdvertiserFidApprovedEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'advertisers/{advertiserFid}/approved'
+        'publishers/{publisherFid}/approved'
       )
     ));
     $detail->setMethod('DELETE');

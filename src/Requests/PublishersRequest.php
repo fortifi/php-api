@@ -4,7 +4,7 @@ namespace Fortifi\Api\V1\Requests;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class AdvertisersRequest
+class PublishersRequest
   extends PaginationRequest
   implements \JsonSerializable
 {

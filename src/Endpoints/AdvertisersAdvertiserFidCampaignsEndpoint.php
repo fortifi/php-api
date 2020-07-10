@@ -32,7 +32,7 @@ class AdvertisersAdvertiserFidCampaignsEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Create a new advertiser campaign
+   * @summary DEPRECATED
    *
    * @param CreateAdvertiserCampaignPayload $payload
    *

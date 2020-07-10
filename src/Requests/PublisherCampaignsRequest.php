@@ -4,7 +4,7 @@ namespace Fortifi\Api\V1\Requests;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class AdvertisersRequest
+class PublisherCampaignsRequest
   extends PaginationRequest
   implements \JsonSerializable
 {
@@ -22,7 +22,7 @@ class AdvertisersRequest
   /**
    * @param mixed $default
    *
-   * @return PublisherRequest[]
+   * @return PublisherCampaignRequest[]
    */
   public function getAdvertisers($default = [])
   {
@@ -37,7 +37,7 @@ class AdvertisersRequest
     {
       foreach($return->advertisers as $itmKey => $itm)
       {
-        $return->advertisers[$itmKey] = (new PublisherRequest())
+        $return->advertisers[$itmKey] = (new PublisherCampaignRequest())
           ->hydrate($itm);
       }
     }
