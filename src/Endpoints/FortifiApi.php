@@ -138,6 +138,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return PublishersEndpoint
+   */
+  public function publishers()
+  {
+    $endpoint = new PublishersEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ReasonsEndpoint
    */
   public function reasons()

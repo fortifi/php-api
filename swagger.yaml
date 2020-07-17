@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.41.0'
+  version: '3.42.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -36,6 +36,14 @@ info:
 
     ```
       https://api.fortifi.io/v1/brands?access_token=ACCESS_TOKEN
+
+    ```
+
+    For non-GET requests, you must pass your ACCESS_TOKEN in the Authorization header else you will get an access denied
+    response
+
+    ```
+        Authorization: Bearer ACCESS_TOKEN
 
     ```
 
@@ -212,17 +220,20 @@ tags:
   - name: Support
   - name: Service Status
   - name: Reasons
+  - name: Events
+  - name: Deprecated
 
 paths:
   /advertisers:
     post:
+      deprecated: true
       summary: Create a new advertiser
       security:
         - OAuth:
             - advertiser
         - accessToken: []
       tags:
-        - Marketing
+        - Deprecated
       parameters:
         - name: payload
           in: body
@@ -247,13 +258,14 @@ paths:
             $ref: '#/definitions/Envelope'
 
     get:
+      deprecated: true
       summary: List advertisers
       security:
         - OAuth:
             - advertiser
         - accessToken: []
       tags:
-        - Marketing
+        - Deprecated
       parameters:
         - name: limit
           in: query
@@ -281,12 +293,13 @@ paths:
 
   /advertisers/{advertiserFid}:
     get:
+      deprecated: true
       security:
         - OAuth:
             - advertiser
         - accessToken: []
       tags:
-        - Marketing
+        - Deprecated
       summary: Retrieve an advertiser
       parameters:
         - $ref: '#/parameters/advertiserFid'
@@ -308,12 +321,13 @@ paths:
 
   /advertisers/{advertiserFid}/approved:
     put:
+      deprecated: true
       security:
         - OAuth:
             - advertiser
         - accessToken: []
       tags:
-        - Marketing
+        - Deprecated
       summary: Set approved status on an advertiser
       parameters:
         - $ref: '#/parameters/advertiserFid'
@@ -328,9 +342,10 @@ paths:
             $ref: '#/definitions/Envelope'
 
     delete:
+      deprecated: true
       summary: Remove approved status on an advertiser
       tags:
-        - Marketing
+        - Deprecated
       security:
         - OAuth:
             - advertiser
@@ -349,13 +364,14 @@ paths:
 
   /advertisers/{advertiserFid}/campaigns:
     post:
+      deprecated: true
       summary: Create a new advertiser campaign
       security:
         - OAuth:
             - advertiser
         - accessToken: []
       tags:
-        - Marketing
+        - Deprecated
       parameters:
         - $ref: '#/parameters/advertiserFid'
         - name: payload
@@ -381,12 +397,13 @@ paths:
 
   /advertisers/{advertiserFid}/campaigns/{advertiserCampaignFid}:
     get:
+      deprecated: true
       security:
         - OAuth:
             - advertiser
         - accessToken: []
       tags:
-        - Marketing
+        - Deprecated
       summary: Retrieve an advertiser campaign
       parameters:
         - $ref: '#/parameters/advertiserFid'
@@ -872,7 +889,7 @@ paths:
     post:
       summary: Add an address to a customer
       tags:
-        - Customer
+        - Customers
       security:
         - OAuth:
             - customer
@@ -900,7 +917,7 @@ paths:
     post:
       summary: Add an email address to a customer
       tags:
-        - Customer
+        - Customers
       security:
         - OAuth:
             - customer
@@ -931,7 +948,7 @@ paths:
     post:
       summary: Add a phone number to a customer
       tags:
-        - Customer
+        - Customers
       security:
         - OAuth:
             - customer
@@ -1321,7 +1338,7 @@ paths:
     post:
       summary: Add a credit note to a customers invoice
       tags:
-        - Customer
+        - Customers
       security:
         - OAuth:
             - customer
@@ -4462,6 +4479,314 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  /publishers:
+    post:
+      summary: Create a new publisher
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreatePublisherPayload'
+      responses:
+        200:
+          description: Publisher Created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Publisher'
+        x-400:
+          description: |
+            Invalid data supplied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+    get:
+      summary: List publishers
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of publishers
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Publishers'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}:
+    get:
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      summary: Retrieve a publisher
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+      responses:
+        200:
+          description: Loaded Publisher
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Publisher'
+        x-404:
+          description: Publisher not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+    delete:
+      summary: Delete a publisher
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+      responses:
+        200:
+          description: Publisher Deleted
+        x-404:
+          description: Publisher not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/restore:
+    put:
+      summary: Restore a publisher
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+      responses:
+        200:
+          description: Publisher restored
+        x-404:
+          description: Publisher not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/enable:
+    put:
+      summary: Enable a publisher
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+      responses:
+        200:
+          description: Publisher enabled
+        x-404:
+          description: Publisher not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/disable:
+    put:
+      summary: Disable a publisher
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+      responses:
+        200:
+          description: Publisher disabled
+        x-404:
+          description: Publisher not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/approved:
+    put:
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      summary: Set approved status on an publisher
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+      responses:
+        200:
+          description: Approved Publisher
+        x-404:
+          description: Publisher not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+    delete:
+      summary: Remove approved status on an publisher
+      tags:
+        - Marketing
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+      responses:
+        200:
+          description: Publisher no longer approved
+        x-404:
+          description: Publisher not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/campaigns:
+    get:
+      summary: List campaigns
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of publishers
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PublisherCampaigns'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new publisher campaign
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreatePublisherCampaignPayload'
+      responses:
+        200:
+          description: Campaign Created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PublisherCampaign'
+        x-400:
+          description: Invalid data supplied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/campaigns/{publisherCampaignFid}:
+    get:
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: []
+      tags:
+        - Marketing
+      summary: Retrieve a publisher campaign
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+        - $ref: '#/parameters/publisherCampaignFid'
+      responses:
+        200:
+          description: Loaded Campaign
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PublisherCampaign'
+        x-404:
+          description: Campaign not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/reasons/groups':
     get:
       summary: Get a list of all reason groups
@@ -4996,12 +5321,24 @@ parameters:
     type: string
     required: true
     description: Advertiser FID to use
+  publisherFid:
+    name: publisherFid
+    in: path
+    type: string
+    required: true
+    description: Publisher FID to use
   advertiserCampaignFid:
     name: advertiserCampaignFid
     in: path
     type: string
     required: true
     description: Advertiser Campaign FID to use
+  publisherCampaignFid:
+    name: publisherCampaignFid
+    in: path
+    type: string
+    required: true
+    description: Publisher Campaign FID to use
   customerFid:
     name: customerFid
     in: path
@@ -5154,6 +5491,7 @@ parameters:
     in: path
     required: true
     type: string
+    description: Offer FID or Coupon Code
   orderProductFid:
     name: orderProductFid
     in: path
@@ -5248,6 +5586,23 @@ definitions:
       - fraud
   AdvertiserType:
     description: Advertiser Type
+    type: string
+    enum:
+      - affiliate
+      - network
+      - customer
+      - display
+      - priority_affiliate
+      - offline
+      - ppc
+      - internal
+      - search_engine
+      - mobile
+      - email
+      - retarget
+      - content
+  PublisherType:
+    description: Publisher Type
     type: string
     enum:
       - affiliate
@@ -5707,7 +6062,45 @@ definitions:
             type: string
 
   Advertiser:
-    description: Advertiser
+    description: DEPRECATED
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          type:
+            type: string
+          contactName:
+            type: string
+          companyName:
+            type: string
+          phoneFid:
+            type: string
+          emailFid:
+            type: string
+          website:
+            type: string
+          acceptedTerms:
+            type: string
+          suspended:
+            type: string
+          accountManagerFid:
+            type: string
+          foundationFid:
+            type: string
+          companyFid:
+            type: string
+          isDisabled:
+            type: string
+          email:
+            type: string
+          phone:
+            type: string
+          payoutType:
+            type: string
+          approved:
+            type: boolean
+
+  Publisher:
+    description: Publisher
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -5745,17 +6138,49 @@ definitions:
             type: boolean
 
   Advertisers:
-    description: Advertisers
+    description: DEPRECATED
     allOf:
       - $ref: '#/definitions/Pagination'
       - properties:
           advertisers:
             type: array
             items:
-              $ref: '#/definitions/Advertiser'
+              $ref: '#/definitions/Publisher'
+
+  Publishers:
+    description: Publishers
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          advertisers:
+            type: array
+            items:
+              $ref: '#/definitions/Publisher'
 
   AdvertiserCampaign:
-    description: Campaign
+    description: DEPRECATED
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          hash:
+            type: string
+          affiliateFid:
+            type: string
+          brandFid:
+            type: string
+
+  PublisherCampaigns:
+    description: Publisher Campaigns
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          advertisers:
+            type: array
+            items:
+              $ref: '#/definitions/PublisherCampaign'
+
+  PublisherCampaign:
+    description: Publisher Campaign
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -7403,6 +7828,50 @@ definitions:
         type: string
 
   CreateAdvertiserPayload:
+    description: DEPRECATED
+    properties:
+      username:
+        type: string
+        description: Username
+      email:
+        type: string
+        description: Email Address
+      password:
+        type: string
+        description: Password
+      type:
+        $ref: '#/definitions/AdvertiserType'
+      displayName:
+        description: Visible Display Name
+        type: string
+      contactName:
+        type: string
+        description: Name of the person
+      companyName:
+        type: string
+        description: Name of the company
+      phone:
+        description: Phone Number
+        type: string
+      website:
+        type: string
+        description: URL
+      accountManagerFid:
+        description: FID of an Account Manager
+        type: string
+      foundationFid:
+        description: FID of a valid Foundation
+        type: string
+      brandFid:
+        description: FID of a valid Brand
+        type: string
+    required:
+      - username
+      - password
+      - type
+      - contactName
+
+  CreatePublisherPayload:
     description: Payload for creating an advertiser
     properties:
       username:
@@ -7447,7 +7916,20 @@ definitions:
       - contactName
 
   CreateAdvertiserCampaignPayload:
-    description: Payload for creating an advertiser campaign
+    description: DEPRECATED
+    properties:
+      brandFid:
+        description: FID of a valid Brand
+        type: string
+      displayName:
+        description: Visible Display Name
+        type: string
+    required:
+      - brandFid
+      - displayName
+
+  CreatePublisherCampaignPayload:
+    description: Payload for creating an publisher campaign
     properties:
       brandFid:
         description: FID of a valid Brand

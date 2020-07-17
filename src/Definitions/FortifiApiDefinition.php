@@ -11,7 +11,7 @@ class FortifiApiDefinition  extends ApiDefinition
   public function __construct()
   {
     $this->setTitle('Fortifi API');
-    $this->setVersion('3.41.0');
+    $this->setVersion('3.42.0');
     $this->setDescription(<<<DESCRIPTION
 The second version of the Fortifi API is an exciting step forward towards
 making it easier for businesses to have open access to their data. We created it
@@ -33,6 +33,10 @@ by accessing the following URL with your Access Token
 (replace ACCESS_TOKEN with your own):
 ```
   https://api.fortifi.io/v1/brands?access_token=ACCESS_TOKEN
+```
+For non-GET requests, you must pass your ACCESS_TOKEN in the Authorization header else you will get an access denied response
+```
+    Authorization: Bearer ACCESS_TOKEN
 ```
 
 ## Limits
@@ -198,6 +202,16 @@ DESCRIPTION
     $tag = new TagDefinition();
     $tag->setDescription('');
     $tag->setName('Reasons');
+    $this->addTag($tag);
+
+    $tag = new TagDefinition();
+    $tag->setDescription('');
+    $tag->setName('Events');
+    $this->addTag($tag);
+
+    $tag = new TagDefinition();
+    $tag->setDescription('');
+    $tag->setName('Deprecated');
     $this->addTag($tag);
 
     $secDef = new SecurityDefinition();
