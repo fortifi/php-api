@@ -4718,7 +4718,7 @@ paths:
           type: integer
       responses:
         200:
-          description: List of publishers
+          description: List of campaigns
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
@@ -6124,7 +6124,7 @@ definitions:
             type: string
           foundationFid:
             type: string
-          companyFid:
+          brandFid:
             type: string
           isDisabled:
             type: string
@@ -6152,7 +6152,7 @@ definitions:
     allOf:
       - $ref: '#/definitions/Pagination'
       - properties:
-          advertisers:
+          publishers:
             type: array
             items:
               $ref: '#/definitions/Publisher'
@@ -6174,7 +6174,7 @@ definitions:
     allOf:
       - $ref: '#/definitions/Pagination'
       - properties:
-          advertisers:
+          campaigns:
             type: array
             items:
               $ref: '#/definitions/PublisherCampaign'

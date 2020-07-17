@@ -14,7 +14,7 @@ class PublisherCampaignsRequest
     return array_merge(
       parent::jsonSerialize(),
       [
-        "advertisers" => $this->getAdvertisers(),
+        "campaigns" => $this->getCampaigns(),
       ]
     );
   }
@@ -24,20 +24,20 @@ class PublisherCampaignsRequest
    *
    * @return PublisherCampaignRequest[]
    */
-  public function getAdvertisers($default = [])
+  public function getCampaigns($default = [])
   {
-    return Objects::property($this->_getResultJson(), 'advertisers', $default);
+    return Objects::property($this->_getResultJson(), 'campaigns', $default);
   }
 
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
 
-    if(!empty($return->advertisers))
+    if(!empty($return->campaigns))
     {
-      foreach($return->advertisers as $itmKey => $itm)
+      foreach($return->campaigns as $itmKey => $itm)
       {
-        $return->advertisers[$itmKey] = (new PublisherCampaignRequest())
+        $return->campaigns[$itmKey] = (new PublisherCampaignRequest())
           ->hydrate($itm);
       }
     }

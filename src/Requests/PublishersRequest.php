@@ -14,7 +14,7 @@ class PublishersRequest
     return array_merge(
       parent::jsonSerialize(),
       [
-        "advertisers" => $this->getAdvertisers(),
+        "publishers" => $this->getPublishers(),
       ]
     );
   }
@@ -24,20 +24,20 @@ class PublishersRequest
    *
    * @return PublisherRequest[]
    */
-  public function getAdvertisers($default = [])
+  public function getPublishers($default = [])
   {
-    return Objects::property($this->_getResultJson(), 'advertisers', $default);
+    return Objects::property($this->_getResultJson(), 'publishers', $default);
   }
 
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
 
-    if(!empty($return->advertisers))
+    if(!empty($return->publishers))
     {
-      foreach($return->advertisers as $itmKey => $itm)
+      foreach($return->publishers as $itmKey => $itm)
       {
-        $return->advertisers[$itmKey] = (new PublisherRequest())
+        $return->publishers[$itmKey] = (new PublisherRequest())
           ->hydrate($itm);
       }
     }
