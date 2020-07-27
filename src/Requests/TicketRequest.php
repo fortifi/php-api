@@ -45,7 +45,7 @@ class TicketRequest
         "cc" => $this->getCc(),
         "bcc" => $this->getBcc(),
         "language" => $this->getLanguage(),
-        "dataCreated" => $this->getDataCreated(),
+        "dateCreated" => $this->getDateCreated(),
         "dateModified" => $this->getDateModified(),
       ]
     );
@@ -398,9 +398,9 @@ class TicketRequest
    *
    * @return integer
    */
-  public function getDataCreated($default = null)
+  public function getDateCreated($default = null)
   {
-    return Objects::property($this->_getResultJson(), 'dataCreated', $default);
+    return Objects::property($this->_getResultJson(), 'dateCreated', $default);
   }
 
   /**
