@@ -1,20 +1,22 @@
 <?php
 namespace Fortifi\Api\V1\Requests;
 
-use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
 class TicketsRequest
-  extends ApiRequest
+  extends PaginationRequest
   implements \JsonSerializable
 {
 
   public function jsonSerialize()
   {
-    return [
-      "tickets" => $this->getTickets(),
-    ];
+    return array_merge(
+      parent::jsonSerialize(),
+      [
+        "tickets" => $this->getTickets(),
+      ]
+    );
   }
 
   /**

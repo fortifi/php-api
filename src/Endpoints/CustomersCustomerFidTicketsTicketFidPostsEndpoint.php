@@ -21,9 +21,12 @@ class CustomersCustomerFidTicketsTicketFidPostsEndpoint extends ApiEndpoint
   /**
    * @summary Retrieve ticket posts for a ticket
    *
+   * @param $limit
+   * @param $beforeTimestamp
+   *
    * @return TicketPostsRequest
    */
-  public function all()
+  public function all($limit = null, $beforeTimestamp = null)
   {
     $request = new TicketPostsRequest();
     $request->setConnection($this->_getConnection());
@@ -38,6 +41,8 @@ class CustomersCustomerFidTicketsTicketFidPostsEndpoint extends ApiEndpoint
         'customers/{customerFid}/tickets/{ticketFid}/posts'
       )
     ));
+    $detail->addQueryField('limit', $limit);
+    $detail->addQueryField('beforeTimestamp', $beforeTimestamp);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

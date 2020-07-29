@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.42.2'
+  version: '3.42.3'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1110,6 +1110,16 @@ paths:
         - accessToken: []
       parameters:
         - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
       responses:
         200:
           schema:
@@ -1137,6 +1147,17 @@ paths:
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/ticketFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20, max: 100)'
+          required: false
+          type: integer
+        - name: beforeTimestamp
+          in: query
+          description: 'Show posts before timestamp'
+          required: false
+          type: integer
+          format: int64
       responses:
         200:
           schema:
@@ -7361,11 +7382,13 @@ definitions:
 
   Tickets:
     description: Generic Response
-    properties:
-      tickets:
-        type: array
-        items:
-          $ref: '#/definitions/Ticket'
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          tickets:
+            type: array
+            items:
+              $ref: '#/definitions/Ticket'
 
   Ticket:
     description: Generic Response
