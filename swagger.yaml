@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.42.2'
+  version: '3.44.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1110,6 +1110,16 @@ paths:
         - accessToken: []
       parameters:
         - $ref: '#/parameters/customerFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
       responses:
         200:
           schema:
@@ -1119,6 +1129,34 @@ paths:
                   data:
                     $ref: '#/definitions/Tickets'
           description: Ticket collection
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/tickets/{ticketFid}/posts/{ticketPostTimestamp}/attachments':
+    get:
+      summary: Get attachments for a ticket post
+      tags:
+        - Customers
+        - Support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/ticketFid'
+        - $ref: '#/parameters/ticketPostTimestamp'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Attachments'
+          description: List of ticket attachments
         default:
           description: Error
           schema:
@@ -1137,6 +1175,17 @@ paths:
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/ticketFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20, max: 100)'
+          required: false
+          type: integer
+        - name: beforeTimestamp
+          in: query
+          description: 'Show posts before timestamp'
+          required: false
+          type: integer
+          format: int64
       responses:
         200:
           schema:
@@ -5345,6 +5394,13 @@ parameters:
     type: string
     required: true
     description: Customer FID to use
+  ticketPostTimestamp:
+    name: ticketPostTimestamp
+    in: path
+    type: integer
+    format: int64
+    required: true
+    description: Ticket Post Timestamp
   paymentMethodFid:
     name: paymentMethodFid
     in: path
@@ -7361,11 +7417,13 @@ definitions:
 
   Tickets:
     description: Generic Response
-    properties:
-      tickets:
-        type: array
-        items:
-          $ref: '#/definitions/Ticket'
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          tickets:
+            type: array
+            items:
+              $ref: '#/definitions/Ticket'
 
   Ticket:
     description: Generic Response
@@ -7452,6 +7510,37 @@ definitions:
           dateModified:
             type: number
             format: int64
+
+  Attachments:
+    description: List of attachments
+    properties:
+      attachments:
+        type: array
+        items:
+          $ref: '#/definitions/Attachment'
+
+  Attachment:
+    description: An attachment
+    properties:
+      objectFid:
+        type: string
+      uniqueName:
+        type: string
+      fileName:
+        type: string
+      mimeType:
+        type: string
+      size:
+        type: integer
+        format: int32
+      md5sum:
+        type: string
+      virusFound:
+        type: boolean
+      virusName:
+        type: string
+      downloadUrl:
+        type: string
 
   TicketPosts:
     description: Ticket Posts
@@ -8274,6 +8363,29 @@ definitions:
         type: array
         items:
           type: string
+      suggestions:
+        type: array
+        items:
+          $ref: '#/definitions/AvailabilityCheckSuggestionResponse'
+
+  PropertyResponse:
+    description: Key Value Response
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+
+  AvailabilityCheckSuggestionResponse:
+    description: Suggestion for an availability check response
+    properties:
+      sku:
+        type: string
+      properties:
+        type: array
+        description: Properties that should be set for the sku to be available
+        items:
+          $ref: '#/definitions/PropertyResponse'
 
   AvailabilityReservePayload:
     description: Product information to reserve availability

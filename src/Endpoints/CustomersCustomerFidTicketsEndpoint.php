@@ -75,9 +75,12 @@ class CustomersCustomerFidTicketsEndpoint extends ApiEndpoint
   /**
    * @summary Get support tickets for customer
    *
+   * @param $limit
+   * @param $page
+   *
    * @return TicketsRequest
    */
-  public function all()
+  public function all($limit = null, $page = null)
   {
     $request = new TicketsRequest();
     $request->setConnection($this->_getConnection());
@@ -92,6 +95,8 @@ class CustomersCustomerFidTicketsEndpoint extends ApiEndpoint
         'customers/{customerFid}/tickets'
       )
     ));
+    $detail->addQueryField('limit', $limit);
+    $detail->addQueryField('page', $page);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

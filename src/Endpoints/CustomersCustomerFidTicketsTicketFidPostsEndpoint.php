@@ -19,11 +19,30 @@ class CustomersCustomerFidTicketsTicketFidPostsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $ticketPostTimestamp
+   *
+   * @return CustomersCustomerFidTicketsTicketFidPostsTicketPostTimestampEndpoint
+   */
+  public function with($ticketPostTimestamp)
+  {
+    $endpoint = new CustomersCustomerFidTicketsTicketFidPostsTicketPostTimestampEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{ticketFid}'],
+      $ticketPostTimestamp
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retrieve ticket posts for a ticket
+   *
+   * @param $limit
+   * @param $beforeTimestamp
    *
    * @return TicketPostsRequest
    */
-  public function all()
+  public function all($limit = null, $beforeTimestamp = null)
   {
     $request = new TicketPostsRequest();
     $request->setConnection($this->_getConnection());
@@ -38,6 +57,8 @@ class CustomersCustomerFidTicketsTicketFidPostsEndpoint extends ApiEndpoint
         'customers/{customerFid}/tickets/{ticketFid}/posts'
       )
     ));
+    $detail->addQueryField('limit', $limit);
+    $detail->addQueryField('beforeTimestamp', $beforeTimestamp);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
