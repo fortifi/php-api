@@ -3238,6 +3238,33 @@ paths:
             $ref: '#/definitions/Envelope'
 
   '/entities/{entityFid}/properties':
+    get:
+      summary: Get all properties for an entity
+      tags:
+        - Entities
+        - Custom Properties
+      security:
+        - OAuth:
+            - entity.properties
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+      responses:
+        200:
+          description: Entity Properties
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Properties'
+        x-400:
+          description: Invalid Entity
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
     put:
       summary: Write multiple entity properties
       tags:
@@ -4524,6 +4551,37 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/ProductOffers'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/properties':
+    get:
+      summary: Get defined properties
+      tags:
+        - Properties
+      security:
+        - OAuth:
+            - properties.readonly
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: baseFids
+          in: query
+          required: true
+          type: array
+          items:
+            type: string
+      responses:
+        200:
+          description: Defined Properties
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PropertyDefinitions'
         default:
           description: Error
           schema:
@@ -6505,6 +6563,8 @@ definitions:
             type: string
           priceFid:
             type: string
+          skuFid:
+            type: string
           offerFid:
             type: string
           dateCancelled:
@@ -7611,19 +7671,95 @@ definitions:
             type: number
             format: int64
 
+  PropertyRequirement:
+    description: Prerequisite information for a defined property
+    properties:
+      key:
+        type: string
+      predicate:
+        type: string
+
+  PropertyDefinitions:
+    description: Property Definitions
+    properties:
+      properties:
+        type: array
+        items:
+          $ref: '#/definitions/PropertyDefinition'
+
+  PropertyDefinition:
+    description: Definition of a property
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          key:
+            type: string
+          groupFid:
+            type: string
+          type:
+            type: string
+          values:
+            type: array
+            items:
+              type: string
+          valueType:
+            type: string
+          validationType:
+            type: string
+            enum:
+              - regex
+              - prerequisite
+          validationConfig:
+            type: string
+
+  Properties:
+    description: Properties set on an entity
+    properties:
+      values:
+        description: Value properties
+        type: array
+        items:
+          $ref: '#/definitions/PropertyValue'
+      flags:
+        description: Flag properties
+        type: array
+        items:
+          $ref: '#/definitions/PropertyFlag'
+      counters:
+        description: Counter properties
+        type: array
+        items:
+          $ref: '#/definitions/PropertyCounter'
+
   PropertyValue:
     description: A value type property
     properties:
+      key:
+        description: Property name
+        type: string
       propertyValue:
-        description: Property value
+        description: Value property value
         type: string
 
   PropertyFlag:
     description: A flag type property
     properties:
+      key:
+        description: Property name
+        type: string
       value:
         description: Flag value
         type: boolean
+
+  PropertyCounter:
+    description: A counter type property
+    properties:
+      key:
+        description: Property name
+        type: string
+      value:
+        description: Counter value
+        type: number
 
   Services:
     description: Services
