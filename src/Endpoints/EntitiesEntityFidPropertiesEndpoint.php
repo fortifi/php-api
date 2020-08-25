@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\PropertiesRequest;
 use Fortifi\Api\V1\Payloads\PropertyBulkSetPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
@@ -50,6 +51,31 @@ class EntitiesEntityFidPropertiesEndpoint extends ApiEndpoint
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
+  }
+
+  /**
+   * @summary Get all properties for an entity
+   *
+   * @return PropertiesRequest
+   */
+  public function all()
+  {
+    $request = new PropertiesRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'entities/{entityFid}/properties'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 
   /**

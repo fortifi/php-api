@@ -5,7 +5,7 @@ use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class PropertyValueRequest
+class PropertyCounterRequest
   extends ApiRequest
   implements \JsonSerializable
 {
@@ -14,7 +14,7 @@ class PropertyValueRequest
   {
     return [
       "key" => $this->getKey(),
-      "propertyValue" => $this->getPropertyValue(),
+      "value" => $this->getValue(),
     ];
   }
 
@@ -33,16 +33,14 @@ class PropertyValueRequest
   }
 
   /**
-   * Value property value
+   * Counter value
    * 
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return integer
    */
-  public function getPropertyValue($default = null, $trim = true)
+  public function getValue($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'propertyValue', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'value', $default);
   }
 }

@@ -228,6 +228,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return PropertiesEndpoint
+   */
+  public function properties()
+  {
+    $endpoint = new PropertiesEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Current User
    *
    * Retrieve information about the current connected user (you)
