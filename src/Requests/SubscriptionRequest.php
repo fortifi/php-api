@@ -28,7 +28,6 @@ class SubscriptionRequest
         "parentFid" => $this->getParentFid(),
         "productManagerType" => $this->getProductManagerType(),
         "priceFid" => $this->getPriceFid(),
-        "skuFid" => $this->getSkuFid(),
         "offerFid" => $this->getOfferFid(),
         "dateCancelled" => $this->getDateCancelled(),
         "dateCreated" => $this->getDateCreated(),
@@ -235,18 +234,6 @@ class SubscriptionRequest
   public function getPriceFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'priceFid', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getSkuFid($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'skuFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

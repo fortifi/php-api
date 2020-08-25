@@ -21,6 +21,7 @@ class PersonRequest
         "suffix" => $this->getSuffix(),
         "nickname" => $this->getNickname(),
         "birthday" => $this->getBirthday(),
+        "externalReference" => $this->getExternalReference(),
         "jobTitle" => $this->getJobTitle(),
         "ownerFid" => $this->getOwnerFid(),
         "defaultEmailFid" => $this->getDefaultEmailFid(),
@@ -111,6 +112,18 @@ class PersonRequest
   public function getBirthday($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'birthday', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getExternalReference($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
