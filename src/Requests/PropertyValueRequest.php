@@ -13,27 +13,12 @@ class PropertyValueRequest
   public function jsonSerialize()
   {
     return [
-      "key" => $this->getKey(),
       "propertyValue" => $this->getPropertyValue(),
     ];
   }
 
   /**
-   * Property name
-   * 
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getKey($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'key', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * Value property value
+   * Property value
    * 
    * @param mixed $default
    * @param bool $trim Trim Value
