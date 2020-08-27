@@ -4,7 +4,7 @@ namespace Fortifi\Api\V1\Requests;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class PersonRequest
+class CustomerContactRequest
   extends EntityRequest
   implements \JsonSerializable
 {
@@ -14,6 +14,7 @@ class PersonRequest
     return array_merge(
       parent::jsonSerialize(),
       [
+        "ownerFid" => $this->getOwnerFid(),
         "prefix" => $this->getPrefix(),
         "firstName" => $this->getFirstName(),
         "middleNames" => $this->getMiddleNames(),
@@ -22,12 +23,23 @@ class PersonRequest
         "nickname" => $this->getNickname(),
         "birthday" => $this->getBirthday(),
         "jobTitle" => $this->getJobTitle(),
-        "ownerFid" => $this->getOwnerFid(),
         "defaultEmailFid" => $this->getDefaultEmailFid(),
         "defaultPhoneFid" => $this->getDefaultPhoneFid(),
         "defaultAddressFid" => $this->getDefaultAddressFid(),
       ]
     );
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOwnerFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'ownerFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
@@ -123,18 +135,6 @@ class PersonRequest
   public function getJobTitle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'jobTitle', $default);
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getOwnerFid($default = null, $trim = true)
-  {
-    $value = Objects::property($this->_getResultJson(), 'ownerFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

@@ -41,6 +41,14 @@ class OrderProductPayload
    * Interval in ISO 8601 standard
    */
   protected $_cycle;
+  /**
+   * Custom initial term start date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+   */
+  protected $_initialTermStartDate;
+  /**
+   * Custom initial term end date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+   */
+  protected $_initialTermEndDate;
   protected $_quantity;
   protected $_displayName;
   protected $_properties;
@@ -84,6 +92,14 @@ class OrderProductPayload
     {
       $this->_cycle = (string)$data["cycle"];
     }
+    if(isset($data["initialTermStartDate"]))
+    {
+      $this->_initialTermStartDate = (string)$data["initialTermStartDate"];
+    }
+    if(isset($data["initialTermEndDate"]))
+    {
+      $this->_initialTermEndDate = (string)$data["initialTermEndDate"];
+    }
     if(isset($data["quantity"]))
     {
       $this->_quantity = (int)$data["quantity"];
@@ -103,18 +119,20 @@ class OrderProductPayload
   public function jsonSerialize()
   {
     return [
-      "parent"             => $this->_parent,
-      "transportReference" => $this->_transportReference,
-      "priceFid"           => $this->_priceFid,
-      "offerFid"           => $this->_offerFid,
-      "sku"                => $this->_sku,
-      "productFid"         => $this->_productFid,
-      "cycleTerm"          => $this->_cycleTerm,
-      "cycleType"          => $this->_cycleType,
-      "cycle"              => $this->_cycle,
-      "quantity"           => $this->_quantity,
-      "displayName"        => $this->_displayName,
-      "properties"         => $this->_properties,
+      "parent"               => $this->_parent,
+      "transportReference"   => $this->_transportReference,
+      "priceFid"             => $this->_priceFid,
+      "offerFid"             => $this->_offerFid,
+      "sku"                  => $this->_sku,
+      "productFid"           => $this->_productFid,
+      "cycleTerm"            => $this->_cycleTerm,
+      "cycleType"            => $this->_cycleType,
+      "cycle"                => $this->_cycle,
+      "initialTermStartDate" => $this->_initialTermStartDate,
+      "initialTermEndDate"   => $this->_initialTermEndDate,
+      "quantity"             => $this->_quantity,
+      "displayName"          => $this->_displayName,
+      "properties"           => $this->_properties,
     ];
   }
 
@@ -345,6 +363,56 @@ class OrderProductPayload
   public function getCycle($default = null, $trim = true)
   {
     $value = $this->_cycle ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setInitialTermStartDate(?string $value)
+  {
+    $this->_initialTermStartDate = $value;
+    return $this;
+  }
+
+  /**
+   * Custom initial term start date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInitialTermStartDate($default = null, $trim = true)
+  {
+    $value = $this->_initialTermStartDate ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setInitialTermEndDate(?string $value)
+  {
+    $this->_initialTermEndDate = $value;
+    return $this;
+  }
+
+  /**
+   * Custom initial term end date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInitialTermEndDate($default = null, $trim = true)
+  {
+    $value = $this->_initialTermEndDate ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

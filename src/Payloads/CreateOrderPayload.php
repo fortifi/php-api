@@ -61,6 +61,10 @@ class CreateOrderPayload
    * Confirm this order only after this parent is completed
    */
   protected $_parentOrderFid;
+  /**
+   * If set to true, this will setup purchases before payment is recieved
+   */
+  protected $_setupPurchaseBeforePayment;
   protected $_publisher;
 
   public function hydrate($data)
@@ -128,6 +132,10 @@ class CreateOrderPayload
     {
       $this->_parentOrderFid = (string)$data["parentOrderFid"];
     }
+    if(isset($data["setupPurchaseBeforePayment"]))
+    {
+      $this->_setupPurchaseBeforePayment = $data["setupPurchaseBeforePayment"];
+    }
     if(isset($data["publisher"]))
     {
       $this->_publisher = new OrderPublisherPayload();
@@ -139,21 +147,22 @@ class CreateOrderPayload
   public function jsonSerialize()
   {
     return [
-      "displayName"       => $this->_displayName,
-      "paymentAccountFid" => $this->_paymentAccountFid,
-      "brandFid"          => $this->_brandFid,
-      "customerFid"       => $this->_customerFid,
-      "clientIp"          => $this->_clientIp,
-      "userAgent"         => $this->_userAgent,
-      "type"              => $this->_type,
-      "productPriceFids"  => $this->_productPriceFids,
-      "products"          => $this->_products,
-      "offerFids"         => $this->_offerFids,
-      "chargeId"          => $this->_chargeId,
-      "externalReference" => $this->_externalReference,
-      "confirm"           => $this->_confirm,
-      "parentOrderFid"    => $this->_parentOrderFid,
-      "publisher"         => $this->_publisher,
+      "displayName"                => $this->_displayName,
+      "paymentAccountFid"          => $this->_paymentAccountFid,
+      "brandFid"                   => $this->_brandFid,
+      "customerFid"                => $this->_customerFid,
+      "clientIp"                   => $this->_clientIp,
+      "userAgent"                  => $this->_userAgent,
+      "type"                       => $this->_type,
+      "productPriceFids"           => $this->_productPriceFids,
+      "products"                   => $this->_products,
+      "offerFids"                  => $this->_offerFids,
+      "chargeId"                   => $this->_chargeId,
+      "externalReference"          => $this->_externalReference,
+      "confirm"                    => $this->_confirm,
+      "parentOrderFid"             => $this->_parentOrderFid,
+      "setupPurchaseBeforePayment" => $this->_setupPurchaseBeforePayment,
+      "publisher"                  => $this->_publisher,
     ];
   }
 
@@ -533,6 +542,29 @@ class CreateOrderPayload
   {
     $value = $this->_parentOrderFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $value
+   *
+   * @return $this
+   */
+  public function setSetupPurchaseBeforePayment(?bool $value)
+  {
+    $this->_setupPurchaseBeforePayment = $value;
+    return $this;
+  }
+
+  /**
+   * If set to true, this will setup purchases before payment is recieved
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isSetupPurchaseBeforePayment($default = false)
+  {
+    return (bool)$this->_setupPurchaseBeforePayment ?: $default;
   }
 
   /**

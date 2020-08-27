@@ -33,7 +33,7 @@ class CustomersCustomerFidContactsEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary List of people
+   * @summary List contacts
    *
    * @param $limit
    * @param $page
