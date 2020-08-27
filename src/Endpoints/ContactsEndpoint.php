@@ -13,6 +13,16 @@ class ContactsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return ContactsFindByReferenceEndpoint
+   */
+  public function findByReference()
+  {
+    $endpoint = new ContactsFindByReferenceEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ContactsEmailsEndpoint
    */
   public function emails()

@@ -73,6 +73,10 @@ class CreateCustomerContactPayload
    * Post Code
    */
   protected $_postalCode;
+  /**
+   * External Reference
+   */
+  protected $_externalReference;
 
   public function hydrate($data)
   {
@@ -145,29 +149,34 @@ class CreateCustomerContactPayload
     {
       $this->_postalCode = (string)$data["postalCode"];
     }
+    if(isset($data["externalReference"]))
+    {
+      $this->_externalReference = (string)$data["externalReference"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "email"       => $this->_email,
-      "phone"       => $this->_phone,
-      "prefix"      => $this->_prefix,
-      "firstName"   => $this->_firstName,
-      "middleNames" => $this->_middleNames,
-      "lastName"    => $this->_lastName,
-      "suffix"      => $this->_suffix,
-      "nickname"    => $this->_nickname,
-      "birthday"    => $this->_birthday,
-      "jobTitle"    => $this->_jobTitle,
-      "address1"    => $this->_address1,
-      "address2"    => $this->_address2,
-      "address3"    => $this->_address3,
-      "town"        => $this->_town,
-      "county"      => $this->_county,
-      "country"     => $this->_country,
-      "postalCode"  => $this->_postalCode,
+      "email"             => $this->_email,
+      "phone"             => $this->_phone,
+      "prefix"            => $this->_prefix,
+      "firstName"         => $this->_firstName,
+      "middleNames"       => $this->_middleNames,
+      "lastName"          => $this->_lastName,
+      "suffix"            => $this->_suffix,
+      "nickname"          => $this->_nickname,
+      "birthday"          => $this->_birthday,
+      "jobTitle"          => $this->_jobTitle,
+      "address1"          => $this->_address1,
+      "address2"          => $this->_address2,
+      "address3"          => $this->_address3,
+      "town"              => $this->_town,
+      "county"            => $this->_county,
+      "country"           => $this->_country,
+      "postalCode"        => $this->_postalCode,
+      "externalReference" => $this->_externalReference,
     ];
   }
 
@@ -593,6 +602,31 @@ class CreateCustomerContactPayload
   public function getPostalCode($default = null, $trim = true)
   {
     $value = $this->_postalCode ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setExternalReference(?string $value)
+  {
+    $this->_externalReference = $value;
+    return $this;
+  }
+
+  /**
+   * External Reference
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getExternalReference($default = null, $trim = true)
+  {
+    $value = $this->_externalReference ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

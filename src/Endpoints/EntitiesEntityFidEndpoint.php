@@ -38,6 +38,18 @@ class EntitiesEntityFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return EntitiesEntityFidLabelsEndpoint
+   */
+  public function labels()
+  {
+    $endpoint = new EntitiesEntityFidLabelsEndpoint(
+      $this->_replacements['{entityFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return EntitiesEntityFidPropertiesEndpoint
    */
   public function properties()
