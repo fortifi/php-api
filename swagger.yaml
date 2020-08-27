@@ -3238,33 +3238,6 @@ paths:
             $ref: '#/definitions/Envelope'
 
   '/entities/{entityFid}/properties':
-    get:
-      summary: Get all properties for an entity
-      tags:
-        - Entities
-        - Custom Properties
-      security:
-        - OAuth:
-            - entity.properties
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/entityFid'
-      responses:
-        200:
-          description: Entity Properties
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/Properties'
-        x-400:
-          description: Invalid Entity
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
     put:
       summary: Write multiple entity properties
       tags:
@@ -4255,6 +4228,36 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/orders/{orderFid}/products/{orderProductFid}/setInitialTerm':
+    put:
+      summary: Set the initial term of a product on an order
+      tags:
+        - Orders
+      security:
+        - OAuth:
+            - orders
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - $ref: '#/parameters/orderProductFid'
+        - name: startDate
+          in: formData
+          required: false
+          type: string
+        - name: endDate
+          in: formData
+          required: false
+          type: string
+      responses:
+        200:
+          description: Initial term updated
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /organisation:
     get:
       summary: Current Organisation
@@ -4551,37 +4554,6 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/ProductOffers'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-  '/properties':
-    get:
-      summary: Get defined properties
-      tags:
-        - Properties
-      security:
-        - OAuth:
-            - properties.readonly
-        - accessToken: []
-      consumes:
-        - multipart/form-data
-      parameters:
-        - name: baseFids
-          in: query
-          required: true
-          type: array
-          items:
-            type: string
-      responses:
-        200:
-          description: Defined Properties
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PropertyDefinitions'
         default:
           description: Error
           schema:
@@ -6563,8 +6535,6 @@ definitions:
             type: string
           priceFid:
             type: string
-          skuFid:
-            type: string
           offerFid:
             type: string
           dateCancelled:
@@ -7200,6 +7170,12 @@ definitions:
           cycle:
             description: Interval in ISO 8601 standard
             type: string
+          initialTermStartDate:
+            description: Custom initial term start date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+            type: string
+          initialTermEndDate:
+            description: Custom initial term end date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+            type: string
           parentFid:
             type: string
 
@@ -7671,95 +7647,19 @@ definitions:
             type: number
             format: int64
 
-  PropertyRequirement:
-    description: Prerequisite information for a defined property
-    properties:
-      key:
-        type: string
-      predicate:
-        type: string
-
-  PropertyDefinitions:
-    description: Property Definitions
-    properties:
-      properties:
-        type: array
-        items:
-          $ref: '#/definitions/PropertyDefinition'
-
-  PropertyDefinition:
-    description: Definition of a property
-    allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          key:
-            type: string
-          groupFid:
-            type: string
-          type:
-            type: string
-          values:
-            type: array
-            items:
-              type: string
-          valueType:
-            type: string
-          validationType:
-            type: string
-            enum:
-              - regex
-              - prerequisite
-          validationConfig:
-            type: string
-
-  Properties:
-    description: Properties set on an entity
-    properties:
-      values:
-        description: Value properties
-        type: array
-        items:
-          $ref: '#/definitions/PropertyValue'
-      flags:
-        description: Flag properties
-        type: array
-        items:
-          $ref: '#/definitions/PropertyFlag'
-      counters:
-        description: Counter properties
-        type: array
-        items:
-          $ref: '#/definitions/PropertyCounter'
-
   PropertyValue:
     description: A value type property
     properties:
-      key:
-        description: Property name
-        type: string
       propertyValue:
-        description: Value property value
+        description: Property value
         type: string
 
   PropertyFlag:
     description: A flag type property
     properties:
-      key:
-        description: Property name
-        type: string
       value:
         description: Flag value
         type: boolean
-
-  PropertyCounter:
-    description: A counter type property
-    properties:
-      key:
-        description: Property name
-        type: string
-      value:
-        description: Counter value
-        type: number
 
   Services:
     description: Services
@@ -8861,6 +8761,12 @@ definitions:
         $ref: '#/definitions/cycleTermType'
       cycle:
         description: Interval in ISO 8601 standard
+        type: string
+      initialTermStartDate:
+        description: Custom initial term start date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+        type: string
+      initialTermEndDate:
+        description: Custom initial term end date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
         type: string
       quantity:
         type: integer
