@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\CustomerContactRequest;
+use Fortifi\Api\V1\Requests\PersonRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -31,10 +31,11 @@ class CustomersCustomerFidContactsContactFidEndpoint extends ApiEndpoint
    * @param $defaultEmailFid
    * @param $defaultPhoneFid
    * @param $defaultAddressFid
+   * @param $externalReference
    *
    * @return ApiRequest
    */
-  public function update($prefix = null, $firstName = null, $middleNames = null, $lastName = null, $suffix = null, $nickname = null, $birthday = null, $jobTitle = null, $defaultEmailFid = null, $defaultPhoneFid = null, $defaultAddressFid = null)
+  public function update($prefix = null, $firstName = null, $middleNames = null, $lastName = null, $suffix = null, $nickname = null, $birthday = null, $jobTitle = null, $defaultEmailFid = null, $defaultPhoneFid = null, $defaultAddressFid = null, $externalReference = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -60,6 +61,7 @@ class CustomersCustomerFidContactsContactFidEndpoint extends ApiEndpoint
     $detail->addPostField('defaultEmailFid', $defaultEmailFid);
     $detail->addPostField('defaultPhoneFid', $defaultPhoneFid);
     $detail->addPostField('defaultAddressFid', $defaultAddressFid);
+    $detail->addPostField('externalReference', $externalReference);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
@@ -68,11 +70,11 @@ class CustomersCustomerFidContactsContactFidEndpoint extends ApiEndpoint
   /**
    * @summary Retrieve information about a contact
    *
-   * @return CustomerContactRequest
+   * @return PersonRequest
    */
   public function retrieve()
   {
-    $request = new CustomerContactRequest();
+    $request = new PersonRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 

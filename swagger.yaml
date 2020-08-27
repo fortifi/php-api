@@ -448,6 +448,33 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  /contacts/findByReference/{contactReference}:
+    get:
+      summary: Find a person with a reference
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/contactReference'
+      responses:
+        200:
+          description: Person info
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Person'
+        x-404:
+          description: Person not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/contacts/emails/{emailAddress}/confirm':
     put:
       summary: Confirm email address
@@ -670,7 +697,7 @@ paths:
             $ref: '#/definitions/Envelope'
   '/customers/{customerFid}/contacts':
     get:
-      summary: List contacts
+      summary: List of people
       tags:
         - Customers
       security:
@@ -716,17 +743,19 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
-          - $ref: '#/parameters/customerFid'
-          - name: payload
-            in: body
-            required: true
-            schema:
-              $ref: '#/definitions/CreateCustomerContactPayload'
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateCustomerContactPayload'
       responses:
         200:
           description: FID of the new contact
         x-404:
           description: Customer not found
+        x-409:
+          description: Conflict
         default:
           description: Error
           schema:
@@ -805,11 +834,18 @@ paths:
           required: false
           description: Default Address FID
           type: string
+        - name: externalReference
+          in: formData
+          required: false
+          description: External Reference
+          type: string
       responses:
         200:
           description: Contact Updated
         x-404:
           description: Contact or Customer not found
+        x-409:
+          description: Conflict
         default:
           description: Error
           schema:
@@ -835,7 +871,7 @@ paths:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/CustomerContact'
+                    $ref: '#/definitions/Person'
         x-404:
           description: Contact or Customer not found
         default:
@@ -4611,8 +4647,9 @@ paths:
                   data:
                     $ref: '#/definitions/Publisher'
         x-400:
-          description: |
-            Invalid data supplied
+          description: Invalid data supplied
+        x-409:
+          description: Conflict
         default:
           description: Error
           schema:
@@ -5626,6 +5663,11 @@ parameters:
     in: query
     required: false
     type: string
+  contactReference:
+    name: contactReference
+    in: path
+    required: true
+    type: string
 
 definitions:
   creditAmountType:
@@ -5939,7 +5981,7 @@ definitions:
         description: Coinbase checkout ID
 
   People:
-    description: Generic Response
+    description: People list
     allOf:
       - $ref: '#/definitions/Pagination'
       - properties:
@@ -5949,7 +5991,7 @@ definitions:
               $ref: '#/definitions/Person'
 
   Person:
-    description: Generic Response
+    description: A person
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -5966,6 +6008,8 @@ definitions:
           nickname:
             type: string
           birthday:
+            type: string
+          externalReference:
             type: string
           jobTitle:
             type: string
@@ -6143,36 +6187,6 @@ definitions:
           companyNumber:
             type: string
           knownIP:
-            type: string
-
-  CustomerContact:
-    description: Customer Contact
-    allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          ownerFid:
-            type: string
-          prefix:
-            type: string
-          firstName:
-            type: string
-          middleNames:
-            type: string
-          lastName:
-            type: string
-          suffix:
-            type: string
-          nickname:
-            type: string
-          birthday:
-            type: string
-          jobTitle:
-            type: string
-          defaultEmailFid:
-            type: string
-          defaultPhoneFid:
-            type: string
-          defaultAddressFid:
             type: string
 
   Advertiser:
@@ -8403,6 +8417,9 @@ definitions:
         type: string
       postalCode:
         description: Post Code
+        type: string
+      externalReference:
+        description: External Reference
         type: string
   SetCustomerLocationPayload:
     properties:
