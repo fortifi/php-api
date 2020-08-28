@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.44.0'
+  version: '3.46.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -222,6 +222,7 @@ tags:
   - name: Reasons
   - name: Events
   - name: Deprecated
+  - name: Labels
 
 paths:
   /advertisers:
@@ -3273,6 +3274,62 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/entities/{entityFid}/labels':
+    get:
+      summary: Get all labels for an entity
+      tags:
+        - Entities
+        - Labels
+      security:
+        - OAuth:
+            - entity.labels
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+      responses:
+        200:
+          description: Labels
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Labels'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/entities/{entityFid}/labels/assign':
+    put:
+      summary: Assign label to entity
+      tags:
+        - Entities
+        - Labels
+      security:
+        - OAuth:
+            - entity.labels
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - name: label
+          in: formData
+          type: string
+        - name: value
+          in: formData
+          type: string
+      responses:
+        200:
+          description: Properties Saved
+        x-400:
+          description: Invalid Entity
+        x-403:
+          description: Access Denied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/entities/{entityFid}/properties':
     get:
       summary: Get all properties for an entity
@@ -5880,6 +5937,7 @@ definitions:
       - ended
       - setting_up
       - invalid
+      - provision_prepare
       - provisioning
       - provisioned
   ticketStatus:
@@ -7774,6 +7832,26 @@ definitions:
       value:
         description: Counter value
         type: number
+
+  Labels:
+    description: Labels
+    properties:
+      labels:
+        type: array
+        items:
+          $ref: '#/definitions/Label'
+
+  Label:
+    description: Label
+    allOf:
+      - $ref: '#/definitions/Fid'
+      - properties:
+          label:
+            type: string
+            description: Label
+          value:
+            type: string
+            description: Value
 
   Services:
     description: Services

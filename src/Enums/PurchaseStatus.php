@@ -14,6 +14,7 @@ final class PurchaseStatus
   const ENDED = 'ended';
   const SETTING_UP = 'setting_up';
   const INVALID = 'invalid';
+  const PROVISION_PREPARE = 'provision_prepare';
   const PROVISIONING = 'provisioning';
   const PROVISIONED = 'provisioned';
 
@@ -36,6 +37,7 @@ final class PurchaseStatus
       'ended',
       'setting_up',
       'invalid',
+      'provision_prepare',
       'provisioning',
       'provisioned',
     ];
