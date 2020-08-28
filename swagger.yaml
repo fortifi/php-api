@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.46.0'
+  version: '3.47.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -864,6 +864,21 @@ paths:
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/contactFid'
+        - name: allAddresses
+          in: query
+          required: false
+          description: Load all addresses
+          type: boolean
+        - name: allEmails
+          in: query
+          required: false
+          description: Load all emails
+          type: boolean
+        - name: allPhones
+          in: query
+          required: false
+          description: Load all phones
+          type: boolean
       responses:
         200:
           description: Contact Info
@@ -5814,23 +5829,23 @@ definitions:
       - email
       - retarget
       - content
-  PublisherType:
-    description: Publisher Type
-    type: string
-    enum:
-      - affiliate
-      - network
-      - customer
-      - display
-      - priority_affiliate
-      - offline
-      - ppc
-      - internal
-      - search_engine
-      - mobile
-      - email
-      - retarget
-      - content
+  #PublisherType:
+  #  description: Publisher Type
+  #  type: string
+  #  enum:
+  #    - affiliate
+  #    - network
+  #    - customer
+  #    - display
+  #    - priority_affiliate
+  #    - offline
+  #    - ppc
+  #    - internal
+  #    - search_engine
+  #    - mobile
+  #    - email
+  #    - retarget
+  #    - content
   customerAccountType:
     description: Account Type
     type: string
@@ -6075,9 +6090,84 @@ definitions:
             type: string
           defaultEmailFid:
             type: string
+          defaultEmail:
+            type: string
+            description: Default email
           defaultPhoneFid:
             type: string
+          defaultPhone:
+            type: string
+            description: Default phone
           defaultAddressFid:
+            type: string
+          emails:
+            $ref: '#/definitions/Emails'
+            description: Only loaded with a flag
+          phones:
+            $ref: '#/definitions/Phones'
+            description: Only loaded with a flag
+          addresses:
+            $ref: '#/definitions/Addresses'
+            description: Only loaded with a flag
+
+  Addresses:
+    description: Generic Response
+    properties:
+      addresses:
+        type: array
+        items:
+          $ref: '#/definitions/Address'
+
+  Address:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          address1:
+            type: string
+          address2:
+            type: string
+          address3:
+            type: string
+          town:
+            type: string
+          county:
+            type: string
+          country:
+            type: string
+          postalCode:
+            type: string
+
+  Phones:
+    description: Generic Response
+    properties:
+      phones:
+        type: array
+        items:
+          $ref: '#/definitions/Phone'
+
+  Phone:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          phone:
+            type: string
+
+  Emails:
+    description: Generic Response
+    properties:
+      emails:
+        type: array
+        items:
+          $ref: '#/definitions/Email'
+
+  Email:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          email:
             type: string
 
   User:
@@ -7415,34 +7505,6 @@ definitions:
       redirectUrl:
         type: string
 
-  Addresses:
-    description: Generic Response
-    properties:
-      addresses:
-        type: array
-        items:
-          $ref: '#/definitions/Address'
-
-  Address:
-    description: Generic Response
-    allOf:
-      - $ref: '#/definitions/Entity'
-      - properties:
-          address1:
-            type: string
-          address2:
-            type: string
-          address3:
-            type: string
-          town:
-            type: string
-          county:
-            type: string
-          country:
-            type: string
-          postalCode:
-            type: string
-
   ConfigItems:
     description: Generic Response
     properties:
@@ -7743,13 +7805,13 @@ definitions:
             type: number
             format: int64
 
-  PropertyRequirement:
-    description: Prerequisite information for a defined property
-    properties:
-      key:
-        type: string
-      predicate:
-        type: string
+  #PropertyRequirement:
+  #  description: Prerequisite information for a defined property
+  #  properties:
+  #    key:
+  #      type: string
+  #    predicate:
+  #      type: string
 
   PropertyDefinitions:
     description: Property Definitions

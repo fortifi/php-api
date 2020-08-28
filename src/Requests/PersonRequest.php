@@ -25,8 +25,13 @@ class PersonRequest
         "jobTitle" => $this->getJobTitle(),
         "ownerFid" => $this->getOwnerFid(),
         "defaultEmailFid" => $this->getDefaultEmailFid(),
+        "defaultEmail" => $this->getDefaultEmail(),
         "defaultPhoneFid" => $this->getDefaultPhoneFid(),
+        "defaultPhone" => $this->getDefaultPhone(),
         "defaultAddressFid" => $this->getDefaultAddressFid(),
+        "emails" => $this->getEmails(),
+        "phones" => $this->getPhones(),
+        "addresses" => $this->getAddresses(),
       ]
     );
   }
@@ -164,6 +169,20 @@ class PersonRequest
   }
 
   /**
+   * Default email
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDefaultEmail($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'defaultEmail', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -172,6 +191,20 @@ class PersonRequest
   public function getDefaultPhoneFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'defaultPhoneFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Default phone
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDefaultPhone($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'defaultPhone', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -185,5 +218,66 @@ class PersonRequest
   {
     $value = Objects::property($this->_getResultJson(), 'defaultAddressFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Only loaded with a flag
+   * 
+   * @param mixed $default
+   *
+   * @return EmailsRequest
+   */
+  public function getEmails($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'emails', $default);
+  }
+
+  /**
+   * Only loaded with a flag
+   * 
+   * @param mixed $default
+   *
+   * @return PhonesRequest
+   */
+  public function getPhones($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'phones', $default);
+  }
+
+  /**
+   * Only loaded with a flag
+   * 
+   * @param mixed $default
+   *
+   * @return AddressesRequest
+   */
+  public function getAddresses($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'addresses', $default);
+  }
+
+  protected function _prepareResult($result)
+  {
+    $return = parent::_prepareResult($result);
+
+    if(!empty($return->emails))
+    {
+      $return->emails = (new EmailsRequest())
+        ->hydrate($return->emails);
+    }
+
+    if(!empty($return->phones))
+    {
+      $return->phones = (new PhonesRequest())
+        ->hydrate($return->phones);
+    }
+
+    if(!empty($return->addresses))
+    {
+      $return->addresses = (new AddressesRequest())
+        ->hydrate($return->addresses);
+    }
+
+    return $return;
   }
 }
