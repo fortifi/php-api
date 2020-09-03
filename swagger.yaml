@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.46.0'
+  version: '3.47.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -6743,6 +6743,13 @@ definitions:
             type: string
             format: date-time
           uniqueReference:
+            description: Licence Key / Membership Number
+            type: string
+          identity:
+            description: An identity for this subscription, this is a non unique identfier
+            type: string
+          externalReference:
+            description: Unique External Identifier for this subscription
             type: string
 
   CalculateSubscriptionRefund:
@@ -8730,7 +8737,7 @@ definitions:
         description: Country of the card
         type: string
       addressPostal:
-        description:  Postal/Zip Code of the card
+        description: Postal/Zip Code of the card
         type: string
       preAuthAmount:
         description: Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
@@ -8788,7 +8795,7 @@ definitions:
         description: Country of the card
         type: string
       addressPostal:
-        description:  Postal/Zip Code of the card
+        description: Postal/Zip Code of the card
         type: string
       asDefault:
         type: boolean
@@ -9083,7 +9090,7 @@ definitions:
         description: Country of the card
         type: string
       addressPostal:
-        description:  Postal/Zip Code of the card
+        description: Postal/Zip Code of the card
         type: string
       isDefault:
         description: Is this card should be used as the primary card on the account

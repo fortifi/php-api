@@ -62,6 +62,8 @@ class SubscriptionRequest
         "trialEndDate" => $this->getTrialEndDate(),
         "trialStartDate" => $this->getTrialStartDate(),
         "uniqueReference" => $this->getUniqueReference(),
+        "identity" => $this->getIdentity(),
+        "externalReference" => $this->getExternalReference(),
       ]
     );
   }
@@ -637,6 +639,8 @@ class SubscriptionRequest
   }
 
   /**
+   * Licence Key / Membership Number
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -645,6 +649,34 @@ class SubscriptionRequest
   public function getUniqueReference($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'uniqueReference', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * An identity for this subscription, this is a non unique identfier
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getIdentity($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'identity', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Unique External Identifier for this subscription
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getExternalReference($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
