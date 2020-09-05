@@ -32,6 +32,7 @@ class OrderProductRequest
         "cycleExact" => $this->getCycleExact(),
         "cycle" => $this->getCycle(),
         "parentFid" => $this->getParentFid(),
+        "identity" => $this->getIdentity(),
       ]
     );
   }
@@ -239,6 +240,18 @@ class OrderProductRequest
   public function getParentFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'parentFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getIdentity($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'identity', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

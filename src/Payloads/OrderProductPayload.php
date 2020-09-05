@@ -43,6 +43,7 @@ class OrderProductPayload
   protected $_cycle;
   protected $_quantity;
   protected $_displayName;
+  protected $_identity;
   protected $_properties;
 
   public function hydrate($data)
@@ -92,6 +93,10 @@ class OrderProductPayload
     {
       $this->_displayName = (string)$data["displayName"];
     }
+    if(isset($data["identity"]))
+    {
+      $this->_identity = (string)$data["identity"];
+    }
     if(isset($data["properties"]))
     {
       $this->_properties = new PropertyBulkSetPayload();
@@ -114,6 +119,7 @@ class OrderProductPayload
       "cycle"              => $this->_cycle,
       "quantity"           => $this->_quantity,
       "displayName"        => $this->_displayName,
+      "identity"           => $this->_identity,
       "properties"         => $this->_properties,
     ];
   }
@@ -389,6 +395,29 @@ class OrderProductPayload
   public function getDisplayName($default = null, $trim = true)
   {
     $value = $this->_displayName ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setIdentity(?string $value)
+  {
+    $this->_identity = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getIdentity($default = null, $trim = true)
+  {
+    $value = $this->_identity ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

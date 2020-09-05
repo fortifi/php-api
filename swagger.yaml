@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.47.0'
+  version: '3.48.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -3137,11 +3137,12 @@ paths:
     delete:
       summary: Remove a config section, or property from an entity
       tags:
+        - Entities
         - Configuration
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -3161,11 +3162,12 @@ paths:
     get:
       summary: Retrieve a config section
       tags:
+        - Entities
         - Configuration
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/sectionName'
@@ -3186,11 +3188,12 @@ paths:
     post:
       summary: Write a config item
       tags:
+        - Entities
         - Configuration
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -3218,11 +3221,12 @@ paths:
     get:
       summary: Retrieve a config item
       tags:
+        - Entities
         - Configuration
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/sectionName'
@@ -3247,7 +3251,7 @@ paths:
       security:
         - OAuth:
             - entity.attachments
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Entities
       parameters:
@@ -3283,7 +3287,7 @@ paths:
       security:
         - OAuth:
             - entity.labels
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
       responses:
@@ -3309,7 +3313,7 @@ paths:
       security:
         - OAuth:
             - entity.labels
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - name: label
@@ -3339,7 +3343,7 @@ paths:
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
       responses:
@@ -3366,7 +3370,7 @@ paths:
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - name: payload
@@ -3393,7 +3397,7 @@ paths:
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3418,7 +3422,7 @@ paths:
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3443,7 +3447,7 @@ paths:
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3467,11 +3471,12 @@ paths:
     get:
       summary: Get a flag property from an entity
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3491,11 +3496,12 @@ paths:
     delete:
       summary: Remove a flag from an entity
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3511,11 +3517,12 @@ paths:
     put:
       summary: Write an entity flag
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3540,11 +3547,12 @@ paths:
     delete:
       summary: Remove a counter from an entity
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3561,11 +3569,12 @@ paths:
     put:
       summary: Increment an entity counter
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3589,11 +3598,12 @@ paths:
     put:
       summary: Decrement an entity counter
       tags:
+        - Entities
         - Custom Properties
       security:
         - OAuth:
             - entity.properties
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - $ref: '#/parameters/propertyName'
@@ -3622,7 +3632,7 @@ paths:
       security:
         - OAuth:
             - entity.events
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/entityFid'
         - name: payload
@@ -3697,8 +3707,8 @@ paths:
     get:
       summary: Lists all the current gateways
       tags:
-        - Payment Methods
         - Configuration
+        - Payment Methods
       security:
         - OAuth:
             - configuration.readonly
@@ -3818,8 +3828,8 @@ paths:
     put:
       summary: Unsubscribe an email based on the delivery fid
       tags:
-        - Contacts
         - Messenger
+        - Contacts
       security:
         - OAuth:
             - contact
@@ -7281,6 +7291,8 @@ definitions:
             type: string
           parentFid:
             type: string
+          identity:
+            type: string
 
   OrderVerification:
     description: Generic Response
@@ -8967,6 +8979,8 @@ definitions:
       quantity:
         type: integer
       displayName:
+        type: string
+      identity:
         type: string
       properties:
         type: object
