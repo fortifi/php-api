@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.49.0'
+  version: '3.50.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2988,7 +2988,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Customers
       parameters:
@@ -3023,7 +3023,7 @@ paths:
         - OAuth:
             - customer
             - customer.readonly
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Customers
       summary: Find a customer by your reference
@@ -3051,13 +3051,51 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  /customers/findByEmail:
+    get:
+      security:
+        - OAuth:
+            - customer
+            - customer.readonly
+        - accessToken: [ ]
+      tags:
+        - Customers
+      summary: Find a customer by brand and email address
+      parameters:
+        - name: email
+          in: query
+          description: Email address for the customer
+          type: string
+        - name: brandFid
+          in: query
+          description: Brand Fid to search for
+          type: string
+        - name: retrieveBillingData
+          in: query
+          type: boolean
+      responses:
+        200:
+          description: Located Customer
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Customer'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}':
     get:
       security:
         - OAuth:
             - customer
             - customer.readonly
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Customers
       summary: Retrieve a customer
@@ -3086,7 +3124,7 @@ paths:
         - OAuth:
             - customer
             - customer.readonly
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Customers
       summary: Update a customer
@@ -3116,7 +3154,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Customers
       summary: Archive a customer
