@@ -74,4 +74,30 @@ class CustomersEndpoint extends ApiEndpoint
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Find a customer by brand and email address
+   *
+   * @param $email
+   * @param $brandFid
+   * @param $retrieveBillingData
+   *
+   * @return CustomerRequest
+   */
+  public function findByEmail($email = null, $brandFid = null, $retrieveBillingData = null)
+  {
+    $request = new CustomerRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl('customers/findByEmail'));
+    $detail->addQueryField('email', $email);
+    $detail->addQueryField('brandFid', $brandFid);
+    $detail->addQueryField('retrieveBillingData', $retrieveBillingData);
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }
