@@ -62,7 +62,7 @@ class CreateOrderPayload
    */
   protected $_parentOrderFid;
   /**
-   * If set to true, this will setup purchases before payment is recieved
+   * If set to true, this will setup purchases before payment is received
    */
   protected $_setupPurchaseBeforePayment;
   protected $_publisher;
@@ -556,7 +556,7 @@ class CreateOrderPayload
   }
 
   /**
-   * If set to true, this will setup purchases before payment is recieved
+   * If set to true, this will setup purchases before payment is received
    *
    * @param bool $default
    *
