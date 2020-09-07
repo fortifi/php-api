@@ -68,4 +68,34 @@ class OrdersOrderFidProductsOrderProductFidEndpoint extends ApiEndpoint
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Set the initial term of a product on an order
+   *
+   * @param $startDate
+   * @param $endDate
+   *
+   * @return ApiRequest
+   */
+  public function setInitialTerm($startDate = null, $endDate = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/products/{orderProductFid}/setInitialTerm'
+      )
+    ));
+    $detail->addPostField('startDate', $startDate);
+    $detail->addPostField('endDate', $endDate);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }

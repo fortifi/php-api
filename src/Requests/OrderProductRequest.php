@@ -31,6 +31,8 @@ class OrderProductRequest
         "cycleTerm" => $this->getCycleTerm(),
         "cycleExact" => $this->getCycleExact(),
         "cycle" => $this->getCycle(),
+        "initialTermStartDate" => $this->getInitialTermStartDate(),
+        "initialTermEndDate" => $this->getInitialTermEndDate(),
         "parentFid" => $this->getParentFid(),
         "identity" => $this->getIdentity(),
       ]
@@ -228,6 +230,34 @@ class OrderProductRequest
   public function getCycle($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'cycle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Custom initial term start date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInitialTermStartDate($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'initialTermStartDate', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Custom initial term end date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInitialTermEndDate($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'initialTermEndDate', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

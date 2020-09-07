@@ -4358,6 +4358,36 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/orders/{orderFid}/products/{orderProductFid}/setInitialTerm':
+    put:
+      summary: Set the initial term of a product on an order
+      tags:
+        - Orders
+      security:
+        - OAuth:
+            - orders
+        - accessToken: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - $ref: '#/parameters/orderProductFid'
+        - name: startDate
+          in: formData
+          required: false
+          type: string
+        - name: endDate
+          in: formData
+          required: false
+          type: string
+      responses:
+        200:
+          description: Initial term updated
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /organisation:
     get:
       summary: Current Organisation
@@ -7289,6 +7319,12 @@ definitions:
           cycle:
             description: Interval in ISO 8601 standard
             type: string
+          initialTermStartDate:
+            description: Custom initial term start date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+            type: string
+          initialTermEndDate:
+            description: Custom initial term end date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+            type: string
           parentFid:
             type: string
           identity:
@@ -8889,6 +8925,9 @@ definitions:
       parentOrderFid:
         type: string
         description: Confirm this order only after this parent is completed
+      setupPurchaseBeforePayment:
+        type: boolean
+        description: If set to true, this will setup purchases before payment is recieved
       publisher:
         $ref: '#/definitions/OrderPublisherPayload'
 
@@ -8975,6 +9014,12 @@ definitions:
         $ref: '#/definitions/cycleTermType'
       cycle:
         description: Interval in ISO 8601 standard
+        type: string
+      initialTermStartDate:
+        description: Custom initial term start date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
+        type: string
+      initialTermEndDate:
+        description: Custom initial term end date (Time in ISO 8601 standard e.g 2015-12-05T13:11:59Z)
         type: string
       quantity:
         type: integer
