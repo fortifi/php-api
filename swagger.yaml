@@ -1462,7 +1462,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: payload
@@ -1489,7 +1489,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: customerLifecycle
@@ -1514,7 +1514,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: payload
@@ -1540,7 +1540,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: payload
@@ -1566,7 +1566,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: payload
@@ -1592,7 +1592,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1616,7 +1616,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1640,7 +1640,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1664,7 +1664,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1688,7 +1688,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
       responses:
@@ -1708,7 +1708,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
       responses:
@@ -1729,7 +1729,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
       responses:
@@ -1749,7 +1749,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
       responses:
@@ -1770,7 +1770,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1800,7 +1800,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1815,6 +1815,32 @@ paths:
           description: Visitor ID linked to customer
         x-404:
           description: Customer or visitor not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/externalReference':
+    put:
+      summary: Update a customers external reference
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: externalReference
+          in: formData
+          required: true
+          description: New External Reference
+          type: string
+      responses:
+        200:
+          description: External Reference Updated
+        x-404:
+          description: Customer not found
         default:
           description: Error
           schema:
