@@ -9132,6 +9132,9 @@ definitions:
       transactionId:
         description: Transaction ID which authorized this order
         type: string
+      setupPurchaseBeforePayment:
+        type: boolean
+        description: If set to true, this will setup purchases before payment is received
 
   ConfirmOrderPayload:
     properties:
@@ -9143,6 +9146,9 @@ definitions:
         type: string
       paymentServiceProcessor:
         $ref: '#/definitions/PaymentServiceProcessor'
+      setupPurchaseBeforePayment:
+        type: boolean
+        description: If set to true, this will setup purchases before payment is received
 
   ConfirmCardOrderPayload:
     allOf:
@@ -9218,6 +9224,9 @@ definitions:
       isDefault:
         description: Is this card should be used as the primary card on the account
         type: boolean
+      setupPurchaseBeforePayment:
+        type: boolean
+        description: If set to true, this will setup purchases before payment is received
 
   ConfirmPayPalOrderPayload:
     allOf:

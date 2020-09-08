@@ -85,6 +85,10 @@ class ConfirmOrderWithNewCardPayload
    * Is this card should be used as the primary card on the account
    */
   protected $_isDefault;
+  /**
+   * If set to true, this will setup purchases before payment is received
+   */
+  protected $_setupPurchaseBeforePayment;
 
   public function hydrate($data)
   {
@@ -169,32 +173,37 @@ class ConfirmOrderWithNewCardPayload
     {
       $this->_isDefault = $data["isDefault"];
     }
+    if(isset($data["setupPurchaseBeforePayment"]))
+    {
+      $this->_setupPurchaseBeforePayment = $data["setupPurchaseBeforePayment"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "cardDisplayName"     => $this->_cardDisplayName,
-      "paymentServiceFid"   => $this->_paymentServiceFid,
-      "encryptedCardNumber" => $this->_encryptedCardNumber,
-      "startMonth"          => $this->_startMonth,
-      "startYear"           => $this->_startYear,
-      "expiryMonth"         => $this->_expiryMonth,
-      "expiryYear"          => $this->_expiryYear,
-      "issue"               => $this->_issue,
-      "last4"               => $this->_last4,
-      "cardType"            => $this->_cardType,
-      "cardHolder"          => $this->_cardHolder,
-      "addressFid"          => $this->_addressFid,
-      "addressLine1"        => $this->_addressLine1,
-      "addressLine2"        => $this->_addressLine2,
-      "addressLine3"        => $this->_addressLine3,
-      "addressCity"         => $this->_addressCity,
-      "addressState"        => $this->_addressState,
-      "addressCountry"      => $this->_addressCountry,
-      "addressPostal"       => $this->_addressPostal,
-      "isDefault"           => $this->_isDefault,
+      "cardDisplayName"            => $this->_cardDisplayName,
+      "paymentServiceFid"          => $this->_paymentServiceFid,
+      "encryptedCardNumber"        => $this->_encryptedCardNumber,
+      "startMonth"                 => $this->_startMonth,
+      "startYear"                  => $this->_startYear,
+      "expiryMonth"                => $this->_expiryMonth,
+      "expiryYear"                 => $this->_expiryYear,
+      "issue"                      => $this->_issue,
+      "last4"                      => $this->_last4,
+      "cardType"                   => $this->_cardType,
+      "cardHolder"                 => $this->_cardHolder,
+      "addressFid"                 => $this->_addressFid,
+      "addressLine1"               => $this->_addressLine1,
+      "addressLine2"               => $this->_addressLine2,
+      "addressLine3"               => $this->_addressLine3,
+      "addressCity"                => $this->_addressCity,
+      "addressState"               => $this->_addressState,
+      "addressCountry"             => $this->_addressCountry,
+      "addressPostal"              => $this->_addressPostal,
+      "isDefault"                  => $this->_isDefault,
+      "setupPurchaseBeforePayment" => $this->_setupPurchaseBeforePayment,
     ];
   }
 
@@ -684,5 +693,28 @@ class ConfirmOrderWithNewCardPayload
   public function isDefault($default = false)
   {
     return (bool)$this->_isDefault ?: $default;
+  }
+
+  /**
+   * @param bool $value
+   *
+   * @return $this
+   */
+  public function setSetupPurchaseBeforePayment(?bool $value)
+  {
+    $this->_setupPurchaseBeforePayment = $value;
+    return $this;
+  }
+
+  /**
+   * If set to true, this will setup purchases before payment is received
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isSetupPurchaseBeforePayment($default = false)
+  {
+    return (bool)$this->_setupPurchaseBeforePayment ?: $default;
   }
 }
