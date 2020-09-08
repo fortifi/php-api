@@ -631,6 +631,34 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @summary Update a customers external reference
+   *
+   * @param $externalReference
+   *
+   * @return ApiRequest
+   */
+  public function setExternalReference($externalReference)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/externalReference'
+      )
+    ));
+    $detail->addPostField('externalReference', $externalReference);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Update a customers billing data
    *
    * @param $billingType
