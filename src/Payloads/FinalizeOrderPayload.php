@@ -17,6 +17,10 @@ class FinalizeOrderPayload
    * Transaction ID which authorized this order
    */
   protected $_transactionId;
+  /**
+   * If set to true, this will setup purchases before payment is received
+   */
+  protected $_setupPurchaseBeforePayment;
 
   public function hydrate($data)
   {
@@ -33,15 +37,20 @@ class FinalizeOrderPayload
     {
       $this->_transactionId = (string)$data["transactionId"];
     }
+    if(isset($data["setupPurchaseBeforePayment"]))
+    {
+      $this->_setupPurchaseBeforePayment = $data["setupPurchaseBeforePayment"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "chargeId"      => $this->_chargeId,
-      "methodId"      => $this->_methodId,
-      "transactionId" => $this->_transactionId,
+      "chargeId"                   => $this->_chargeId,
+      "methodId"                   => $this->_methodId,
+      "transactionId"              => $this->_transactionId,
+      "setupPurchaseBeforePayment" => $this->_setupPurchaseBeforePayment,
     ];
   }
 
@@ -118,5 +127,28 @@ class FinalizeOrderPayload
   {
     $value = $this->_transactionId ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $value
+   *
+   * @return $this
+   */
+  public function setSetupPurchaseBeforePayment(?bool $value)
+  {
+    $this->_setupPurchaseBeforePayment = $value;
+    return $this;
+  }
+
+  /**
+   * If set to true, this will setup purchases before payment is received
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isSetupPurchaseBeforePayment($default = false)
+  {
+    return (bool)$this->_setupPurchaseBeforePayment ?: $default;
   }
 }

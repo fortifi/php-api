@@ -17,6 +17,10 @@ class ConfirmOrderPayload
    * Payment Service Processor Type
    */
   protected $_paymentServiceProcessor;
+  /**
+   * If set to true, this will setup purchases before payment is received
+   */
+  protected $_setupPurchaseBeforePayment;
 
   public function hydrate($data)
   {
@@ -33,15 +37,20 @@ class ConfirmOrderPayload
     {
       $this->_paymentServiceProcessor = (string)$data["paymentServiceProcessor"];
     }
+    if(isset($data["setupPurchaseBeforePayment"]))
+    {
+      $this->_setupPurchaseBeforePayment = $data["setupPurchaseBeforePayment"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "paymentServiceFid"       => $this->_paymentServiceFid,
-      "paymentAccountFid"       => $this->_paymentAccountFid,
-      "paymentServiceProcessor" => $this->_paymentServiceProcessor,
+      "paymentServiceFid"          => $this->_paymentServiceFid,
+      "paymentAccountFid"          => $this->_paymentAccountFid,
+      "paymentServiceProcessor"    => $this->_paymentServiceProcessor,
+      "setupPurchaseBeforePayment" => $this->_setupPurchaseBeforePayment,
     ];
   }
 
@@ -126,5 +135,28 @@ class ConfirmOrderPayload
   {
     $value = $this->_paymentServiceProcessor ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $value
+   *
+   * @return $this
+   */
+  public function setSetupPurchaseBeforePayment(?bool $value)
+  {
+    $this->_setupPurchaseBeforePayment = $value;
+    return $this;
+  }
+
+  /**
+   * If set to true, this will setup purchases before payment is received
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isSetupPurchaseBeforePayment($default = false)
+  {
+    return (bool)$this->_setupPurchaseBeforePayment ?: $default;
   }
 }

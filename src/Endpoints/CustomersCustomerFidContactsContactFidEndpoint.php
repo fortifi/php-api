@@ -70,9 +70,13 @@ class CustomersCustomerFidContactsContactFidEndpoint extends ApiEndpoint
   /**
    * @summary Retrieve information about a contact
    *
+   * @param $allAddresses
+   * @param $allEmails
+   * @param $allPhones
+   *
    * @return PersonRequest
    */
-  public function retrieve()
+  public function retrieve($allAddresses = null, $allEmails = null, $allPhones = null)
   {
     $request = new PersonRequest();
     $request->setConnection($this->_getConnection());
@@ -87,6 +91,9 @@ class CustomersCustomerFidContactsContactFidEndpoint extends ApiEndpoint
         'customers/{customerFid}/contacts/{contactFid}'
       )
     ));
+    $detail->addQueryField('allAddresses', $allAddresses);
+    $detail->addQueryField('allEmails', $allEmails);
+    $detail->addQueryField('allPhones', $allPhones);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
