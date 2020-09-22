@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.52.0'
+  version: '3.53.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -6410,6 +6410,8 @@ definitions:
     allOf:
       - $ref: '#/definitions/Fid'
       - properties:
+          id:
+            type: string
           name:
             type: string
           displayName:
@@ -7343,6 +7345,8 @@ definitions:
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
+          id:
+            type: string
           orderHash:
             type: string
           externalReference:
@@ -7577,6 +7581,9 @@ definitions:
             type: number
           declineCount:
             type: number
+          externalReference:
+            description: External payer reference
+            type: string
 
   PaymentAccount:
     description: Generic Response
