@@ -18,6 +18,7 @@ class PaymentAccountRequest
         "paymentMethod" => $this->getPaymentMethod(),
         "paymentMode" => $this->getPaymentMode(),
         "accountHolder" => $this->getAccountHolder(),
+        "isPrimary" => $this->isPrimary(),
       ]
     );
   }
@@ -74,5 +75,15 @@ class PaymentAccountRequest
   {
     $value = Objects::property($this->_getResultJson(), 'accountHolder', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isPrimary($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'isPrimary', $default);
   }
 }

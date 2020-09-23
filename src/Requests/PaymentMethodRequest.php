@@ -34,6 +34,7 @@ class PaymentMethodRequest
         "successfulChallenges" => $this->getSuccessfulChallenges(),
         "successfulTransactions" => $this->getSuccessfulTransactions(),
         "declineCount" => $this->getDeclineCount(),
+        "externalReference" => $this->getExternalReference(),
       ]
     );
   }
@@ -276,5 +277,19 @@ class PaymentMethodRequest
   public function getDeclineCount($default = null)
   {
     return Objects::property($this->_getResultJson(), 'declineCount', $default);
+  }
+
+  /**
+   * External payer reference
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getExternalReference($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

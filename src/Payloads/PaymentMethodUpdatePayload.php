@@ -29,6 +29,10 @@ class PaymentMethodUpdatePayload
    * Issue number
    */
   protected $_issue;
+  /**
+   * Set this as the primary payment method
+   */
+  protected $_setPrimary;
 
   public function hydrate($data)
   {
@@ -57,6 +61,10 @@ class PaymentMethodUpdatePayload
     {
       $this->_issue = (int)$data["issue"];
     }
+    if(isset($data["setPrimary"]))
+    {
+      $this->_setPrimary = $data["setPrimary"];
+    }
     return $this;
   }
 
@@ -69,6 +77,7 @@ class PaymentMethodUpdatePayload
       "expiryMonth"   => $this->_expiryMonth,
       "expiryYear"    => $this->_expiryYear,
       "issue"         => $this->_issue,
+      "setPrimary"    => $this->_setPrimary,
     ];
   }
 
@@ -210,5 +219,28 @@ class PaymentMethodUpdatePayload
   public function getIssue($default = null)
   {
     return $this->_issue ?: $default;
+  }
+
+  /**
+   * @param bool $value
+   *
+   * @return $this
+   */
+  public function setSetPrimary(?bool $value)
+  {
+    $this->_setPrimary = $value;
+    return $this;
+  }
+
+  /**
+   * Set this as the primary payment method
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isSetPrimary($default = false)
+  {
+    return (bool)$this->_setPrimary ?: $default;
   }
 }
