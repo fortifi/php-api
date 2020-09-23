@@ -3,7 +3,7 @@
   "description": "Fortifi Business Platform",
   "homepage": "http://fortifi.io",
   "require": {
-    "fortifi/api": "~1.0",
+    "fortifi/api": "~1.2",
     "packaged/helpers": "~1.1|~2.2"
   },
   "autoload": {

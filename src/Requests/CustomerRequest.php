@@ -14,6 +14,7 @@ class CustomerRequest
     return array_merge(
       parent::jsonSerialize(),
       [
+        "id" => $this->getId(),
         "name" => $this->getName(),
         "displayName" => $this->getDisplayName(),
         "firstName" => $this->getFirstName(),
@@ -31,6 +32,18 @@ class CustomerRequest
         "knownIP" => $this->getKnownIP(),
       ]
     );
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getId($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'id', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

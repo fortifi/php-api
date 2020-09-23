@@ -19,6 +19,8 @@ class CustomersCustomerFidPaymentMethodsPaymentMethodFidEndpoint extends ApiEndp
   }
 
   /**
+   * @summary Retrieve a payment method
+   *
    * @return PaymentMethodRequest
    */
   public function retrieve()
@@ -42,7 +44,7 @@ class CustomersCustomerFidPaymentMethodsPaymentMethodFidEndpoint extends ApiEndp
   }
 
   /**
-   * @summary Update a card
+   * @summary Update a payment method
    *
    * @param PaymentMethodUpdatePayload $payload
    *
@@ -65,6 +67,31 @@ class CustomersCustomerFidPaymentMethodsPaymentMethodFidEndpoint extends ApiEndp
     ));
     $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Archive a payment method
+   *
+   * @return ApiRequest
+   */
+  public function delete()
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/paymentMethods/{paymentMethodFid}'
+      )
+    ));
+    $detail->setMethod('DELETE');
     $request->setRequestDetail($detail);
     return $request;
   }

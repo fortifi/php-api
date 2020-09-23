@@ -17,6 +17,8 @@ class CustomersCustomerFidPaymentAccountsPaymentAccountFidEndpoint extends ApiEn
   }
 
   /**
+   * @summary Retrieve payment account
+   *
    * @return PaymentAccountRequest
    */
   public function retrieve()

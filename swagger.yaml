@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.52.0'
+  version: '3.55.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1919,6 +1919,7 @@ paths:
 
   '/customers/{customerFid}/paymentAccounts/{paymentAccountFid}':
     get:
+      summary: Retrieve payment account
       tags:
         - Customers
         - Payment Methods
@@ -1973,6 +1974,7 @@ paths:
 
   '/customers/{customerFid}/paymentMethods/{paymentMethodFid}':
     get:
+      summary: Retrieve a payment method
       tags:
         - Customers
         - Payment Methods
@@ -1998,6 +2000,7 @@ paths:
             $ref: '#/definitions/Envelope'
 
     put:
+      summary: Update a payment method
       tags:
         - Customers
         - Payment Methods
@@ -2013,10 +2016,31 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/PaymentMethodUpdatePayload'
-      summary: Update a card
       responses:
         200:
           description: Payment Method Updated
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+    delete:
+      summary: Archive a payment method
+      tags:
+        - Customers
+        - Payment Methods
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/paymentMethodFid'
+      responses:
+        200:
+          description: Payment Method Archived
+        x-409:
+          description: Payment Method In Use
         default:
           description: Error
           schema:
@@ -6410,6 +6434,8 @@ definitions:
     allOf:
       - $ref: '#/definitions/Fid'
       - properties:
+          id:
+            type: string
           name:
             type: string
           displayName:
@@ -7343,6 +7369,8 @@ definitions:
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
+          id:
+            type: string
           orderHash:
             type: string
           externalReference:
@@ -7577,6 +7605,9 @@ definitions:
             type: number
           declineCount:
             type: number
+          externalReference:
+            description: External payer reference
+            type: string
 
   PaymentAccount:
     description: Generic Response
@@ -7591,6 +7622,8 @@ definitions:
             $ref: '#/definitions/PaymentMode'
           accountHolder:
             type: string
+          isPrimary:
+            type: boolean
 
   PaymentCards:
     description: Generic Response
@@ -9000,6 +9033,9 @@ definitions:
         description: Issue number
         type: integer
         format: int32
+      setPrimary:
+        description: Set this as the primary payment method
+        type: boolean
 
   CreateOrderPayload:
     properties:

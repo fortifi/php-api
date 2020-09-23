@@ -14,6 +14,7 @@ class OrderRequest
     return array_merge(
       parent::jsonSerialize(),
       [
+        "id" => $this->getId(),
         "orderHash" => $this->getOrderHash(),
         "externalReference" => $this->getExternalReference(),
         "state" => $this->getState(),
@@ -43,6 +44,18 @@ class OrderRequest
         "authorizeId" => $this->getAuthorizeId(),
       ]
     );
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getId($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'id', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
