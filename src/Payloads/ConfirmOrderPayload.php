@@ -21,6 +21,10 @@ class ConfirmOrderPayload
    * If set to true, this will setup purchases before payment is received
    */
   protected $_setupPurchaseBeforePayment;
+  /**
+   * If set to true, we will not pre-auth the order
+   */
+  protected $_noPreAuth = false;
 
   public function hydrate($data)
   {
@@ -41,6 +45,10 @@ class ConfirmOrderPayload
     {
       $this->_setupPurchaseBeforePayment = $data["setupPurchaseBeforePayment"];
     }
+    if(isset($data["noPreAuth"]))
+    {
+      $this->_noPreAuth = $data["noPreAuth"];
+    }
     return $this;
   }
 
@@ -51,6 +59,7 @@ class ConfirmOrderPayload
       "paymentAccountFid"          => $this->_paymentAccountFid,
       "paymentServiceProcessor"    => $this->_paymentServiceProcessor,
       "setupPurchaseBeforePayment" => $this->_setupPurchaseBeforePayment,
+      "noPreAuth"                  => $this->_noPreAuth,
     ];
   }
 
@@ -158,5 +167,28 @@ class ConfirmOrderPayload
   public function isSetupPurchaseBeforePayment($default = false)
   {
     return (bool)$this->_setupPurchaseBeforePayment ?: $default;
+  }
+
+  /**
+   * @param bool $value
+   *
+   * @return $this
+   */
+  public function setNoPreAuth(?bool $value)
+  {
+    $this->_noPreAuth = $value;
+    return $this;
+  }
+
+  /**
+   * If set to true, we will not pre-auth the order
+   *
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isNoPreAuth($default = false)
+  {
+    return (bool)$this->_noPreAuth ?: $default;
   }
 }

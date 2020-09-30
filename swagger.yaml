@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.55.0'
+  version: '3.56.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1856,6 +1856,8 @@ paths:
           description: External Reference Updated
         x-404:
           description: Customer not found
+        x-409:
+          description: Conflict
         default:
           description: Error
           schema:
@@ -9247,6 +9249,10 @@ definitions:
       setupPurchaseBeforePayment:
         type: boolean
         description: If set to true, this will setup purchases before payment is received
+      noPreAuth:
+        type: boolean
+        description: If set to true, we will not pre-auth the order
+        default: false
 
   ConfirmCardOrderPayload:
     allOf:
