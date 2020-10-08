@@ -32,5 +32,10 @@ final class InteractionType
       'social',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       

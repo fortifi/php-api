@@ -76,6 +76,36 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @summary Update a subscription
+   *
+   * @param $displayName
+   * @param $description
+   *
+   * @return ApiRequest
+   */
+  public function update($displayName = null, $description = null)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}'
+      )
+    ));
+    $detail->addPostField('displayName', $displayName);
+    $detail->addPostField('description', $description);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Enable auto charge on specific subscription
    *
    * @return ApiRequest

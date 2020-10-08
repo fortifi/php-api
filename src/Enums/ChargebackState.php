@@ -26,5 +26,10 @@ final class ChargebackState
       'undisputed_loss',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       

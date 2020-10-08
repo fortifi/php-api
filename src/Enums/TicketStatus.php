@@ -30,5 +30,10 @@ final class TicketStatus
       'trash',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       

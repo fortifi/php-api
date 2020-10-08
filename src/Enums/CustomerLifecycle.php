@@ -38,5 +38,10 @@ final class CustomerLifecycle
       'subscriber',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       

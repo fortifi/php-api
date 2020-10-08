@@ -52,5 +52,10 @@ final class PaymentMethod
       'account_balance',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       

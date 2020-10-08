@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.56.0'
+  version: '3.57.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2292,7 +2292,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: limit
@@ -2327,7 +2327,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2346,6 +2346,40 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+    put:
+      summary: Update a subscription
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: displayName
+          in: formData
+          required: false
+          description: Name of the subscription
+          type: string
+        - name: description
+          in: formData
+          required: false
+          description: Description for the subscription
+          type: string
+      responses:
+        200:
+          description: Subscription Updated
+        x-403:
+          description: Invalid customer specified for the subscription
+        x-404:
+          description: Subscription or Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/periods':
     get:
@@ -2355,7 +2389,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2383,7 +2417,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2415,7 +2449,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2437,7 +2471,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2459,7 +2493,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2486,7 +2520,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2513,7 +2547,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2541,7 +2575,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -2577,7 +2611,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -2613,7 +2647,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -2650,7 +2684,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2686,7 +2720,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -2713,7 +2747,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2748,7 +2782,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -2784,7 +2818,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -2810,7 +2844,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -2847,7 +2881,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
@@ -2881,7 +2915,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'

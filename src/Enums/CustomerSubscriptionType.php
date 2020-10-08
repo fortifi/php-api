@@ -22,5 +22,10 @@ final class CustomerSubscriptionType
       'paid',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       

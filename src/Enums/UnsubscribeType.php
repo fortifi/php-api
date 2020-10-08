@@ -18,5 +18,10 @@ final class UnsubscribeType
       'hard',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       

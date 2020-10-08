@@ -20,5 +20,10 @@ final class CreditAmountType
       'fixed',
     ];
   }
+
+  public static function isValid($value)
+  {
+    return in_array($value, static::getValues());
+  }
 }
       
