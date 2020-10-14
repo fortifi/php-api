@@ -6465,6 +6465,36 @@ definitions:
       code:
         type: string
 
+  CustomerFlags:
+    description: Flags assigned to the customer
+    properties:
+      qualified:
+        type: boolean
+      renewing:
+        type: boolean
+      fraud:
+        type: boolean
+      chargeback:
+        type: boolean
+      discount:
+        type: boolean
+      impulse:
+        type: boolean
+      refunded:
+        type: boolean
+      hasSubscribed:
+        type: boolean
+      isSubscribed:
+        type: boolean
+      hasPurchased:
+        type: boolean
+      loyal:
+        type: boolean
+      vip:
+        type: boolean
+      testAccount:
+        type: boolean
+
   Customer:
     description: Customer
     allOf:
@@ -6502,6 +6532,8 @@ definitions:
             type: string
           knownIP:
             type: string
+          flags:
+            $ref: '#/definitions/CustomerFlags'
 
   Advertiser:
     description: DEPRECATED

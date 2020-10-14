@@ -30,6 +30,7 @@ class CustomerRequest
         "taxNumber" => $this->getTaxNumber(),
         "companyNumber" => $this->getCompanyNumber(),
         "knownIP" => $this->getKnownIP(),
+        "flags" => $this->getFlags(),
       ]
     );
   }
@@ -224,5 +225,28 @@ class CustomerRequest
   {
     $value = Objects::property($this->_getResultJson(), 'knownIP', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return CustomerFlagsRequest
+   */
+  public function getFlags($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'flags', $default);
+  }
+
+  protected function _prepareResult($result)
+  {
+    $return = parent::_prepareResult($result);
+
+    if(!empty($return->flags))
+    {
+      $return->flags = (new CustomerFlagsRequest())
+        ->hydrate($return->flags);
+    }
+
+    return $return;
   }
 }
