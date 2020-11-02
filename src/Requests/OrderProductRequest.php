@@ -21,6 +21,7 @@ class OrderProductRequest
         "quantity" => $this->getQuantity(),
         "renewalDate" => $this->getRenewalDate(),
         "purchaseFid" => $this->getPurchaseFid(),
+        "skuFid" => $this->getSkuFid(),
         "currency" => $this->getCurrency(),
         "discountAmount" => $this->getDiscountAmount(),
         "setupFee" => $this->getSetupFee(),
@@ -118,6 +119,18 @@ class OrderProductRequest
   public function getPurchaseFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'purchaseFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSkuFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'skuFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

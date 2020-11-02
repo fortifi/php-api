@@ -52,6 +52,8 @@ class OrderProductPayload
   protected $_quantity;
   protected $_displayName;
   protected $_identity;
+  protected $_reservationApp;
+  protected $_reservationKey;
   protected $_properties;
 
   public function hydrate($data)
@@ -113,6 +115,14 @@ class OrderProductPayload
     {
       $this->_identity = (string)$data["identity"];
     }
+    if(isset($data["reservationApp"]))
+    {
+      $this->_reservationApp = (string)$data["reservationApp"];
+    }
+    if(isset($data["reservationKey"]))
+    {
+      $this->_reservationKey = (string)$data["reservationKey"];
+    }
     if(isset($data["properties"]))
     {
       $this->_properties = new PropertyBulkSetPayload();
@@ -138,6 +148,8 @@ class OrderProductPayload
       "quantity"             => $this->_quantity,
       "displayName"          => $this->_displayName,
       "identity"             => $this->_identity,
+      "reservationApp"       => $this->_reservationApp,
+      "reservationKey"       => $this->_reservationKey,
       "properties"           => $this->_properties,
     ];
   }
@@ -486,6 +498,52 @@ class OrderProductPayload
   public function getIdentity($default = null, $trim = true)
   {
     $value = $this->_identity ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setReservationApp(?string $value)
+  {
+    $this->_reservationApp = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getReservationApp($default = null, $trim = true)
+  {
+    $value = $this->_reservationApp ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setReservationKey(?string $value)
+  {
+    $this->_reservationKey = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getReservationKey($default = null, $trim = true)
+  {
+    $value = $this->_reservationKey ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
