@@ -158,6 +158,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return ReservationsEndpoint
+   */
+  public function reservations()
+  {
+    $endpoint = new ReservationsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ServicesEndpoint
    */
   public function services()

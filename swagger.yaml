@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.58.0'
+  version: '3.59.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -196,6 +196,7 @@ securityDefinitions:
       'reasons': Read/Write On reasons
       'reasons.readonly': Read Only on reasons
       'configuration.readonly': Read only for configuration
+      'reservations': Read/Write reservations
 
   accessToken:
     type: apiKey
@@ -223,6 +224,7 @@ tags:
   - name: Events
   - name: Deprecated
   - name: Labels
+  - name: Reservations
 
 paths:
   /advertisers:
@@ -5218,6 +5220,69 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/reservations/{key}/{application}/{brandFid}':
+    get:
+      security:
+        - OAuth:
+            - reservations
+        - accessToken: [ ]
+      tags:
+        - Reservations
+      summary: Retrieve reservations
+      description: This call will return information related to how a visitor arrived
+      parameters:
+        - $ref: '#/parameters/key'
+        - $ref: '#/parameters/application'
+        - $ref: '#/parameters/brandFid'
+      responses:
+        200:
+          description: Pixels
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Reservations'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/reservations/{key}/{application}/{brandFid}/{customerFid}':
+    post:
+      security:
+        - OAuth:
+            - reservations
+        - accessToken: [ ]
+      tags:
+        - Reservations
+      summary: Make a new reservation
+      description: Reserve against a key
+      parameters:
+        - $ref: '#/parameters/key'
+        - $ref: '#/parameters/application'
+        - $ref: '#/parameters/brandFid'
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ReservationPayload'
+      responses:
+        x-409:
+          description: Reservation already exists
+        200:
+          description: Pixels
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Reservation'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/services':
     get:
       summary: Retrieve all services
@@ -5901,6 +5966,26 @@ parameters:
     type: string
   contactReference:
     name: contactReference
+    in: path
+    required: true
+    type: string
+  key:
+    name: key
+    in: path
+    required: true
+    type: string
+  application:
+    name: application
+    in: path
+    required: true
+    type: string
+  brandFid:
+    name: brandFid
+    in: path
+    required: true
+    type: string
+  objectFid:
+    name: objectFid
     in: path
     required: true
     type: string
@@ -8297,6 +8382,33 @@ definitions:
         items:
           type: string
 
+
+  Reservation:
+    description: Reservation
+    properties:
+      key:
+        type: string
+      application:
+        type: string
+      brandFid:
+        type: string
+      customerFid:
+        type: string
+      expiryTime:
+        type: string
+      relatedFids:
+        type: array
+        items:
+          type: string
+
+  Reservations:
+    description: Reservations
+    properties:
+      reservations:
+        type: array
+        items:
+          $ref: '#/definitions/Reservation'
+
   #Payloads
 
   AddressPayload:
@@ -8854,6 +8966,19 @@ definitions:
         items:
           $ref: '#/definitions/keyValuePayload'
 
+  ReservationPayload:
+    description: Data for a reservation
+    properties:
+      duration:
+        type: number
+        format: int32
+        description: Time in seconds to hold this reservation for
+      relatedFids:
+        type: array
+        description: Related Fids
+        items:
+          type: string
+
   AvailabilityCheckPayload:
     description: Product information to check availability
     properties:
@@ -9258,6 +9383,10 @@ definitions:
       displayName:
         type: string
       identity:
+        type: string
+      reservationApp:
+        type: string
+      reservationKey:
         type: string
       properties:
         type: object
