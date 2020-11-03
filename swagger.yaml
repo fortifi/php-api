@@ -7541,6 +7541,8 @@ definitions:
             format: date-time
           purchaseFid:
             type: string
+          skuFid:
+            type: string
           currency:
             type: string
           discountAmount:
