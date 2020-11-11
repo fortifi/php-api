@@ -55,6 +55,18 @@ class CustomersCustomerFidPaymentMethodsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidPaymentMethodsCreatePendingEndpoint
+   */
+  public function createPending()
+  {
+    $endpoint = new CustomersCustomerFidPaymentMethodsCreatePendingEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary List customers payment methods
    *
    * @return PaymentMethodsRequest
