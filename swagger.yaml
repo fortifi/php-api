@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.59.0'
+  version: '3.60.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2216,6 +2216,33 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/paymentMethods/createPending':
+    post:
+      summary: Create a new pending payment method
+      security:
+        - OAuth:
+            - payment
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreatePendingPaymentMethodPayload'
+      responses:
+        200:
+          description: Pending Payment Method Created
+          schema:
+            $ref: '#/definitions/Envelope'
+        x-400:
+          description: |
+            Invalid data supplied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/payments/{paymentFid}':
     get:
       summary: Retrieve a payment
@@ -8583,6 +8610,20 @@ definitions:
       - password
       - type
       - contactName
+
+  CreatePendingPaymentMethodPayload:
+    description: Create a pending payment method
+    properties:
+      name:
+        type: string
+      scheme:
+        type: string
+      token:
+        type: string
+      expiry:
+        type: string
+      brandFid:
+        type: string
 
   CreatePublisherPayload:
     description: Payload for creating an advertiser
