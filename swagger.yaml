@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.60.0'
+  version: '3.61.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4105,6 +4105,65 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/orders/{orderFid}/items':
+    get:
+      summary: List an orders items
+      tags:
+        - Orders
+      security:
+        - OAuth:
+            - orders.readonly
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/orderFid'
+      responses:
+        200:
+          description: List of order items
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/OrderProducts'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/orders/{orderFid}/items/{productFid}/{orderItemFid}':
+    put:
+      summary: Update an order item
+      tags:
+        - Orders
+      security:
+        - OAuth:
+            - orders
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - $ref: '#/parameters/productFid'
+        - $ref: '#/parameters/orderItemFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateOrderItemPayload'
+      responses:
+        200:
+          description: Order retrieved
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Order not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/orders/{orderFid}/verify':
     put:
       summary: Verify an order, returning any security urls
@@ -5965,6 +6024,11 @@ parameters:
     in: path
     required: true
     type: string
+  orderItemFid:
+    name: orderItemFid
+    in: path
+    required: true
+    type: string
   offerFid:
     name: offerFid
     in: path
@@ -7537,7 +7601,7 @@ definitions:
         format: float
 
   Orders:
-    description: Generic Response
+    description: List of orders
     properties:
       orders:
         type: array
@@ -7545,7 +7609,7 @@ definitions:
           $ref: '#/definitions/Order'
 
   Order:
-    description: Generic Response
+    description: An Order
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
@@ -7613,6 +7677,17 @@ definitions:
             format: float
           authorizeId:
             type: string
+
+  UpdateOrderItemPayload:
+    properties:
+      parentFid:
+        type: string
+      identity:
+        type: string
+      setProperties:
+        $ref: '#/definitions/PropertyBulkSetPayload'
+      displayName:
+        type: string
 
   OrderProducts:
     description: Generic Response
