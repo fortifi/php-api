@@ -26,18 +26,6 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return OrdersOrderFidItemsEndpoint
-   */
-  public function items()
-  {
-    $endpoint = new OrdersOrderFidItemsEndpoint(
-      $this->_replacements['{orderFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
    * @return OrdersOrderFidProductsEndpoint
    */
   public function products()

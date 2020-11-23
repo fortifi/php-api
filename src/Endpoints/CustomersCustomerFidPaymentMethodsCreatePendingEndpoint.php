@@ -1,7 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\EnvelopeRequest;
+use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Payloads\CreatePendingPaymentMethodPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -21,11 +21,11 @@ class CustomersCustomerFidPaymentMethodsCreatePendingEndpoint extends ApiEndpoin
    *
    * @param CreatePendingPaymentMethodPayload $payload
    *
-   * @return EnvelopeRequest
+   * @return FidRequest
    */
   public function create(CreatePendingPaymentMethodPayload $payload)
   {
-    $request = new EnvelopeRequest();
+    $request = new FidRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
