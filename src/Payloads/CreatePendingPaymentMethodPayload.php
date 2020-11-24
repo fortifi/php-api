@@ -6,6 +6,7 @@ class CreatePendingPaymentMethodPayload
   implements \JsonSerializable
 {
   protected $_name;
+  protected $_accountHolder;
   protected $_scheme;
   protected $_token;
   protected $_expiry;
@@ -17,6 +18,10 @@ class CreatePendingPaymentMethodPayload
     if(isset($data["name"]))
     {
       $this->_name = (string)$data["name"];
+    }
+    if(isset($data["accountHolder"]))
+    {
+      $this->_accountHolder = (string)$data["accountHolder"];
     }
     if(isset($data["scheme"]))
     {
@@ -40,11 +45,12 @@ class CreatePendingPaymentMethodPayload
   public function jsonSerialize()
   {
     return [
-      "name"     => $this->_name,
-      "scheme"   => $this->_scheme,
-      "token"    => $this->_token,
-      "expiry"   => $this->_expiry,
-      "brandFid" => $this->_brandFid,
+      "name"          => $this->_name,
+      "accountHolder" => $this->_accountHolder,
+      "scheme"        => $this->_scheme,
+      "token"         => $this->_token,
+      "expiry"        => $this->_expiry,
+      "brandFid"      => $this->_brandFid,
     ];
   }
 
@@ -68,6 +74,29 @@ class CreatePendingPaymentMethodPayload
   public function getName($default = null, $trim = true)
   {
     $value = $this->_name ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setAccountHolder(?string $value)
+  {
+    $this->_accountHolder = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAccountHolder($default = null, $trim = true)
+  {
+    $value = $this->_accountHolder ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

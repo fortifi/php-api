@@ -2234,7 +2234,11 @@ paths:
         200:
           description: Pending Payment Method Created
           schema:
-            $ref: '#/definitions/Envelope'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
         x-400:
           description: |
             Invalid data supplied
@@ -2252,7 +2256,7 @@ paths:
         - OAuth:
             - customer
             - customer.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/paymentFid'
@@ -2280,7 +2284,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/paymentFid'
@@ -8690,6 +8694,8 @@ definitions:
     description: Create a pending payment method
     properties:
       name:
+        type: string
+      accountHolder:
         type: string
       scheme:
         type: string
