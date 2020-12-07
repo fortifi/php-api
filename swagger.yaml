@@ -8582,7 +8582,10 @@ definitions:
         description: Price FID to modify subscription with
         type: string
       offerFid:
-        description: Price FID to modify subscription with
+        description: Offer FID to apply to the modify order item
+        type: string
+      sku:
+        description: SKU or SkuFid to modify subscription with
         type: string
       mode:
         $ref: '#/definitions/ModifySubscriptionMode'
