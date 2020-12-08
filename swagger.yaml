@@ -3305,6 +3305,30 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/upgradePaymentAccount':
+    put:
+      security:
+        - OAuth:
+            - customer
+            - customer.readonly
+        - accessToken: [ ]
+      tags:
+        - Customers
+      summary: Upgrade customer from fortifi pay to chargehive
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Customer queued for upgrade or already upgraded
+        x-404:
+          description: Customer not found
+        x-403:
+          description: Customer cannot be upgraded at this time
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/entities/{entityFid}/config/{sectionName}':
     delete:
       summary: Remove a config section, or property from an entity

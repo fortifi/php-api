@@ -735,4 +735,29 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Upgrade customer from fortifi pay to chargehive
+   *
+   * @return ApiRequest
+   */
+  public function setUpgradePaymentAccount()
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/upgradePaymentAccount'
+      )
+    ));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }
