@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.61.0'
+  version: '3.62.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -3301,6 +3301,30 @@ paths:
           description: It is not possible to archive this customer
         x-404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/upgradePaymentAccount':
+    put:
+      security:
+        - OAuth:
+            - customer
+            - customer.readonly
+        - accessToken: [ ]
+      tags:
+        - Customers
+      summary: Upgrade customer from fortifi pay to chargehive
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Customer queued for upgrade or already upgraded
+        x-404:
+          description: Customer not found
+        x-403:
+          description: Customer cannot be upgraded at this time
         default:
           description: Error
           schema:
