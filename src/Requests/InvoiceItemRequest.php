@@ -14,10 +14,23 @@ class InvoiceItemRequest
     return array_merge(
       parent::jsonSerialize(),
       [
+        "productFid" => $this->getProductFid(),
         "totalAmount" => $this->getTotalAmount(),
         "subItems" => $this->getSubItems(),
       ]
     );
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'productFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

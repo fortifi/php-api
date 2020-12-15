@@ -30,6 +30,7 @@ class InvoiceRequest
         "invoiceStatus" => $this->getInvoiceStatus(),
         "totalItems" => $this->getTotalItems(),
         "invoiceItems" => $this->getInvoiceItems(),
+        "chargeId" => $this->getChargeId(),
       ]
     );
   }
@@ -208,6 +209,18 @@ class InvoiceRequest
   public function getInvoiceItems($default = [])
   {
     return Objects::property($this->_getResultJson(), 'invoiceItems', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getChargeId($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'chargeId', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   protected function _prepareResult($result)
