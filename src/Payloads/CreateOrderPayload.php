@@ -42,6 +42,10 @@ class CreateOrderPayload
    */
   protected $_products;
   /**
+   * Subscriptions to modify on this order
+   */
+  protected $_modifySubscriptions;
+  /**
    * Offer FIDs to apply to the order
    */
   protected $_offerFids;
@@ -112,6 +116,16 @@ class CreateOrderPayload
         $this->_products[] = $dObj;
       }
     }
+    if(isset($data["modifySubscriptions"]))
+    {
+      $this->_modifySubscriptions = [];
+      foreach($data["modifySubscriptions"] as $dItem)
+      {
+        $dObj = new OrderModifySubscriptionPayload();
+        $dObj->hydrate($dItem);
+        $this->_modifySubscriptions[] = $dObj;
+      }
+    }
     if(isset($data["offerFids"]))
     {
       $this->_offerFids = $data["offerFids"];
@@ -156,6 +170,7 @@ class CreateOrderPayload
       "type"                       => $this->_type,
       "productPriceFids"           => $this->_productPriceFids,
       "products"                   => $this->_products,
+      "modifySubscriptions"        => $this->_modifySubscriptions,
       "offerFids"                  => $this->_offerFids,
       "chargeId"                   => $this->_chargeId,
       "externalReference"          => $this->_externalReference,
@@ -410,6 +425,40 @@ class CreateOrderPayload
   public function getProducts($default = [])
   {
     return $this->_products ?: $default;
+  }
+
+  /**
+   * @param OrderModifySubscriptionPayload[] $value
+   *
+   * @return $this
+   */
+  public function setModifySubscriptions(?array $value)
+  {
+    $this->_modifySubscriptions = $value;
+    return $this;
+  }
+
+  /**
+   * @param OrderModifySubscriptionPayload $item
+   *
+   * @return $this
+   */
+  public function addModifySubscription(OrderModifySubscriptionPayload $item)
+  {
+    $this->_modifySubscriptions[] = $item;
+    return $this;
+  }
+
+  /**
+   * Subscriptions to modify on this order
+   *
+   * @param mixed $default
+   *
+   * @return OrderModifySubscriptionPayload[]
+   */
+  public function getModifySubscriptions($default = [])
+  {
+    return $this->_modifySubscriptions ?: $default;
   }
 
   /**

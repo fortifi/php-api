@@ -8620,6 +8620,14 @@ definitions:
     required:
       - priceFid
 
+  OrderModifySubscriptionPayload:
+    allOf:
+      - $ref: '#/definitions/ModifySubscriptionPayload'
+      - properties:
+          sourceSubscriptionFid:
+            description: FID of the subscription to modify
+            type: string
+
   CalculateRefundPayload:
     properties:
       subscriptionRefundType:
@@ -9417,6 +9425,11 @@ definitions:
         description: Add Products based on Product FIDs (For products with multiple Prices, this will  automatically select lowest price)
         items:
           $ref: '#/definitions/OrderProductPayload'
+      modifySubscriptions:
+        type: array
+        description: Subscriptions to modify on this order
+        items:
+          $ref: '#/definitions/OrderModifySubscriptionPayload'
       offerFids:
         type: array
         description: Offer FIDs to apply to the order
@@ -9494,6 +9507,11 @@ definitions:
         description: Products to add with display names
         items:
           $ref: '#/definitions/OrderProductPayload'
+      modifySubscriptions:
+        type: array
+        description: Subscriptions to modify on this order
+        items:
+          $ref: '#/definitions/OrderModifySubscriptionPayload'
 
   OrderProductPayload:
     description: Product information to add to order
