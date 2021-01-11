@@ -20,6 +20,10 @@ class OrderProductsPayload
    * Products to add with display names
    */
   protected $_products;
+  /**
+   * Subscriptions to modify on this order
+   */
+  protected $_modifySubscriptions;
 
   public function hydrate($data)
   {
@@ -58,6 +62,16 @@ class OrderProductsPayload
         $this->_products[] = $dObj;
       }
     }
+    if(isset($data["modifySubscriptions"]))
+    {
+      $this->_modifySubscriptions = [];
+      foreach($data["modifySubscriptions"] as $dItem)
+      {
+        $dObj = new OrderModifySubscriptionPayload();
+        $dObj->hydrate($dItem);
+        $this->_modifySubscriptions[] = $dObj;
+      }
+    }
     return $this;
   }
 
@@ -68,6 +82,7 @@ class OrderProductsPayload
       "quantityProductPriceFids" => $this->_quantityProductPriceFids,
       "namesProductPriceFids"    => $this->_namesProductPriceFids,
       "products"                 => $this->_products,
+      "modifySubscriptions"      => $this->_modifySubscriptions,
     ];
   }
 
@@ -205,5 +220,39 @@ class OrderProductsPayload
   public function getProducts($default = [])
   {
     return $this->_products ?: $default;
+  }
+
+  /**
+   * @param OrderModifySubscriptionPayload[] $value
+   *
+   * @return $this
+   */
+  public function setModifySubscriptions(?array $value)
+  {
+    $this->_modifySubscriptions = $value;
+    return $this;
+  }
+
+  /**
+   * @param OrderModifySubscriptionPayload $item
+   *
+   * @return $this
+   */
+  public function addModifySubscription(OrderModifySubscriptionPayload $item)
+  {
+    $this->_modifySubscriptions[] = $item;
+    return $this;
+  }
+
+  /**
+   * Subscriptions to modify on this order
+   *
+   * @param mixed $default
+   *
+   * @return OrderModifySubscriptionPayload[]
+   */
+  public function getModifySubscriptions($default = [])
+  {
+    return $this->_modifySubscriptions ?: $default;
   }
 }
