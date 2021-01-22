@@ -42,6 +42,11 @@ class OrderRequest
         "invoiceFid" => $this->getInvoiceFid(),
         "amountPaid" => $this->getAmountPaid(),
         "authorizeId" => $this->getAuthorizeId(),
+        "orderType" => $this->getOrderType(),
+        "hasProduct" => $this->isHasProduct(),
+        "hasSubscription" => $this->isHasSubscription(),
+        "hasAddon" => $this->isHasAddon(),
+        "hasModify" => $this->isHasModify(),
       ]
     );
   }
@@ -364,5 +369,57 @@ class OrderRequest
   {
     $value = Objects::property($this->_getResultJson(), 'authorizeId', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOrderType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'orderType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isHasProduct($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'hasProduct', $default);
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isHasSubscription($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'hasSubscription', $default);
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isHasAddon($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'hasAddon', $default);
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isHasModify($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'hasModify', $default);
   }
 }
