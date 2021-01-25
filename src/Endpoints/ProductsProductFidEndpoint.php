@@ -38,6 +38,18 @@ class ProductsProductFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return ProductsProductFidPricebandsEndpoint
+   */
+  public function pricebands()
+  {
+    $endpoint = new ProductsProductFidPricebandsEndpoint(
+      $this->_replacements['{productFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ProductsProductFidSkusEndpoint
    */
   public function skus()

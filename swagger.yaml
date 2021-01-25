@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.65.0'
+  version: '3.66.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4736,7 +4736,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       responses:
         200:
           description: Products retrieved
@@ -4759,7 +4759,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/productFid'
         - name: payload
@@ -4791,7 +4791,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/productFid'
         - name: payload
@@ -4823,7 +4823,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/productFid'
         - name: currency
@@ -4846,6 +4846,37 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/products/{productFid}/pricebands':
+    get:
+      summary: Retrieve Product Price Bands
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: currency
+          in: formData
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of product price bands
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductPriceBands'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/products/{productFid}/skus':
     get:
       summary: Retrieve Product SKUs
@@ -4854,7 +4885,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/productFid'
       responses:
@@ -4881,7 +4912,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       responses:
         200:
           description: Products groups
@@ -4904,7 +4935,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/productGroupFid'
       responses:
@@ -4929,7 +4960,7 @@ paths:
       security:
         - OAuth:
             - product.readonly
-        - accessToken: []
+        - accessToken: [ ]
       responses:
         200:
           description: Available Offers
@@ -7516,6 +7547,23 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/Fid'
+
+  ProductPriceBands:
+    description: Product Prices
+    properties:
+      pricebands:
+        type: array
+        items:
+          $ref: '#/definitions/ProductPriceBand'
+
+  ProductPriceBand:
+    description: Product Price
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          productFid:
+            type: string
+
 
   ProductPrices:
     description: Product Prices
