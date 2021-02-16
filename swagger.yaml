@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.66.0'
+  version: '3.67.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4085,7 +4085,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - name: payload
           in: body
@@ -4114,7 +4114,7 @@ paths:
       security:
         - OAuth:
             - orders.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
@@ -4141,7 +4141,7 @@ paths:
       security:
         - OAuth:
             - orders.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
@@ -4166,7 +4166,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - $ref: '#/parameters/productFid'
@@ -4200,7 +4200,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: payload
@@ -4230,7 +4230,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
@@ -4255,7 +4255,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: payload
@@ -4279,7 +4279,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: payload
@@ -4311,7 +4311,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: payload
@@ -4343,7 +4343,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -4367,6 +4367,36 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/orders/{orderFid}/externalReference':
+    put:
+      summary: Set the external reference on an order
+      tags:
+        - Orders
+      security:
+        - OAuth:
+            - orders
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/orderFid'
+        - name: externalReference
+          in: formData
+          required: true
+          description: New External Reference
+          type: string
+      responses:
+        200:
+          description: External Reference Updated
+          schema:
+            $ref: '#/definitions/Envelope'
+        x-400:
+          description: Unable to set external reference
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/orders/{orderFid}/confirmNewCard':
     put:
       summary: Confirm an order with a new card, authorize the payment
@@ -4375,7 +4405,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: payload
@@ -4407,7 +4437,7 @@ paths:
       security:
         - OAuth:
             - orders.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
@@ -4434,7 +4464,7 @@ paths:
       security:
         - OAuth:
             - orders.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
       responses:
@@ -4459,7 +4489,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: payload
@@ -4487,7 +4517,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - name: payload
@@ -4517,7 +4547,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - $ref: '#/parameters/orderProductFid'
@@ -4537,7 +4567,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -4564,7 +4594,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -4600,7 +4630,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/orderFid'
         - $ref: '#/parameters/offerFid'
@@ -4622,7 +4652,7 @@ paths:
       security:
         - OAuth:
             - orders
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
