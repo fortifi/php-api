@@ -11,7 +11,7 @@ class FortifiApiDefinition  extends ApiDefinition
   public function __construct()
   {
     $this->setTitle('Fortifi API');
-    $this->setVersion('3.67.0');
+    $this->setVersion('3.68.0');
     $this->setDescription(<<<DESCRIPTION
 The second version of the Fortifi API is an exciting step forward towards
 making it easier for businesses to have open access to their data. We created it
@@ -222,6 +222,11 @@ DESCRIPTION
     $tag = new TagDefinition();
     $tag->setDescription('');
     $tag->setName('Reservations');
+    $this->addTag($tag);
+
+    $tag = new TagDefinition();
+    $tag->setDescription('');
+    $tag->setName('Finance');
     $this->addTag($tag);
 
     $secDef = new SecurityDefinition();

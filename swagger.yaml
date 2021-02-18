@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.67.0'
+  version: '3.68.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -225,6 +225,7 @@ tags:
   - name: Deprecated
   - name: Labels
   - name: Reservations
+  - name: Finance
 
 paths:
   /advertisers:
@@ -3843,6 +3844,69 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/finance/payments':
+    get:
+      summary: Perform a payment search
+      tags:
+        - Finance
+      security:
+        - accessToken: [ ]
+      parameters:
+        - name: transactionId
+          in: query
+          description: 'Transaction ID'
+          required: false
+          type: string
+        - name: currency
+          in: query
+          description: '3 Character Currency Code'
+          required: false
+          type: string
+        - name: transactionDate
+          in: query
+          description: 'Transaction Date'
+          required: false
+          type: string
+          format: date-time
+        - name: dateTolerance
+          in: query
+          description: 'Number of days tolerance on the transaction date'
+          required: false
+          type: number
+        - name: first6last4
+          in: query
+          description: 'Locate based on the first 6 and last 4 of a card number'
+          required: false
+          type: string
+        - name: arn
+          in: query
+          description: 'Acquirer reference number'
+          required: false
+          type: string
+        - name: authCode
+          in: query
+          description: 'Transaction Auth Code'
+          required: false
+          type: string
+        - name: amount
+          in: query
+          description: 'Transaction amount'
+          required: false
+          type: number
+          format: float
+      responses:
+        200:
+          description: Transactions
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Payments'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /pay/publicKey:
     get:
       summary: Get the public key needed to encrypt a credit card number
@@ -6654,6 +6718,14 @@ definitions:
         type: string
       brandFid:
         type: string
+
+  Payments:
+    description: Payments
+    properties:
+      payments:
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
 
   Payment:
     description: Payment
