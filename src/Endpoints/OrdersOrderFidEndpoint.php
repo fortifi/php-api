@@ -267,10 +267,11 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
    * @summary Set the external reference on an order
    *
    * @param $externalReference
+   * @param $displayName
    *
    * @return EnvelopeRequest
    */
-  public function setExternalReference($externalReference)
+  public function setExternalReference($externalReference, $displayName = null)
   {
     $request = new EnvelopeRequest();
     $request->setConnection($this->_getConnection());
@@ -286,6 +287,7 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
       )
     ));
     $detail->addPostField('externalReference', $externalReference);
+    $detail->addPostField('displayName', $displayName);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
