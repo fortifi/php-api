@@ -9410,6 +9410,50 @@ definitions:
       triggerMessenger:
         type: boolean
         description: If set to true, transactional messenger chains will be triggered
+      action:
+        $ref: '#/definitions/MessengerActionPayload'
+
+  MessengerActionPayload:
+    properties:
+      deliveryFid:
+        type: string
+      action:
+        type: string
+      userAgent:
+        type: string
+      language:
+        type: string
+      encoding:
+        type: string
+      clientIp:
+        type: string
+      os:
+        type: string
+      osVersion:
+        type: string
+      osBlended:
+        type: string
+      platform:
+        type: string
+      device:
+        type: string
+      client:
+        type: string
+      clientVersion:
+        type: string
+      clientBlended:
+        type: string
+      referrer:
+        type: string
+      companyFid:
+        type: string
+      visitorId:
+        type: string
+      amount:
+        type: number
+        format: float
+      sourceType:
+        type: string
 
   CardDataPayload:
     properties:

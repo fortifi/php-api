@@ -18,6 +18,7 @@ class TriggerActionPayload
    * If set to true, transactional messenger chains will be triggered
    */
   protected $_triggerMessenger;
+  protected $_action;
 
   public function hydrate($data)
   {
@@ -44,6 +45,11 @@ class TriggerActionPayload
     {
       $this->_triggerMessenger = $data["triggerMessenger"];
     }
+    if(isset($data["action"]))
+    {
+      $this->_action = new MessengerActionPayload();
+      $this->_action->hydrate($data["action"]);
+    }
     return $this;
   }
 
@@ -54,6 +60,7 @@ class TriggerActionPayload
       "time"             => $this->_time,
       "alias"            => $this->_alias,
       "triggerMessenger" => $this->_triggerMessenger,
+      "action"           => $this->_action,
     ];
   }
 
@@ -160,5 +167,26 @@ class TriggerActionPayload
   public function isTriggerMessenger($default = false)
   {
     return (bool)$this->_triggerMessenger ?: $default;
+  }
+
+  /**
+   * @param MessengerActionPayload $value
+   *
+   * @return $this
+   */
+  public function setAction(?MessengerActionPayload $value)
+  {
+    $this->_action = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return MessengerActionPayload
+   */
+  public function getAction($default = null)
+  {
+    return $this->_action ?: $default;
   }
 }
