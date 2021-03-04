@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.69.0'
+  version: '3.70.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -9410,6 +9410,50 @@ definitions:
       triggerMessenger:
         type: boolean
         description: If set to true, transactional messenger chains will be triggered
+      action:
+        $ref: '#/definitions/MessengerActionPayload'
+
+  MessengerActionPayload:
+    properties:
+      deliveryFid:
+        type: string
+      action:
+        type: string
+      userAgent:
+        type: string
+      language:
+        type: string
+      encoding:
+        type: string
+      clientIp:
+        type: string
+      os:
+        type: string
+      osVersion:
+        type: string
+      osBlended:
+        type: string
+      platform:
+        type: string
+      device:
+        type: string
+      client:
+        type: string
+      clientVersion:
+        type: string
+      clientBlended:
+        type: string
+      referrer:
+        type: string
+      companyFid:
+        type: string
+      visitorId:
+        type: string
+      amount:
+        type: number
+        format: float
+      sourceType:
+        type: string
 
   CardDataPayload:
     properties:
