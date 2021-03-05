@@ -41,6 +41,7 @@ class OrderRequest
         "fraudFid" => $this->getFraudFid(),
         "invoiceFid" => $this->getInvoiceFid(),
         "amountPaid" => $this->getAmountPaid(),
+        "chargeId" => $this->getChargeId(),
         "authorizeId" => $this->getAuthorizeId(),
         "orderType" => $this->getOrderType(),
         "hasProduct" => $this->isHasProduct(),
@@ -357,6 +358,18 @@ class OrderRequest
   public function getAmountPaid($default = null)
   {
     return Objects::property($this->_getResultJson(), 'amountPaid', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getChargeId($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'chargeId', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
