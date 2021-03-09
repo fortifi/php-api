@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.71.0'
+  version: '3.72.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -7380,6 +7380,9 @@ definitions:
             type: string
           externalReference:
             description: Unique External Identifier for this subscription
+            type: string
+          sourceFid:
+            description: The FID of the object that created this subscription (most commonly, order fid)
             type: string
 
   CalculateSubscriptionRefund:

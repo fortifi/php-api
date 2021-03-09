@@ -64,6 +64,7 @@ class SubscriptionRequest
         "uniqueReference" => $this->getUniqueReference(),
         "identity" => $this->getIdentity(),
         "externalReference" => $this->getExternalReference(),
+        "sourceFid" => $this->getSourceFid(),
       ]
     );
   }
@@ -677,6 +678,20 @@ class SubscriptionRequest
   public function getExternalReference($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * The FID of the object that created this subscription (most commonly, order fid)
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSourceFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'sourceFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
