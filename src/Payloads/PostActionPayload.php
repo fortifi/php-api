@@ -89,6 +89,10 @@ class PostActionPayload
    * If an existing device exists for the visitor, prefer that over the user agent sent in this payload
    */
   protected $_useExistingDeviceIfAvailable;
+  /**
+   * Specify a failover visitor ID to prevent organic traffic (Recommended to leave empty)
+   */
+  protected $_failoverVisitorId;
 
   public function hydrate($data)
   {
@@ -183,6 +187,10 @@ class PostActionPayload
     {
       $this->_useExistingDeviceIfAvailable = $data["useExistingDeviceIfAvailable"];
     }
+    if(isset($data["failoverVisitorId"]))
+    {
+      $this->_failoverVisitorId = (string)$data["failoverVisitorId"];
+    }
     return $this;
   }
 
@@ -210,6 +218,7 @@ class PostActionPayload
       "metaData"                     => $this->_metaData,
       "time"                         => $this->_time,
       "useExistingDeviceIfAvailable" => $this->_useExistingDeviceIfAvailable,
+      "failoverVisitorId"            => $this->_failoverVisitorId,
     ];
   }
 
@@ -737,5 +746,30 @@ class PostActionPayload
   public function isUseExistingDeviceIfAvailable($default = false)
   {
     return (bool)$this->_useExistingDeviceIfAvailable ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setFailoverVisitorId(?string $value)
+  {
+    $this->_failoverVisitorId = $value;
+    return $this;
+  }
+
+  /**
+   * Specify a failover visitor ID to prevent organic traffic (Recommended to leave empty)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getFailoverVisitorId($default = null, $trim = true)
+  {
+    $value = $this->_failoverVisitorId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }
