@@ -5,13 +5,14 @@ use Fortifi\Api\V1\Requests\EntityRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class PolymersPolymerFidEndpoint extends ApiEndpoint
+class PolymersParentFidPolymerFidEndpoint extends ApiEndpoint
 {
-  protected $_path = 'polymers/{polymerFid}';
+  protected $_path = 'polymers/{parentFid}/{polymerFid}';
   protected $_replacements = [];
 
-  public function __construct($polymerFid)
+  public function __construct($parentFid, $polymerFid)
   {
+    $this->_replacements['{parentFid}'] = $parentFid;
     $this->_replacements['{polymerFid}'] = $polymerFid;
   }
 
@@ -32,7 +33,7 @@ class PolymersPolymerFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'polymers/{polymerFid}'
+        'polymers/{parentFid}/{polymerFid}'
       )
     ));
     $detail->setMethod('GET');

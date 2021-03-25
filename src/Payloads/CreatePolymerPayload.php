@@ -14,13 +14,10 @@ class CreatePolymerPayload
    */
   protected $_name;
   /**
-   * Fid for the parent of this polymer e.g. customerFid
-   */
-  protected $_parentFid;
-  /**
    * Description for this polymer
    */
   protected $_description;
+  protected $_data;
 
   public function hydrate($data)
   {
@@ -33,13 +30,19 @@ class CreatePolymerPayload
     {
       $this->_name = (string)$data["name"];
     }
-    if(isset($data["parentFid"]))
-    {
-      $this->_parentFid = (string)$data["parentFid"];
-    }
     if(isset($data["description"]))
     {
       $this->_description = (string)$data["description"];
+    }
+    if(isset($data["data"]))
+    {
+      $this->_data = [];
+      foreach($data["data"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_data[] = $dObj;
+      }
     }
     return $this;
   }
@@ -49,8 +52,8 @@ class CreatePolymerPayload
     return [
       "polymerCode" => $this->_polymerCode,
       "name"        => $this->_name,
-      "parentFid"   => $this->_parentFid,
       "description" => $this->_description,
+      "data"        => $this->_data,
     ];
   }
 
@@ -109,31 +112,6 @@ class CreatePolymerPayload
    *
    * @return $this
    */
-  public function setParentFid(?string $value)
-  {
-    $this->_parentFid = $value;
-    return $this;
-  }
-
-  /**
-   * Fid for the parent of this polymer e.g. customerFid
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getParentFid($default = null, $trim = true)
-  {
-    $value = $this->_parentFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
   public function setDescription(?string $value)
   {
     $this->_description = $value;
@@ -152,5 +130,37 @@ class CreatePolymerPayload
   {
     $value = $this->_description ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param KeyValuePayload[] $value
+   *
+   * @return $this
+   */
+  public function setData(?array $value)
+  {
+    $this->_data = $value;
+    return $this;
+  }
+
+  /**
+   * @param KeyValuePayload $item
+   *
+   * @return $this
+   */
+  public function addDatum(KeyValuePayload $item)
+  {
+    $this->_data[] = $item;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return KeyValuePayload[]
+   */
+  public function getData($default = [])
+  {
+    return $this->_data ?: $default;
   }
 }

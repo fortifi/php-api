@@ -4767,7 +4767,7 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-  '/polymers':
+  '/polymers/{parentFid}':
     post:
       summary: Create a new polymer
       tags:
@@ -4777,6 +4777,10 @@ paths:
             - polymer
         - accessToken: []
       parameters:
+        - name: parentFid
+          in: path
+          required: true
+          type: string
         - name: payload
           in: body
           required: true
@@ -4798,7 +4802,7 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-  '/polymers/{polymerFid}':
+  '/polymers/{parentFid}/{polymerFid}':
     get:
       summary: Read a polymer
       tags:
@@ -4808,6 +4812,10 @@ paths:
             - polymer.readonly
         - accessToken: []
       parameters:
+        - name: parentFid
+          in: path
+          required: true
+          type: string
         - name: polymerFid
           in: path
           required: true
@@ -8838,12 +8846,11 @@ definitions:
       name:
         description: Display name for this polymer
         type: string
-      parentFid:
-        description: Fid for the parent of this polymer e.g. customerFid
-        type: string
       description:
         description: Description for this polymer
         type: string
+      data:
+        $ref: '#/definitions/metaData'
 
   RequestUploadUrlPayload:
     properties:

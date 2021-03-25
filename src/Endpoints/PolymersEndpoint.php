@@ -1,9 +1,6 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\FidRequest;
-use Fortifi\Api\V1\Payloads\CreatePolymerPayload;
-use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
 class PolymersEndpoint extends ApiEndpoint
@@ -16,38 +13,16 @@ class PolymersEndpoint extends ApiEndpoint
   }
 
   /**
-   * @param $polymerFid
+   * @param $parentFid
    *
-   * @return PolymersPolymerFidEndpoint
+   * @return PolymersParentFidEndpoint
    */
-  public function with($polymerFid)
+  public function with($parentFid)
   {
-    $endpoint = new PolymersPolymerFidEndpoint(
-      $polymerFid
+    $endpoint = new PolymersParentFidEndpoint(
+      $parentFid
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
-  }
-
-  /**
-   * @summary Create a new polymer
-   *
-   * @param CreatePolymerPayload $payload
-   *
-   * @return FidRequest
-   */
-  public function create(CreatePolymerPayload $payload)
-  {
-    $request = new FidRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('polymers'));
-    $detail->setBody(json_encode($payload));
-    $detail->setMethod('POST');
-    $request->setRequestDetail($detail);
-    return $request;
   }
 }
