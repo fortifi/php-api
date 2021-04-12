@@ -18,6 +18,7 @@ class PeriodRequest
         "status" => $this->getStatus(),
         "refundReason" => $this->getRefundReason(),
         "periodFid" => $this->getPeriodFid(),
+        "paymentFid" => $this->getPaymentFid(),
         "refundAmount" => $this->getRefundAmount(),
         "taxAmount" => $this->getTaxAmount(),
         "totalAmount" => $this->getTotalAmount(),
@@ -72,6 +73,18 @@ class PeriodRequest
   public function getPeriodFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'periodFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

@@ -14,6 +14,7 @@ class InvoiceSummaryRequest
     return array_merge(
       parent::jsonSerialize(),
       [
+        "invoiceName" => $this->getInvoiceName(),
         "invoiceNumber" => $this->getInvoiceNumber(),
         "invoiceDate" => $this->getInvoiceDate(),
         "currency" => $this->getCurrency(),
@@ -30,6 +31,18 @@ class InvoiceSummaryRequest
         "invoiceStatus" => $this->getInvoiceStatus(),
       ]
     );
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInvoiceName($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'invoiceName', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

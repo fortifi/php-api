@@ -119,10 +119,9 @@ class ConfirmOrderPayload
   const PAYMENT_SERVICE_PROCESSOR_CHEQUE = 'cheque';
   const PAYMENT_SERVICE_PROCESSOR_PREPAYMENT = 'prepayment';
   const PAYMENT_SERVICE_PROCESSOR_FORTIFIPAY = 'fortifipay';
-  const PAYMENT_SERVICE_PROCESSOR_COINBASE = 'coinbase';
 
   /**
-   * @param string $value paypal, wire, blackhole, cheque, prepayment, fortifipay, coinbase
+   * @param string $value paypal, wire, blackhole, cheque, prepayment, fortifipay
    *
    * @return $this
    */

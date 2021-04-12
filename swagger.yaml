@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.73.0'
+  version: '3.75.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -3935,34 +3935,6 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-  /pay/coinbase:
-    get:
-      summary: Get a new checkout ID
-      tags:
-        - Payment Methods
-      security:
-        - OAuth:
-            - payment.methods
-        - accessToken: []
-      parameters:
-        - name: orderFID
-          in: query
-          description: FID of the order for which to retrieve a checkout ID
-          type: string
-      responses:
-        200:
-          description: Coinbase checkout ID
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/CoinbaseCheckout'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
   '/configuration/finance/gateways':
     get:
       summary: Lists all the current gateways
@@ -6422,7 +6394,6 @@ definitions:
       - cheque
       - prepayment
       - fortifipay
-      - coinbase
   CreateOrderType:
     description: Order Type (Must be initial to Auth Cards)
     type: string
@@ -6551,13 +6522,6 @@ definitions:
       key:
         type: string
         description: RSA Public Key
-
-  CoinbaseCheckout:
-    description: Generic Response
-    properties:
-      checkoutID:
-        type: string
-        description: Coinbase checkout ID
 
   People:
     description: People list
@@ -7199,6 +7163,8 @@ definitions:
             type: string
           periodFid:
             type: string
+          paymentFid:
+            type: string
           refundAmount:
             type: number
             format: float
@@ -7427,6 +7393,8 @@ definitions:
     allOf:
       - $ref: '#/definitions/Entity'
       - properties:
+          invoiceName:
+            type: string
           invoiceNumber:
             type: integer
             format: int32
