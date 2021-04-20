@@ -10,6 +10,7 @@ class OrderModifySubscriptionPayload
    * FID of the subscription to modify
    */
   protected $_sourceSubscriptionFid;
+  protected $_properties;
 
   public function hydrate($data)
   {
@@ -18,6 +19,11 @@ class OrderModifySubscriptionPayload
     if(isset($data["sourceSubscriptionFid"]))
     {
       $this->_sourceSubscriptionFid = (string)$data["sourceSubscriptionFid"];
+    }
+    if(isset($data["properties"]))
+    {
+      $this->_properties = new PropertyBulkSetPayload();
+      $this->_properties->hydrate($data["properties"]);
     }
     return $this;
   }
@@ -28,6 +34,7 @@ class OrderModifySubscriptionPayload
       parent::jsonSerialize(),
       [
         "sourceSubscriptionFid" => $this->_sourceSubscriptionFid,
+        "properties"            => $this->_properties,
       ]
     );
   }
@@ -55,5 +62,26 @@ class OrderModifySubscriptionPayload
   {
     $value = $this->_sourceSubscriptionFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param PropertyBulkSetPayload $value
+   *
+   * @return $this
+   */
+  public function setProperties(?PropertyBulkSetPayload $value)
+  {
+    $this->_properties = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return PropertyBulkSetPayload
+   */
+  public function getProperties($default = null)
+  {
+    return $this->_properties ?: $default;
   }
 }
