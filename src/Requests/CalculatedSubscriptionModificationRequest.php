@@ -17,6 +17,7 @@ class CalculatedSubscriptionModificationRequest
       "nextRenewalDiscount" => $this->getNextRenewalDiscount(),
       "nextRenewalTax" => $this->getNextRenewalTax(),
       "nextRenewalTotal" => $this->getNextRenewalTotal(),
+      "nextRenewalDate" => $this->getNextRenewalDate(),
       "setupAmount" => $this->getSetupAmount(),
       "setupDiscount" => $this->getSetupDiscount(),
       "chargeAmount" => $this->getChargeAmount(),
@@ -63,6 +64,16 @@ class CalculatedSubscriptionModificationRequest
   public function getNextRenewalTotal($default = null)
   {
     return Objects::property($this->_getResultJson(), 'nextRenewalTotal', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getNextRenewalDate($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'nextRenewalDate', $default);
   }
 
   /**

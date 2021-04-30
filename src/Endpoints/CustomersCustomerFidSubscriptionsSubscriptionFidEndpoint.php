@@ -38,6 +38,19 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @return CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowEndpoint
+   */
+  public function cancelFlow()
+  {
+    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{subscriptionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidSubscriptionsSubscriptionFidAllocationsEndpoint
    */
   public function allocations()

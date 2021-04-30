@@ -5,7 +5,7 @@ use Fortifi\Api\Core\ApiRequest;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class PropertyRequirementRequest
+class CancelFunnelDecisionRequest
   extends ApiRequest
   implements \JsonSerializable
 {
@@ -14,11 +14,13 @@ class PropertyRequirementRequest
   {
     return [
       "key" => $this->getKey(),
-      "predicate" => $this->getPredicate(),
+      "caption" => $this->getCaption(),
     ];
   }
 
   /**
+   * The decision key to post back when actioned
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -31,14 +33,16 @@ class PropertyRequirementRequest
   }
 
   /**
+   * Caption for this decision
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPredicate($default = null, $trim = true)
+  public function getCaption($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'predicate', $default);
+    $value = Objects::property($this->_getResultJson(), 'caption', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

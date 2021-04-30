@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.76.0'
+  version: '3.78.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2964,6 +2964,132 @@ paths:
                     $ref: '#/definitions/ResourceAllocations'
         x-404:
           description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow/reasons':
+    get:
+      summary: Retreive the available cancellation reasons for a subscription
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Cancel Flow Reasons
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CancelFlowReasons'
+        x-404:
+          description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow':
+    post:
+      summary: Start a cancel flow, and retrieve its state
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ActionCancelFlowPayload'
+      responses:
+        200:
+          description: Cancel Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CancelFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow/{flowSearch}':
+    get:
+      summary: Retreive the state of a cancel flow
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+      responses:
+        200:
+          description: Cancel Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CancelFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Post an action for a cancel flow, and retrieve its latest state
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ActionCancelFlowPayload'
+      responses:
+        200:
+          description: Cancel Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CancelFlowState'
+        x-404:
+          description: Flow not found
         default:
           description: Error
           schema:
@@ -6213,11 +6339,12 @@ parameters:
     in: path
     required: true
     type: string
-  objectFid:
-    name: objectFid
+  flowSearch:
+    name: flowSearch
     in: path
-    required: true
     type: string
+    required: true
+    description: The unique code or fid for the flow you wish to retrieve
 
 definitions:
   creditAmountType:
@@ -6307,7 +6434,7 @@ definitions:
       - email
       - retarget
       - content
-  PublisherType:
+  publisherType:
     description: Publisher Type
     type: string
     enum:
@@ -6893,7 +7020,7 @@ definitions:
       - $ref: '#/definitions/Entity'
       - properties:
           type:
-            type: string
+            $ref: '#/definitions/publisherType'
           contactName:
             type: string
           companyName:
@@ -7750,6 +7877,9 @@ definitions:
       nextRenewalTotal:
         type: number
         format: float
+      nextRenewalDate:
+        type: number
+        format: int64
       setupAmount:
         type: number
         format: float
@@ -8396,14 +8526,6 @@ definitions:
           usedCount:
             type: number
             format: int64
-
-  PropertyRequirement:
-    description: Prerequisite information for a defined property
-    properties:
-      key:
-        type: string
-      predicate:
-        type: string
 
   PropertyDefinitions:
     description: Property Definitions
@@ -9990,3 +10112,93 @@ definitions:
     description: Additional information to store
     items:
       $ref: '#/definitions/keyValuePayload'
+
+
+  CancelFlowReasons:
+    description: Cancellation Flow Reasons
+    properties:
+      reasons:
+        type: array
+        items:
+          $ref: '#/definitions/CancelFlowReason'
+
+  CancelFlowReason:
+    description: Cancel Flow Reason
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          appliesToFid:
+            description: The FID of the product or product group this applies to
+            type: string
+          key:
+            type: string
+            description: the key to pass through when starting a cancel flow
+          reason:
+            description: The text displayed to an agent or customer
+            type: string
+
+  CancelFlowState:
+    description: Cancel Flow State
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          customerFid:
+            type: string
+          subscriptionFid:
+            type: string
+          initiatedByFid:
+            type: string
+          uniqueCode:
+            type: string
+          isComplete:
+            type: boolean
+          currentStep:
+            type: string
+          stepData:
+            $ref: '#/definitions/CancelFunnelStep'
+          choices:
+            type: array
+            items:
+              $ref: '#/definitions/CancelFunnelDecision'
+
+  CancelFunnelStep:
+    description: Information about the current step
+    properties:
+      key:
+        type: string
+        description: Unique step key
+      question:
+        type: string
+        description: Question to ask
+      description:
+        type: string
+        description: More information to display regarding the question
+      configuration:
+        type: string
+        description: any configuration to maintain within this step (json)
+
+
+  CancelFunnelDecision:
+    description: An available decision for a step
+    properties:
+      key:
+        description: The decision key to post back when actioned
+        type: string
+      caption:
+        description: Caption for this decision
+        type: string
+
+  ActionCancelFlowPayload:
+    properties:
+      decisionKey:
+        type: string
+      userAgent:
+        type: string
+      ip:
+        type: string
+      time:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      userFid:
+        type: string

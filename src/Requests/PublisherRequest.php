@@ -35,6 +35,8 @@ class PublisherRequest
   }
 
   /**
+   * Publisher Type
+   * 
    * @param mixed $default
    * @param bool $trim Trim Value
    *
