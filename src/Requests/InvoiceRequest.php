@@ -15,6 +15,7 @@ class InvoiceRequest
       parent::jsonSerialize(),
       [
         "invoiceDate" => $this->getInvoiceDate(),
+        "invoiceName" => $this->getInvoiceName(),
         "invoiceNumber" => $this->getInvoiceNumber(),
         "currency" => $this->getCurrency(),
         "dueDate" => $this->getDueDate(),
@@ -46,6 +47,18 @@ class InvoiceRequest
   public function getInvoiceDate($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'invoiceDate', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInvoiceName($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'invoiceName', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
