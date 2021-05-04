@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.79.0'
+  version: '3.80.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -5633,6 +5633,37 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/review':
+    post:
+      summary: Create a new Review and Review audit
+      tags:
+        - Reviews
+      security:
+        - OAuth:
+            - review
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateReviewPayload'
+      responses:
+        200:
+          description: Review created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/services':
     get:
       summary: Retrieve all services
@@ -10204,3 +10235,32 @@ definitions:
         format: date-time
       userFid:
         type: string
+
+  CreateReviewPayload:
+    properties:
+      customerFid:
+        description: Customer who submitted the review
+        type: string
+      source:
+        description: Source of the Review (e.g. Trustpilot, Google)
+        type: string
+      anonymous:
+        description: Should the customer be omitted
+        type: boolean
+      starRating:
+        description: The Customer Rating Submitted
+        type: integer
+      starMax:
+        description: The max rating that can be offered (Defaults to 5)
+        type: integer
+      review:
+        description: The Review Body
+        type: string
+      language:
+        description: The language code the Review was submitted in
+        type: string
+      publicUrl:
+        description: The review public url
+        type: string
+
+

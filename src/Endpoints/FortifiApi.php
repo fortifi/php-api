@@ -258,6 +258,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return ReviewEndpoint
+   */
+  public function review()
+  {
+    $endpoint = new ReviewEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Current User
    *
    * Retrieve information about the current connected user (you)
