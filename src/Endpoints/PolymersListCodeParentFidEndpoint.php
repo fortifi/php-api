@@ -1,32 +1,31 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\PolymerRequest;
+use Fortifi\Api\V1\Requests\PolymersRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class PolymersParentFidPolymerFidEndpoint extends ApiEndpoint
+class PolymersListCodeParentFidEndpoint extends ApiEndpoint
 {
-  protected $_path = 'polymers/{parentFid}/{polymerFid}';
+  protected $_path = 'polymers/list/{code}/{parentFid}';
   protected $_replacements = [];
 
-  public function __construct($parentFid, $polymerFid)
+  public function __construct($code, $parentFid)
   {
+    $this->_replacements['{code}'] = $code;
     $this->_replacements['{parentFid}'] = $parentFid;
-    $this->_replacements['{polymerFid}'] = $polymerFid;
   }
 
   /**
-   * @summary Read a polymer
+   * @summary List polymers by type
    *
    * @param $dataKeys
-   * @param $allData
    *
-   * @return PolymerRequest
+   * @return PolymersRequest
    */
-  public function retrieve($dataKeys, $allData)
+  public function retrieve($dataKeys)
   {
-    $request = new PolymerRequest();
+    $request = new PolymersRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -36,11 +35,10 @@ class PolymersParentFidPolymerFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'polymers/{parentFid}/{polymerFid}'
+        'polymers/list/{code}/{parentFid}'
       )
     ));
     $detail->addQueryField('dataKeys', $dataKeys);
-    $detail->addQueryField('allData', $allData);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

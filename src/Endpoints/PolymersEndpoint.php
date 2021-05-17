@@ -25,4 +25,14 @@ class PolymersEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return PolymersListEndpoint
+   */
+  public function list()
+  {
+    $endpoint = new PolymersListEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }
