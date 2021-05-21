@@ -10,13 +10,13 @@ class CreateReviewPayload
    */
   protected $_customerFid;
   /**
+   * Title of the Review
+   */
+  protected $_displayName;
+  /**
    * Source of the Review (e.g. Trustpilot, Google)
    */
   protected $_source;
-  /**
-   * Should the customer be omitted
-   */
-  protected $_anonymous;
   /**
    * The Customer Rating Submitted
    */
@@ -45,13 +45,13 @@ class CreateReviewPayload
     {
       $this->_customerFid = (string)$data["customerFid"];
     }
+    if(isset($data["displayName"]))
+    {
+      $this->_displayName = (string)$data["displayName"];
+    }
     if(isset($data["source"]))
     {
       $this->_source = (string)$data["source"];
-    }
-    if(isset($data["anonymous"]))
-    {
-      $this->_anonymous = $data["anonymous"];
     }
     if(isset($data["starRating"]))
     {
@@ -80,8 +80,8 @@ class CreateReviewPayload
   {
     return [
       "customerFid" => $this->_customerFid,
+      "displayName" => $this->_displayName,
       "source"      => $this->_source,
-      "anonymous"   => $this->_anonymous,
       "starRating"  => $this->_starRating,
       "starMax"     => $this->_starMax,
       "review"      => $this->_review,
@@ -120,6 +120,31 @@ class CreateReviewPayload
    *
    * @return $this
    */
+  public function setDisplayName(?string $value)
+  {
+    $this->_displayName = $value;
+    return $this;
+  }
+
+  /**
+   * Title of the Review
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDisplayName($default = null, $trim = true)
+  {
+    $value = $this->_displayName ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
   public function setSource(?string $value)
   {
     $this->_source = $value;
@@ -138,29 +163,6 @@ class CreateReviewPayload
   {
     $value = $this->_source ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param bool $value
-   *
-   * @return $this
-   */
-  public function setAnonymous(?bool $value)
-  {
-    $this->_anonymous = $value;
-    return $this;
-  }
-
-  /**
-   * Should the customer be omitted
-   *
-   * @param bool $default
-   *
-   * @return boolean
-   */
-  public function isAnonymous($default = false)
-  {
-    return (bool)$this->_anonymous ?: $default;
   }
 
   /**

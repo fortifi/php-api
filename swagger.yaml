@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.81.0'
+  version: '3.83.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -3090,6 +3090,30 @@ paths:
                     $ref: '#/definitions/CancelFlowState'
         x-404:
           description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/provisioning/retry':
+    put:
+      summary: Retry the provisioning step
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Provisioning Queued
+        x-400:
+          description: Retry Provisioning Failed
         default:
           description: Error
           schema:
@@ -10318,12 +10342,12 @@ definitions:
       customerFid:
         description: Customer who submitted the review
         type: string
+      displayName:
+        description: Title of the Review
+        type: string
       source:
         description: Source of the Review (e.g. Trustpilot, Google)
         type: string
-      anonymous:
-        description: Should the customer be omitted
-        type: boolean
       starRating:
         description: The Customer Rating Submitted
         type: integer
