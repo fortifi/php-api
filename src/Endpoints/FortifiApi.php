@@ -178,6 +178,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return ReviewEndpoint
+   */
+  public function review()
+  {
+    $endpoint = new ReviewEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ServicesEndpoint
    */
   public function services()
@@ -253,16 +263,6 @@ class FortifiApi extends ApiEndpoint
   public function properties()
   {
     $endpoint = new PropertiesEndpoint();
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return ReviewEndpoint
-   */
-  public function review()
-  {
-    $endpoint = new ReviewEndpoint();
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }

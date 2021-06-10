@@ -11,7 +11,7 @@ class FortifiApiDefinition  extends ApiDefinition
   public function __construct()
   {
     $this->setTitle('Fortifi API');
-    $this->setVersion('3.83.0');
+    $this->setVersion('3.84.0');
     $this->setDescription(<<<DESCRIPTION
 The second version of the Fortifi API is an exciting step forward towards
 making it easier for businesses to have open access to their data. We created it
@@ -231,7 +231,7 @@ DESCRIPTION
 
     $secDef = new SecurityDefinition();
     $secDef->setDescription('');
-    $secDef->setAuthorizationUrl('https://api.fortifi.io/oauth/authorize');
+    $secDef->setAuthorizationUrl('');
     $secDef->setFlow('accessCode');
     $secDef->setIn('');
     $secDef->setName('');
