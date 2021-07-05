@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.84.0'
+  version: '3.85.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -8285,6 +8285,8 @@ definitions:
           tokenUuid:
             type: string
           isPrimary:
+            type: boolean
+          isPending:
             type: boolean
           lockExpiresAt:
             description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z

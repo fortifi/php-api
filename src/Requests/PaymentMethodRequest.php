@@ -25,6 +25,7 @@ class PaymentMethodRequest
         "last4" => $this->getLast4(),
         "tokenUuid" => $this->getTokenUuid(),
         "isPrimary" => $this->isPrimary(),
+        "isPending" => $this->isPending(),
         "lockExpiresAt" => $this->getLockExpiresAt(),
         "lastIdentifyTime" => $this->getLastIdentifyTime(),
         "identifyCount" => $this->getIdentifyCount(),
@@ -171,6 +172,16 @@ class PaymentMethodRequest
   public function isPrimary($default = false)
   {
     return Objects::property($this->_getResultJson(), 'isPrimary', $default);
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isPending($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'isPending', $default);
   }
 
   /**
