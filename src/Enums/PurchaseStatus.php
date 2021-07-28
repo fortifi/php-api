@@ -17,6 +17,7 @@ final class PurchaseStatus
   const PROVISION_PREPARE = 'provision_prepare';
   const PROVISIONING = 'provisioning';
   const PROVISIONED = 'provisioned';
+  const PROVISIONING_FAILED = 'provisioning_failed';
 
   public static function getDisplayValue($value)
   {
@@ -40,6 +41,7 @@ final class PurchaseStatus
       'provision_prepare',
       'provisioning',
       'provisioned',
+      'provisioning_failed',
     ];
   }
 

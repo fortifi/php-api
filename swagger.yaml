@@ -6694,6 +6694,7 @@ definitions:
       - provision_prepare
       - provisioning
       - provisioned
+      - provisioning_failed
   ticketStatus:
     description: Ticket Status
     type: string
