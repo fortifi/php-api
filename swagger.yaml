@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.85.0'
+  version: '3.86.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -9022,6 +9022,9 @@ definitions:
       priceFid:
         description: Price FID to modify subscription with
         type: string
+      description:
+        description: Description of the modify subscription
+        type: string
       offerFid:
         description: Offer FID to apply to the modify order item
         type: string
@@ -10047,6 +10050,8 @@ definitions:
       reservationApp:
         type: string
       reservationKey:
+        type: string
+      description:
         type: string
       properties:
         type: object

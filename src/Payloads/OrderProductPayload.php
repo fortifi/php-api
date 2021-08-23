@@ -54,6 +54,7 @@ class OrderProductPayload
   protected $_identity;
   protected $_reservationApp;
   protected $_reservationKey;
+  protected $_description;
   protected $_properties;
 
   public function hydrate($data)
@@ -123,6 +124,10 @@ class OrderProductPayload
     {
       $this->_reservationKey = (string)$data["reservationKey"];
     }
+    if(isset($data["description"]))
+    {
+      $this->_description = (string)$data["description"];
+    }
     if(isset($data["properties"]))
     {
       $this->_properties = new PropertyBulkSetPayload();
@@ -150,6 +155,7 @@ class OrderProductPayload
       "identity"             => $this->_identity,
       "reservationApp"       => $this->_reservationApp,
       "reservationKey"       => $this->_reservationKey,
+      "description"          => $this->_description,
       "properties"           => $this->_properties,
     ];
   }
@@ -544,6 +550,29 @@ class OrderProductPayload
   public function getReservationKey($default = null, $trim = true)
   {
     $value = $this->_reservationKey ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setDescription(?string $value)
+  {
+    $this->_description = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDescription($default = null, $trim = true)
+  {
+    $value = $this->_description ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

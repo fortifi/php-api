@@ -11,6 +11,10 @@ class ModifySubscriptionPayload
    */
   protected $_priceFid;
   /**
+   * Description of the modify subscription
+   */
+  protected $_description;
+  /**
    * Offer FID to apply to the modify order item
    */
   protected $_offerFid;
@@ -30,6 +34,10 @@ class ModifySubscriptionPayload
     {
       $this->_priceFid = (string)$data["priceFid"];
     }
+    if(isset($data["description"]))
+    {
+      $this->_description = (string)$data["description"];
+    }
     if(isset($data["offerFid"]))
     {
       $this->_offerFid = (string)$data["offerFid"];
@@ -48,10 +56,11 @@ class ModifySubscriptionPayload
   public function jsonSerialize()
   {
     return [
-      "priceFid" => $this->_priceFid,
-      "offerFid" => $this->_offerFid,
-      "sku"      => $this->_sku,
-      "mode"     => $this->_mode,
+      "priceFid"    => $this->_priceFid,
+      "description" => $this->_description,
+      "offerFid"    => $this->_offerFid,
+      "sku"         => $this->_sku,
+      "mode"        => $this->_mode,
     ];
   }
 
@@ -77,6 +86,31 @@ class ModifySubscriptionPayload
   public function getPriceFid($default = null, $trim = true)
   {
     $value = $this->_priceFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setDescription(?string $value)
+  {
+    $this->_description = $value;
+    return $this;
+  }
+
+  /**
+   * Description of the modify subscription
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getDescription($default = null, $trim = true)
+  {
+    $value = $this->_description ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
