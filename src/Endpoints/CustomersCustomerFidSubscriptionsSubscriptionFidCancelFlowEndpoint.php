@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\CancelFlowStatesRequest;
 use Fortifi\Api\V1\Requests\CancelFlowStateRequest;
 use Fortifi\Api\V1\Payloads\ActionCancelFlowPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -44,6 +45,31 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowEndpoint extends
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
+  }
+
+  /**
+   * @summary Retreive a list of active cancel flows
+   *
+   * @return CancelFlowStatesRequest
+   */
+  public function all()
+  {
+    $request = new CancelFlowStatesRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 
   /**
