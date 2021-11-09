@@ -13,6 +13,7 @@ class ActionCancelFlowPayload
    */
   protected $_time;
   protected $_userFid;
+  protected $_existingFlowFid;
 
   public function hydrate($data)
   {
@@ -37,17 +38,22 @@ class ActionCancelFlowPayload
     {
       $this->_userFid = (string)$data["userFid"];
     }
+    if(isset($data["existingFlowFid"]))
+    {
+      $this->_existingFlowFid = (string)$data["existingFlowFid"];
+    }
     return $this;
   }
 
   public function jsonSerialize()
   {
     return [
-      "decisionKey" => $this->_decisionKey,
-      "userAgent"   => $this->_userAgent,
-      "ip"          => $this->_ip,
-      "time"        => $this->_time,
-      "userFid"     => $this->_userFid,
+      "decisionKey"     => $this->_decisionKey,
+      "userAgent"       => $this->_userAgent,
+      "ip"              => $this->_ip,
+      "time"            => $this->_time,
+      "userFid"         => $this->_userFid,
+      "existingFlowFid" => $this->_existingFlowFid,
     ];
   }
 
@@ -165,6 +171,29 @@ class ActionCancelFlowPayload
   public function getUserFid($default = null, $trim = true)
   {
     $value = $this->_userFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setExistingFlowFid(?string $value)
+  {
+    $this->_existingFlowFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getExistingFlowFid($default = null, $trim = true)
+  {
+    $value = $this->_existingFlowFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
