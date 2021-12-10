@@ -48,6 +48,19 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowEndpoint extends
   }
 
   /**
+   * @return CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowEmptyEndpoint
+   */
+  public function empty()
+  {
+    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowEmptyEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{subscriptionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retreive a list of active cancel flows
    *
    * @return CancelFlowStatesRequest

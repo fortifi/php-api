@@ -21,10 +21,11 @@ class CustomersCustomerFidOrdersEndpoint extends ApiEndpoint
    * @param $filter
    * @param $externalReference
    * @param $state
+   * @param $isLikeExternalReference
    *
    * @return OrdersRequest
    */
-  public function all($filter = null, $externalReference = null, $state = null)
+  public function all($filter = null, $externalReference = null, $state = null, $isLikeExternalReference = null)
   {
     $request = new OrdersRequest();
     $request->setConnection($this->_getConnection());
@@ -42,6 +43,7 @@ class CustomersCustomerFidOrdersEndpoint extends ApiEndpoint
     $detail->addQueryField('filter', $filter);
     $detail->addQueryField('externalReference', $externalReference);
     $detail->addQueryField('state', $state);
+    $detail->addQueryField('isLikeExternalReference', $isLikeExternalReference);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

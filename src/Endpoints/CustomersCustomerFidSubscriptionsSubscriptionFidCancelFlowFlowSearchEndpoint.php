@@ -19,6 +19,20 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
   }
 
   /**
+   * @return CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchOptionsEndpoint
+   */
+  public function options()
+  {
+    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchOptionsEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{subscriptionFid}'],
+      $this->_replacements['{flowSearch}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retreive the state of a cancel flow
    *
    * @return CancelFlowStateRequest
