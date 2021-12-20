@@ -51,6 +51,19 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @return CustomersCustomerFidSubscriptionsSubscriptionFidRetentionFlowEndpoint
+   */
+  public function retentionFlow()
+  {
+    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidRetentionFlowEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{subscriptionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidSubscriptionsSubscriptionFidProvisioningEndpoint
    */
   public function provisioning()

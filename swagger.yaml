@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.90.0'
+  version: '3.93.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2126,32 +2126,6 @@ paths:
             $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/paymentMethods/cards':
-    post:
-      summary: Add a new card
-      tags:
-        - Customers
-        - Payment Methods
-      security:
-        - OAuth:
-            - payment.methods
-        - accessToken: []
-      parameters:
-        - $ref: '#/parameters/customerFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CardDataPayload'
-      responses:
-        200:
-          schema:
-            $ref: '#/definitions/Fid'
-          description: Credit card added to the customers account
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
     get:
       summary: List customers card payment methods
       tags:
@@ -2997,6 +2971,35 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow/{flowSearch}/abandon':
+    put:
+      summary: Abandon a cancel flow
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+      responses:
+        200:
+          description: Cancel Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CancelFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow':
     get:
       summary: Retreive a list of active cancel flows
@@ -3216,6 +3219,284 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/reasons':
+    get:
+      summary: Retreive the available retention reasons for a subscription
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Retention Flow Reasons
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowReasons'
+        x-404:
+          description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/{flowSearch}/abandon':
+    put:
+      summary: Abandon a retention flow
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+      responses:
+        200:
+          description: Retention Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow':
+    get:
+      summary: Retreive a list of active retention flows
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: List Of Retention Flows
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowStates'
+        x-404:
+          description: No Retention Flows Found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Start a retention flow, and retrieve its state
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ActionRetentionFlowPayload'
+      responses:
+        200:
+          description: Retention Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/empty':
+    post:
+      summary: Create an empty retention flow
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/StartRetentionFlowPayload'
+      responses:
+        200:
+          description: Retention Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/{flowSearch}':
+    get:
+      summary: Retreive the state of a retention flow
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+      responses:
+        200:
+          description: Retention Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Post an action for a cancel flow, and retrieve its latest state
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ActionRetentionFlowPayload'
+      responses:
+        200:
+          description: Retention Flow State
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowState'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/{flowSearch}/options':
+    get:
+      summary: Retrieve retention flow options
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+      responses:
+        200:
+          description: Retention Flow Options
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowOptions'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Set retention flow options
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - $ref: '#/parameters/flowSearch'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RetentionFlowOptionsPayload'
+      responses:
+        200:
+          description: Create Retention Flow Options
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/RetentionFlowOptions'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
 
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/provisioning/retry':
     put:
@@ -4183,68 +4464,6 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
-  /pay/publicKey:
-    get:
-      summary: Get the public key needed to encrypt a credit card number
-      tags:
-        - Payment Methods
-      security:
-        - OAuth:
-            - payment.methods
-        - accessToken: []
-      parameters:
-        - name: format
-          in: query
-          description: Format for the generated key xml, raw, pkcs1 or pkcs8.
-          type: string
-      responses:
-        200:
-          description: RSA Public Key
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PubKey'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/configuration/finance/gateways':
-    get:
-      summary: Lists all the current gateways
-      tags:
-        - Configuration
-        - Payment Methods
-      security:
-        - OAuth:
-            - configuration.readonly
-        - accessToken: []
-      parameters:
-        - name: limit
-          in: query
-          description: 'Maximum number of records per page (default: 20)'
-          required: false
-          type: integer
-        - name: page
-          in: query
-          description: 'Page number (default: 1)'
-          required: false
-          type: integer
-      responses:
-        200:
-          description: List of payment gateways
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/PaymentGateways'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
   '/licence/check':
     get:
       summary: Retrieve A Licence
@@ -4709,38 +4928,6 @@ paths:
             $ref: '#/definitions/Envelope'
         x-400:
           description: Unable to set external reference
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Envelope'
-
-  '/orders/{orderFid}/confirmNewCard':
-    put:
-      summary: Confirm an order with a new card, authorize the payment
-      tags:
-        - Orders
-      security:
-        - OAuth:
-            - orders
-        - accessToken: [ ]
-      parameters:
-        - $ref: '#/parameters/orderFid'
-        - name: payload
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/ConfirmOrderWithNewCardPayload'
-      responses:
-        200:
-          description: Order confirmed and payment authroized
-          schema:
-            allOf:
-              - $ref: '#/definitions/Envelope'
-              - properties:
-                  data:
-                    $ref: '#/definitions/OrderConfirmation'
-        x-503:
-          description: There are no payment gateways available to handle your request
         default:
           description: Error
           schema:
@@ -9859,75 +10046,6 @@ definitions:
       sourceType:
         type: string
 
-  CardDataPayload:
-    properties:
-      cardDisplayName:
-        description: Visible Display Name
-        type: string
-      encryptedCardNumber:
-        description: Card number encrypted using your public key
-        type: string
-      startMonth:
-        description: Start Month of the card
-        type: integer
-        format: int32
-      startYear:
-        description: Start Year of the card
-        type: integer
-        format: int32
-      expiryMonth:
-        description: Expiration Month of the card
-        type: integer
-        format: int32
-      expiryYear:
-        description: Expiration Year of the card
-        type: integer
-        format: int32
-      last4:
-        description: Last 4 digits of the credit card number
-        type: string
-      cardType:
-        description: Card issuer (visa, mastercard, etc)
-        type: string
-      issue:
-        description: Issue number of the card
-        type: integer
-        format: int32
-      cardHolder:
-        description: Name as appears on card
-        type: string
-      addressFid:
-        description: FID of an existing address to use with the card
-        type: string
-      addressLine1:
-        description: Address Line 1 of the card
-        type: string
-      addressLine2:
-        description: Address Line 2 of the card
-        type: string
-      addressLine3:
-        description: Address Line 3 of the card
-        type: string
-      addressCity:
-        description: City for the card
-        type: string
-      addressState:
-        description: State/County of the card
-        type: string
-      addressCountry:
-        description: Country of the card
-        type: string
-      addressPostal:
-        description: Postal/Zip Code of the card
-        type: string
-      preAuthAmount:
-        description: Pre Auth the card for this value to verify the card can be charged.  (Pre Auth will be voided)
-        type: number
-        format: float
-      isDefault:
-        description: Is this card should be used as the primary card on the account
-        type: boolean
-
   CardUpdatePayload:
     description: Update card details
     properties:
@@ -10249,77 +10367,6 @@ definitions:
           cvv:
             type: string
 
-  ConfirmOrderWithNewCardPayload:
-    properties:
-      cardDisplayName:
-        description: Visible Display Name
-        type: string
-      paymentServiceFid:
-        description: FID for the payment service you wish to charge the customer through
-        type: string
-      encryptedCardNumber:
-        description: Card number encrypted using your public key
-        type: string
-      startMonth:
-        description: Start Month of the card
-        type: integer
-        format: int32
-      startYear:
-        description: Start Year of the card
-        type: integer
-        format: int32
-      expiryMonth:
-        description: Expiration Month of the card
-        type: integer
-        format: int32
-      expiryYear:
-        description: Expiration Year of the card
-        type: integer
-        format: int32
-      issue:
-        description: Issue number of the card
-        type: integer
-        format: int32
-      last4:
-        description: Last 4 digits of the credit card number
-        type: string
-      cardType:
-        description: Card issuer (visa, mastercard, etc)
-        type: string
-      cardHolder:
-        description: Name as appears on card
-        type: string
-      addressFid:
-        description: FID of an existing address to use with the card
-        type: string
-      addressLine1:
-        description: Address Line 1 of the card
-        type: string
-      addressLine2:
-        description: Address Line 2 of the card
-        type: string
-      addressLine3:
-        description: Address Line 3 of the card
-        type: string
-      addressCity:
-        description: City for the card
-        type: string
-      addressState:
-        description: State/County of the card
-        type: string
-      addressCountry:
-        description: Country of the card
-        type: string
-      addressPostal:
-        description: Postal/Zip Code of the card
-        type: string
-      isDefault:
-        description: Is this card should be used as the primary card on the account
-        type: boolean
-      setupPurchaseBeforePayment:
-        type: boolean
-        description: If set to true, this will setup purchases before payment is received
-
   ConfirmPayPalOrderPayload:
     allOf:
       - $ref: '#/definitions/ConfirmOrderPayload'
@@ -10522,8 +10569,6 @@ definitions:
     allOf:
       - $ref: '#/definitions/ActionableCancelFlowPayload'
       - properties:
-          existingFlowFid:
-            type: string
           selectorFid:
             type: string
           selectorKey:
@@ -10532,6 +10577,41 @@ definitions:
             type: string
           initiatedByFid:
             type: string
+
+  CancelFlowOption:
+    properties:
+      key:
+        type: string
+      displayName:
+        type: string
+      type:
+        type: string
+        enum:
+          - flag
+          - value
+      value:
+        type: string
+
+  CancelFlowOptions:
+    properties:
+      options:
+        type: array
+        items:
+          $ref: '#/definitions/CancelFlowOption'
+
+  CancelFlowOptionPayload:
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+
+  CancelFlowOptionsPayload:
+    properties:
+      options:
+        type: array
+        items:
+          $ref: '#/definitions/CancelFlowOptionPayload'
 
   CreateReviewPayload:
     properties:
@@ -10572,7 +10652,126 @@ definitions:
         description: The Review Body
         type: string
 
-  CancelFlowOption:
+  RetentionFlowReasons:
+    description: Retention Flow Reasons
+    properties:
+      reasons:
+        type: array
+        items:
+          $ref: '#/definitions/RetentionFlowReason'
+
+  RetentionFlowReason:
+    description: Retention Flow Reason
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          appliesToFid:
+            description: The FID of the product or product group this applies to
+            type: string
+          key:
+            type: string
+            description: the key to pass through when starting a cancel flow
+          reason:
+            description: The text displayed to an agent or customer
+            type: string
+
+  RetentionFlowStates:
+    description: Retention Flow States
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/RetentionFlowState'
+
+
+  RetentionFlowState:
+    description: Retention Flow State
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          customerFid:
+            type: string
+          subscriptionFid:
+            type: string
+          initiatedByFid:
+            type: string
+          uniqueCode:
+            type: string
+          isComplete:
+            type: boolean
+          currentStep:
+            type: string
+          stepData:
+            $ref: '#/definitions/RetentionFunnelStep'
+          choices:
+            type: array
+            items:
+              $ref: '#/definitions/RetentionFunnelDecision'
+
+  RetentionFunnelStep:
+    description: Information about the current step
+    properties:
+      key:
+        type: string
+        description: Unique step key
+      question:
+        type: string
+        description: Question to ask
+      description:
+        type: string
+        description: More information to display regarding the question
+      configuration:
+        type: string
+        description: any configuration to maintain within this step (json)
+
+
+  RetentionFunnelDecision:
+    description: An available decision for a step
+    properties:
+      key:
+        description: The decision key to post back when actioned
+        type: string
+      caption:
+        description: Caption for this decision
+        type: string
+
+  ActionableRetentionFlowPayload:
+    properties:
+      userAgent:
+        type: string
+      ip:
+        type: string
+      time:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+      userFid:
+        type: string
+      existingFlowFid:
+        type: string
+
+  ActionRetentionFlowPayload:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/ActionableRetentionFlowPayload'
+      - properties:
+          decisionKey:
+            type: string
+
+  StartRetentionFlowPayload:
+    allOf:
+      - $ref: '#/definitions/ActionableRetentionFlowPayload'
+      - properties:
+          selectorFid:
+            type: string
+          selectorKey:
+            type: string
+          cancelFunnelFid:
+            type: string
+          initiatedByFid:
+            type: string
+
+  RetentionFlowOption:
     properties:
       key:
         type: string
@@ -10586,23 +10785,23 @@ definitions:
       value:
         type: string
 
-  CancelFlowOptions:
+  RetentionFlowOptions:
     properties:
       options:
         type: array
         items:
-          $ref: '#/definitions/CancelFlowOption'
+          $ref: '#/definitions/RetentionFlowOption'
 
-  CancelFlowOptionPayload:
+  RetentionFlowOptionPayload:
     properties:
       key:
         type: string
       value:
         type: string
 
-  CancelFlowOptionsPayload:
+  RetentionFlowOptionsPayload:
     properties:
       options:
         type: array
         items:
-          $ref: '#/definitions/CancelFlowOptionPayload'
+          $ref: '#/definitions/RetentionFlowOptionPayload'

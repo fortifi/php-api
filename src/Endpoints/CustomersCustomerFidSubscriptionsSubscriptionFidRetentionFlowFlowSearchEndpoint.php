@@ -1,14 +1,14 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\CancelFlowStateRequest;
-use Fortifi\Api\V1\Payloads\ActionCancelFlowPayload;
+use Fortifi\Api\V1\Requests\RetentionFlowStateRequest;
+use Fortifi\Api\V1\Payloads\ActionRetentionFlowPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoint extends ApiEndpoint
+class CustomersCustomerFidSubscriptionsSubscriptionFidRetentionFlowFlowSearchEndpoint extends ApiEndpoint
 {
-  protected $_path = 'customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow/{flowSearch}';
+  protected $_path = 'customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/{flowSearch}';
   protected $_replacements = [];
 
   public function __construct($customerFid, $subscriptionFid, $flowSearch)
@@ -19,11 +19,11 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
   }
 
   /**
-   * @return CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchOptionsEndpoint
+   * @return CustomersCustomerFidSubscriptionsSubscriptionFidRetentionFlowFlowSearchOptionsEndpoint
    */
   public function options()
   {
-    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchOptionsEndpoint(
+    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidRetentionFlowFlowSearchOptionsEndpoint(
       $this->_replacements['{customerFid}'],
       $this->_replacements['{subscriptionFid}'],
       $this->_replacements['{flowSearch}']
@@ -33,13 +33,13 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
   }
 
   /**
-   * @summary Retreive the state of a cancel flow
+   * @summary Retreive the state of a retention flow
    *
-   * @return CancelFlowStateRequest
+   * @return RetentionFlowStateRequest
    */
   public function retrieve()
   {
-    $request = new CancelFlowStateRequest();
+    $request = new RetentionFlowStateRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -49,7 +49,7 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow/{flowSearch}'
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/{flowSearch}'
       )
     ));
     $detail->setMethod('GET');
@@ -60,13 +60,13 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
   /**
    * @summary Post an action for a cancel flow, and retrieve its latest state
    *
-   * @param ActionCancelFlowPayload $payload
+   * @param ActionRetentionFlowPayload $payload
    *
-   * @return CancelFlowStateRequest
+   * @return RetentionFlowStateRequest
    */
-  public function update(ActionCancelFlowPayload $payload)
+  public function update(ActionRetentionFlowPayload $payload)
   {
-    $request = new CancelFlowStateRequest();
+    $request = new RetentionFlowStateRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -76,7 +76,7 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow/{flowSearch}'
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/{flowSearch}'
       )
     ));
     $detail->setBody(json_encode($payload));
@@ -86,13 +86,13 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
   }
 
   /**
-   * @summary Abandon a cancel flow
+   * @summary Abandon a retention flow
    *
-   * @return CancelFlowStateRequest
+   * @return RetentionFlowStateRequest
    */
   public function setAbandon()
   {
-    $request = new CancelFlowStateRequest();
+    $request = new RetentionFlowStateRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -102,7 +102,7 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidCancelFlowFlowSearchEndpoi
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'customers/{customerFid}/subscriptions/{subscriptionFid}/cancelFlow/{flowSearch}/abandon'
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/retentionFlow/{flowSearch}/abandon'
       )
     ));
     $detail->setMethod('PUT');

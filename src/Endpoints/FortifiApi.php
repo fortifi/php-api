@@ -68,26 +68,6 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
-   * @return PayEndpoint
-   */
-  public function pay()
-  {
-    $endpoint = new PayEndpoint();
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return ConfigurationEndpoint
-   */
-  public function configuration()
-  {
-    $endpoint = new ConfigurationEndpoint();
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
    * @return LicenceEndpoint
    */
   public function licence()

@@ -2,8 +2,8 @@
 namespace Fortifi\Api\V1\Payloads;
 use Packaged\Helpers\Strings;
 
-class StartCancelFlowPayload
-  extends ActionableCancelFlowPayload
+class StartRetentionFlowPayload
+  extends ActionableRetentionFlowPayload
   implements \JsonSerializable
 {
   protected $_selectorFid;
