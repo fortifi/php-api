@@ -1,44 +1,45 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\EmailsRequest;
+use Fortifi\Api\V1\Requests\AddressesRequest;
+use Fortifi\Api\V1\Payloads\AddressPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
+class ContactsContactFidAddressesEndpoint extends ApiEndpoint
 {
-  protected $_path = 'customers/{customerFid}/emails';
+  protected $_path = 'contacts/{contactFid}/addresses';
   protected $_replacements = [];
 
-  public function __construct($customerFid)
+  public function __construct($contactFid)
   {
-    $this->_replacements['{customerFid}'] = $customerFid;
+    $this->_replacements['{contactFid}'] = $contactFid;
   }
 
   /**
-   * @param $emailFid
+   * @param $addressFid
    *
-   * @return CustomersCustomerFidEmailsEmailFidEndpoint
+   * @return ContactsContactFidAddressesAddressFidEndpoint
    */
-  public function with($emailFid)
+  public function with($addressFid)
   {
-    $endpoint = new CustomersCustomerFidEmailsEmailFidEndpoint(
-      $this->_replacements['{customerFid}'],
-      $emailFid
+    $endpoint = new ContactsContactFidAddressesAddressFidEndpoint(
+      $this->_replacements['{contactFid}'],
+      $addressFid
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
 
   /**
-   * @summary List customers emails
+   * @summary List contact addresses
    *
-   * @return EmailsRequest
+   * @return AddressesRequest
    */
   public function all()
   {
-    $request = new EmailsRequest();
+    $request = new AddressesRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -48,7 +49,7 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'customers/{customerFid}/emails'
+        'contacts/{contactFid}/addresses'
       )
     ));
     $detail->setMethod('GET');
@@ -57,14 +58,13 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Add an email address to a customer
+   * @summary Add an address to a contact
    *
-   * @param $emailAddress
-   * @param $setAsDefault
+   * @param AddressPayload $payload
    *
    * @return ApiRequest
    */
-  public function create($emailAddress, $setAsDefault = null)
+  public function create(AddressPayload $payload)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -76,11 +76,10 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'customers/{customerFid}/emails'
+        'contacts/{contactFid}/addresses'
       )
     ));
-    $detail->addPostField('emailAddress', $emailAddress);
-    $detail->addPostField('setAsDefault', $setAsDefault);
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;

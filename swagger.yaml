@@ -460,7 +460,7 @@ paths:
       security:
         - OAuth:
             - contact
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/contactReference'
       responses:
@@ -487,7 +487,7 @@ paths:
       security:
         - OAuth:
             - contact
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/emailAddress'
       responses:
@@ -508,7 +508,7 @@ paths:
       security:
         - OAuth:
             - contact
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -540,7 +540,7 @@ paths:
       security:
         - OAuth:
             - contact
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -564,6 +564,228 @@ paths:
           description: Email Address Subscribed
         x-404:
           description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/{contactFid}/addresses':
+    get:
+      summary: List contact addresses
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/contactFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Addresses'
+          description: List of addresses
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Add an address to a contact
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/contactFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AddressPayload'
+      responses:
+        200:
+          description: Address Added
+        x-404:
+          description: Contact not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/{contactFid}/addresses/{addressFid}':
+    delete:
+      summary: Remove an address from a contact
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/contactFid'
+        - $ref: '#/parameters/addressFid'
+      responses:
+        200:
+          description: Address removed
+        x-404:
+          description: Address or contact not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/{contactFid}/emails':
+    get:
+      summary: List contact emails
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/contactFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Emails'
+          description: List of emails
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Add an email address to a contact
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/contactFid'
+        - name: emailAddress
+          in: formData
+          required: true
+          type: string
+        - name: setAsDefault
+          in: formData
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: Email Added
+        x-404:
+          description: Contact not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/{contactFid}/emails/{emailFid}':
+    delete:
+      summary: Remove an email from a contact
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/contactFid'
+        - $ref: '#/parameters/emailFid'
+      responses:
+        200:
+          description: Email removed
+        x-404:
+          description: Email or contact not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/{contactFid}/phones':
+    get:
+      summary: List contact phones
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/contactFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Phones'
+          description: List of phones
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Add a phone number to a contact
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/contactFid'
+        - name: phoneNumber
+          in: formData
+          required: true
+          type: string
+        - name: displayName
+          in: formData
+          type: string
+        - name: setAsDefault
+          in: formData
+          required: false
+          type: boolean
+      responses:
+        200:
+          description: Phone Number Added
+        x-404:
+          description: Contact not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/{contactFid}/phones/{phoneFid}':
+    delete:
+      summary: Remove a phone
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/contactFid'
+        - $ref: '#/parameters/phoneFid'
+      responses:
+        200:
+          description: Phone removed
+        x-404:
+          description: Contact or phone not found
         default:
           description: Error
           schema:
@@ -707,7 +929,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -742,7 +964,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
         - application/json
@@ -777,7 +999,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -861,7 +1083,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -904,7 +1126,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -929,7 +1151,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
       responses:
@@ -948,7 +1170,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -968,7 +1190,50 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/addresses/{addressFid}':
+    delete:
+      summary: Remove an address
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/addressFid'
+      responses:
+        200:
+          description: Address removed
+        x-404:
+          description: Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/emails':
+    get:
+      summary: List customers emails
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Emails'
+          description: List of emails
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
     post:
       summary: Add an email address to a customer
       tags:
@@ -976,7 +1241,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -999,7 +1264,50 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/customers/{customerFid}/emails/{emailFid}':
+    delete:
+      summary: Remove an email
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/emailFid'
+      responses:
+        200:
+          description: Email removed
+        x-404:
+          description: Email not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/phones':
+    get:
+      summary: List customers phones
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Phones'
+          description: List of phones
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
     post:
       summary: Add a phone number to a customer
       tags:
@@ -1007,7 +1315,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1028,6 +1336,30 @@ paths:
           description: Phone Number Added
         x-404:
           description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/phones/{phoneFid}':
+    delete:
+      summary: Remove a phone
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/phoneFid'
+      responses:
+        200:
+          description: Phone removed
+        x-404:
+          description: Phone not found
         default:
           description: Error
           schema:
@@ -6619,6 +6951,24 @@ parameters:
     type: string
     required: true
     description: Contact FID to use
+  addressFid:
+    name: addressFid
+    in: path
+    type: string
+    required: true
+    description: Address FID to use
+  emailFid:
+    name: emailFid
+    in: path
+    type: string
+    required: true
+    description: Email FID to use
+  phoneFid:
+    name: phoneFid
+    in: path
+    type: string
+    required: true
+    description: Phone FID to use
   noteColor:
     name: colour
     in: formData

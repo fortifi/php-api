@@ -70,6 +70,30 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidEmailsEndpoint
+   */
+  public function emails()
+  {
+    $endpoint = new CustomersCustomerFidEmailsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidPhonesEndpoint
+   */
+  public function phones()
+  {
+    $endpoint = new CustomersCustomerFidPhonesEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidTicketsEndpoint
    */
   public function tickets()
@@ -147,30 +171,6 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   public function subscriptions()
   {
     $endpoint = new CustomersCustomerFidSubscriptionsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidEmailsEndpoint
-   */
-  public function emails()
-  {
-    $endpoint = new CustomersCustomerFidEmailsEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @return CustomersCustomerFidPhonesEndpoint
-   */
-  public function phones()
-  {
-    $endpoint = new CustomersCustomerFidPhonesEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);

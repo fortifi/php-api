@@ -31,4 +31,18 @@ class ContactsEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @param $contactFid
+   *
+   * @return ContactsContactFidEndpoint
+   */
+  public function with($contactFid)
+  {
+    $endpoint = new ContactsContactFidEndpoint(
+      $contactFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }

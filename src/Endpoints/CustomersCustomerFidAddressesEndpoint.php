@@ -18,6 +18,21 @@ class CustomersCustomerFidAddressesEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $addressFid
+   *
+   * @return CustomersCustomerFidAddressesAddressFidEndpoint
+   */
+  public function with($addressFid)
+  {
+    $endpoint = new CustomersCustomerFidAddressesAddressFidEndpoint(
+      $this->_replacements['{customerFid}'],
+      $addressFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary List customers addresses
    *
    * @return AddressesRequest

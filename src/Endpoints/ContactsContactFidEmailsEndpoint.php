@@ -6,25 +6,25 @@ use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiRequest;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
+class ContactsContactFidEmailsEndpoint extends ApiEndpoint
 {
-  protected $_path = 'customers/{customerFid}/emails';
+  protected $_path = 'contacts/{contactFid}/emails';
   protected $_replacements = [];
 
-  public function __construct($customerFid)
+  public function __construct($contactFid)
   {
-    $this->_replacements['{customerFid}'] = $customerFid;
+    $this->_replacements['{contactFid}'] = $contactFid;
   }
 
   /**
    * @param $emailFid
    *
-   * @return CustomersCustomerFidEmailsEmailFidEndpoint
+   * @return ContactsContactFidEmailsEmailFidEndpoint
    */
   public function with($emailFid)
   {
-    $endpoint = new CustomersCustomerFidEmailsEmailFidEndpoint(
-      $this->_replacements['{customerFid}'],
+    $endpoint = new ContactsContactFidEmailsEmailFidEndpoint(
+      $this->_replacements['{contactFid}'],
       $emailFid
     );
     $endpoint->_buildFromEndpoint($this);
@@ -32,7 +32,7 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary List customers emails
+   * @summary List contact emails
    *
    * @return EmailsRequest
    */
@@ -48,7 +48,7 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'customers/{customerFid}/emails'
+        'contacts/{contactFid}/emails'
       )
     ));
     $detail->setMethod('GET');
@@ -57,7 +57,7 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Add an email address to a customer
+   * @summary Add an email address to a contact
    *
    * @param $emailAddress
    * @param $setAsDefault
@@ -76,7 +76,7 @@ class CustomersCustomerFidEmailsEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'customers/{customerFid}/emails'
+        'contacts/{contactFid}/emails'
       )
     ));
     $detail->addPostField('emailAddress', $emailAddress);
