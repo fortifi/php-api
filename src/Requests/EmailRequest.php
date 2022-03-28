@@ -15,6 +15,7 @@ class EmailRequest
       parent::jsonSerialize(),
       [
         "email" => $this->getEmail(),
+        "messageGroups" => $this->getMessageGroups(),
       ]
     );
   }
@@ -29,5 +30,28 @@ class EmailRequest
   {
     $value = Objects::property($this->_getResultJson(), 'email', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return MessageGroupsRequest
+   */
+  public function getMessageGroups($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'messageGroups', $default);
+  }
+
+  protected function _prepareResult($result)
+  {
+    $return = parent::_prepareResult($result);
+
+    if(!empty($return->messageGroups))
+    {
+      $return->messageGroups = (new MessageGroupsRequest())
+        ->hydrate($return->messageGroups);
+    }
+
+    return $return;
   }
 }
