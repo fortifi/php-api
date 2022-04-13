@@ -24,6 +24,7 @@ class ProductPriceRequest
         "cycle" => $this->getCycle(),
         "priceBandFid" => $this->getPriceBandFid(),
         "skuFid" => $this->getSkuFid(),
+        "taxInclusive" => $this->isTaxInclusive(),
       ]
     );
   }
@@ -148,5 +149,15 @@ class ProductPriceRequest
   {
     $value = Objects::property($this->_getResultJson(), 'skuFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isTaxInclusive($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'taxInclusive', $default);
   }
 }
