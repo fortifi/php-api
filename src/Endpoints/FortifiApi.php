@@ -48,6 +48,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return DeviceEndpoint
+   */
+  public function device()
+  {
+    $endpoint = new DeviceEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return EntitiesEndpoint
    */
   public function entities()
