@@ -28,6 +28,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return AppstoreEndpoint
+   */
+  public function appstore()
+  {
+    $endpoint = new AppstoreEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ContactsEndpoint
    */
   public function contacts()

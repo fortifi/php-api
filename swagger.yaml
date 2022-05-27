@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.97.0'
+  version: '3.98.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -427,6 +427,38 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  /appstore/{customerFid}/google:
+    post:
+      tags:
+        - Appstore
+      security:
+        - OAuth:
+            - basic
+        - accessToken: [ ]
+      summary: Post a new Google notification
+      description: |
+        Post a new Google notification.
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateGoogleNotificationPayload'
+      responses:
+        200:
+          description: Bool Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   /brands:
     get:
       tags:
@@ -11263,3 +11295,23 @@ definitions:
     required:
       - hardwareId
       - app
+
+  CreateGoogleNotificationPayload:
+    properties:
+      subscriptionId:
+        description: The subscription ID (SKU). e.g com.company.android.year.12
+        type: string
+      packageName:
+        description: The package name of the application e.g com.company.android
+        type: string
+      notificationType:
+        description: The type of notification 4 = create, 3 = cancel, 2 = renew (Check https://developer.android.com/google/play/billing/rtdn-reference)
+        type: integer
+      purchaseToken:
+        description: The purchase token
+        type: string
+    required:
+      - subscriptionId
+      - packageName
+      - notificationType
+      - purchaseToken
