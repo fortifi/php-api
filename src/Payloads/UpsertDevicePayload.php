@@ -170,8 +170,11 @@ class UpsertDevicePayload
     ];
   }
 
+  const PUSH_SOURCE_APPLE = 'apple';
+  const PUSH_SOURCE_FIREBASE = 'firebase';
+
   /**
-   * @param string $value
+   * @param string $value apple, firebase
    *
    * @return $this
    */

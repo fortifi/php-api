@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.98.0'
+  version: '3.100.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -818,6 +818,75 @@ paths:
           description: Phone removed
         x-404:
           description: Contact or phone not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/device/{hardwareId}/unsubscribe':
+    put:
+      summary: Unsubscribe a device
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/hardwareId'
+        - $ref: '#/parameters/unsubscribeType'
+        - name: brandFid
+          in: formData
+          type: string
+          description: Brand to unsubscribe the device from
+        - name: groupFid
+          in: formData
+          type: string
+          description: Group to unsubscribe the device from
+      responses:
+        200:
+          description: Device Unsubscribed
+        x-404:
+          description: Device not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/contacts/device/{hardwareId}/subscribe':
+    put:
+      summary: Subscribe an device
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: [ ]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - $ref: '#/parameters/hardwareId'
+        - name: brandFid
+          in: formData
+          type: string
+          description: Brand to subscribe the device from
+        - name: groupFid
+          in: formData
+          type: string
+          description: Group to unsubscribe the device from
+        - $ref: '#/parameters/userAgent'
+        - $ref: '#/parameters/encoding'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/clientIp'
+        - $ref: '#/parameters/optInStatus'
+        - $ref: '#/parameters/optInData'
+      responses:
+        200:
+          description: Device Subscribed
+        x-404:
+          description: Device not found
         default:
           description: Error
           schema:
@@ -4282,6 +4351,31 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/device/{hardwareId}':
+    delete:
+      summary: Remove a Device
+      tags:
+        - Devices
+      security:
+        - OAuth:
+            - device
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/hardwareId'
+        - name: entityFid
+          in: formData
+          type: string
+          description: Entity FID assigned to the device (CST or CONT)
+          required: false
+      responses:
+        200:
+          description: Device Subscribed
+        x-404:
+          description: Device not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/entities/{entityFid}/config/{sectionName}':
     delete:
       summary: Remove a config section, or property from an entity
@@ -7092,6 +7186,12 @@ parameters:
     type: string
     required: true
     description: Email Address
+  hardwareId:
+    name: hardwareId
+    in: path
+    type: string
+    required: true
+    description: Hardware ID
   deliveryFid:
     name: deliveryFid
     in: path
@@ -11244,6 +11344,9 @@ definitions:
     properties:
       pushSource:
         type: string
+        enum:
+          - apple
+          - firebase
       pushAuth:
         type: string
       deviceType:

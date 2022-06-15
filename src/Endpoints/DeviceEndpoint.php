@@ -13,6 +13,20 @@ class DeviceEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $hardwareId
+   *
+   * @return DeviceHardwareIdEndpoint
+   */
+  public function with($hardwareId)
+  {
+    $endpoint = new DeviceHardwareIdEndpoint(
+      $hardwareId
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return DeviceUpsertEndpoint
    */
   public function upsert()

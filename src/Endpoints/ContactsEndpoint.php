@@ -45,4 +45,14 @@ class ContactsEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return ContactsDeviceEndpoint
+   */
+  public function device()
+  {
+    $endpoint = new ContactsDeviceEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }
