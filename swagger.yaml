@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.100.0'
+  version: '3.101.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -845,6 +845,10 @@ paths:
           in: formData
           type: string
           description: Group to unsubscribe the device from
+        - name: entityFid
+          in: formData
+          type: string
+          description: Entity to unsubscribe the device from (Fid)
       responses:
         200:
           description: Device Unsubscribed
@@ -871,11 +875,15 @@ paths:
         - name: brandFid
           in: formData
           type: string
-          description: Brand to subscribe the device from
+          description: Brand to subscribe the device to
         - name: groupFid
           in: formData
           type: string
-          description: Group to unsubscribe the device from
+          description: Group to subscribe the device to
+        - name: entityFid
+          in: formData
+          type: string
+          description: Customer or Contact Fid linked to device (Fid)
         - $ref: '#/parameters/userAgent'
         - $ref: '#/parameters/encoding'
         - $ref: '#/parameters/language'
@@ -11388,13 +11396,18 @@ definitions:
       subscriptionFid:
         description: The subscription FID
         type: string
-      pushStatus:
-        type: string
-      pushRate:
-        type: string
       hardwareId:
         description: The hardware id of the device (required)
         type: string
+      clientIp:
+        description: IP Address of the visitor
+        type: string
+      optInStatus:
+        description: Status of customer email opt-in
+        type: string
+        enum:
+          - no
+          - confirmed
     required:
       - hardwareId
       - app

@@ -21,10 +21,11 @@ class ContactsDeviceHardwareIdEndpoint extends ApiEndpoint
    * @param $unsubscribeType
    * @param $brandFid
    * @param $groupFid
+   * @param $entityFid
    *
    * @return ApiRequest
    */
-  public function setUnsubscribe($unsubscribeType = null, $brandFid = null, $groupFid = null)
+  public function setUnsubscribe($unsubscribeType = null, $brandFid = null, $groupFid = null, $entityFid = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -42,6 +43,7 @@ class ContactsDeviceHardwareIdEndpoint extends ApiEndpoint
     $detail->addPostField('unsubscribeType', $unsubscribeType);
     $detail->addPostField('brandFid', $brandFid);
     $detail->addPostField('groupFid', $groupFid);
+    $detail->addPostField('entityFid', $entityFid);
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
@@ -52,6 +54,7 @@ class ContactsDeviceHardwareIdEndpoint extends ApiEndpoint
    *
    * @param $brandFid
    * @param $groupFid
+   * @param $entityFid
    * @param $userAgent
    * @param $encoding
    * @param $language
@@ -61,7 +64,7 @@ class ContactsDeviceHardwareIdEndpoint extends ApiEndpoint
    *
    * @return ApiRequest
    */
-  public function setSubscribe($brandFid = null, $groupFid = null, $userAgent = null, $encoding = null, $language = null, $clientIp = null, $optInStatus = null, $optInData = null)
+  public function setSubscribe($brandFid = null, $groupFid = null, $entityFid = null, $userAgent = null, $encoding = null, $language = null, $clientIp = null, $optInStatus = null, $optInData = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -78,6 +81,7 @@ class ContactsDeviceHardwareIdEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('brandFid', $brandFid);
     $detail->addPostField('groupFid', $groupFid);
+    $detail->addPostField('entityFid', $entityFid);
     $detail->addPostField('userAgent', $userAgent);
     $detail->addPostField('encoding', $encoding);
     $detail->addPostField('language', $language);

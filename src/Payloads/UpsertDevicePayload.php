@@ -60,13 +60,19 @@ class UpsertDevicePayload
    * The subscription FID
    */
   protected $_subscriptionFid;
-  protected $_pushStatus;
-  protected $_pushRate;
   /**
    * The hardware id of the device (required)
    * @required
    */
   protected $_hardwareId;
+  /**
+   * IP Address of the visitor
+   */
+  protected $_clientIp;
+  /**
+   * Status of customer email opt-in
+   */
+  protected $_optInStatus;
 
   public function hydrate($data)
   {
@@ -131,17 +137,17 @@ class UpsertDevicePayload
     {
       $this->_subscriptionFid = (string)$data["subscriptionFid"];
     }
-    if(isset($data["pushStatus"]))
-    {
-      $this->_pushStatus = (string)$data["pushStatus"];
-    }
-    if(isset($data["pushRate"]))
-    {
-      $this->_pushRate = (string)$data["pushRate"];
-    }
     if(isset($data["hardwareId"]))
     {
       $this->_hardwareId = (string)$data["hardwareId"];
+    }
+    if(isset($data["clientIp"]))
+    {
+      $this->_clientIp = (string)$data["clientIp"];
+    }
+    if(isset($data["optInStatus"]))
+    {
+      $this->_optInStatus = (string)$data["optInStatus"];
     }
     return $this;
   }
@@ -164,9 +170,9 @@ class UpsertDevicePayload
       "customerFid"     => $this->_customerFid,
       "contactFid"      => $this->_contactFid,
       "subscriptionFid" => $this->_subscriptionFid,
-      "pushStatus"      => $this->_pushStatus,
-      "pushRate"        => $this->_pushRate,
       "hardwareId"      => $this->_hardwareId,
+      "clientIp"        => $this->_clientIp,
+      "optInStatus"     => $this->_optInStatus,
     ];
   }
 
@@ -545,52 +551,6 @@ class UpsertDevicePayload
    *
    * @return $this
    */
-  public function setPushStatus(?string $value)
-  {
-    $this->_pushStatus = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPushStatus($default = null, $trim = true)
-  {
-    $value = $this->_pushStatus ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPushRate(?string $value)
-  {
-    $this->_pushRate = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPushRate($default = null, $trim = true)
-  {
-    $value = $this->_pushRate ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
   public function setHardwareId(?string $value)
   {
     $this->_hardwareId = $value;
@@ -608,6 +568,59 @@ class UpsertDevicePayload
   public function getHardwareId($default = null, $trim = true)
   {
     $value = $this->_hardwareId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setClientIp(?string $value)
+  {
+    $this->_clientIp = $value;
+    return $this;
+  }
+
+  /**
+   * IP Address of the visitor
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getClientIp($default = null, $trim = true)
+  {
+    $value = $this->_clientIp ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  const OPT_IN_STATUS_NO = 'no';
+  const OPT_IN_STATUS_CONFIRMED = 'confirmed';
+
+  /**
+   * @param string $value no, confirmed
+   *
+   * @return $this
+   */
+  public function setOptInStatus(?string $value)
+  {
+    $this->_optInStatus = $value;
+    return $this;
+  }
+
+  /**
+   * Status of customer email opt-in
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOptInStatus($default = null, $trim = true)
+  {
+    $value = $this->_optInStatus ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
