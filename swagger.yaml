@@ -459,6 +459,37 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  /appstore/{customerFid}/apple:
+    post:
+      tags:
+        - Appstore
+      security:
+        - OAuth:
+            - basic
+        - accessToken: [ ]
+      summary: Post a new Apple notification
+      description: |
+        Post a new Apple notification.
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAppleNotificationPayload'
+      responses:
+        200:
+          description: Bool Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /brands:
     get:
       tags:
@@ -7541,6 +7572,13 @@ definitions:
       - duplicate
       - closed
       - trash
+  appstoreNotificationType:
+    description: Appstore Type
+    type: string
+    enum:
+      - appstore_subscription_purchase
+      - appstore_subscription_cancel
+      - appstore_subscription_renew
   EnvelopeMeta:
     description: Envelope Meta
     properties:
@@ -11421,8 +11459,8 @@ definitions:
         description: The package name of the application e.g com.company.android
         type: string
       notificationType:
-        description: The type of notification 4 = create, 3 = cancel, 2 = renew (Check https://developer.android.com/google/play/billing/rtdn-reference)
-        type: integer
+        description: The type of notification AppStoreNotificationType
+        type: string
       purchaseToken:
         description: The purchase token
         type: string
@@ -11431,3 +11469,46 @@ definitions:
       - packageName
       - notificationType
       - purchaseToken
+
+  CreateAppleNotificationPayload:
+    properties:
+      subscriptionId:
+        description: The subscription ID (SKU). e.g com.company.android.year.12
+        type: string
+      packageName:
+        description: The package name of the application e.g com.company.android
+        type: string
+      notificationType:
+        description: The type of notification AppStoreNotificationType
+        type: string
+      rawReceipt:
+        description: The Raw Receipt
+        type: string
+      data:
+        description: The decoded raw receipt
+        type: string
+      price:
+        description: The price of the subscription
+        type: string
+      currencyCode:
+        description: The currency code of the subscription
+        type: string
+      countryCode:
+        description: The country code of the subscription
+        type: string
+      notificationUUID:
+        description: The notification UUID
+        type: string
+      originalTransactionId:
+        description: The original transaction ID to link receipts
+        type: string
+    required:
+      - subscriptionId
+      - packageName
+      - notificationType
+      - notificationUUID
+      - originalTransactionId
+      - rawReceipt
+      - price
+      - currencyCode
+      - countryCode

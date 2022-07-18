@@ -16,7 +16,7 @@ class CreateGoogleNotificationPayload
    */
   protected $_packageName;
   /**
-   * The type of notification 4 = create, 3 = cancel, 2 = renew (Check https://developer.android.com/google/play/billing/rtdn-reference)
+   * The type of notification AppStoreNotificationType
    * @required
    */
   protected $_notificationType;
@@ -39,7 +39,7 @@ class CreateGoogleNotificationPayload
     }
     if(isset($data["notificationType"]))
     {
-      $this->_notificationType = (int)$data["notificationType"];
+      $this->_notificationType = (string)$data["notificationType"];
     }
     if(isset($data["purchaseToken"]))
     {
@@ -109,26 +109,28 @@ class CreateGoogleNotificationPayload
   }
 
   /**
-   * @param int $value
+   * @param string $value
    *
    * @return $this
    */
-  public function setNotificationType(?int $value)
+  public function setNotificationType(?string $value)
   {
     $this->_notificationType = $value;
     return $this;
   }
 
   /**
-   * The type of notification 4 = create, 3 = cancel, 2 = renew (Check https://developer.android.com/google/play/billing/rtdn-reference)
+   * The type of notification AppStoreNotificationType
    *
    * @param mixed $default
+   * @param bool $trim Trim Value
    *
-   * @return integer
+   * @return string
    */
-  public function getNotificationType($default = null)
+  public function getNotificationType($default = null, $trim = true)
   {
-    return $this->_notificationType ?: $default;
+    $value = $this->_notificationType ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**

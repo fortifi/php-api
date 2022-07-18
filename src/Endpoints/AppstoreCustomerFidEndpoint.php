@@ -24,4 +24,16 @@ class AppstoreCustomerFidEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return AppstoreCustomerFidAppleEndpoint
+   */
+  public function apple()
+  {
+    $endpoint = new AppstoreCustomerFidAppleEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }
