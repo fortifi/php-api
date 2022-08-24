@@ -632,6 +632,27 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/contacts/phone/{phoneNumber}/confirm':
+    put:
+      summary: Confirm phone number
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/phoneNumber'
+      responses:
+        200:
+          description: Phone Number Confirmed
+        x-404:
+          description: Phone Number not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/contacts/{contactFid}/addresses':
     get:
       summary: List contact addresses
@@ -820,6 +841,7 @@ paths:
           in: formData
           required: false
           type: boolean
+        - $ref: '#/parameters/optInStatus'
       responses:
         200:
           description: Phone Number Added
@@ -1471,6 +1493,7 @@ paths:
           in: formData
           required: false
           type: boolean
+        - $ref: '#/parameters/optInStatus'
       responses:
         200:
           description: Phone Number Added
@@ -6131,7 +6154,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6163,7 +6186,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6196,7 +6219,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       summary: Retrieve a publisher
@@ -6223,7 +6246,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6244,7 +6267,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6265,7 +6288,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6286,7 +6309,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6306,7 +6329,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       summary: Set approved status on an publisher
@@ -6329,7 +6352,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/publisherFid'
       responses:
@@ -6348,7 +6371,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6381,7 +6404,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       parameters:
@@ -6412,7 +6435,7 @@ paths:
       security:
         - OAuth:
             - publisher
-        - accessToken: []
+        - accessToken: [ ]
       tags:
         - Marketing
       summary: Retrieve a publisher campaign
@@ -6430,6 +6453,66 @@ paths:
                     $ref: '#/definitions/PublisherCampaign'
         x-404:
           description: Campaign not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/finance/costImport:
+    post:
+      summary: Import cost data
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: [ ]
+      tags:
+        - Finance
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ImportCostPayload'
+      responses:
+        200:
+          description: Cost data imported
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ImportCost'
+        x-400:
+          description: Invalid data supplied
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /publishers/{publisherFid}/finance/costImport/{costImportFid}:
+    get:
+      summary: Retrieve the status of cost import
+      security:
+        - OAuth:
+            - publisher
+        - accessToken: [ ]
+      tags:
+        - Finance
+      parameters:
+        - $ref: '#/parameters/publisherFid'
+        - $ref: '#/parameters/costImportFid'
+      responses:
+        200:
+          description: Cost Import Status
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Cost Import not found
         default:
           description: Error
           schema:
@@ -7098,6 +7181,12 @@ parameters:
     type: string
     required: true
     description: Publisher FID to use
+  costImportFid:
+    name: costImportFid
+    in: path
+    type: string
+    required: true
+    description: Cost Import FID to use
   advertiserCampaignFid:
     name: advertiserCampaignFid
     in: path
@@ -7231,6 +7320,12 @@ parameters:
     type: string
     required: true
     description: Hardware ID
+  phoneNumber:
+    name: phoneNumber
+    in: path
+    type: string
+    required: true
+    description: Phone Number
   deliveryFid:
     name: deliveryFid
     in: path
@@ -8132,6 +8227,26 @@ definitions:
             type: string
           brandFid:
             type: string
+
+  ImportCostPayload:
+    description: Import Publisher Cost csv
+    properties:
+      filename:
+        type: string
+      mimeType:
+        type: string
+      data:
+        type: string
+
+  ImportCost:
+    description: Import Publisher Cost Response
+    properties:
+      fid:
+        type: string
+      message:
+        type: string
+      result:
+        type: boolean
 
   AdvertiserPixel:
     description: Pixel

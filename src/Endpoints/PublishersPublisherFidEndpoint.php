@@ -41,6 +41,18 @@ class PublishersPublisherFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return PublishersPublisherFidFinanceEndpoint
+   */
+  public function finance()
+  {
+    $endpoint = new PublishersPublisherFidFinanceEndpoint(
+      $this->_replacements['{publisherFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retrieve a publisher
    *
    * @return PublisherRequest

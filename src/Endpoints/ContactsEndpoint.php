@@ -33,6 +33,16 @@ class ContactsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return ContactsPhoneEndpoint
+   */
+  public function phone()
+  {
+    $endpoint = new ContactsPhoneEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @param $contactFid
    *
    * @return ContactsContactFidEndpoint
