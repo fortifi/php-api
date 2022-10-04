@@ -567,4 +567,29 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
     $request->setRequestDetail($detail);
     return $request;
   }
+
+  /**
+   * @summary Reactivate a subscription. Returns subscription FID.
+   *
+   * @return ApiRequest
+   */
+  public function setReactivate()
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/reactivate'
+      )
+    ));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
 }

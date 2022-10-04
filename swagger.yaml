@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.102.0'
+  version: '3.103.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -3410,6 +3410,31 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/reactivate':
+    put:
+      summary: Reactivate a subscription. Returns subscription FID.
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Subscription reactivated
+        x-400:
+          description: Invalid payload data
+        x-404:
+          description: Subscription not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/subscriptions/{subscriptionFid}/allocations':
     get:
       summary: Retreive a subscriptions resource allocations
