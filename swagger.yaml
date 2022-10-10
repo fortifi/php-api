@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.103.0'
+  version: '3.104.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -8119,6 +8119,40 @@ definitions:
           companyNumber:
             type: string
           knownIP:
+            type: string
+          accountManagerFid:
+            type: string
+          affiliateFid:
+            type: string
+          foundationFid:
+            type: string
+          affiliateType:
+            type: string
+          campaignFid:
+            type: string
+          sid1:
+            type: string
+          sid2:
+            type: string
+          sid3:
+            type: string
+          lifecycleStage:
+            type: string
+          accountType:
+            type: string
+          accountStatus:
+            type: string
+          subscriptionType:
+            type: string
+          continent:
+            type: string
+          country:
+            type: string
+          county:
+            type: string
+          city:
+            type: string
+          postal:
             type: string
           flags:
             $ref: '#/definitions/CustomerFlags'

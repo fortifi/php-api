@@ -30,6 +30,23 @@ class CustomerRequest
         "taxNumber" => $this->getTaxNumber(),
         "companyNumber" => $this->getCompanyNumber(),
         "knownIP" => $this->getKnownIP(),
+        "accountManagerFid" => $this->getAccountManagerFid(),
+        "affiliateFid" => $this->getAffiliateFid(),
+        "foundationFid" => $this->getFoundationFid(),
+        "affiliateType" => $this->getAffiliateType(),
+        "campaignFid" => $this->getCampaignFid(),
+        "sid1" => $this->getSid1(),
+        "sid2" => $this->getSid2(),
+        "sid3" => $this->getSid3(),
+        "lifecycleStage" => $this->getLifecycleStage(),
+        "accountType" => $this->getAccountType(),
+        "accountStatus" => $this->getAccountStatus(),
+        "subscriptionType" => $this->getSubscriptionType(),
+        "continent" => $this->getContinent(),
+        "country" => $this->getCountry(),
+        "county" => $this->getCounty(),
+        "city" => $this->getCity(),
+        "postal" => $this->getPostal(),
         "flags" => $this->getFlags(),
       ]
     );
@@ -224,6 +241,210 @@ class CustomerRequest
   public function getKnownIP($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'knownIP', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAccountManagerFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'accountManagerFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAffiliateFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'affiliateFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getFoundationFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'foundationFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAffiliateType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'affiliateType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCampaignFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'campaignFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSid1($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'sid1', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSid2($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'sid2', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSid3($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'sid3', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLifecycleStage($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'lifecycleStage', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAccountType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'accountType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAccountStatus($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'accountStatus', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSubscriptionType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'subscriptionType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getContinent($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'continent', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCountry($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'country', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCounty($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'county', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCity($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'city', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPostal($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'postal', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
