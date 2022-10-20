@@ -128,6 +128,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return PaymentsEndpoint
+   */
+  public function payments()
+  {
+    $endpoint = new PaymentsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return PolymersEndpoint
    */
   public function polymers()

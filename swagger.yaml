@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.104.0'
+  version: '3.105.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -169,9 +169,8 @@ externalDocs:
 securityDefinitions:
   OAuth:
     type: oauth2
-    authorizationUrl: ''
     tokenUrl: 'https://api.fortifi.io/oauth/token'
-    flow: accessCode
+    flow: password
     scopes:
       'basic': Basic Read Access
       'visitor': Read/Write On Visitors
@@ -1833,7 +1832,11 @@ paths:
         200:
           description: List of invoices summaries
           schema:
-            $ref: '#/definitions/Invoices'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Invoices'
         default:
           description: Error
           schema:
@@ -5778,6 +5781,33 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/payments/transaction/{transactionId}':
+    get:
+      summary: Retrieve a payment by transaction ID
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+            - customer.readonly
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/transactionId'
+      responses:
+        200:
+          description: Loaded Payment
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Payment'
+        x-404:
+          description: Customer or payment not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/polymers/{parentFid}':
     post:
       summary: Create a new polymer
@@ -7465,6 +7495,11 @@ parameters:
     type: string
     required: true
     description: The unique code or fid for the flow you wish to retrieve
+  transactionId:
+    name: transactionId
+    in: path
+    type: string
+    required: true
 
 definitions:
   creditAmountType:
@@ -8043,6 +8078,8 @@ definitions:
           sourceAccountType:
             type: string
           sourceAccountFid:
+            type: string
+          sourceFid:
             type: string
 
   CreateInteraction:

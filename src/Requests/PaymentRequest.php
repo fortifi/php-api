@@ -36,6 +36,7 @@ class PaymentRequest
         "disputeFid" => $this->getDisputeFid(),
         "sourceAccountType" => $this->getSourceAccountType(),
         "sourceAccountFid" => $this->getSourceAccountFid(),
+        "sourceFid" => $this->getSourceFid(),
       ]
     );
   }
@@ -293,6 +294,18 @@ class PaymentRequest
   public function getSourceAccountFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'sourceAccountFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSourceFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'sourceFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
