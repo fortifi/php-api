@@ -38,6 +38,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return PresetChatEndpoint
+   */
+  public function presetChat()
+  {
+    $endpoint = new PresetChatEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ContactsEndpoint
    */
   public function contacts()

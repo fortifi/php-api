@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.105.0'
+  version: '3.106.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -510,6 +510,63 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/Brands'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  /presetChat:
+    post:
+      summary: Create a Preset Chat Instance
+      tags:
+        - Chat
+      security:
+        - OAuth:
+            - chat
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreatePresetChatSessionPayload'
+      responses:
+        200:
+          description: Device created/updated
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PresetChatSessionLink'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /presetChat/{sessionId}:
+    get:
+      summary: Get a Preset Chat by ID
+      tags:
+        - Chat
+      security:
+        - OAuth:
+            - chat
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/sessionId'
+      responses:
+        200:
+          description: Preset Chat Session
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/PresetChatSession'
+        x-404:
+          description: Preset Chat not found
         default:
           description: Error
           schema:
@@ -7495,6 +7552,12 @@ parameters:
     type: string
     required: true
     description: The unique code or fid for the flow you wish to retrieve
+  sessionId:
+    name: sessionId
+    in: path
+    type: string
+    required: true
+    description: The session id of a fortifi chat
   transactionId:
     name: transactionId
     in: path
@@ -11723,3 +11786,70 @@ definitions:
       - price
       - currencyCode
       - countryCode
+
+
+  PresetChatSessionLink:
+    description: Preset Chat Session Link
+    properties:
+      linkUrl:
+        type: string
+      sessionId:
+        type: string
+
+  PresetChatSession:
+    description: Preset Chat Session
+    properties:
+      ticketFid:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
+      companyFid:
+        type: string
+      customerFid:
+        type: string
+      departmentFid:
+        type: string
+      queueFid:
+        type: string
+      impact:
+        type: string
+      urgency:
+        type: string
+      language:
+        type: string
+      topic:
+        type: string
+      sessionFid:
+        type: string
+      linkUrl:
+        type: string
+
+  CreatePresetChatSessionPayload:
+    description: Create A Preset Chat session
+    properties:
+      ticketFid:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
+      companyFid:
+        type: string
+      customerFid:
+        type: string
+      departmentFid:
+        type: string
+      queueFid:
+        type: string
+      impact:
+        type: string
+      urgency:
+        type: string
+      language:
+        type: string
+      topic:
+        type: string
+      domain:
+        type: string
