@@ -268,6 +268,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return CommentsEndpoint
+   */
+  public function comments()
+  {
+    $endpoint = new CommentsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return OrganisationEndpoint
    */
   public function organisation()

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.106.0'
+  version: '3.107.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -567,6 +567,36 @@ paths:
                     $ref: '#/definitions/PresetChatSession'
         x-404:
           description: Preset Chat not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  /comments:
+    post:
+      summary: Apply a comment/note against a data-node
+      tags:
+        - Comments
+      security:
+        - OAuth:
+            - comments
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateCommentPayload'
+      responses:
+        200:
+          description: Comment/Note created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CommentResponse'
+        x-400:
+          description: Information provided is not valid
         default:
           description: Error
           schema:
@@ -11853,3 +11883,33 @@ definitions:
         type: string
       domain:
         type: string
+
+
+  CreateCommentPayload:
+    description: Create a note/comment against a data-node
+    properties:
+      dataNodeFid:
+        type: string
+      colour:
+        type: string
+      authorFid:
+        type: string
+      message:
+        type: string
+      microtime:
+        type: string
+
+  CommentResponse:
+    description: Comment/Note Response
+    properties:
+      dataNodeFid:
+        type: string
+      microtime:
+        type: string
+      colour:
+        type: string
+      authorFid:
+        type: string
+      message:
+        type: string
+
