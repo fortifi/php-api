@@ -10,6 +10,7 @@ class PropertyCounterRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

@@ -10,6 +10,7 @@ class ReasonGroupsRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

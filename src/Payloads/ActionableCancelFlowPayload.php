@@ -40,6 +40,7 @@ class ActionableCancelFlowPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

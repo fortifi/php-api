@@ -10,6 +10,7 @@ class InvoiceDownloadRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

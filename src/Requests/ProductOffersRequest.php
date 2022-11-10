@@ -10,6 +10,7 @@ class ProductOffersRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

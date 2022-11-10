@@ -10,6 +10,7 @@ class AdvertiserPixelRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

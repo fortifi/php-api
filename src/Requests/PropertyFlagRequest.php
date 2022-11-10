@@ -10,6 +10,7 @@ class PropertyFlagRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

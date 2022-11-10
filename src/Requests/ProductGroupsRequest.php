@@ -10,6 +10,7 @@ class ProductGroupsRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

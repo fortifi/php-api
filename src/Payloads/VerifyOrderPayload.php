@@ -29,6 +29,7 @@ class VerifyOrderPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return array_merge(

@@ -87,6 +87,7 @@ class CreateTicketPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

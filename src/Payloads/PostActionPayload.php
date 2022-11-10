@@ -194,6 +194,7 @@ class PostActionPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

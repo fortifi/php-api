@@ -10,6 +10,7 @@ class FraudScanMetaDataRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

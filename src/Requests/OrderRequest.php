@@ -9,6 +9,7 @@ class OrderRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return array_merge(

@@ -27,6 +27,7 @@ class ReservationPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

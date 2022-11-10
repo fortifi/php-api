@@ -10,6 +10,7 @@ class ServiceIncidentsRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

@@ -10,6 +10,7 @@ class PresetChatSessionRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

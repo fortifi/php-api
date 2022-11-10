@@ -34,6 +34,7 @@ class StartCancelFlowPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return array_merge(

@@ -20,6 +20,7 @@ class PropertyValuePayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

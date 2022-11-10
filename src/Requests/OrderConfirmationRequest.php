@@ -10,6 +10,7 @@ class OrderConfirmationRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

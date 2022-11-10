@@ -10,6 +10,7 @@ class CancelFlowStatesRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

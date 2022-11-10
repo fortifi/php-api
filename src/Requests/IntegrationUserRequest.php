@@ -10,6 +10,7 @@ class IntegrationUserRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

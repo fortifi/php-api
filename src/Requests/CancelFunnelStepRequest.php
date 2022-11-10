@@ -10,6 +10,7 @@ class CancelFunnelStepRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

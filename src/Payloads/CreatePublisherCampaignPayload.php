@@ -30,6 +30,7 @@ class CreatePublisherCampaignPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

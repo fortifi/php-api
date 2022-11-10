@@ -10,6 +10,7 @@ class RetentionFlowOptionRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

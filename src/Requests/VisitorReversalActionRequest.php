@@ -10,6 +10,7 @@ class VisitorReversalActionRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

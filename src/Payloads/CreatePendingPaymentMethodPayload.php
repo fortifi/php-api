@@ -42,6 +42,7 @@ class CreatePendingPaymentMethodPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

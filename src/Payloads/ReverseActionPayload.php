@@ -111,6 +111,7 @@ class ReverseActionPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

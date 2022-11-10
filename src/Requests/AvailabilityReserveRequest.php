@@ -10,6 +10,7 @@ class AvailabilityReserveRequest
   implements \JsonSerializable
 {
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

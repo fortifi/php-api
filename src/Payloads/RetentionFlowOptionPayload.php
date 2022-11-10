@@ -22,6 +22,7 @@ class RetentionFlowOptionPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

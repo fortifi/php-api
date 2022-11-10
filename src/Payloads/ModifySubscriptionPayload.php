@@ -53,6 +53,7 @@ class ModifySubscriptionPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

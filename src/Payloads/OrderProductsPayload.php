@@ -75,6 +75,7 @@ class OrderProductsPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [

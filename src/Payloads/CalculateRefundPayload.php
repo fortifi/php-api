@@ -39,6 +39,7 @@ class CalculateRefundPayload
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function jsonSerialize()
   {
     return [
