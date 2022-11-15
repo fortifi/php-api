@@ -20,6 +20,7 @@ class CreateTicketPayload
   protected $_impact;
   protected $_urgency;
   protected $_attachments;
+  protected $_language;
 
   public function hydrate($data)
   {
@@ -84,6 +85,10 @@ class CreateTicketPayload
     {
       $this->_attachments = $data["attachments"];
     }
+    if(isset($data["language"]))
+    {
+      $this->_language = (string)$data["language"];
+    }
     return $this;
   }
 
@@ -106,6 +111,7 @@ class CreateTicketPayload
       "impact"          => $this->_impact,
       "urgency"         => $this->_urgency,
       "attachments"     => $this->_attachments,
+      "language"        => $this->_language,
     ];
   }
 
@@ -480,5 +486,28 @@ class CreateTicketPayload
   public function getAttachments($default = [])
   {
     return $this->_attachments ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setLanguage(?string $value)
+  {
+    $this->_language = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLanguage($default = null, $trim = true)
+  {
+    $value = $this->_language ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

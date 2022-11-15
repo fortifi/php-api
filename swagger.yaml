@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.107.0'
+  version: '3.108.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -11322,6 +11322,8 @@ definitions:
         type: array
         items:
           type: string
+      language:
+        type: string
 
   TicketReplyPayload:
     properties:
