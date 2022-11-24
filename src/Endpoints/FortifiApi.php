@@ -98,6 +98,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return InteractionsEndpoint
+   */
+  public function interactions()
+  {
+    $endpoint = new InteractionsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return LicenceEndpoint
    */
   public function licence()

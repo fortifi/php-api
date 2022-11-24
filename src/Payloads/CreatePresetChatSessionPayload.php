@@ -17,6 +17,8 @@ class CreatePresetChatSessionPayload
   protected $_language;
   protected $_topic;
   protected $_domain;
+  protected $_labels;
+  protected $_notes;
 
   public function hydrate($data)
   {
@@ -69,6 +71,26 @@ class CreatePresetChatSessionPayload
     {
       $this->_domain = (string)$data["domain"];
     }
+    if(isset($data["labels"]))
+    {
+      $this->_labels = [];
+      foreach($data["labels"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_labels[] = $dObj;
+      }
+    }
+    if(isset($data["notes"]))
+    {
+      $this->_notes = [];
+      foreach($data["notes"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_notes[] = $dObj;
+      }
+    }
     return $this;
   }
 
@@ -88,6 +110,8 @@ class CreatePresetChatSessionPayload
       "language"      => $this->_language,
       "topic"         => $this->_topic,
       "domain"        => $this->_domain,
+      "labels"        => $this->_labels,
+      "notes"         => $this->_notes,
     ];
   }
 
@@ -365,5 +389,69 @@ class CreatePresetChatSessionPayload
   {
     $value = $this->_domain ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param KeyValuePayload[] $value
+   *
+   * @return $this
+   */
+  public function setLabels(?array $value)
+  {
+    $this->_labels = $value;
+    return $this;
+  }
+
+  /**
+   * @param KeyValuePayload $item
+   *
+   * @return $this
+   */
+  public function addLabel(KeyValuePayload $item)
+  {
+    $this->_labels[] = $item;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return KeyValuePayload[]
+   */
+  public function getLabels($default = [])
+  {
+    return $this->_labels ?: $default;
+  }
+
+  /**
+   * @param KeyValuePayload[] $value
+   *
+   * @return $this
+   */
+  public function setNotes(?array $value)
+  {
+    $this->_notes = $value;
+    return $this;
+  }
+
+  /**
+   * @param KeyValuePayload $item
+   *
+   * @return $this
+   */
+  public function addNote(KeyValuePayload $item)
+  {
+    $this->_notes[] = $item;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return KeyValuePayload[]
+   */
+  public function getNotes($default = [])
+  {
+    return $this->_notes ?: $default;
   }
 }
