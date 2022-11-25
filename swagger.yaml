@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.109.0'
+  version: '3.111.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -227,6 +227,32 @@ tags:
   - name: Finance
 
 paths:
+  '/account/verification':
+    post:
+      summary: Main Entry for Verification
+      tags:
+        - Account
+      security:
+        - OAuth:
+            - account
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AccountVerificationPayload'
+      responses:
+        200:
+          description: Account Verification
+          schema:
+            $ref: '#/definitions/AccountVerificationResponse'
+        x-404:
+          description: Failed Account Verification
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /advertisers:
     post:
       deprecated: true
@@ -5153,7 +5179,7 @@ paths:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/BoolMessage'
+                    $ref: '#/definitions/Fid'
         x-400:
           description: Information provided is not valid
         default:
@@ -7623,6 +7649,7 @@ parameters:
     in: path
     type: string
     required: true
+
 
 definitions:
   creditAmountType:
@@ -11354,6 +11381,8 @@ definitions:
           type: string
       language:
         type: string
+      accountVerificationFid:
+        type: string
 
   TicketReplyPayload:
     properties:
@@ -11849,7 +11878,6 @@ definitions:
       - currencyCode
       - countryCode
 
-
   PresetChatSessionLink:
     description: Preset Chat Session Link
     properties:
@@ -11915,6 +11943,8 @@ definitions:
         type: string
       domain:
         type: string
+      accountVerificationFid:
+        type: string
       labels:
         type: array
         items:
@@ -11969,4 +11999,72 @@ definitions:
               type: string
             referral:
               type: string
+
+  # Account Verification
+  InteractionType:
+    properties:
+      name:
+        type: string
+        enum:
+          - unknown
+          - voice
+          - email
+          - chat
+          - ticket
+          - meeting
+          - remote
+          - letter
+          - social
+
+  InteractionVerificationResponse:
+    description: Interaction Verification Response
+    properties:
+      key:
+        type: string
+      question:
+        type: string
+      authenticationFid:
+        type: string
+      interactionTypes:
+        type: array
+        items:
+          $ref: '#/definitions/InteractionType'
+      isBuiltIn:
+        type: string
+
+  AccountVerificationResponse:
+    description: A Verification Question Response
+    properties:
+      datanodeFid:
+        type: string
+      verified:
+        type: number
+      successfulVerifications:
+        type: number
+      failedVerifications:
+        type: number
+      skippedVerifications:
+        type: number
+      requiredVerifications:
+        type: number
+      verificationFid:
+        type: string
+      questionKey:
+        type: string
+      verification:
+        $ref: '#/definitions/InteractionVerificationResponse'
+
+  AccountVerificationPayload:
+    description: Start a new Account Authentication
+    properties:
+      dataNodeFid:
+        type: string
+      verificationFid:
+        type: string
+      answer:
+        type: string
+      questionKey:
+        type: string
+      isLoggedIn:
+        type: boolean
 

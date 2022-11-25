@@ -18,6 +18,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return AccountEndpoint
+   */
+  public function account()
+  {
+    $endpoint = new AccountEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return AdvertisersEndpoint
    */
   public function advertisers()

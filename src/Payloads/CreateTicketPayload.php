@@ -21,6 +21,7 @@ class CreateTicketPayload
   protected $_urgency;
   protected $_attachments;
   protected $_language;
+  protected $_accountVerificationFid;
 
   public function hydrate($data)
   {
@@ -89,6 +90,10 @@ class CreateTicketPayload
     {
       $this->_language = (string)$data["language"];
     }
+    if(isset($data["accountVerificationFid"]))
+    {
+      $this->_accountVerificationFid = (string)$data["accountVerificationFid"];
+    }
     return $this;
   }
 
@@ -96,22 +101,23 @@ class CreateTicketPayload
   public function jsonSerialize()
   {
     return [
-      "customerEmail"   => $this->_customerEmail,
-      "customerName"    => $this->_customerName,
-      "customerFid"     => $this->_customerFid,
-      "ticketType"      => $this->_ticketType,
-      "brandFid"        => $this->_brandFid,
-      "queueFid"        => $this->_queueFid,
-      "departmentFid"   => $this->_departmentFid,
-      "departmentEmail" => $this->_departmentEmail,
-      "departmentName"  => $this->_departmentName,
-      "subject"         => $this->_subject,
-      "textBody"        => $this->_textBody,
-      "htmlBody"        => $this->_htmlBody,
-      "impact"          => $this->_impact,
-      "urgency"         => $this->_urgency,
-      "attachments"     => $this->_attachments,
-      "language"        => $this->_language,
+      "customerEmail"          => $this->_customerEmail,
+      "customerName"           => $this->_customerName,
+      "customerFid"            => $this->_customerFid,
+      "ticketType"             => $this->_ticketType,
+      "brandFid"               => $this->_brandFid,
+      "queueFid"               => $this->_queueFid,
+      "departmentFid"          => $this->_departmentFid,
+      "departmentEmail"        => $this->_departmentEmail,
+      "departmentName"         => $this->_departmentName,
+      "subject"                => $this->_subject,
+      "textBody"               => $this->_textBody,
+      "htmlBody"               => $this->_htmlBody,
+      "impact"                 => $this->_impact,
+      "urgency"                => $this->_urgency,
+      "attachments"            => $this->_attachments,
+      "language"               => $this->_language,
+      "accountVerificationFid" => $this->_accountVerificationFid,
     ];
   }
 
@@ -508,6 +514,29 @@ class CreateTicketPayload
   public function getLanguage($default = null, $trim = true)
   {
     $value = $this->_language ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setAccountVerificationFid(?string $value)
+  {
+    $this->_accountVerificationFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAccountVerificationFid($default = null, $trim = true)
+  {
+    $value = $this->_accountVerificationFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

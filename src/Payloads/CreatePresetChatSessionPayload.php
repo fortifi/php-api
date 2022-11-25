@@ -17,6 +17,7 @@ class CreatePresetChatSessionPayload
   protected $_language;
   protected $_topic;
   protected $_domain;
+  protected $_accountVerificationFid;
   protected $_labels;
   protected $_notes;
 
@@ -71,6 +72,10 @@ class CreatePresetChatSessionPayload
     {
       $this->_domain = (string)$data["domain"];
     }
+    if(isset($data["accountVerificationFid"]))
+    {
+      $this->_accountVerificationFid = (string)$data["accountVerificationFid"];
+    }
     if(isset($data["labels"]))
     {
       $this->_labels = [];
@@ -98,20 +103,21 @@ class CreatePresetChatSessionPayload
   public function jsonSerialize()
   {
     return [
-      "ticketFid"     => $this->_ticketFid,
-      "name"          => $this->_name,
-      "email"         => $this->_email,
-      "companyFid"    => $this->_companyFid,
-      "customerFid"   => $this->_customerFid,
-      "departmentFid" => $this->_departmentFid,
-      "queueFid"      => $this->_queueFid,
-      "impact"        => $this->_impact,
-      "urgency"       => $this->_urgency,
-      "language"      => $this->_language,
-      "topic"         => $this->_topic,
-      "domain"        => $this->_domain,
-      "labels"        => $this->_labels,
-      "notes"         => $this->_notes,
+      "ticketFid"              => $this->_ticketFid,
+      "name"                   => $this->_name,
+      "email"                  => $this->_email,
+      "companyFid"             => $this->_companyFid,
+      "customerFid"            => $this->_customerFid,
+      "departmentFid"          => $this->_departmentFid,
+      "queueFid"               => $this->_queueFid,
+      "impact"                 => $this->_impact,
+      "urgency"                => $this->_urgency,
+      "language"               => $this->_language,
+      "topic"                  => $this->_topic,
+      "domain"                 => $this->_domain,
+      "accountVerificationFid" => $this->_accountVerificationFid,
+      "labels"                 => $this->_labels,
+      "notes"                  => $this->_notes,
     ];
   }
 
@@ -388,6 +394,29 @@ class CreatePresetChatSessionPayload
   public function getDomain($default = null, $trim = true)
   {
     $value = $this->_domain ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setAccountVerificationFid(?string $value)
+  {
+    $this->_accountVerificationFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAccountVerificationFid($default = null, $trim = true)
+  {
+    $value = $this->_accountVerificationFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
