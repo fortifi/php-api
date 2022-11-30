@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.111.0'
+  version: '3.112.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1848,6 +1848,11 @@ paths:
           required: false
           type: integer
           format: int64
+        - name: includeHtml
+          in: query
+          description: 'Respond with the html body as a part of the response'
+          type: boolean
+          required: false
       responses:
         200:
           schema:
@@ -9871,6 +9876,8 @@ definitions:
       senderFid:
         type: string
       textBody:
+        type: string
+      htmlBody:
         type: string
       language:
         type: string

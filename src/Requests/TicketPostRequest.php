@@ -18,6 +18,7 @@ class TicketPostRequest
       "authorFid" => $this->getAuthorFid(),
       "senderFid" => $this->getSenderFid(),
       "textBody" => $this->getTextBody(),
+      "htmlBody" => $this->getHtmlBody(),
       "language" => $this->getLanguage(),
       "hasAttachments" => $this->isHasAttachments(),
       "attachmentCount" => $this->getAttachmentCount(),
@@ -67,6 +68,18 @@ class TicketPostRequest
   public function getTextBody($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'textBody', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getHtmlBody($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'htmlBody', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

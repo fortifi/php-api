@@ -39,10 +39,11 @@ class CustomersCustomerFidTicketsTicketFidPostsEndpoint extends ApiEndpoint
    *
    * @param $limit
    * @param $beforeTimestamp
+   * @param $includeHtml
    *
    * @return TicketPostsRequest
    */
-  public function all($limit = null, $beforeTimestamp = null)
+  public function all($limit = null, $beforeTimestamp = null, $includeHtml = null)
   {
     $request = new TicketPostsRequest();
     $request->setConnection($this->_getConnection());
@@ -59,6 +60,7 @@ class CustomersCustomerFidTicketsTicketFidPostsEndpoint extends ApiEndpoint
     ));
     $detail->addQueryField('limit', $limit);
     $detail->addQueryField('beforeTimestamp', $beforeTimestamp);
+    $detail->addQueryField('includeHtml', $includeHtml);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
