@@ -77,10 +77,12 @@ class CustomersCustomerFidTicketsEndpoint extends ApiEndpoint
    *
    * @param $limit
    * @param $page
+   * @param $sortDirection
+   * @param $sortBy
    *
    * @return TicketsRequest
    */
-  public function all($limit = null, $page = null)
+  public function all($limit = null, $page = null, $sortDirection = null, $sortBy = null)
   {
     $request = new TicketsRequest();
     $request->setConnection($this->_getConnection());
@@ -97,6 +99,8 @@ class CustomersCustomerFidTicketsEndpoint extends ApiEndpoint
     ));
     $detail->addQueryField('limit', $limit);
     $detail->addQueryField('page', $page);
+    $detail->addQueryField('sortDirection', $sortDirection);
+    $detail->addQueryField('sortBy', $sortBy);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;
