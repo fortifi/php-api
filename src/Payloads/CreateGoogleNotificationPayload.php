@@ -25,6 +25,7 @@ class CreateGoogleNotificationPayload
    * @required
    */
   protected $_purchaseToken;
+  protected $_renewalDate;
 
   public function hydrate($data)
   {
@@ -45,6 +46,10 @@ class CreateGoogleNotificationPayload
     {
       $this->_purchaseToken = (string)$data["purchaseToken"];
     }
+    if(isset($data["renewalDate"]))
+    {
+      $this->_renewalDate = (string)$data["renewalDate"];
+    }
     return $this;
   }
 
@@ -56,6 +61,7 @@ class CreateGoogleNotificationPayload
       "packageName"      => $this->_packageName,
       "notificationType" => $this->_notificationType,
       "purchaseToken"    => $this->_purchaseToken,
+      "renewalDate"      => $this->_renewalDate,
     ];
   }
 
@@ -156,6 +162,29 @@ class CreateGoogleNotificationPayload
   public function getPurchaseToken($default = null, $trim = true)
   {
     $value = $this->_purchaseToken ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setRenewalDate(?string $value)
+  {
+    $this->_renewalDate = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getRenewalDate($default = null, $trim = true)
+  {
+    $value = $this->_renewalDate ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

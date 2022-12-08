@@ -54,6 +54,7 @@ class CreateAppleNotificationPayload
    * @required
    */
   protected $_originalTransactionId;
+  protected $_renewalDate;
 
   public function hydrate($data)
   {
@@ -98,6 +99,10 @@ class CreateAppleNotificationPayload
     {
       $this->_originalTransactionId = (string)$data["originalTransactionId"];
     }
+    if(isset($data["renewalDate"]))
+    {
+      $this->_renewalDate = (string)$data["renewalDate"];
+    }
     return $this;
   }
 
@@ -115,6 +120,7 @@ class CreateAppleNotificationPayload
       "countryCode"           => $this->_countryCode,
       "notificationUUID"      => $this->_notificationUUID,
       "originalTransactionId" => $this->_originalTransactionId,
+      "renewalDate"           => $this->_renewalDate,
     ];
   }
 
@@ -365,6 +371,29 @@ class CreateAppleNotificationPayload
   public function getOriginalTransactionId($default = null, $trim = true)
   {
     $value = $this->_originalTransactionId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setRenewalDate(?string $value)
+  {
+    $this->_renewalDate = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getRenewalDate($default = null, $trim = true)
+  {
+    $value = $this->_renewalDate ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
