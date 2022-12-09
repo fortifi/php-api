@@ -48,6 +48,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return AttachmentEndpoint
+   */
+  public function attachment()
+  {
+    $endpoint = new AttachmentEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return PresetChatEndpoint
    */
   public function presetChat()

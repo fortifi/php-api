@@ -13,6 +13,30 @@ class InteractionsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $interactionFid
+   *
+   * @return InteractionsInteractionFidEndpoint
+   */
+  public function with($interactionFid)
+  {
+    $endpoint = new InteractionsInteractionFidEndpoint(
+      $interactionFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return InteractionsInviteEndpoint
+   */
+  public function invite()
+  {
+    $endpoint = new InteractionsInviteEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return InteractionsJourneyEndpoint
    */
   public function journey()

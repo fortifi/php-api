@@ -515,6 +515,37 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/attachment/{entityFid}':
+    post:
+      summary: Create An Attachment
+      tags:
+        - attachment
+      security:
+        - OAuth:
+            - attachment
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/entityFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAttachmentPayload'
+      responses:
+        200:
+          description: Attachment Successfully Created
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-400:
+          description: Couldn't Create Attachment
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /brands:
     get:
       tags:
@@ -5201,6 +5232,258 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/interactions/{interactionFid}/client/connected':
+    post:
+      summary: A Client has connected to the Interaction
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/interactionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InteractionActionPayload'
+      responses:
+        200:
+          description: Client Connected
+          schema:
+            $ref: '#/definitions/Envelope'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/interactions/{interactionFid}/client/disconnected':
+    post:
+      summary: A Client has disconnected from the Interaction
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/interactionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/InteractionActionPayload'
+      responses:
+        200:
+          description: Client Disconnected
+          schema:
+            $ref: '#/definitions/Envelope'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/interactions/{interactionFid}/message':
+    post:
+      summary: Add a message to a Interaction
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/interactionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AddInteractionMessagePayload'
+      responses:
+        200:
+          description: Add Message Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-400:
+          description: Couldnt add message to interaction
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/interactions/{interactionFid}':
+    get:
+      summary: Get an interaction
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/interactionFid'
+      responses:
+        200:
+          description: Interaction
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InteractionResponse'
+        x-400:
+          description: The Interaction could not be retrieved
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/interactions/{interactionFid}/messages':
+    get:
+      summary: Get all Messages on an interaction
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/interactionFid'
+        - name: sinceTime
+          in: query
+          required: false
+          type: string
+        - name: sortOrder
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: Interaction Messages
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InteractionMessagesResponse'
+        x-400:
+          description: The Interaction messages could not be retrieved
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+
+  '/interactions/invite':
+    post:
+      summary: Create an interaction Invite
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateInteractionInvitationPayload'
+      responses:
+        200:
+          description: Successfully create an interaction invite
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InteractionInviteStatusResponse'
+        x-400:
+          description: Couldn't create an interaction invite
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/interactions/invite/{inviteCode}':
+    post:
+      summary: Accept an interaction Invite
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/inviteCode'
+        - name: contactFid
+          in: query
+          required: false
+          type: string
+        - name: dataNodeFid
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: Accepted an interaction invite
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InteractionResponse'
+        x-400:
+          description: Couldn't accept an interaction invite
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/interactions/invite/{inviteCode}/status':
+    get:
+      summary: Get an interaction Invite Status
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/inviteCode'
+        - name: contactFid
+          in: query
+          required: false
+          type: string
+        - name: dataNodeFid
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: An interaction invite Status
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InteractionInviteStatusResponse'
+        x-400:
+          description: Couldn't get an interaction invite status
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/licence/check':
     get:
       summary: Retrieve A Licence
@@ -7661,6 +7944,16 @@ parameters:
     description: The session id of a fortifi chat
   transactionId:
     name: transactionId
+    in: path
+    type: string
+    required: true
+  interactionFid:
+    name: interactionFid
+    in: path
+    type: string
+    required: true
+  inviteCode:
+    name: inviteCode
     in: path
     type: string
     required: true
@@ -12091,3 +12384,123 @@ definitions:
       isLoggedIn:
         type: boolean
 
+  InteractionActionPayload:
+    properties:
+      provider:
+        type: string
+      providerReference:
+        type: string
+      timestamp:
+        type: string
+      data:
+        type: object
+
+  AddInteractionMessagePayload:
+    properties:
+      message:
+        type: string
+      source:
+        description: IP of the message sender
+        type: string
+      actionType:
+        type: string
+      language:
+        type: string
+
+  InteractionMessageResponse:
+    properties:
+      timestamp:
+        type: string
+      randomCode:
+        type: string
+      userFid:
+        type: string
+      customerInitiated:
+        type: boolean
+      method:
+        type: string
+      source:
+        type: string
+      content:
+        type: string
+      actionType:
+        type: string
+
+  InteractionMessagesResponse:
+    properties:
+      messages:
+        type: array
+        items:
+          $ref: '#/definitions/InteractionMessageResponse'
+
+  CreateAttachmentPayload:
+    properties:
+      filename:
+        type: string
+      mimeType:
+        type: string
+      data:
+        type: string
+      externalDataURL:
+        type: string
+      externalDataUsername:
+        type: string
+      externalDataPassword:
+        type: string
+
+  UpdateInteractionPayload:
+    properties:
+      companyFid:
+        type: string
+      departmentFid:
+        type: string
+      queueFid:
+        type: string
+      interactionType:
+        type: string
+
+  StartInteractionPayload:
+    allOf:
+      - $ref: '#/definitions/UpdateInteractionPayload'
+      - properties:
+          contactFid:
+            type: string
+          dataNodeFid:
+            type: string
+
+  CreateInteractionInvitationPayload:
+    allOf:
+      - $ref: '#/definitions/StartInteractionPayload'
+      - properties:
+          topic:
+            type: string
+          earliestStartTime:
+            type: string
+          expiryTime:
+            type: string
+
+  InteractionInviteStatusResponse:
+    properties:
+      inviteCode:
+        type: string
+      waitTime:
+        type: string
+      earliestStartTime:
+        type: string
+      expiryTime:
+        type: string
+      accepted:
+        type: boolean
+      provider:
+        type: string
+      providerReference:
+        type: string
+
+  InteractionResponse:
+    properties:
+      provider:
+        type: string
+      providerReference:
+        type: string
+      interactionFid:
+        type: string
