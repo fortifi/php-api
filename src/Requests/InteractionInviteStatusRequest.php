@@ -21,6 +21,7 @@ class InteractionInviteStatusRequest
       "accepted" => $this->isAccepted(),
       "provider" => $this->getProvider(),
       "providerReference" => $this->getProviderReference(),
+      "interactionFid" => $this->getInteractionFid(),
     ];
   }
 
@@ -103,6 +104,18 @@ class InteractionInviteStatusRequest
   public function getProviderReference($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'providerReference', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInteractionFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'interactionFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

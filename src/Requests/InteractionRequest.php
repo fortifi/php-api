@@ -16,7 +16,10 @@ class InteractionRequest
     return [
       "provider" => $this->getProvider(),
       "providerReference" => $this->getProviderReference(),
-      "interactionFid" => $this->getInteractionFid(),
+      "fid" => $this->getFid(),
+      "topic" => $this->getTopic(),
+      "agentName" => $this->getAgentName(),
+      "status" => $this->getStatus(),
     ];
   }
 
@@ -50,9 +53,45 @@ class InteractionRequest
    *
    * @return string
    */
-  public function getInteractionFid($default = null, $trim = true)
+  public function getFid($default = null, $trim = true)
   {
-    $value = Objects::property($this->_getResultJson(), 'interactionFid', $default);
+    $value = Objects::property($this->_getResultJson(), 'fid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTopic($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'topic', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAgentName($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'agentName', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getStatus($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'status', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
