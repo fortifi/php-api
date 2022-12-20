@@ -16,6 +16,7 @@ class InteractionMessageRequest
     return [
       "timestamp" => $this->getTimestamp(),
       "randomCode" => $this->getRandomCode(),
+      "authorName" => $this->getAuthorName(),
       "userFid" => $this->getUserFid(),
       "customerInitiated" => $this->isCustomerInitiated(),
       "method" => $this->getMethod(),
@@ -46,6 +47,18 @@ class InteractionMessageRequest
   public function getRandomCode($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'randomCode', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAuthorName($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'authorName', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
