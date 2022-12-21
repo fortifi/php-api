@@ -52,6 +52,18 @@ class InteractionsInteractionFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return InteractionsInteractionFidFeedbackEndpoint
+   */
+  public function feedback()
+  {
+    $endpoint = new InteractionsInteractionFidFeedbackEndpoint(
+      $this->_replacements['{interactionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Get an interaction
    *
    * @return InteractionRequest

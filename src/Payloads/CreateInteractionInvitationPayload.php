@@ -9,6 +9,9 @@ class CreateInteractionInvitationPayload
   protected $_topic;
   protected $_earliestStartTime;
   protected $_expiryTime;
+  protected $_journeyTrackingFid;
+  protected $_verificationFid;
+  protected $_initialMessage;
 
   public function hydrate($data)
   {
@@ -26,6 +29,18 @@ class CreateInteractionInvitationPayload
     {
       $this->_expiryTime = (string)$data["expiryTime"];
     }
+    if(isset($data["journeyTrackingFid"]))
+    {
+      $this->_journeyTrackingFid = (string)$data["journeyTrackingFid"];
+    }
+    if(isset($data["verificationFid"]))
+    {
+      $this->_verificationFid = (string)$data["verificationFid"];
+    }
+    if(isset($data["initialMessage"]))
+    {
+      $this->_initialMessage = (string)$data["initialMessage"];
+    }
     return $this;
   }
 
@@ -35,9 +50,12 @@ class CreateInteractionInvitationPayload
     return array_merge(
       parent::jsonSerialize(),
       [
-        "topic"             => $this->_topic,
-        "earliestStartTime" => $this->_earliestStartTime,
-        "expiryTime"        => $this->_expiryTime,
+        "topic"              => $this->_topic,
+        "earliestStartTime"  => $this->_earliestStartTime,
+        "expiryTime"         => $this->_expiryTime,
+        "journeyTrackingFid" => $this->_journeyTrackingFid,
+        "verificationFid"    => $this->_verificationFid,
+        "initialMessage"     => $this->_initialMessage,
       ]
     );
   }
@@ -108,6 +126,75 @@ class CreateInteractionInvitationPayload
   public function getExpiryTime($default = null, $trim = true)
   {
     $value = $this->_expiryTime ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setJourneyTrackingFid(?string $value)
+  {
+    $this->_journeyTrackingFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getJourneyTrackingFid($default = null, $trim = true)
+  {
+    $value = $this->_journeyTrackingFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setVerificationFid(?string $value)
+  {
+    $this->_verificationFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getVerificationFid($default = null, $trim = true)
+  {
+    $value = $this->_verificationFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setInitialMessage(?string $value)
+  {
+    $this->_initialMessage = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInitialMessage($default = null, $trim = true)
+  {
+    $value = $this->_initialMessage ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

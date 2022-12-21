@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.118.0'
+  version: '3.119.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -5383,6 +5383,36 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/interactions/{interactionFid}/feedback':
+    post:
+      summary: Submit Feedback to an interaction
+      tags:
+        - interactions
+      security:
+        - OAuth:
+            - interactions
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/interactionFid'
+        - name: rating
+          in: query
+          required: true
+          type: number
+      responses:
+        200:
+          description: Feedback Updated Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-400:
+          description: The Interaction feedback could not be submitted
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/interactions/invite':
     post:
@@ -12480,6 +12510,12 @@ definitions:
             type: string
           expiryTime:
             type: string
+          journeyTrackingFid:
+            type: string
+          verificationFid:
+            type: string
+          initialMessage:
+            type: string
 
   InteractionInviteStatusResponse:
     properties:
@@ -12514,3 +12550,5 @@ definitions:
         type: string
       status:
         type: string
+      feedback:
+        type: number

@@ -20,6 +20,7 @@ class InteractionRequest
       "topic" => $this->getTopic(),
       "agentName" => $this->getAgentName(),
       "status" => $this->getStatus(),
+      "feedback" => $this->getFeedback(),
     ];
   }
 
@@ -93,5 +94,15 @@ class InteractionRequest
   {
     $value = Objects::property($this->_getResultJson(), 'status', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getFeedback($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'feedback', $default);
   }
 }
