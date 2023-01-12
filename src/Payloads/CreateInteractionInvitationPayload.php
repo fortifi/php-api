@@ -12,6 +12,7 @@ class CreateInteractionInvitationPayload
   protected $_journeyTrackingFid;
   protected $_verificationFid;
   protected $_initialMessage;
+  protected $_language;
 
   public function hydrate($data)
   {
@@ -41,6 +42,10 @@ class CreateInteractionInvitationPayload
     {
       $this->_initialMessage = (string)$data["initialMessage"];
     }
+    if(isset($data["language"]))
+    {
+      $this->_language = (string)$data["language"];
+    }
     return $this;
   }
 
@@ -56,6 +61,7 @@ class CreateInteractionInvitationPayload
         "journeyTrackingFid" => $this->_journeyTrackingFid,
         "verificationFid"    => $this->_verificationFid,
         "initialMessage"     => $this->_initialMessage,
+        "language"           => $this->_language,
       ]
     );
   }
@@ -195,6 +201,29 @@ class CreateInteractionInvitationPayload
   public function getInitialMessage($default = null, $trim = true)
   {
     $value = $this->_initialMessage ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setLanguage(?string $value)
+  {
+    $this->_language = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLanguage($default = null, $trim = true)
+  {
+    $value = $this->_language ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
