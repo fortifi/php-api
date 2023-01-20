@@ -64,6 +64,18 @@ class InteractionsInteractionFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return InteractionsInteractionFidAttachmentEndpoint
+   */
+  public function attachment()
+  {
+    $endpoint = new InteractionsInteractionFidAttachmentEndpoint(
+      $this->_replacements['{interactionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Get an interaction
    *
    * @return InteractionRequest
