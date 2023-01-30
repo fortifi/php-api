@@ -13,6 +13,7 @@ class CreateInteractionInvitationPayload
   protected $_verificationFid;
   protected $_initialMessage;
   protected $_language;
+  protected $_context;
 
   public function hydrate($data)
   {
@@ -46,6 +47,10 @@ class CreateInteractionInvitationPayload
     {
       $this->_language = (string)$data["language"];
     }
+    if(isset($data["context"]))
+    {
+      $this->_context = $data["context"];
+    }
     return $this;
   }
 
@@ -62,6 +67,7 @@ class CreateInteractionInvitationPayload
         "verificationFid"    => $this->_verificationFid,
         "initialMessage"     => $this->_initialMessage,
         "language"           => $this->_language,
+        "context"            => $this->_context,
       ]
     );
   }
@@ -225,5 +231,26 @@ class CreateInteractionInvitationPayload
   {
     $value = $this->_language ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param  $value
+   *
+   * @return $this
+   */
+  public function setContext($value)
+  {
+    $this->_context = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return object
+   */
+  public function getContext($default = null)
+  {
+    return $this->_context ?: $default;
   }
 }
