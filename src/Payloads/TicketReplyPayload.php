@@ -6,6 +6,7 @@ class TicketReplyPayload
   implements \JsonSerializable
 {
   protected $_textBody;
+  protected $_htmlBody;
   /**
    * Ticket Status
    */
@@ -18,6 +19,10 @@ class TicketReplyPayload
     if(isset($data["textBody"]))
     {
       $this->_textBody = (string)$data["textBody"];
+    }
+    if(isset($data["htmlBody"]))
+    {
+      $this->_htmlBody = (string)$data["htmlBody"];
     }
     if(isset($data["status"]))
     {
@@ -35,6 +40,7 @@ class TicketReplyPayload
   {
     return [
       "textBody"    => $this->_textBody,
+      "htmlBody"    => $this->_htmlBody,
       "status"      => $this->_status,
       "attachments" => $this->_attachments,
     ];
@@ -60,6 +66,29 @@ class TicketReplyPayload
   public function getTextBody($default = null, $trim = true)
   {
     $value = $this->_textBody ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setHtmlBody(?string $value)
+  {
+    $this->_htmlBody = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getHtmlBody($default = null, $trim = true)
+  {
+    $value = $this->_htmlBody ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
