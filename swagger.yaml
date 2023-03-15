@@ -11760,6 +11760,8 @@ definitions:
     properties:
       textBody:
         type: string
+      htmlBody:
+        type: string
       status:
         $ref: '#/definitions/ticketStatus'
       attachments:
