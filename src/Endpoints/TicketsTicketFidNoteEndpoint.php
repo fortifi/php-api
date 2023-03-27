@@ -2,13 +2,13 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\TicketStatusPayload;
+use Fortifi\Api\V1\Payloads\AddTicketNotePayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class TicketsTicketFidEndpoint extends ApiEndpoint
+class TicketsTicketFidNoteEndpoint extends ApiEndpoint
 {
-  protected $_path = 'tickets/{ticketFid}';
+  protected $_path = 'tickets/{ticketFid}/note';
   protected $_replacements = [];
 
   public function __construct($ticketFid)
@@ -17,25 +17,13 @@ class TicketsTicketFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return TicketsTicketFidNoteEndpoint
-   */
-  public function note()
-  {
-    $endpoint = new TicketsTicketFidNoteEndpoint(
-      $this->_replacements['{ticketFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @summary Set the status of a ticket
+   * @summary Create a note against the ticket
    *
-   * @param TicketStatusPayload $payload
+   * @param AddTicketNotePayload $payload
    *
    * @return BoolMessageRequest
    */
-  public function setStatus(TicketStatusPayload $payload)
+  public function create(AddTicketNotePayload $payload)
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());
@@ -47,11 +35,11 @@ class TicketsTicketFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'tickets/{ticketFid}/status'
+        'tickets/{ticketFid}/note'
       )
     ));
     $detail->setBody(json_encode($payload));
-    $detail->setMethod('PUT');
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

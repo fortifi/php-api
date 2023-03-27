@@ -14,6 +14,7 @@ class CreateInteractionInvitationPayload
   protected $_initialMessage;
   protected $_language;
   protected $_context;
+  protected $_notes;
 
   public function hydrate($data)
   {
@@ -51,6 +52,16 @@ class CreateInteractionInvitationPayload
     {
       $this->_context = $data["context"];
     }
+    if(isset($data["notes"]))
+    {
+      $this->_notes = [];
+      foreach($data["notes"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_notes[] = $dObj;
+      }
+    }
     return $this;
   }
 
@@ -68,6 +79,7 @@ class CreateInteractionInvitationPayload
         "initialMessage"     => $this->_initialMessage,
         "language"           => $this->_language,
         "context"            => $this->_context,
+        "notes"              => $this->_notes,
       ]
     );
   }
@@ -252,5 +264,37 @@ class CreateInteractionInvitationPayload
   public function getContext($default = null)
   {
     return $this->_context ?: $default;
+  }
+
+  /**
+   * @param KeyValuePayload[] $value
+   *
+   * @return $this
+   */
+  public function setNotes(?array $value)
+  {
+    $this->_notes = $value;
+    return $this;
+  }
+
+  /**
+   * @param KeyValuePayload $item
+   *
+   * @return $this
+   */
+  public function addNote(KeyValuePayload $item)
+  {
+    $this->_notes[] = $item;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return KeyValuePayload[]
+   */
+  public function getNotes($default = [])
+  {
+    return $this->_notes ?: $default;
   }
 }
