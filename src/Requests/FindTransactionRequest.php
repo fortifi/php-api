@@ -23,8 +23,10 @@ class FindTransactionRequest
       "paymentLast4" => $this->getPaymentLast4(),
       "paymentExp" => $this->getPaymentExp(),
       "currency" => $this->getCurrency(),
+      "totalAmount" => $this->getTotalAmount(),
       "date" => $this->getDate(),
       "taxes" => $this->getTaxes(),
+      "discounts" => $this->getDiscounts(),
     ];
   }
 
@@ -140,6 +142,18 @@ class FindTransactionRequest
    *
    * @return string
    */
+  public function getTotalAmount($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'totalAmount', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
   public function getDate($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'date', $default);
@@ -154,6 +168,16 @@ class FindTransactionRequest
   public function getTaxes($default = [])
   {
     return Objects::property($this->_getResultJson(), 'taxes', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return InvoiceDiscountItemRequest[]
+   */
+  public function getDiscounts($default = [])
+  {
+    return Objects::property($this->_getResultJson(), 'discounts', $default);
   }
 
   protected function _prepareResult($result)
@@ -174,6 +198,15 @@ class FindTransactionRequest
       foreach($return->taxes as $itmKey => $itm)
       {
         $return->taxes[$itmKey] = (new InvoiceTaxItemRequest())
+          ->hydrate($itm);
+      }
+    }
+
+    if(!empty($return->discounts))
+    {
+      foreach($return->discounts as $itmKey => $itm)
+      {
+        $return->discounts[$itmKey] = (new InvoiceDiscountItemRequest())
           ->hydrate($itm);
       }
     }

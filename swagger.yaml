@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.125.0'
+  version: '3.126.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -9481,6 +9481,19 @@ definitions:
             type: number
             format: float
 
+  InvoiceDiscountItem:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          productFid:
+            type: string
+          purchaseFid:
+            type: string
+          amount:
+            type: number
+            format: float
+
 
   InvoiceSubItem:
     description: Generic Response
@@ -12724,13 +12737,18 @@ definitions:
         type: string
       currency:
         type: string
+      totalAmount:
+        type: string
       date:
         type: string
       taxes:
         type: array
         items:
           $ref: '#/definitions/InvoiceTaxItem'
-
+      discounts:
+        type: array
+        items:
+          $ref: '#/definitions/InvoiceDiscountItem'
   AddTicketNotePayload:
     properties:
       notes:
