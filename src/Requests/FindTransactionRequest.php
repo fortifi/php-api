@@ -24,6 +24,7 @@ class FindTransactionRequest
       "paymentExp" => $this->getPaymentExp(),
       "currency" => $this->getCurrency(),
       "date" => $this->getDate(),
+      "taxes" => $this->getTaxes(),
     ];
   }
 
@@ -145,6 +146,16 @@ class FindTransactionRequest
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  /**
+   * @param mixed $default
+   *
+   * @return InvoiceTaxItemRequest[]
+   */
+  public function getTaxes($default = [])
+  {
+    return Objects::property($this->_getResultJson(), 'taxes', $default);
+  }
+
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
@@ -154,6 +165,15 @@ class FindTransactionRequest
       foreach($return->items as $itmKey => $itm)
       {
         $return->items[$itmKey] = (new InvoiceItemRequest())
+          ->hydrate($itm);
+      }
+    }
+
+    if(!empty($return->taxes))
+    {
+      foreach($return->taxes as $itmKey => $itm)
+      {
+        $return->taxes[$itmKey] = (new InvoiceTaxItemRequest())
           ->hydrate($itm);
       }
     }

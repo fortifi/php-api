@@ -4,7 +4,7 @@ namespace Fortifi\Api\V1\Requests;
 use Packaged\Helpers\Objects;
 use Packaged\Helpers\Strings;
 
-class InvoiceItemRequest
+class InvoiceTaxItemRequest
   extends EntityRequest
   implements \JsonSerializable
 {
@@ -17,8 +17,7 @@ class InvoiceItemRequest
       [
         "productFid" => $this->getProductFid(),
         "purchaseFid" => $this->getPurchaseFid(),
-        "totalAmount" => $this->getTotalAmount(),
-        "subItems" => $this->getSubItems(),
+        "amount" => $this->getAmount(),
       ]
     );
   }
@@ -52,34 +51,8 @@ class InvoiceItemRequest
    *
    * @return float
    */
-  public function getTotalAmount($default = null)
+  public function getAmount($default = null)
   {
-    return Objects::property($this->_getResultJson(), 'totalAmount', $default);
-  }
-
-  /**
-   * @param mixed $default
-   *
-   * @return InvoiceSubItemRequest[]
-   */
-  public function getSubItems($default = [])
-  {
-    return Objects::property($this->_getResultJson(), 'subItems', $default);
-  }
-
-  protected function _prepareResult($result)
-  {
-    $return = parent::_prepareResult($result);
-
-    if(!empty($return->subItems))
-    {
-      foreach($return->subItems as $itmKey => $itm)
-      {
-        $return->subItems[$itmKey] = (new InvoiceSubItemRequest())
-          ->hydrate($itm);
-      }
-    }
-
-    return $return;
+    return Objects::property($this->_getResultJson(), 'amount', $default);
   }
 }
