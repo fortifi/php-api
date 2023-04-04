@@ -14,6 +14,7 @@ class FindTransactionRequest
   public function jsonSerialize()
   {
     return [
+      "customerFid" => $this->getCustomerFid(),
       "fullName" => $this->getFullName(),
       "email" => $this->getEmail(),
       "city" => $this->getCity(),
@@ -28,6 +29,18 @@ class FindTransactionRequest
       "taxes" => $this->getTaxes(),
       "discounts" => $this->getDiscounts(),
     ];
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCustomerFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'customerFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
