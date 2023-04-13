@@ -76,6 +76,18 @@ class InteractionsInteractionFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return InteractionsInteractionFidCustomerClosedEndpoint
+   */
+  public function customerClosed()
+  {
+    $endpoint = new InteractionsInteractionFidCustomerClosedEndpoint(
+      $this->_replacements['{interactionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Get an interaction
    *
    * @return InteractionRequest
