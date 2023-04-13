@@ -10,6 +10,7 @@ class CreateInteractionInvitationPayload
   protected $_earliestStartTime;
   protected $_expiryTime;
   protected $_journeyTrackingFid;
+  protected $_edges;
   protected $_verificationFid;
   protected $_initialMessage;
   protected $_language;
@@ -35,6 +36,10 @@ class CreateInteractionInvitationPayload
     if(isset($data["journeyTrackingFid"]))
     {
       $this->_journeyTrackingFid = (string)$data["journeyTrackingFid"];
+    }
+    if(isset($data["edges"]))
+    {
+      $this->_edges = (string)$data["edges"];
     }
     if(isset($data["verificationFid"]))
     {
@@ -75,6 +80,7 @@ class CreateInteractionInvitationPayload
         "earliestStartTime"  => $this->_earliestStartTime,
         "expiryTime"         => $this->_expiryTime,
         "journeyTrackingFid" => $this->_journeyTrackingFid,
+        "edges"              => $this->_edges,
         "verificationFid"    => $this->_verificationFid,
         "initialMessage"     => $this->_initialMessage,
         "language"           => $this->_language,
@@ -173,6 +179,29 @@ class CreateInteractionInvitationPayload
   public function getJourneyTrackingFid($default = null, $trim = true)
   {
     $value = $this->_journeyTrackingFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setEdges(?string $value)
+  {
+    $this->_edges = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getEdges($default = null, $trim = true)
+  {
+    $value = $this->_edges ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

@@ -28,6 +28,9 @@ class FindTransactionRequest
       "date" => $this->getDate(),
       "taxes" => $this->getTaxes(),
       "discounts" => $this->getDiscounts(),
+      "invoiceFid" => $this->getInvoiceFid(),
+      "transactionFid" => $this->getTransactionFid(),
+      "subscriptionFid" => $this->getSubscriptionFid(),
     ];
   }
 
@@ -191,6 +194,42 @@ class FindTransactionRequest
   public function getDiscounts($default = [])
   {
     return Objects::property($this->_getResultJson(), 'discounts', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInvoiceFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'invoiceFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTransactionFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'transactionFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSubscriptionFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'subscriptionFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   protected function _prepareResult($result)
