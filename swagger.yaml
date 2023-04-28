@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.129.0'
+  version: '3.130.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -12742,6 +12742,8 @@ definitions:
       country:
         type: string
       paypalEmail:
+        type: string
+      companyFid:
         type: string
 
   FindTransactionResponse:

@@ -18,6 +18,7 @@ class FindTransactionPayload
   protected $_postCode;
   protected $_country;
   protected $_paypalEmail;
+  protected $_companyFid;
 
   public function hydrate($data)
   {
@@ -74,6 +75,10 @@ class FindTransactionPayload
     {
       $this->_paypalEmail = (string)$data["paypalEmail"];
     }
+    if(isset($data["companyFid"]))
+    {
+      $this->_companyFid = (string)$data["companyFid"];
+    }
     return $this;
   }
 
@@ -94,6 +99,7 @@ class FindTransactionPayload
       "postCode"      => $this->_postCode,
       "country"       => $this->_country,
       "paypalEmail"   => $this->_paypalEmail,
+      "companyFid"    => $this->_companyFid,
     ];
   }
 
@@ -393,6 +399,29 @@ class FindTransactionPayload
   public function getPaypalEmail($default = null, $trim = true)
   {
     $value = $this->_paypalEmail ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCompanyFid(?string $value)
+  {
+    $this->_companyFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCompanyFid($default = null, $trim = true)
+  {
+    $value = $this->_companyFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
