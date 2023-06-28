@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.130.0'
+  version: '3.131.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1709,7 +1709,7 @@ paths:
         - OAuth:
             - customer
             - customer.readonly
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: limit
@@ -1746,7 +1746,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/interactionType'
@@ -1765,6 +1765,26 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+    get:
+      summary: List Customer interactions
+      tags:
+        - Customers
+        - Interaction
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/CustomerInteractions'
+          description: List Customer Interactions
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/customers/{customerFid}/tickets':
     post:
@@ -1777,7 +1797,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -1830,7 +1850,7 @@ paths:
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: limit
@@ -1876,7 +1896,7 @@ paths:
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/ticketFid'
@@ -1904,7 +1924,7 @@ paths:
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/ticketFid'
@@ -1947,7 +1967,7 @@ paths:
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/ticketFid'
@@ -1979,7 +1999,7 @@ paths:
       security:
         - OAuth:
             - entity.config
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/ticketFid'
@@ -4382,6 +4402,27 @@ paths:
                     $ref: '#/definitions/BoolMessage'
         x-400:
           description: Invalid payload data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/sentEmails':
+    get:
+      summary: List Emails sent to a Customer
+      tags:
+        - Customers
+        - Messenger
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/SentEmails'
+          description: List of Emails sent to Customer
         default:
           description: Error
           schema:
@@ -12794,3 +12835,61 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/keyValuePayload'
+
+  SentEmail:
+    properties:
+      campaignFid:
+        type: string
+      companyFid:
+        type: string
+      messageFid:
+        type: string
+      bounced:
+        type: boolean
+      opened:
+        type: boolean
+      clicked:
+        type: boolean
+      complained:
+        type: boolean
+      subject:
+        type: string
+      sentTimestamp:
+        type: string
+      recipientEmails:
+        type: array
+        items:
+          type: string
+
+
+  SentEmails:
+    description: Sent Emails
+    properties:
+      emails:
+        type: array
+        items:
+          $ref: '#/definitions/SentEmail'
+
+  CustomerInteraction:
+    properties:
+      initiatedTime:
+        type: string
+      disconnectTime:
+        type: string
+      topic:
+        type: string
+      departmentFid:
+        type: string
+      queueFid:
+        type: string
+      fid:
+        type: string
+      type:
+        type: string
+
+  CustomerInteractions:
+    properties:
+      chats:
+        type: array
+        items:
+          $ref: '#/definitions/CustomerInteraction'
