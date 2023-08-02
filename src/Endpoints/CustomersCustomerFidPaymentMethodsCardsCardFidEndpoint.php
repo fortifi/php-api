@@ -18,6 +18,19 @@ class CustomersCustomerFidPaymentMethodsCardsCardFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidPaymentMethodsCardsCardFidLockEndpoint
+   */
+  public function lock()
+  {
+    $endpoint = new CustomersCustomerFidPaymentMethodsCardsCardFidLockEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{cardFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return ApiRequest
    */
   public function delete()

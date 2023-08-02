@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.131.0'
+  version: '3.132.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -2894,6 +2894,26 @@ paths:
       responses:
         200:
           description: Card Updated
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/paymentMethods/cards/{cardFid}/lock':
+    post:
+      tags:
+        - Customers
+        - Payment Methods
+      security:
+        - OAuth:
+            - payment.methods
+        - accessToken: []
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/cardFid'
+      responses:
+        200:
+          description: Card Locked
         default:
           description: Error
           schema:
@@ -7467,7 +7487,7 @@ paths:
       security:
         - OAuth:
             - support
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - name: payload
           in: body
@@ -7488,6 +7508,31 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/tickets/{ticketFid}':
+    get:
+      summary: Get a ticket
+      tags:
+        - Support
+      security:
+        - OAuth:
+            - support
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/ticketFid'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Ticket'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/tickets/{ticketFid}/status':
     put:
       summary: Set the status of a ticket
@@ -7496,7 +7541,7 @@ paths:
       security:
         - OAuth:
             - support
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/ticketFid'
         - name: payload
@@ -7527,7 +7572,7 @@ paths:
       security:
         - OAuth:
             - support
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/ticketFid'
         - name: payload

@@ -1,6 +1,7 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
+use Fortifi\Api\V1\Requests\TicketRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
 use Fortifi\Api\V1\Payloads\TicketStatusPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
@@ -26,6 +27,31 @@ class TicketsTicketFidEndpoint extends ApiEndpoint
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
+  }
+
+  /**
+   * @summary Get a ticket
+   *
+   * @return TicketRequest
+   */
+  public function retrieve()
+  {
+    $request = new TicketRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'tickets/{ticketFid}'
+      )
+    ));
+    $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
   }
 
   /**
