@@ -48,6 +48,7 @@ class TicketRequest
         "language" => $this->getLanguage(),
         "dateCreated" => $this->getDateCreated(),
         "dateModified" => $this->getDateModified(),
+        "attachmentUrls" => $this->getAttachmentUrls(),
       ]
     );
   }
@@ -412,5 +413,23 @@ class TicketRequest
   public function getDateModified($default = null)
   {
     return Objects::property($this->_getResultJson(), 'dateModified', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return string[]
+   */
+  public function getAttachmentUrls($default = [])
+  {
+    return Objects::property($this->_getResultJson(), 'attachmentUrls', $default);
+  }
+
+  protected function _prepareResult($result)
+  {
+    $return = parent::_prepareResult($result);
+
+
+    return $return;
   }
 }

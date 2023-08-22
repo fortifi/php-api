@@ -23,6 +23,7 @@ class AttachmentRequest
       "virusFound" => $this->isVirusFound(),
       "virusName" => $this->getVirusName(),
       "downloadUrl" => $this->getDownloadUrl(),
+      "meta" => $this->getMeta(),
     ];
   }
 
@@ -128,5 +129,15 @@ class AttachmentRequest
   {
     $value = Objects::property($this->_getResultJson(), 'downloadUrl', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return object
+   */
+  public function getMeta($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'meta', $default);
   }
 }
