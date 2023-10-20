@@ -18,6 +18,18 @@ class TicketsTicketFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return TicketsTicketFidPostsEndpoint
+   */
+  public function posts()
+  {
+    $endpoint = new TicketsTicketFidPostsEndpoint(
+      $this->_replacements['{ticketFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return TicketsTicketFidNoteEndpoint
    */
   public function note()

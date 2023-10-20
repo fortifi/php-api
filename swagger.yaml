@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.134.0'
+  version: '3.136.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -7563,6 +7563,47 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/tickets/{ticketFid}/posts':
+    get:
+      summary: Retrieve ticket posts for a ticket
+      tags:
+        - Support
+      security:
+        - OAuth:
+            - entity.config
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/ticketFid'
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20, max: 100)'
+          required: false
+          type: integer
+        - name: beforeTimestamp
+          in: query
+          description: 'Show posts before timestamp'
+          required: false
+          type: integer
+          format: int64
+        - name: includeHtml
+          in: query
+          description: 'Respond with the html body as a part of the response'
+          type: boolean
+          required: false
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/TicketPosts'
+          description: Ticket Data
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
 
   '/tickets/{ticketFid}/note':
     post:
@@ -12808,6 +12849,8 @@ definitions:
         type: string
       feedback:
         type: number
+      connectedAgentFid:
+        type: string
 
   FindTransactionPayload:
     properties:

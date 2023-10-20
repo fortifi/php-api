@@ -21,6 +21,7 @@ class InteractionRequest
       "agentName" => $this->getAgentName(),
       "status" => $this->getStatus(),
       "feedback" => $this->getFeedback(),
+      "connectedAgentFid" => $this->getConnectedAgentFid(),
     ];
   }
 
@@ -104,5 +105,17 @@ class InteractionRequest
   public function getFeedback($default = null)
   {
     return Objects::property($this->_getResultJson(), 'feedback', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getConnectedAgentFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'connectedAgentFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }
