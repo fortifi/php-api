@@ -37,6 +37,7 @@ class PaymentMethodRequest
         "successfulTransactions" => $this->getSuccessfulTransactions(),
         "declineCount" => $this->getDeclineCount(),
         "externalReference" => $this->getExternalReference(),
+        "lookupCode" => $this->getLookupCode(),
       ]
     );
   }
@@ -302,6 +303,18 @@ class PaymentMethodRequest
   public function getExternalReference($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'externalReference', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getLookupCode($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'lookupCode', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
