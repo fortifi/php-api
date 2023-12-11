@@ -7,6 +7,7 @@ use Fortifi\Api\V1\Requests\OrderConfirmationRequest;
 use Fortifi\Api\V1\Requests\EnvelopeRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
 use Fortifi\Api\V1\Payloads\VerifyOrderPayload;
+use Fortifi\Api\V1\Payloads\TriggerOnDemandOrderPayload;
 use Fortifi\Api\V1\Payloads\FinalizeOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmPayPalOrderPayload;
 use Fortifi\Api\V1\Payloads\ConfirmCardOrderPayload;
@@ -287,6 +288,34 @@ class OrdersOrderFidEndpoint extends ApiEndpoint
     ));
     $detail->addPostField('externalReference', $externalReference);
     $detail->addPostField('displayName', $displayName);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Trigger OnDemand schedule for an order
+   *
+   * @param TriggerOnDemandOrderPayload $payload
+   *
+   * @return BoolMessageRequest
+   */
+  public function triggerOnDemand(TriggerOnDemandOrderPayload $payload)
+  {
+    $request = new BoolMessageRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'orders/{orderFid}/triggerOnDemand'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
