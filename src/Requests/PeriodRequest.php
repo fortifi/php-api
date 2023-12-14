@@ -23,6 +23,7 @@ class PeriodRequest
         "refundAmount" => $this->getRefundAmount(),
         "taxAmount" => $this->getTaxAmount(),
         "totalAmount" => $this->getTotalAmount(),
+        "amountPaid" => $this->getAmountPaid(),
         "creditedAmount" => $this->getCreditedAmount(),
         "outstandingAmount" => $this->getOutstandingAmount(),
         "periodStart" => $this->getPeriodStart(),
@@ -117,6 +118,16 @@ class PeriodRequest
   public function getTotalAmount($default = null)
   {
     return Objects::property($this->_getResultJson(), 'totalAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getAmountPaid($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'amountPaid', $default);
   }
 
   /**
