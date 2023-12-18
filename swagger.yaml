@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.139.0'
+  version: '3.140.1'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4273,6 +4273,40 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/cancelRequest':
+    post:
+      summary: Create a cancel request for a subscription
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateCancelRequestPayload'
+      responses:
+        200:
+          description: Boolean Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Failed to create cancel request
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/customers/{customerFid}/orders':
     get:
       summary: List customer orders
@@ -8373,6 +8407,15 @@ definitions:
       - email
       - retarget
       - content
+      - native
+      - social
+      - push
+      - video
+      - tv
+      - seo
+      - app_install
+      - podcast
+      - influencer
   customerAccountType:
     description: Account Type
     type: string
@@ -13035,3 +13078,25 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/CustomerInteraction'
+
+  CreateCancelRequestPayload:
+    properties:
+      userIp:
+        type: string
+      userAgent:
+        type: string
+      cancelType:
+        type: string
+        enum:
+          - disable_auto_renew
+          - turn_off_auto_charge
+          - terminate
+      reason:
+        type: string
+      isAuthed:
+        type: boolean
+      authenticatedBy:
+        type: string
+      note:
+        type: string
+

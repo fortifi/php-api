@@ -90,6 +90,19 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @return CustomersCustomerFidSubscriptionsSubscriptionFidCancelRequestEndpoint
+   */
+  public function cancelRequest()
+  {
+    $endpoint = new CustomersCustomerFidSubscriptionsSubscriptionFidCancelRequestEndpoint(
+      $this->_replacements['{customerFid}'],
+      $this->_replacements['{subscriptionFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retreive a specific subscription
    *
    * @return SubscriptionRequest

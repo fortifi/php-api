@@ -16,6 +16,15 @@ final class PublisherType
   const EMAIL = 'email';
   const RETARGET = 'retarget';
   const CONTENT = 'content';
+  const NATIVE = 'native';
+  const SOCIAL = 'social';
+  const PUSH = 'push';
+  const VIDEO = 'video';
+  const TV = 'tv';
+  const SEO = 'seo';
+  const APP_INSTALL = 'app_install';
+  const PODCAST = 'podcast';
+  const INFLUENCER = 'influencer';
 
   public static function getDisplayValue($value)
   {
@@ -38,6 +47,15 @@ final class PublisherType
       'email',
       'retarget',
       'content',
+      'native',
+      'social',
+      'push',
+      'video',
+      'tv',
+      'seo',
+      'app_install',
+      'podcast',
+      'influencer',
     ];
   }
 
