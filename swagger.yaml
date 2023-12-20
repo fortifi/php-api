@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.140.1'
+  version: '3.141.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -3633,7 +3633,7 @@ paths:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
-                    $ref: '#/definitions/Subscription'
+                    $ref: '#/definitions/SubscriptionCancellation'
         x-400:
           description: Invalid payload data
         x-404:
@@ -9536,6 +9536,27 @@ definitions:
           sourceFid:
             description: The FID of the object that created this subscription (most commonly, order fid)
             type: string
+
+  SubscriptionCancellation:
+    description: Generic Response
+    allOf:
+      - $ref: '#/definitions/Subscription'
+      - properties:
+          amountWithTax:
+            type: number
+            format: float
+          amountWithoutTax:
+            type: number
+            format: float
+          tax:
+            type: number
+            format: float
+          terminationFee:
+            type: number
+            format: float
+          terminationFeeWithTax:
+            type: number
+            format: float
 
   CalculateSubscriptionRefund:
     description: Response from calculating a refund on a subscription

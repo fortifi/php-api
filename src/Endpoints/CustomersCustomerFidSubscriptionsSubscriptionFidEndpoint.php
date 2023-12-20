@@ -2,6 +2,7 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\SubscriptionRequest;
+use Fortifi\Api\V1\Requests\SubscriptionCancellationRequest;
 use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Requests\CalculatedSubscriptionModificationRequest;
@@ -558,11 +559,11 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
    *
    * @param SubscriptionCancelPayload $payload
    *
-   * @return SubscriptionRequest
+   * @return SubscriptionCancellationRequest
    */
   public function setCancel(SubscriptionCancelPayload $payload)
   {
-    $request = new SubscriptionRequest();
+    $request = new SubscriptionCancellationRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
