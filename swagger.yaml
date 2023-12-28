@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.141.0'
+  version: '3.142.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -5327,6 +5327,37 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/flow/{flowFid}/log':
+    post:
+      summary: Create Flow
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FlowLogMetricPayload'
+      responses:
+        200:
+          description: Result of metric log
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/interactions/journey':
     post:
       summary: Create A Customer Journey
@@ -8075,6 +8106,12 @@ parameters:
     type: string
     required: true
     description: Contact FID to use
+  flowFid:
+    name: flowFid
+    in: path
+    type: string
+    required: true
+    description: Flow FID to use
   addressFid:
     name: addressFid
     in: path
@@ -9940,6 +9977,86 @@ definitions:
             type: string
           resourcePoolFid:
             type: string
+
+  FlowLogMetricPayload:
+    description: Flow Log Metric
+    properties:
+      actionTimestamp:
+        type: number
+        format: int64
+      companyFid:
+        type: string
+      sessionId:
+        type: string
+      action:
+        type: string
+      language:
+        type: string
+      languageSpecific:
+        type: string
+      os:
+        type: string
+      osVersion:
+        type: string
+      osBlended:
+        type: string
+      platform:
+        type: string
+      device:
+        type: string
+      client:
+        type: string
+      clientVersion:
+        type: string
+      clientBlended:
+        type: string
+      ip:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      state:
+        type: string
+      postal:
+        type: string
+      timezone:
+        type: string
+      continent:
+        type: string
+      affiliateFid:
+        type: string
+      foundationFid:
+        type: string
+      affiliateType:
+        type: string
+      campaignHash:
+        description: Advertiser Campaign to track this action to (if not already locked)
+        type: string
+      campaignFid:
+        type: string
+      sid1:
+        type: string
+      sid2:
+        type: string
+      sid3:
+        type: string
+      customerFid:
+        type: string
+      productFid:
+        type: string
+      priceFid:
+        type: string
+      purchaseFid:
+        type: string
+      currency:
+        type: string
+      amount:
+        type: string
+    required:
+      - companyFid
+      - sessionId
+      - action
 
   FraudScan:
     description: Result of a fraud scan

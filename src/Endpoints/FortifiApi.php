@@ -128,6 +128,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return FlowEndpoint
+   */
+  public function flow()
+  {
+    $endpoint = new FlowEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return InteractionsEndpoint
    */
   public function interactions()
