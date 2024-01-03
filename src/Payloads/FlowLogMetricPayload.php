@@ -9,49 +9,54 @@ class FlowLogMetricPayload
   /**
    * @required
    */
-  protected $_companyFid;
+  protected $_action;
   /**
    * @required
    */
   protected $_sessionId;
   /**
-   * @required
+   * Customer FID linked to this action
    */
-  protected $_action;
+  protected $_customerFid;
+  protected $_purchaseFid;
+  protected $_amount;
+  /**
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
+   */
+  protected $_userAgent;
+  /**
+   * Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
+   */
+  protected $_encoding;
+  /**
+   * Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
+   */
   protected $_language;
-  protected $_languageSpecific;
-  protected $_os;
-  protected $_osVersion;
-  protected $_osBlended;
-  protected $_platform;
-  protected $_device;
-  protected $_client;
-  protected $_clientVersion;
-  protected $_clientBlended;
-  protected $_ip;
-  protected $_city;
-  protected $_country;
-  protected $_state;
-  protected $_postal;
-  protected $_timezone;
-  protected $_continent;
-  protected $_affiliateFid;
-  protected $_foundationFid;
-  protected $_affiliateType;
+  /**
+   * IP Address of the visitor
+   */
+  protected $_clientIp;
+  /**
+   * FID of a valid Brand
+   */
+  protected $_brandFid;
   /**
    * Advertiser Campaign to track this action to (if not already locked)
+
    */
   protected $_campaignHash;
-  protected $_campaignFid;
+  /**
+   * Advertiser sub tracking ID 1
+   */
   protected $_sid1;
+  /**
+   * Advertiser sub tracking ID 2
+   */
   protected $_sid2;
+  /**
+   * Advertiser sub tracking ID 3
+   */
   protected $_sid3;
-  protected $_customerFid;
-  protected $_productFid;
-  protected $_priceFid;
-  protected $_purchaseFid;
-  protected $_currency;
-  protected $_amount;
 
   public function hydrate($data)
   {
@@ -60,105 +65,49 @@ class FlowLogMetricPayload
     {
       $this->_actionTimestamp = (int)$data["actionTimestamp"];
     }
-    if(isset($data["companyFid"]))
+    if(isset($data["action"]))
     {
-      $this->_companyFid = (string)$data["companyFid"];
+      $this->_action = (string)$data["action"];
     }
     if(isset($data["sessionId"]))
     {
       $this->_sessionId = (string)$data["sessionId"];
     }
-    if(isset($data["action"]))
+    if(isset($data["customerFid"]))
     {
-      $this->_action = (string)$data["action"];
+      $this->_customerFid = (string)$data["customerFid"];
+    }
+    if(isset($data["purchaseFid"]))
+    {
+      $this->_purchaseFid = (string)$data["purchaseFid"];
+    }
+    if(isset($data["amount"]))
+    {
+      $this->_amount = (string)$data["amount"];
+    }
+    if(isset($data["userAgent"]))
+    {
+      $this->_userAgent = (string)$data["userAgent"];
+    }
+    if(isset($data["encoding"]))
+    {
+      $this->_encoding = (string)$data["encoding"];
     }
     if(isset($data["language"]))
     {
       $this->_language = (string)$data["language"];
     }
-    if(isset($data["languageSpecific"]))
+    if(isset($data["clientIp"]))
     {
-      $this->_languageSpecific = (string)$data["languageSpecific"];
+      $this->_clientIp = (string)$data["clientIp"];
     }
-    if(isset($data["os"]))
+    if(isset($data["brandFid"]))
     {
-      $this->_os = (string)$data["os"];
-    }
-    if(isset($data["osVersion"]))
-    {
-      $this->_osVersion = (string)$data["osVersion"];
-    }
-    if(isset($data["osBlended"]))
-    {
-      $this->_osBlended = (string)$data["osBlended"];
-    }
-    if(isset($data["platform"]))
-    {
-      $this->_platform = (string)$data["platform"];
-    }
-    if(isset($data["device"]))
-    {
-      $this->_device = (string)$data["device"];
-    }
-    if(isset($data["client"]))
-    {
-      $this->_client = (string)$data["client"];
-    }
-    if(isset($data["clientVersion"]))
-    {
-      $this->_clientVersion = (string)$data["clientVersion"];
-    }
-    if(isset($data["clientBlended"]))
-    {
-      $this->_clientBlended = (string)$data["clientBlended"];
-    }
-    if(isset($data["ip"]))
-    {
-      $this->_ip = (string)$data["ip"];
-    }
-    if(isset($data["city"]))
-    {
-      $this->_city = (string)$data["city"];
-    }
-    if(isset($data["country"]))
-    {
-      $this->_country = (string)$data["country"];
-    }
-    if(isset($data["state"]))
-    {
-      $this->_state = (string)$data["state"];
-    }
-    if(isset($data["postal"]))
-    {
-      $this->_postal = (string)$data["postal"];
-    }
-    if(isset($data["timezone"]))
-    {
-      $this->_timezone = (string)$data["timezone"];
-    }
-    if(isset($data["continent"]))
-    {
-      $this->_continent = (string)$data["continent"];
-    }
-    if(isset($data["affiliateFid"]))
-    {
-      $this->_affiliateFid = (string)$data["affiliateFid"];
-    }
-    if(isset($data["foundationFid"]))
-    {
-      $this->_foundationFid = (string)$data["foundationFid"];
-    }
-    if(isset($data["affiliateType"]))
-    {
-      $this->_affiliateType = (string)$data["affiliateType"];
+      $this->_brandFid = (string)$data["brandFid"];
     }
     if(isset($data["campaignHash"]))
     {
       $this->_campaignHash = (string)$data["campaignHash"];
-    }
-    if(isset($data["campaignFid"]))
-    {
-      $this->_campaignFid = (string)$data["campaignFid"];
     }
     if(isset($data["sid1"]))
     {
@@ -172,30 +121,6 @@ class FlowLogMetricPayload
     {
       $this->_sid3 = (string)$data["sid3"];
     }
-    if(isset($data["customerFid"]))
-    {
-      $this->_customerFid = (string)$data["customerFid"];
-    }
-    if(isset($data["productFid"]))
-    {
-      $this->_productFid = (string)$data["productFid"];
-    }
-    if(isset($data["priceFid"]))
-    {
-      $this->_priceFid = (string)$data["priceFid"];
-    }
-    if(isset($data["purchaseFid"]))
-    {
-      $this->_purchaseFid = (string)$data["purchaseFid"];
-    }
-    if(isset($data["currency"]))
-    {
-      $this->_currency = (string)$data["currency"];
-    }
-    if(isset($data["amount"]))
-    {
-      $this->_amount = (string)$data["amount"];
-    }
     return $this;
   }
 
@@ -203,41 +128,21 @@ class FlowLogMetricPayload
   public function jsonSerialize()
   {
     return [
-      "actionTimestamp"  => $this->_actionTimestamp,
-      "companyFid"       => $this->_companyFid,
-      "sessionId"        => $this->_sessionId,
-      "action"           => $this->_action,
-      "language"         => $this->_language,
-      "languageSpecific" => $this->_languageSpecific,
-      "os"               => $this->_os,
-      "osVersion"        => $this->_osVersion,
-      "osBlended"        => $this->_osBlended,
-      "platform"         => $this->_platform,
-      "device"           => $this->_device,
-      "client"           => $this->_client,
-      "clientVersion"    => $this->_clientVersion,
-      "clientBlended"    => $this->_clientBlended,
-      "ip"               => $this->_ip,
-      "city"             => $this->_city,
-      "country"          => $this->_country,
-      "state"            => $this->_state,
-      "postal"           => $this->_postal,
-      "timezone"         => $this->_timezone,
-      "continent"        => $this->_continent,
-      "affiliateFid"     => $this->_affiliateFid,
-      "foundationFid"    => $this->_foundationFid,
-      "affiliateType"    => $this->_affiliateType,
-      "campaignHash"     => $this->_campaignHash,
-      "campaignFid"      => $this->_campaignFid,
-      "sid1"             => $this->_sid1,
-      "sid2"             => $this->_sid2,
-      "sid3"             => $this->_sid3,
-      "customerFid"      => $this->_customerFid,
-      "productFid"       => $this->_productFid,
-      "priceFid"         => $this->_priceFid,
-      "purchaseFid"      => $this->_purchaseFid,
-      "currency"         => $this->_currency,
-      "amount"           => $this->_amount,
+      "actionTimestamp" => $this->_actionTimestamp,
+      "action"          => $this->_action,
+      "sessionId"       => $this->_sessionId,
+      "customerFid"     => $this->_customerFid,
+      "purchaseFid"     => $this->_purchaseFid,
+      "amount"          => $this->_amount,
+      "userAgent"       => $this->_userAgent,
+      "encoding"        => $this->_encoding,
+      "language"        => $this->_language,
+      "clientIp"        => $this->_clientIp,
+      "brandFid"        => $this->_brandFid,
+      "campaignHash"    => $this->_campaignHash,
+      "sid1"            => $this->_sid1,
+      "sid2"            => $this->_sid2,
+      "sid3"            => $this->_sid3,
     ];
   }
 
@@ -267,9 +172,9 @@ class FlowLogMetricPayload
    *
    * @return $this
    */
-  public function setCompanyFid(?string $value)
+  public function setAction(?string $value)
   {
-    $this->_companyFid = $value;
+    $this->_action = $value;
     return $this;
   }
 
@@ -279,9 +184,9 @@ class FlowLogMetricPayload
    *
    * @return string
    */
-  public function getCompanyFid($default = null, $trim = true)
+  public function getAction($default = null, $trim = true)
   {
-    $value = $this->_companyFid ?: $default;
+    $value = $this->_action ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -313,9 +218,34 @@ class FlowLogMetricPayload
    *
    * @return $this
    */
-  public function setAction(?string $value)
+  public function setCustomerFid(?string $value)
   {
-    $this->_action = $value;
+    $this->_customerFid = $value;
+    return $this;
+  }
+
+  /**
+   * Customer FID linked to this action
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCustomerFid($default = null, $trim = true)
+  {
+    $value = $this->_customerFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setPurchaseFid(?string $value)
+  {
+    $this->_purchaseFid = $value;
     return $this;
   }
 
@@ -325,9 +255,82 @@ class FlowLogMetricPayload
    *
    * @return string
    */
-  public function getAction($default = null, $trim = true)
+  public function getPurchaseFid($default = null, $trim = true)
   {
-    $value = $this->_action ?: $default;
+    $value = $this->_purchaseFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setAmount(?string $value)
+  {
+    $this->_amount = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAmount($default = null, $trim = true)
+  {
+    $value = $this->_amount ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setUserAgent(?string $value)
+  {
+    $this->_userAgent = $value;
+    return $this;
+  }
+
+  /**
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getUserAgent($default = null, $trim = true)
+  {
+    $value = $this->_userAgent ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setEncoding(?string $value)
+  {
+    $this->_encoding = $value;
+    return $this;
+  }
+
+  /**
+   * Encoding from the visitors browser 'HTTP_ACCEPT_ENCODING'
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getEncoding($default = null, $trim = true)
+  {
+    $value = $this->_encoding ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -343,6 +346,8 @@ class FlowLogMetricPayload
   }
 
   /**
+   * Language from visitors browser 'HTTP_ACCEPT_LANGUAGE'
+   *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -359,21 +364,23 @@ class FlowLogMetricPayload
    *
    * @return $this
    */
-  public function setLanguageSpecific(?string $value)
+  public function setClientIp(?string $value)
   {
-    $this->_languageSpecific = $value;
+    $this->_clientIp = $value;
     return $this;
   }
 
   /**
+   * IP Address of the visitor
+   *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getLanguageSpecific($default = null, $trim = true)
+  public function getClientIp($default = null, $trim = true)
   {
-    $value = $this->_languageSpecific ?: $default;
+    $value = $this->_clientIp ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -382,412 +389,23 @@ class FlowLogMetricPayload
    *
    * @return $this
    */
-  public function setOs(?string $value)
+  public function setBrandFid(?string $value)
   {
-    $this->_os = $value;
+    $this->_brandFid = $value;
     return $this;
   }
 
   /**
+   * FID of a valid Brand
+   *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getOs($default = null, $trim = true)
+  public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_os ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setOsVersion(?string $value)
-  {
-    $this->_osVersion = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getOsVersion($default = null, $trim = true)
-  {
-    $value = $this->_osVersion ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setOsBlended(?string $value)
-  {
-    $this->_osBlended = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getOsBlended($default = null, $trim = true)
-  {
-    $value = $this->_osBlended ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPlatform(?string $value)
-  {
-    $this->_platform = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPlatform($default = null, $trim = true)
-  {
-    $value = $this->_platform ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setDevice(?string $value)
-  {
-    $this->_device = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getDevice($default = null, $trim = true)
-  {
-    $value = $this->_device ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setClient(?string $value)
-  {
-    $this->_client = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getClient($default = null, $trim = true)
-  {
-    $value = $this->_client ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setClientVersion(?string $value)
-  {
-    $this->_clientVersion = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getClientVersion($default = null, $trim = true)
-  {
-    $value = $this->_clientVersion ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setClientBlended(?string $value)
-  {
-    $this->_clientBlended = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getClientBlended($default = null, $trim = true)
-  {
-    $value = $this->_clientBlended ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setIp(?string $value)
-  {
-    $this->_ip = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getIp($default = null, $trim = true)
-  {
-    $value = $this->_ip ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setCity(?string $value)
-  {
-    $this->_city = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCity($default = null, $trim = true)
-  {
-    $value = $this->_city ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setCountry(?string $value)
-  {
-    $this->_country = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCountry($default = null, $trim = true)
-  {
-    $value = $this->_country ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setState(?string $value)
-  {
-    $this->_state = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getState($default = null, $trim = true)
-  {
-    $value = $this->_state ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPostal(?string $value)
-  {
-    $this->_postal = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPostal($default = null, $trim = true)
-  {
-    $value = $this->_postal ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setTimezone(?string $value)
-  {
-    $this->_timezone = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getTimezone($default = null, $trim = true)
-  {
-    $value = $this->_timezone ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setContinent(?string $value)
-  {
-    $this->_continent = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getContinent($default = null, $trim = true)
-  {
-    $value = $this->_continent ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setAffiliateFid(?string $value)
-  {
-    $this->_affiliateFid = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getAffiliateFid($default = null, $trim = true)
-  {
-    $value = $this->_affiliateFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setFoundationFid(?string $value)
-  {
-    $this->_foundationFid = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getFoundationFid($default = null, $trim = true)
-  {
-    $value = $this->_foundationFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setAffiliateType(?string $value)
-  {
-    $this->_affiliateType = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getAffiliateType($default = null, $trim = true)
-  {
-    $value = $this->_affiliateType ?: $default;
+    $value = $this->_brandFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -821,29 +439,6 @@ class FlowLogMetricPayload
    *
    * @return $this
    */
-  public function setCampaignFid(?string $value)
-  {
-    $this->_campaignFid = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCampaignFid($default = null, $trim = true)
-  {
-    $value = $this->_campaignFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
   public function setSid1(?string $value)
   {
     $this->_sid1 = $value;
@@ -851,6 +446,8 @@ class FlowLogMetricPayload
   }
 
   /**
+   * Advertiser sub tracking ID 1
+   *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -874,6 +471,8 @@ class FlowLogMetricPayload
   }
 
   /**
+   * Advertiser sub tracking ID 2
+   *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -897,6 +496,8 @@ class FlowLogMetricPayload
   }
 
   /**
+   * Advertiser sub tracking ID 3
+   *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
@@ -905,144 +506,6 @@ class FlowLogMetricPayload
   public function getSid3($default = null, $trim = true)
   {
     $value = $this->_sid3 ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setCustomerFid(?string $value)
-  {
-    $this->_customerFid = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCustomerFid($default = null, $trim = true)
-  {
-    $value = $this->_customerFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setProductFid(?string $value)
-  {
-    $this->_productFid = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getProductFid($default = null, $trim = true)
-  {
-    $value = $this->_productFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPriceFid(?string $value)
-  {
-    $this->_priceFid = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPriceFid($default = null, $trim = true)
-  {
-    $value = $this->_priceFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPurchaseFid(?string $value)
-  {
-    $this->_purchaseFid = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPurchaseFid($default = null, $trim = true)
-  {
-    $value = $this->_purchaseFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setCurrency(?string $value)
-  {
-    $this->_currency = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getCurrency($default = null, $trim = true)
-  {
-    $value = $this->_currency ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setAmount(?string $value)
-  {
-    $this->_amount = $value;
-    return $this;
-  }
-
-  /**
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getAmount($default = null, $trim = true)
-  {
-    $value = $this->_amount ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
