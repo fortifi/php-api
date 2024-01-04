@@ -37,7 +37,7 @@ class ProductsProductFidPricesEndpoint extends ApiEndpoint
         'products/{productFid}/prices'
       )
     ));
-    $detail->addPostField('currency', $currency);
+    $detail->addQueryField('currency', $currency);
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

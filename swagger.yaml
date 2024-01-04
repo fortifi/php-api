@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.142.1'
+  version: '3.142.2'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -6743,7 +6743,7 @@ paths:
       parameters:
         - $ref: '#/parameters/productFid'
         - name: currency
-          in: formData
+          in: query
           required: false
           type: string
       responses:
@@ -6774,7 +6774,7 @@ paths:
       parameters:
         - $ref: '#/parameters/productFid'
         - name: currency
-          in: formData
+          in: query
           required: false
           type: string
       responses:
