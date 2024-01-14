@@ -19,6 +19,7 @@ class FlowLogMetricPayload
    */
   protected $_customerFid;
   protected $_purchaseFid;
+  protected $_offerFid;
   protected $_amount;
   /**
    * User Agent of the visitors browser 'HTTP_USER_AGENT'
@@ -81,6 +82,10 @@ class FlowLogMetricPayload
     {
       $this->_purchaseFid = (string)$data["purchaseFid"];
     }
+    if(isset($data["offerFid"]))
+    {
+      $this->_offerFid = (string)$data["offerFid"];
+    }
     if(isset($data["amount"]))
     {
       $this->_amount = (string)$data["amount"];
@@ -133,6 +138,7 @@ class FlowLogMetricPayload
       "sessionId"       => $this->_sessionId,
       "customerFid"     => $this->_customerFid,
       "purchaseFid"     => $this->_purchaseFid,
+      "offerFid"        => $this->_offerFid,
       "amount"          => $this->_amount,
       "userAgent"       => $this->_userAgent,
       "encoding"        => $this->_encoding,
@@ -258,6 +264,29 @@ class FlowLogMetricPayload
   public function getPurchaseFid($default = null, $trim = true)
   {
     $value = $this->_purchaseFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setOfferFid(?string $value)
+  {
+    $this->_offerFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOfferFid($default = null, $trim = true)
+  {
+    $value = $this->_offerFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
