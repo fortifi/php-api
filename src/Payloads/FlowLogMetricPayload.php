@@ -19,6 +19,7 @@ class FlowLogMetricPayload
    */
   protected $_customerFid;
   protected $_purchaseFid;
+  protected $_purchaseSegment;
   protected $_offerFid;
   protected $_amount;
   /**
@@ -82,6 +83,10 @@ class FlowLogMetricPayload
     {
       $this->_purchaseFid = (string)$data["purchaseFid"];
     }
+    if(isset($data["purchaseSegment"]))
+    {
+      $this->_purchaseSegment = (string)$data["purchaseSegment"];
+    }
     if(isset($data["offerFid"]))
     {
       $this->_offerFid = (string)$data["offerFid"];
@@ -138,6 +143,7 @@ class FlowLogMetricPayload
       "sessionId"       => $this->_sessionId,
       "customerFid"     => $this->_customerFid,
       "purchaseFid"     => $this->_purchaseFid,
+      "purchaseSegment" => $this->_purchaseSegment,
       "offerFid"        => $this->_offerFid,
       "amount"          => $this->_amount,
       "userAgent"       => $this->_userAgent,
@@ -264,6 +270,29 @@ class FlowLogMetricPayload
   public function getPurchaseFid($default = null, $trim = true)
   {
     $value = $this->_purchaseFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setPurchaseSegment(?string $value)
+  {
+    $this->_purchaseSegment = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPurchaseSegment($default = null, $trim = true)
+  {
+    $value = $this->_purchaseSegment ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
