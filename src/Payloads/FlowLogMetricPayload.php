@@ -20,6 +20,10 @@ class FlowLogMetricPayload
   protected $_customerFid;
   protected $_purchaseFid;
   protected $_purchaseSegment;
+  /**
+   * Source of the action
+   */
+  protected $_source;
   protected $_offerFid;
   protected $_amount;
   /**
@@ -87,6 +91,10 @@ class FlowLogMetricPayload
     {
       $this->_purchaseSegment = (string)$data["purchaseSegment"];
     }
+    if(isset($data["source"]))
+    {
+      $this->_source = (string)$data["source"];
+    }
     if(isset($data["offerFid"]))
     {
       $this->_offerFid = (string)$data["offerFid"];
@@ -144,6 +152,7 @@ class FlowLogMetricPayload
       "customerFid"     => $this->_customerFid,
       "purchaseFid"     => $this->_purchaseFid,
       "purchaseSegment" => $this->_purchaseSegment,
+      "source"          => $this->_source,
       "offerFid"        => $this->_offerFid,
       "amount"          => $this->_amount,
       "userAgent"       => $this->_userAgent,
@@ -293,6 +302,31 @@ class FlowLogMetricPayload
   public function getPurchaseSegment($default = null, $trim = true)
   {
     $value = $this->_purchaseSegment ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setSource(?string $value)
+  {
+    $this->_source = $value;
+    return $this;
+  }
+
+  /**
+   * Source of the action
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSource($default = null, $trim = true)
+  {
+    $value = $this->_source ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

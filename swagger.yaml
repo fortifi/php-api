@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.143.0'
+  version: '3.143.1'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -9994,6 +9994,9 @@ definitions:
       purchaseFid:
         type: string
       purchaseSegment:
+        type: string
+      source:
+        description: Source of the action
         type: string
       offerFid:
         type: string
