@@ -18,6 +18,20 @@ class ReviewEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $customerFid
+   *
+   * @return ReviewCustomerFidEndpoint
+   */
+  public function with($customerFid)
+  {
+    $endpoint = new ReviewCustomerFidEndpoint(
+      $customerFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Create a new Review and Review audit
    *
    * @param CreateReviewPayload $payload

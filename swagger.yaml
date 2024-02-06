@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.143.1'
+  version: '3.145.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -7464,7 +7464,30 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-
+  '/review/{customerFid}':
+    get:
+      tags:
+        - Reviews
+      security:
+        - OAuth:
+            - review
+        - accessToken: [ ]
+      summary: List Reviews
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: List of Reviews
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ReviewsResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/services':
     get:
       summary: Retrieve all services
@@ -8337,7 +8360,12 @@ parameters:
     in: path
     type: string
     required: true
-
+  reviewFid:
+    name: reviewFid
+    in: path
+    type: string
+    required: true
+    description: Review FID to use
 
 definitions:
   creditAmountType:
@@ -12413,6 +12441,27 @@ definitions:
       publicUrl:
         description: The review public url
         type: string
+      referenceId:
+        description: The reference ID for the review, (could be set via trustpilot)
+        type: string
+      productFid:
+        description: The product FID the review is for
+        type: string
+      userAgent:
+        description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+        type: string
+      ipAddress:
+        description: IP Address of the visitor
+        type: string
+      app:
+        description: The app the review was submitted from
+        type: string
+      appSource:
+        description: The source of the app
+        type: string
+      purchaseFid:
+        description: The purchase FID the review is for
+        type: string
 
   UpdateReviewPayload:
     properties:
@@ -12425,6 +12474,63 @@ definitions:
       review:
         description: The Review Body
         type: string
+
+  ReviewResponse:
+    description: Review Response
+    properties:
+      customerFid:
+        description: Customer who submitted the review
+        type: string
+      displayName:
+        description: Title of the Review
+        type: string
+      source:
+        description: Source of the Review (e.g. Trustpilot, Google)
+        type: string
+      starRating:
+        description: The Customer Rating Submitted
+        type: integer
+      starMax:
+        description: The max rating that can be offered (Defaults to 5)
+        type: integer
+      review:
+        description: The Review Body
+        type: string
+      language:
+        description: The language code the Review was submitted in
+        type: string
+      publicUrl:
+        description: The review public url
+        type: string
+      referenceId:
+        description: The reference ID for the review, (could be set via trustpilot)
+        type: string
+      productFid:
+        description: The product FID the review is for
+        type: string
+      userAgent:
+        description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+        type: string
+      ipAddress:
+        description: IP Address of the visitor
+        type: string
+      app:
+        description: The app the review was submitted from
+        type: string
+      appSource:
+        description: The source of the app
+        type: string
+      purchaseFid:
+        description: The purchase FID the review is for
+        type: string
+
+  ReviewsResponse:
+    description: Reviews Response
+    properties:
+      reviews:
+        type: array
+        items:
+          $ref: '#/definitions/ReviewResponse'
 
   RetentionFlowReasons:
     description: Retention Flow Reasons

@@ -37,6 +37,34 @@ class CreateReviewPayload
    * The review public url
    */
   protected $_publicUrl;
+  /**
+   * The reference ID for the review, (could be set via trustpilot)
+   */
+  protected $_referenceId;
+  /**
+   * The product FID the review is for
+   */
+  protected $_productFid;
+  /**
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
+   */
+  protected $_userAgent;
+  /**
+   * IP Address of the visitor
+   */
+  protected $_ipAddress;
+  /**
+   * The app the review was submitted from
+   */
+  protected $_app;
+  /**
+   * The source of the app
+   */
+  protected $_appSource;
+  /**
+   * The purchase FID the review is for
+   */
+  protected $_purchaseFid;
 
   public function hydrate($data)
   {
@@ -73,6 +101,34 @@ class CreateReviewPayload
     {
       $this->_publicUrl = (string)$data["publicUrl"];
     }
+    if(isset($data["referenceId"]))
+    {
+      $this->_referenceId = (string)$data["referenceId"];
+    }
+    if(isset($data["productFid"]))
+    {
+      $this->_productFid = (string)$data["productFid"];
+    }
+    if(isset($data["userAgent"]))
+    {
+      $this->_userAgent = (string)$data["userAgent"];
+    }
+    if(isset($data["ipAddress"]))
+    {
+      $this->_ipAddress = (string)$data["ipAddress"];
+    }
+    if(isset($data["app"]))
+    {
+      $this->_app = (string)$data["app"];
+    }
+    if(isset($data["appSource"]))
+    {
+      $this->_appSource = (string)$data["appSource"];
+    }
+    if(isset($data["purchaseFid"]))
+    {
+      $this->_purchaseFid = (string)$data["purchaseFid"];
+    }
     return $this;
   }
 
@@ -88,6 +144,13 @@ class CreateReviewPayload
       "review"      => $this->_review,
       "language"    => $this->_language,
       "publicUrl"   => $this->_publicUrl,
+      "referenceId" => $this->_referenceId,
+      "productFid"  => $this->_productFid,
+      "userAgent"   => $this->_userAgent,
+      "ipAddress"   => $this->_ipAddress,
+      "app"         => $this->_app,
+      "appSource"   => $this->_appSource,
+      "purchaseFid" => $this->_purchaseFid,
     ];
   }
 
@@ -284,6 +347,181 @@ class CreateReviewPayload
   public function getPublicUrl($default = null, $trim = true)
   {
     $value = $this->_publicUrl ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setReferenceId(?string $value)
+  {
+    $this->_referenceId = $value;
+    return $this;
+  }
+
+  /**
+   * The reference ID for the review, (could be set via trustpilot)
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getReferenceId($default = null, $trim = true)
+  {
+    $value = $this->_referenceId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setProductFid(?string $value)
+  {
+    $this->_productFid = $value;
+    return $this;
+  }
+
+  /**
+   * The product FID the review is for
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getProductFid($default = null, $trim = true)
+  {
+    $value = $this->_productFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setUserAgent(?string $value)
+  {
+    $this->_userAgent = $value;
+    return $this;
+  }
+
+  /**
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getUserAgent($default = null, $trim = true)
+  {
+    $value = $this->_userAgent ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setIpAddress(?string $value)
+  {
+    $this->_ipAddress = $value;
+    return $this;
+  }
+
+  /**
+   * IP Address of the visitor
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getIpAddress($default = null, $trim = true)
+  {
+    $value = $this->_ipAddress ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setApp(?string $value)
+  {
+    $this->_app = $value;
+    return $this;
+  }
+
+  /**
+   * The app the review was submitted from
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getApp($default = null, $trim = true)
+  {
+    $value = $this->_app ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setAppSource(?string $value)
+  {
+    $this->_appSource = $value;
+    return $this;
+  }
+
+  /**
+   * The source of the app
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAppSource($default = null, $trim = true)
+  {
+    $value = $this->_appSource ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setPurchaseFid(?string $value)
+  {
+    $this->_purchaseFid = $value;
+    return $this;
+  }
+
+  /**
+   * The purchase FID the review is for
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPurchaseFid($default = null, $trim = true)
+  {
+    $value = $this->_purchaseFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
