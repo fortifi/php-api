@@ -5,9 +5,9 @@ use Fortifi\Api\V1\Requests\ReviewsRequest;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class ReviewCustomerFidEndpoint extends ApiEndpoint
+class CustomersCustomerFidReviewsEndpoint extends ApiEndpoint
 {
-  protected $_path = 'review/{customerFid}';
+  protected $_path = 'customers/{customerFid}/reviews';
   protected $_replacements = [];
 
   public function __construct($customerFid)
@@ -20,7 +20,7 @@ class ReviewCustomerFidEndpoint extends ApiEndpoint
    *
    * @return ReviewsRequest
    */
-  public function retrieve()
+  public function all()
   {
     $request = new ReviewsRequest();
     $request->setConnection($this->_getConnection());
@@ -32,7 +32,7 @@ class ReviewCustomerFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'review/{customerFid}'
+        'customers/{customerFid}/reviews'
       )
     ));
     $detail->setMethod('GET');

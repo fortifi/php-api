@@ -214,6 +214,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidReviewsEndpoint
+   */
+  public function reviews()
+  {
+    $endpoint = new CustomersCustomerFidReviewsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidOrdersEndpoint
    */
   public function orders()

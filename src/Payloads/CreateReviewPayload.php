@@ -10,61 +10,52 @@ class CreateReviewPayload
    */
   protected $_customerFid;
   /**
-   * Title of the Review
+   * Subject of the Review
    */
-  protected $_displayName;
-  /**
-   * Source of the Review (e.g. Trustpilot, Google)
-   */
-  protected $_source;
+  protected $_subject;
   /**
    * The Customer Rating Submitted
+   * @required
    */
-  protected $_starRating;
+  protected $_rating;
   /**
    * The max rating that can be offered (Defaults to 5)
    */
-  protected $_starMax;
+  protected $_ratingMax;
   /**
    * The Review Body
    */
-  protected $_review;
+  protected $_content;
   /**
    * The language code the Review was submitted in
+   * @required
    */
   protected $_language;
   /**
-   * The review public url
+   * The purchase FID the review is for
    */
-  protected $_publicUrl;
+  protected $_purchaseFid;
   /**
-   * The reference ID for the review, (could be set via trustpilot)
+   * The app lookup reference
    */
-  protected $_referenceId;
+  protected $_appLookupRef;
   /**
-   * The product FID the review is for
+   * The app version
    */
-  protected $_productFid;
-  /**
-   * User Agent of the visitors browser 'HTTP_USER_AGENT'
-   */
-  protected $_userAgent;
+  protected $_appVersion;
   /**
    * IP Address of the visitor
    */
   protected $_ipAddress;
   /**
-   * The app the review was submitted from
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
    */
-  protected $_app;
+  protected $_userAgent;
   /**
-   * The source of the app
+   * The provider of the review
+   * @required
    */
-  protected $_appSource;
-  /**
-   * The purchase FID the review is for
-   */
-  protected $_purchaseFid;
+  protected $_provider;
 
   public function hydrate($data)
   {
@@ -73,61 +64,49 @@ class CreateReviewPayload
     {
       $this->_customerFid = (string)$data["customerFid"];
     }
-    if(isset($data["displayName"]))
+    if(isset($data["subject"]))
     {
-      $this->_displayName = (string)$data["displayName"];
+      $this->_subject = (string)$data["subject"];
     }
-    if(isset($data["source"]))
+    if(isset($data["rating"]))
     {
-      $this->_source = (string)$data["source"];
+      $this->_rating = (int)$data["rating"];
     }
-    if(isset($data["starRating"]))
+    if(isset($data["ratingMax"]))
     {
-      $this->_starRating = (int)$data["starRating"];
+      $this->_ratingMax = (int)$data["ratingMax"];
     }
-    if(isset($data["starMax"]))
+    if(isset($data["content"]))
     {
-      $this->_starMax = (int)$data["starMax"];
-    }
-    if(isset($data["review"]))
-    {
-      $this->_review = (string)$data["review"];
+      $this->_content = (string)$data["content"];
     }
     if(isset($data["language"]))
     {
       $this->_language = (string)$data["language"];
     }
-    if(isset($data["publicUrl"]))
+    if(isset($data["purchaseFid"]))
     {
-      $this->_publicUrl = (string)$data["publicUrl"];
+      $this->_purchaseFid = (string)$data["purchaseFid"];
     }
-    if(isset($data["referenceId"]))
+    if(isset($data["appLookupRef"]))
     {
-      $this->_referenceId = (string)$data["referenceId"];
+      $this->_appLookupRef = (string)$data["appLookupRef"];
     }
-    if(isset($data["productFid"]))
+    if(isset($data["appVersion"]))
     {
-      $this->_productFid = (string)$data["productFid"];
-    }
-    if(isset($data["userAgent"]))
-    {
-      $this->_userAgent = (string)$data["userAgent"];
+      $this->_appVersion = (string)$data["appVersion"];
     }
     if(isset($data["ipAddress"]))
     {
       $this->_ipAddress = (string)$data["ipAddress"];
     }
-    if(isset($data["app"]))
+    if(isset($data["userAgent"]))
     {
-      $this->_app = (string)$data["app"];
+      $this->_userAgent = (string)$data["userAgent"];
     }
-    if(isset($data["appSource"]))
+    if(isset($data["provider"]))
     {
-      $this->_appSource = (string)$data["appSource"];
-    }
-    if(isset($data["purchaseFid"]))
-    {
-      $this->_purchaseFid = (string)$data["purchaseFid"];
+      $this->_provider = (string)$data["provider"];
     }
     return $this;
   }
@@ -136,21 +115,18 @@ class CreateReviewPayload
   public function jsonSerialize()
   {
     return [
-      "customerFid" => $this->_customerFid,
-      "displayName" => $this->_displayName,
-      "source"      => $this->_source,
-      "starRating"  => $this->_starRating,
-      "starMax"     => $this->_starMax,
-      "review"      => $this->_review,
-      "language"    => $this->_language,
-      "publicUrl"   => $this->_publicUrl,
-      "referenceId" => $this->_referenceId,
-      "productFid"  => $this->_productFid,
-      "userAgent"   => $this->_userAgent,
-      "ipAddress"   => $this->_ipAddress,
-      "app"         => $this->_app,
-      "appSource"   => $this->_appSource,
-      "purchaseFid" => $this->_purchaseFid,
+      "customerFid"  => $this->_customerFid,
+      "subject"      => $this->_subject,
+      "rating"       => $this->_rating,
+      "ratingMax"    => $this->_ratingMax,
+      "content"      => $this->_content,
+      "language"     => $this->_language,
+      "purchaseFid"  => $this->_purchaseFid,
+      "appLookupRef" => $this->_appLookupRef,
+      "appVersion"   => $this->_appVersion,
+      "ipAddress"    => $this->_ipAddress,
+      "userAgent"    => $this->_userAgent,
+      "provider"     => $this->_provider,
     ];
   }
 
@@ -184,48 +160,23 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setDisplayName(?string $value)
+  public function setSubject(?string $value)
   {
-    $this->_displayName = $value;
+    $this->_subject = $value;
     return $this;
   }
 
   /**
-   * Title of the Review
+   * Subject of the Review
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDisplayName($default = null, $trim = true)
+  public function getSubject($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setSource(?string $value)
-  {
-    $this->_source = $value;
-    return $this;
-  }
-
-  /**
-   * Source of the Review (e.g. Trustpilot, Google)
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getSource($default = null, $trim = true)
-  {
-    $value = $this->_source ?: $default;
+    $value = $this->_subject ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -234,9 +185,9 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setStarRating(?int $value)
+  public function setRating(?int $value)
   {
-    $this->_starRating = $value;
+    $this->_rating = $value;
     return $this;
   }
 
@@ -247,9 +198,9 @@ class CreateReviewPayload
    *
    * @return integer
    */
-  public function getStarRating($default = null)
+  public function getRating($default = null)
   {
-    return $this->_starRating ?: $default;
+    return $this->_rating ?: $default;
   }
 
   /**
@@ -257,9 +208,9 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setStarMax(?int $value)
+  public function setRatingMax(?int $value)
   {
-    $this->_starMax = $value;
+    $this->_ratingMax = $value;
     return $this;
   }
 
@@ -270,9 +221,9 @@ class CreateReviewPayload
    *
    * @return integer
    */
-  public function getStarMax($default = null)
+  public function getRatingMax($default = null)
   {
-    return $this->_starMax ?: $default;
+    return $this->_ratingMax ?: $default;
   }
 
   /**
@@ -280,9 +231,9 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setReview(?string $value)
+  public function setContent(?string $value)
   {
-    $this->_review = $value;
+    $this->_content = $value;
     return $this;
   }
 
@@ -294,9 +245,9 @@ class CreateReviewPayload
    *
    * @return string
    */
-  public function getReview($default = null, $trim = true)
+  public function getContent($default = null, $trim = true)
   {
-    $value = $this->_review ?: $default;
+    $value = $this->_content ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -330,23 +281,23 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setPublicUrl(?string $value)
+  public function setPurchaseFid(?string $value)
   {
-    $this->_publicUrl = $value;
+    $this->_purchaseFid = $value;
     return $this;
   }
 
   /**
-   * The review public url
+   * The purchase FID the review is for
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getPublicUrl($default = null, $trim = true)
+  public function getPurchaseFid($default = null, $trim = true)
   {
-    $value = $this->_publicUrl ?: $default;
+    $value = $this->_purchaseFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -355,23 +306,23 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setReferenceId(?string $value)
+  public function setAppLookupRef(?string $value)
   {
-    $this->_referenceId = $value;
+    $this->_appLookupRef = $value;
     return $this;
   }
 
   /**
-   * The reference ID for the review, (could be set via trustpilot)
+   * The app lookup reference
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getReferenceId($default = null, $trim = true)
+  public function getAppLookupRef($default = null, $trim = true)
   {
-    $value = $this->_referenceId ?: $default;
+    $value = $this->_appLookupRef ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -380,48 +331,23 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setProductFid(?string $value)
+  public function setAppVersion(?string $value)
   {
-    $this->_productFid = $value;
+    $this->_appVersion = $value;
     return $this;
   }
 
   /**
-   * The product FID the review is for
+   * The app version
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getProductFid($default = null, $trim = true)
+  public function getAppVersion($default = null, $trim = true)
   {
-    $value = $this->_productFid ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setUserAgent(?string $value)
-  {
-    $this->_userAgent = $value;
-    return $this;
-  }
-
-  /**
-   * User Agent of the visitors browser 'HTTP_USER_AGENT'
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getUserAgent($default = null, $trim = true)
-  {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_appVersion ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -455,73 +381,55 @@ class CreateReviewPayload
    *
    * @return $this
    */
-  public function setApp(?string $value)
+  public function setUserAgent(?string $value)
   {
-    $this->_app = $value;
+    $this->_userAgent = $value;
     return $this;
   }
 
   /**
-   * The app the review was submitted from
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getApp($default = null, $trim = true)
+  public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_app ?: $default;
+    $value = $this->_userAgent ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
+  const PROVIDER_TRUSTPILOT = 'trustpilot';
+  const PROVIDER_GOOGLE = 'google';
+  const PROVIDER_FACEBOOK = 'facebook';
+  const PROVIDER_YELP = 'yelp';
+  const PROVIDER_TRIPADVISOR = 'tripadvisor';
+  const PROVIDER_OTHER = 'other';
+
   /**
-   * @param string $value
+   * @param string $value trustpilot, google, facebook, yelp, tripadvisor, other
    *
    * @return $this
    */
-  public function setAppSource(?string $value)
+  public function setProvider(?string $value)
   {
-    $this->_appSource = $value;
+    $this->_provider = $value;
     return $this;
   }
 
   /**
-   * The source of the app
+   * The provider of the review
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getAppSource($default = null, $trim = true)
+  public function getProvider($default = null, $trim = true)
   {
-    $value = $this->_appSource ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setPurchaseFid(?string $value)
-  {
-    $this->_purchaseFid = $value;
-    return $this;
-  }
-
-  /**
-   * The purchase FID the review is for
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getPurchaseFid($default = null, $trim = true)
-  {
-    $value = $this->_purchaseFid ?: $default;
+    $value = $this->_provider ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

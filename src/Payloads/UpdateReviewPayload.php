@@ -6,32 +6,24 @@ class UpdateReviewPayload
   implements \JsonSerializable
 {
   /**
-   * The Fid of the Review to update
+   * Subject of the Review
    */
-  protected $_reviewFid;
+  protected $_subject;
   /**
-   * Title of the Review
+   * The Content of the Review
    */
-  protected $_displayName;
-  /**
-   * The Review Body
-   */
-  protected $_review;
+  protected $_content;
 
   public function hydrate($data)
   {
     $data = (array)$data;
-    if(isset($data["reviewFid"]))
+    if(isset($data["subject"]))
     {
-      $this->_reviewFid = (string)$data["reviewFid"];
+      $this->_subject = (string)$data["subject"];
     }
-    if(isset($data["displayName"]))
+    if(isset($data["content"]))
     {
-      $this->_displayName = (string)$data["displayName"];
-    }
-    if(isset($data["review"]))
-    {
-      $this->_review = (string)$data["review"];
+      $this->_content = (string)$data["content"];
     }
     return $this;
   }
@@ -40,9 +32,8 @@ class UpdateReviewPayload
   public function jsonSerialize()
   {
     return [
-      "reviewFid"   => $this->_reviewFid,
-      "displayName" => $this->_displayName,
-      "review"      => $this->_review,
+      "subject" => $this->_subject,
+      "content" => $this->_content,
     ];
   }
 
@@ -51,23 +42,23 @@ class UpdateReviewPayload
    *
    * @return $this
    */
-  public function setReviewFid(?string $value)
+  public function setSubject(?string $value)
   {
-    $this->_reviewFid = $value;
+    $this->_subject = $value;
     return $this;
   }
 
   /**
-   * The Fid of the Review to update
+   * Subject of the Review
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getReviewFid($default = null, $trim = true)
+  public function getSubject($default = null, $trim = true)
   {
-    $value = $this->_reviewFid ?: $default;
+    $value = $this->_subject ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -76,48 +67,23 @@ class UpdateReviewPayload
    *
    * @return $this
    */
-  public function setDisplayName(?string $value)
+  public function setContent(?string $value)
   {
-    $this->_displayName = $value;
+    $this->_content = $value;
     return $this;
   }
 
   /**
-   * Title of the Review
+   * The Content of the Review
    *
    * @param mixed $default
    * @param bool $trim Trim Value
    *
    * @return string
    */
-  public function getDisplayName($default = null, $trim = true)
+  public function getContent($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
-    return $trim ? Strings::ntrim($value) : $value;
-  }
-
-  /**
-   * @param string $value
-   *
-   * @return $this
-   */
-  public function setReview(?string $value)
-  {
-    $this->_review = $value;
-    return $this;
-  }
-
-  /**
-   * The Review Body
-   *
-   * @param mixed $default
-   * @param bool $trim Trim Value
-   *
-   * @return string
-   */
-  public function getReview($default = null, $trim = true)
-  {
-    $value = $this->_review ?: $default;
+    $value = $this->_content ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

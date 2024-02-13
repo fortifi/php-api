@@ -2,8 +2,6 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\FidRequest;
-use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\UpdateReviewPayload;
 use Fortifi\Api\V1\Payloads\CreateReviewPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -18,14 +16,14 @@ class ReviewEndpoint extends ApiEndpoint
   }
 
   /**
-   * @param $customerFid
+   * @param $reviewFid
    *
-   * @return ReviewCustomerFidEndpoint
+   * @return ReviewReviewFidEndpoint
    */
-  public function with($customerFid)
+  public function with($reviewFid)
   {
-    $endpoint = new ReviewCustomerFidEndpoint(
-      $customerFid
+    $endpoint = new ReviewReviewFidEndpoint(
+      $reviewFid
     );
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
@@ -49,28 +47,6 @@ class ReviewEndpoint extends ApiEndpoint
     $detail->setUrl($this->_buildUrl('review'));
     $detail->setBody(json_encode($payload));
     $detail->setMethod('POST');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Update a Review
-   *
-   * @param UpdateReviewPayload $payload
-   *
-   * @return BoolMessageRequest
-   */
-  public function setReview(UpdateReviewPayload $payload)
-  {
-    $request = new BoolMessageRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('review'));
-    $detail->setBody(json_encode($payload));
-    $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;
   }
