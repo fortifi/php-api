@@ -5,6 +5,7 @@ final class DiscountType
 {
   const FIXED = 'fixed';
   const PERCENTAGE = 'percentage';
+  const OVERRIDE = 'override';
 
   public static function getDisplayValue($value)
   {
@@ -16,6 +17,7 @@ final class DiscountType
     return [
       'fixed',
       'percentage',
+      'override',
     ];
   }
 
