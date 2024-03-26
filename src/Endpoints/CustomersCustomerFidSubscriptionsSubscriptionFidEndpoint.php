@@ -469,6 +469,35 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   }
 
   /**
+   * @summary Modify an existing subscription with a new price. Returns the new
+   * subscription
+   *
+   * @param ModifySubscriptionPayload $payload
+   *
+   * @return ApiRequest
+   */
+  public function setForceModify(ModifySubscriptionPayload $payload)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/subscriptions/{subscriptionFid}/forceModify'
+      )
+    ));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Modify an existing subscription with a new price which will be used for the
    * next renewal
    *
