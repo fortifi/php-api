@@ -17,9 +17,11 @@ class CustomersCustomerFidPaymentMethodsCardsCardFidLockEndpoint extends ApiEndp
   }
 
   /**
+   * @param $expirySeconds
+   *
    * @return ApiRequest
    */
-  public function create()
+  public function create($expirySeconds)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -34,6 +36,7 @@ class CustomersCustomerFidPaymentMethodsCardsCardFidLockEndpoint extends ApiEndp
         'customers/{customerFid}/paymentMethods/cards/{cardFid}/lock'
       )
     ));
+    $detail->addPostField('expirySeconds', $expirySeconds);
     $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
