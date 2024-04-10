@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.149.1'
+  version: '3.150.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4370,11 +4370,11 @@ paths:
     get:
       summary: List customer orders
       tags:
-          - Customers
+        - Customers
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: filter
@@ -4413,7 +4413,7 @@ paths:
       security:
         - OAuth:
             - customer
-        - accessToken: []
+        - accessToken: [ ]
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: billingType
@@ -4437,6 +4437,54 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/applyCredit':
+    post:
+      summary: Apply credit to a customer
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: amount
+          in: formData
+          type: number
+          format: float
+          required: true
+          description: Amount to apply
+        - name: currency
+          in: formData
+          type: string
+          required: false
+          description: Currency code
+        - name: reference
+          in: formData
+          type: string
+          required: false
+          description: Payment Reference
+        - name: description
+          in: formData
+          type: string
+          required: false
+          description: Payment Description
+      responses:
+        200:
+          description: Credit Applied
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-400:
+          description: Invalid Payload
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/sar':
     post:
       summary: Subject Access Request

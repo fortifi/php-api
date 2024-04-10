@@ -238,6 +238,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidApplyCreditEndpoint
+   */
+  public function applyCredit()
+  {
+    $endpoint = new CustomersCustomerFidApplyCreditEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidSarEndpoint
    */
   public function sar()
