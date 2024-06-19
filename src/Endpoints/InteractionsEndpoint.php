@@ -45,4 +45,14 @@ class InteractionsEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return InteractionsTicketEndpoint
+   */
+  public function ticket()
+  {
+    $endpoint = new InteractionsTicketEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }

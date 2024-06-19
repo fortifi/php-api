@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.150.0'
+  version: '3.151.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -5778,7 +5778,6 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
-
   '/interactions/{interactionFid}/attachment':
     post:
       summary: Create an Interaction Attachment
@@ -5832,6 +5831,37 @@ paths:
                     $ref: '#/definitions/BoolMessage'
         x-400:
           description: The Interaction could not be closed
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/interactions/ticket':
+    post:
+      summary: Create an Interaction ticket
+      description: >
+        The attachments property is an array of unique filenames that have been created using ```/upload/uploadUrl```
+      tags:
+        - Support
+      security:
+        - OAuth:
+            - support
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateInteractionTicketPayload'
+      responses:
+        200:
+          description: Ticket Information
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
         default:
           description: Error
           schema:
@@ -10207,6 +10237,12 @@ definitions:
       chargeTotal:
         type: number
         format: float
+      refundToAccountBalanceTotal:
+        type: number
+        format: float
+      refundToCustomerTotal:
+        type: number
+        format: float
 
   Orders:
     description: List of orders
@@ -13366,5 +13402,57 @@ definitions:
       authenticatedBy:
         type: string
       note:
+        type: string
+
+  CreateInteractionTicketPayload:
+    properties:
+      customerEmail:
+        type: string
+      customerName:
+        type: string
+      customerFid:
+        type: string
+      ticketType:
+        type: string
+        enum:
+          - generic
+          - question
+          - problem
+          - incident
+      brandFid:
+        type: string
+      queueFid:
+        type: string
+      departmentFid:
+        type: string
+      departmentEmail:
+        type: string
+      departmentName:
+        type: string
+      subject:
+        type: string
+      textBody:
+        type: string
+      htmlBody:
+        type: string
+      impact:
+        type: string
+        enum:
+          - none
+          - minor
+          - moderate
+          - significant
+          - extensive
+      urgency:
+        type: string
+        enum:
+          - triage
+          - low
+          - normal
+          - high
+          - urgent
+          - emergency
+          - critical
+      language:
         type: string
 

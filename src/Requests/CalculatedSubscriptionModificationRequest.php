@@ -24,6 +24,8 @@ class CalculatedSubscriptionModificationRequest
       "chargeAmount" => $this->getChargeAmount(),
       "chargeTax" => $this->getChargeTax(),
       "chargeTotal" => $this->getChargeTotal(),
+      "refundToAccountBalanceTotal" => $this->getRefundToAccountBalanceTotal(),
+      "refundToCustomerTotal" => $this->getRefundToCustomerTotal(),
     ];
   }
 
@@ -125,5 +127,25 @@ class CalculatedSubscriptionModificationRequest
   public function getChargeTotal($default = null)
   {
     return Objects::property($this->_getResultJson(), 'chargeTotal', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getRefundToAccountBalanceTotal($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'refundToAccountBalanceTotal', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getRefundToCustomerTotal($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'refundToCustomerTotal', $default);
   }
 }
