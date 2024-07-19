@@ -66,6 +66,7 @@ class SubscriptionRequest
         "identity" => $this->getIdentity(),
         "externalReference" => $this->getExternalReference(),
         "sourceFid" => $this->getSourceFid(),
+        "paymentMethodFid" => $this->getPaymentMethodFid(),
       ]
     );
   }
@@ -693,6 +694,20 @@ class SubscriptionRequest
   public function getSourceFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'sourceFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * The FID of the payment method used to pay for this subscription (Blank will use account methods)
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentMethodFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentMethodFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
