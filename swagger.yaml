@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.152.0'
+  version: '3.155.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4362,6 +4362,30 @@ paths:
                     $ref: '#/definitions/BoolMessage'
         x-404:
           description: Failed to create cancel request
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/subscriptions/{subscriptionFid}/suspend':
+    put:
+      summary: Suspend a subscription
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - $ref: '#/parameters/subscriptionFid'
+      responses:
+        200:
+          description: Subscription suspended
+        x-400:
+          description: Invalid payload data
+        x-404:
+          description: Subscription not found
         default:
           description: Error
           schema:
@@ -12569,6 +12593,9 @@ definitions:
       appVersion:
         description: The app version
         type: string
+      appSource:
+        description: The review source inside the app
+        type: string
       ipAddress:
         description: IP Address of the visitor
         type: string
@@ -12585,6 +12612,9 @@ definitions:
           - yelp
           - tripadvisor
           - other
+      installSource:
+        description: The source of the install
+        type: string
     required:
       - rating
       - language
@@ -12609,6 +12639,8 @@ definitions:
       app:
         type: string
       appPlatform:
+        type: string
+      appSource:
         type: string
 
   ReviewsResponse:

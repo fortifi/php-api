@@ -44,6 +44,10 @@ class CreateReviewPayload
    */
   protected $_appVersion;
   /**
+   * The review source inside the app
+   */
+  protected $_appSource;
+  /**
    * IP Address of the visitor
    */
   protected $_ipAddress;
@@ -56,6 +60,10 @@ class CreateReviewPayload
    * @required
    */
   protected $_provider;
+  /**
+   * The source of the install
+   */
+  protected $_installSource;
 
   public function hydrate($data)
   {
@@ -96,6 +104,10 @@ class CreateReviewPayload
     {
       $this->_appVersion = (string)$data["appVersion"];
     }
+    if(isset($data["appSource"]))
+    {
+      $this->_appSource = (string)$data["appSource"];
+    }
     if(isset($data["ipAddress"]))
     {
       $this->_ipAddress = (string)$data["ipAddress"];
@@ -108,6 +120,10 @@ class CreateReviewPayload
     {
       $this->_provider = (string)$data["provider"];
     }
+    if(isset($data["installSource"]))
+    {
+      $this->_installSource = (string)$data["installSource"];
+    }
     return $this;
   }
 
@@ -115,18 +131,20 @@ class CreateReviewPayload
   public function jsonSerialize()
   {
     return [
-      "customerFid"  => $this->_customerFid,
-      "subject"      => $this->_subject,
-      "rating"       => $this->_rating,
-      "ratingMax"    => $this->_ratingMax,
-      "content"      => $this->_content,
-      "language"     => $this->_language,
-      "purchaseFid"  => $this->_purchaseFid,
-      "appLookupRef" => $this->_appLookupRef,
-      "appVersion"   => $this->_appVersion,
-      "ipAddress"    => $this->_ipAddress,
-      "userAgent"    => $this->_userAgent,
-      "provider"     => $this->_provider,
+      "customerFid"   => $this->_customerFid,
+      "subject"       => $this->_subject,
+      "rating"        => $this->_rating,
+      "ratingMax"     => $this->_ratingMax,
+      "content"       => $this->_content,
+      "language"      => $this->_language,
+      "purchaseFid"   => $this->_purchaseFid,
+      "appLookupRef"  => $this->_appLookupRef,
+      "appVersion"    => $this->_appVersion,
+      "appSource"     => $this->_appSource,
+      "ipAddress"     => $this->_ipAddress,
+      "userAgent"     => $this->_userAgent,
+      "provider"      => $this->_provider,
+      "installSource" => $this->_installSource,
     ];
   }
 
@@ -356,6 +374,31 @@ class CreateReviewPayload
    *
    * @return $this
    */
+  public function setAppSource(?string $value)
+  {
+    $this->_appSource = $value;
+    return $this;
+  }
+
+  /**
+   * The review source inside the app
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAppSource($default = null, $trim = true)
+  {
+    $value = $this->_appSource ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
   public function setIpAddress(?string $value)
   {
     $this->_ipAddress = $value;
@@ -430,6 +473,31 @@ class CreateReviewPayload
   public function getProvider($default = null, $trim = true)
   {
     $value = $this->_provider ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setInstallSource(?string $value)
+  {
+    $this->_installSource = $value;
+    return $this;
+  }
+
+  /**
+   * The source of the install
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getInstallSource($default = null, $trim = true)
+  {
+    $value = $this->_installSource ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

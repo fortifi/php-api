@@ -18,6 +18,7 @@ class ReviewRequest
       "language" => $this->getLanguage(),
       "app" => $this->getApp(),
       "appPlatform" => $this->getAppPlatform(),
+      "appSource" => $this->getAppSource(),
     ];
   }
 
@@ -66,6 +67,18 @@ class ReviewRequest
   public function getAppPlatform($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'appPlatform', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getAppSource($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'appSource', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

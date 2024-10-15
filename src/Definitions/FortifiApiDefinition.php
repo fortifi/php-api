@@ -11,7 +11,7 @@ class FortifiApiDefinition  extends ApiDefinition
   public function __construct()
   {
     $this->setTitle('Fortifi API');
-    $this->setVersion('3.152.0');
+    $this->setVersion('3.155.0');
     $this->setDescription(<<<DESCRIPTION
 The second version of the Fortifi API is an exciting step forward towards
 making it easier for businesses to have open access to their data. We created it
