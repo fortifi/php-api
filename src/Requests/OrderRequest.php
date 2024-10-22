@@ -49,6 +49,7 @@ class OrderRequest
         "hasSubscription" => $this->isHasSubscription(),
         "hasAddon" => $this->isHasAddon(),
         "hasModify" => $this->isHasModify(),
+        "parentOrderFid" => $this->getParentOrderFid(),
       ]
     );
   }
@@ -435,5 +436,17 @@ class OrderRequest
   public function isHasModify($default = false)
   {
     return Objects::property($this->_getResultJson(), 'hasModify', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getParentOrderFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'parentOrderFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }
