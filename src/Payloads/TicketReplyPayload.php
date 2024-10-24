@@ -12,6 +12,7 @@ class TicketReplyPayload
    */
   protected $_status;
   protected $_attachments;
+  protected $_contactFid;
 
   public function hydrate($data)
   {
@@ -32,6 +33,10 @@ class TicketReplyPayload
     {
       $this->_attachments = $data["attachments"];
     }
+    if(isset($data["contactFid"]))
+    {
+      $this->_contactFid = (string)$data["contactFid"];
+    }
     return $this;
   }
 
@@ -43,6 +48,7 @@ class TicketReplyPayload
       "htmlBody"    => $this->_htmlBody,
       "status"      => $this->_status,
       "attachments" => $this->_attachments,
+      "contactFid"  => $this->_contactFid,
     ];
   }
 
@@ -156,5 +162,28 @@ class TicketReplyPayload
   public function getAttachments($default = [])
   {
     return $this->_attachments ?: $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setContactFid(?string $value)
+  {
+    $this->_contactFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getContactFid($default = null, $trim = true)
+  {
+    $value = $this->_contactFid ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }
