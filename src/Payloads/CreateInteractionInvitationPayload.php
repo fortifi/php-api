@@ -15,6 +15,9 @@ class CreateInteractionInvitationPayload
   protected $_initialMessage;
   protected $_language;
   protected $_context;
+  protected $_impact;
+  protected $_urgency;
+  protected $_priority;
   protected $_notes;
 
   public function hydrate($data)
@@ -57,6 +60,18 @@ class CreateInteractionInvitationPayload
     {
       $this->_context = $data["context"];
     }
+    if(isset($data["impact"]))
+    {
+      $this->_impact = (int)$data["impact"];
+    }
+    if(isset($data["urgency"]))
+    {
+      $this->_urgency = (int)$data["urgency"];
+    }
+    if(isset($data["priority"]))
+    {
+      $this->_priority = (int)$data["priority"];
+    }
     if(isset($data["notes"]))
     {
       $this->_notes = [];
@@ -85,6 +100,9 @@ class CreateInteractionInvitationPayload
         "initialMessage"     => $this->_initialMessage,
         "language"           => $this->_language,
         "context"            => $this->_context,
+        "impact"             => $this->_impact,
+        "urgency"            => $this->_urgency,
+        "priority"           => $this->_priority,
         "notes"              => $this->_notes,
       ]
     );
@@ -293,6 +311,69 @@ class CreateInteractionInvitationPayload
   public function getContext($default = null)
   {
     return $this->_context ?: $default;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setImpact(?int $value)
+  {
+    $this->_impact = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getImpact($default = null)
+  {
+    return $this->_impact ?: $default;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setUrgency(?int $value)
+  {
+    $this->_urgency = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getUrgency($default = null)
+  {
+    return $this->_urgency ?: $default;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setPriority(?int $value)
+  {
+    $this->_priority = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getPriority($default = null)
+  {
+    return $this->_priority ?: $default;
   }
 
   /**
