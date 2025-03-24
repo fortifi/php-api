@@ -695,6 +695,34 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @summary Mark a customer as a Test Account
+   *
+   * @param $isTestAccount
+   *
+   * @return ApiRequest
+   */
+  public function setTestAccount($isTestAccount)
+  {
+    $request = new ApiRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'customers/{customerFid}/testAccount'
+      )
+    ));
+    $detail->addPostField('isTestAccount', $isTestAccount);
+    $detail->setMethod('PUT');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
    * @summary Update a customers billing data
    *
    * @param $billingType
