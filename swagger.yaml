@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.160.0'
+  version: '3.161.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -4633,6 +4633,27 @@ paths:
           schema:
             $ref: '#/definitions/SentEmails'
           description: List of Emails sent to Customer
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/notifications':
+    get:
+      summary: List Push Notification sent to a Customer
+      tags:
+        - Customers
+        - Messenger
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Notifications'
+          description: List of Notifications sent to Customer
         default:
           description: Error
           schema:
@@ -13573,3 +13594,37 @@ definitions:
         default: false
     required:
       - trigger
+
+  Notification:
+    properties:
+      campaignFid:
+        type: string
+      companyFid:
+        type: string
+      messageFid:
+        type: string
+      bounced:
+        type: boolean
+      opened:
+        type: boolean
+      clicked:
+        type: boolean
+      complained:
+        type: boolean
+      subject:
+        type: string
+      sentTimestamp:
+        type: string
+      recipientEmails:
+        type: array
+        items:
+          type: string
+
+
+  Notifications:
+    description: Sent Notifications
+    properties:
+      notifications:
+        type: array
+        items:
+          $ref: '#/definitions/Notification'

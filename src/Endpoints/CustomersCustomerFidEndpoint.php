@@ -274,6 +274,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidNotificationsEndpoint
+   */
+  public function notifications()
+  {
+    $endpoint = new CustomersCustomerFidNotificationsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Retrieve a customer
    *
    * @param $retrieveBillingData
