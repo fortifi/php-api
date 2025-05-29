@@ -20,6 +20,7 @@ class FindTransactionRequest
       "city" => $this->getCity(),
       "country" => $this->getCountry(),
       "items" => $this->getItems(),
+      "subscriptions" => $this->getSubscriptions(),
       "paymentScheme" => $this->getPaymentScheme(),
       "paymentLast4" => $this->getPaymentLast4(),
       "paymentExp" => $this->getPaymentExp(),
@@ -102,6 +103,16 @@ class FindTransactionRequest
   public function getItems($default = [])
   {
     return Objects::property($this->_getResultJson(), 'items', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return SubscriptionRequest[]
+   */
+  public function getSubscriptions($default = [])
+  {
+    return Objects::property($this->_getResultJson(), 'subscriptions', $default);
   }
 
   /**
@@ -241,6 +252,15 @@ class FindTransactionRequest
       foreach($return->items as $itmKey => $itm)
       {
         $return->items[$itmKey] = (new InvoiceItemRequest())
+          ->hydrate($itm);
+      }
+    }
+
+    if(!empty($return->subscriptions))
+    {
+      foreach($return->subscriptions as $itmKey => $itm)
+      {
+        $return->subscriptions[$itmKey] = (new SubscriptionRequest())
           ->hydrate($itm);
       }
     }

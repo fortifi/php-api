@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.161.0'
+  version: '3.162.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -13421,6 +13421,10 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/InvoiceItem'
+      subscriptions:
+        type: array
+        items:
+          $ref: '#/definitions/Subscription'
       paymentScheme:
         type: string
       paymentLast4:
