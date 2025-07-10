@@ -30,6 +30,16 @@ class TicketsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return TicketsSearchEndpoint
+   */
+  public function search()
+  {
+    $endpoint = new TicketsSearchEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Create a support ticket
    *
    * The attachments property is an array of unique filenames that have been

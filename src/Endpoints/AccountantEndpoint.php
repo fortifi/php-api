@@ -21,4 +21,14 @@ class AccountantEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return AccountantTransactionsEndpoint
+   */
+  public function transactions()
+  {
+    $endpoint = new AccountantTransactionsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }

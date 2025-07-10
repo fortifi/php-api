@@ -65,4 +65,14 @@ class ContactsEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return ContactsSearchEndpoint
+   */
+  public function search()
+  {
+    $endpoint = new ContactsSearchEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }

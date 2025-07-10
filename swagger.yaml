@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.162.0'
+  version: '3.164.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -279,6 +279,37 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/FindTransactionResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  /accountant/transactions/search:
+    post:
+      tags:
+        - Accountant
+      security:
+        - OAuth:
+            - basic
+        - accessToken: [ ]
+      summary: Find multiple Account Transaction
+      description: |
+        Find multiple Account Transaction based on purchase information
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FindTransactionsPayload'
+      responses:
+        200:
+          description: Find Transactions Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/FindTransactionsResponse'
         default:
           description: Error
           schema:
@@ -1125,6 +1156,60 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/contacts/search':
+    get:
+      summary: Search for contacts
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: [ ]
+      consumes:
+        - application/json
+      parameters:
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+        - name: firstName
+          in: query
+          description: First name to search for
+          required: false
+          type: string
+        - name: lastName
+          in: query
+          description: Last name to search for
+          required: false
+          type: string
+        - name: email
+          in: query
+          description: Email address to search for
+          required: false
+          type: array
+          items:
+            type: string
+      responses:
+        200:
+          description: List of contacts found
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/definitions/ContactPeople'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/customers/{customerFid}/payments/{paymentFid}/chargeback':
     post:
       summary: Initiate a chargeback on a payment
@@ -1592,6 +1677,8 @@ paths:
       responses:
         200:
           description: Email Added
+        x-400:
+          description: Invalid email address
         x-404:
           description: Customer not found
         default:
@@ -6361,10 +6448,8 @@ paths:
           description: Charge ID Accepted
           schema:
             $ref: '#/definitions/Envelope'
-        400:
+        x-400:
           description: Invalid Charge ID
-          schema:
-            $ref: '#/definitions/Envelope'
         default:
           description: Error
           schema:
@@ -6623,6 +6708,8 @@ paths:
       responses:
         200:
           description: Offer added to the order successfully
+        x-400:
+          description: Failed to add offer to order
         x-404:
           description: Order not found
         default:
@@ -7939,6 +8026,61 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/tickets/search':
+    get:
+      summary: Search for tickets
+      tags:
+        - Contacts
+      security:
+        - OAuth:
+            - contact
+        - accessToken: [ ]
+      consumes:
+        - application/json
+      parameters:
+        - name: limit
+          in: query
+          description: 'Maximum number of records per page (default: 20)'
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: 'Page number (default: 1)'
+          required: false
+          type: integer
+        - name: beforeTimestamp
+          in: query
+          description: 'Show posts before timestamp'
+          required: false
+          type: integer
+          format: int64
+        - name: afterTimestamp
+          in: query
+          description: 'Show posts after timestamp'
+          required: false
+          type: integer
+          format: int64
+        - name: subject
+          in: query
+          description: 'Filter by subject'
+          required: false
+          type: string
+      responses:
+        200:
+          description: Ticket Search Results
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/definitions/Tickets'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/transactions/{transactionFid}/retry':
     post:
       tags:
@@ -8123,6 +8265,9 @@ paths:
           description: |
             Not enough information was provided to complete your request
             e.g. Missing Visitor ID and/or Client IP
+        x-423:
+          description: |
+            Failed to lock
         x-404:
           description: |
             The actionKey specified does not exist
@@ -13374,6 +13519,27 @@ definitions:
       connectedAgentFid:
         type: string
 
+  FindTransactionsPayload:
+    properties:
+      paymentMethod:
+        type: string
+      last4:
+        type: string
+      first6:
+        type: string
+      nameOnCard:
+        type: string
+      amount:
+        type: string
+      currency:
+        type: string
+      date:
+        type: string
+      paypalEmail:
+        type: string
+      companyFid:
+        type: string
+
   FindTransactionPayload:
     properties:
       paymentMethod:
@@ -13404,6 +13570,7 @@ definitions:
         type: string
       companyFid:
         type: string
+
 
   FindTransactionResponse:
     properties:
@@ -13451,6 +13618,14 @@ definitions:
         type: string
       subscriptionFid:
         type: string
+
+  FindTransactionsResponse:
+    properties:
+      transactions:
+        type: array
+        items:
+          $ref: '#/definitions/FindTransactionResponse'
+
   AddTicketNotePayload:
     properties:
       notes:
@@ -13624,7 +13799,6 @@ definitions:
         items:
           type: string
 
-
   Notifications:
     description: Sent Notifications
     properties:
@@ -13632,3 +13806,47 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Notification'
+
+  ContactPerson:
+    description: Contact Person Entity
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          prefix:
+            type: string
+          firstName:
+            type: string
+          middleNames:
+            type: string
+          lastName:
+            type: string
+          suffix:
+            type: string
+          nickname:
+            type: string
+          birthday:
+            type: string
+          externalReference:
+            type: string
+          jobTitle:
+            type: string
+          ownerFid:
+            type: string
+          email:
+            type: string
+          defaultEmailFid:
+            type: string
+          phone:
+            type: string
+          defaultPhoneFid:
+            type: string
+
+  ContactPeople:
+    description: Contact Peoples
+    allOf:
+      - $ref: '#/definitions/Pagination'
+      - properties:
+          contacts:
+            type: array
+            items:
+              $ref: '#/definitions/ContactPerson'
