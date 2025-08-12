@@ -32,6 +32,7 @@ class FindTransactionRequest
       "invoiceFid" => $this->getInvoiceFid(),
       "transactionFid" => $this->getTransactionFid(),
       "subscriptionFid" => $this->getSubscriptionFid(),
+      "companyFid" => $this->getCompanyFid(),
     ];
   }
 
@@ -240,6 +241,18 @@ class FindTransactionRequest
   public function getSubscriptionFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'subscriptionFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCompanyFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'companyFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 
