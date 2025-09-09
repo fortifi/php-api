@@ -7,7 +7,7 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class SupportChatEnabledEndpoint extends ApiEndpoint
 {
-  protected $_path = 'support/chat-enabled';
+  protected $_path = 'support/chatEnabled';
   protected $_replacements = [];
 
   public function __construct()
@@ -27,7 +27,7 @@ class SupportChatEnabledEndpoint extends ApiEndpoint
 
     $detail = new ApiRequestDetail();
     $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl('support/chat-enabled'));
+    $detail->setUrl($this->_buildUrl('support/chatEnabled'));
     $detail->setMethod('GET');
     $request->setRequestDetail($detail);
     return $request;

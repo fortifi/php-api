@@ -15,7 +15,7 @@ class SupportEndpoint extends ApiEndpoint
   /**
    * @return SupportChatEnabledEndpoint
    */
-  public function chat-enabled()
+  public function chatEnabled()
   {
     $endpoint = new SupportChatEnabledEndpoint();
     $endpoint->_buildFromEndpoint($this);
