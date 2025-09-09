@@ -90,7 +90,7 @@ class InteractionsInteractionFidEndpoint extends ApiEndpoint
   /**
    * @return InteractionsInteractionFidSendChatTranscriptEndpoint
    */
-  public function send-chat-transcript()
+  public function sendChatTranscript()
   {
     $endpoint = new InteractionsInteractionFidSendChatTranscriptEndpoint(
       $this->_replacements['{interactionFid}']

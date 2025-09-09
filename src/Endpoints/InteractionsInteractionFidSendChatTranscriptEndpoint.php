@@ -8,7 +8,7 @@ use Fortifi\Api\Core\ApiEndpoint;
 
 class InteractionsInteractionFidSendChatTranscriptEndpoint extends ApiEndpoint
 {
-  protected $_path = 'interactions/{interactionFid}/send-chat-transcript';
+  protected $_path = 'interactions/{interactionFid}/sendChatTranscript';
   protected $_replacements = [];
 
   public function __construct($interactionFid)
@@ -35,7 +35,7 @@ class InteractionsInteractionFidSendChatTranscriptEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'interactions/{interactionFid}/send-chat-transcript'
+        'interactions/{interactionFid}/sendChatTranscript'
       )
     ));
     $detail->setBody(json_encode($payload));
