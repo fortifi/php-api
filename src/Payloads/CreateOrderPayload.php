@@ -50,7 +50,7 @@ class CreateOrderPayload
    */
   protected $_offerFids;
   /**
-   * Charge ID provided by ChargeHive.com
+   * Charge ID provided by ChargeHive.com or `true` to create one
    */
   protected $_chargeId;
   /**
@@ -508,7 +508,7 @@ class CreateOrderPayload
   }
 
   /**
-   * Charge ID provided by ChargeHive.com
+   * Charge ID provided by ChargeHive.com or `true` to create one
    *
    * @param mixed $default
    * @param bool $trim Trim Value

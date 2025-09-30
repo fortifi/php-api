@@ -6,6 +6,10 @@ class ModifySubscriptionPayload
   implements \JsonSerializable
 {
   /**
+   * Use a specific chargeID for this modification, or pass `true` to create a charge
+   */
+  protected $_chargeId;
+  /**
    * Price FID to modify subscription with
    * @required
    */
@@ -30,6 +34,10 @@ class ModifySubscriptionPayload
   public function hydrate($data)
   {
     $data = (array)$data;
+    if(isset($data["chargeId"]))
+    {
+      $this->_chargeId = (string)$data["chargeId"];
+    }
     if(isset($data["priceFid"]))
     {
       $this->_priceFid = (string)$data["priceFid"];
@@ -57,12 +65,38 @@ class ModifySubscriptionPayload
   public function jsonSerialize()
   {
     return [
+      "chargeId"    => $this->_chargeId,
       "priceFid"    => $this->_priceFid,
       "description" => $this->_description,
       "offerFid"    => $this->_offerFid,
       "sku"         => $this->_sku,
       "mode"        => $this->_mode,
     ];
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setChargeId(?string $value)
+  {
+    $this->_chargeId = $value;
+    return $this;
+  }
+
+  /**
+   * Use a specific chargeID for this modification, or pass `true` to create a charge
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getChargeId($default = null, $trim = true)
+  {
+    $value = $this->_chargeId ?: $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 
   /**
