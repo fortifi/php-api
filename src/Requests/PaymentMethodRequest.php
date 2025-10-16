@@ -38,6 +38,7 @@ class PaymentMethodRequest
         "declineCount" => $this->getDeclineCount(),
         "externalReference" => $this->getExternalReference(),
         "lookupCode" => $this->getLookupCode(),
+        "merchantFingerprint" => $this->getMerchantFingerprint(),
       ]
     );
   }
@@ -315,6 +316,18 @@ class PaymentMethodRequest
   public function getLookupCode($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'lookupCode', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getMerchantFingerprint($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'merchantFingerprint', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
