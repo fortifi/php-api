@@ -179,9 +179,10 @@ class UpsertDevicePayload
 
   const PUSH_SOURCE_APPLE = 'apple';
   const PUSH_SOURCE_FIREBASE = 'firebase';
+  const PUSH_SOURCE_WEB_PUSH = 'web-push';
 
   /**
-   * @param string $value apple, firebase
+   * @param string $value apple, firebase, web-push
    *
    * @return $this
    */
