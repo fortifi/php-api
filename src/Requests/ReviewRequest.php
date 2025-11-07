@@ -26,6 +26,7 @@ class ReviewRequest
       "ratingMax" => $this->getRatingMax(),
       "providerId" => $this->getProviderId(),
       "providerRating" => $this->getProviderRating(),
+      "reviewFid" => $this->getReviewFid(),
     ];
   }
 
@@ -165,5 +166,17 @@ class ReviewRequest
   public function getProviderRating($default = null)
   {
     return Objects::property($this->_getResultJson(), 'providerRating', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getReviewFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'reviewFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

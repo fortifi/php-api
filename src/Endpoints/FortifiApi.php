@@ -118,6 +118,16 @@ class FortifiApi extends ApiEndpoint
   }
 
   /**
+   * @return FeatureFlagsEndpoint
+   */
+  public function featureFlags()
+  {
+    $endpoint = new FeatureFlagsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return FinanceEndpoint
    */
   public function finance()
