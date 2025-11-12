@@ -22,6 +22,14 @@ class CreateTicketPayload
   protected $_attachments;
   protected $_language;
   protected $_accountVerificationFid;
+  /**
+   * key = Email | value = Display Name
+   */
+  protected $_cc;
+  /**
+   * key = Email | value = Display Name
+   */
+  protected $_bcc;
 
   public function hydrate($data)
   {
@@ -94,6 +102,26 @@ class CreateTicketPayload
     {
       $this->_accountVerificationFid = (string)$data["accountVerificationFid"];
     }
+    if(isset($data["cc"]))
+    {
+      $this->_cc = [];
+      foreach($data["cc"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_cc[] = $dObj;
+      }
+    }
+    if(isset($data["bcc"]))
+    {
+      $this->_bcc = [];
+      foreach($data["bcc"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_bcc[] = $dObj;
+      }
+    }
     return $this;
   }
 
@@ -118,6 +146,8 @@ class CreateTicketPayload
       "attachments"            => $this->_attachments,
       "language"               => $this->_language,
       "accountVerificationFid" => $this->_accountVerificationFid,
+      "cc"                     => $this->_cc,
+      "bcc"                    => $this->_bcc,
     ];
   }
 
@@ -538,5 +568,73 @@ class CreateTicketPayload
   {
     $value = $this->_accountVerificationFid ?: $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param KeyValuePayload[] $value
+   *
+   * @return $this
+   */
+  public function setCc(?array $value)
+  {
+    $this->_cc = $value;
+    return $this;
+  }
+
+  /**
+   * @param KeyValuePayload $item
+   *
+   * @return $this
+   */
+  public function addCc(KeyValuePayload $item)
+  {
+    $this->_cc[] = $item;
+    return $this;
+  }
+
+  /**
+   * key = Email | value = Display Name
+   *
+   * @param mixed $default
+   *
+   * @return KeyValuePayload[]
+   */
+  public function getCc($default = [])
+  {
+    return $this->_cc ?: $default;
+  }
+
+  /**
+   * @param KeyValuePayload[] $value
+   *
+   * @return $this
+   */
+  public function setBcc(?array $value)
+  {
+    $this->_bcc = $value;
+    return $this;
+  }
+
+  /**
+   * @param KeyValuePayload $item
+   *
+   * @return $this
+   */
+  public function addBcc(KeyValuePayload $item)
+  {
+    $this->_bcc[] = $item;
+    return $this;
+  }
+
+  /**
+   * key = Email | value = Display Name
+   *
+   * @param mixed $default
+   *
+   * @return KeyValuePayload[]
+   */
+  public function getBcc($default = [])
+  {
+    return $this->_bcc ?: $default;
   }
 }
