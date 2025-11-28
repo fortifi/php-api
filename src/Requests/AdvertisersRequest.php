@@ -23,7 +23,7 @@ class AdvertisersRequest
   /**
    * @param mixed $default
    *
-   * @return PublisherRequest[]
+   * @return AdvertiserRequest[]
    */
   public function getAdvertisers($default = [])
   {
@@ -38,7 +38,7 @@ class AdvertisersRequest
     {
       foreach($return->advertisers as $itmKey => $itm)
       {
-        $return->advertisers[$itmKey] = (new PublisherRequest())
+        $return->advertisers[$itmKey] = (new AdvertiserRequest())
           ->hydrate($itm);
       }
     }
