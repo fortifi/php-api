@@ -3,7 +3,7 @@ namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\TicketRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\updateCcBccPayload;
+use Fortifi\Api\V1\Payloads\UpdateCcBccPayload;
 use Fortifi\Api\V1\Payloads\TicketStatusPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
@@ -98,14 +98,13 @@ class TicketsTicketFidEndpoint extends ApiEndpoint
   /**
    * @summary Update Cc and Bcc fields for ticket
    *
-   * If ```clearExistingCcBcc``` field is true, the ```add``` fields can be used
-   * to re-populate the lists in the same call
+   * Set respective fields to add and remove Cc/Bcc fields
    *
-   * @param updateCcBccPayload $payload
+   * @param UpdateCcBccPayload $payload
    *
    * @return BoolMessageRequest
    */
-  public function setUpdateCcBcc(updateCcBccPayload $payload)
+  public function setUpdateCcBcc(UpdateCcBccPayload $payload)
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());

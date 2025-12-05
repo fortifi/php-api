@@ -14,6 +14,9 @@ class UpdateCcBccPayload
    */
   protected $_addBcc;
   protected $_removeBcc;
+  /**
+   * Set to ```true``` to remove all existing CC/BCC. Can be used with addCc/addBcc fields
+   */
   protected $_clearExistingCcBcc;
 
   public function hydrate($data)
@@ -210,6 +213,8 @@ class UpdateCcBccPayload
   }
 
   /**
+   * Set to ```true``` to remove all existing CC/BCC. Can be used with addCc/addBcc fields
+   *
    * @param bool $default
    *
    * @return boolean

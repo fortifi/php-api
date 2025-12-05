@@ -4533,7 +4533,11 @@ paths:
         200:
           description: Customer Orders
           schema:
-            $ref: '#/definitions/Orders'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Orders'
         x-404:
           description: Customer not found
         default:
@@ -8178,7 +8182,7 @@ paths:
     put:
       summary: Update Cc and Bcc fields for ticket
       description: >
-        If ```clearExistingCcBcc``` field is true, the ```add``` fields can be used to re-populate the lists in the same call
+        Set respective fields to add and remove Cc/Bcc fields
       tags:
         - Support
       security:
@@ -8191,16 +8195,19 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/updateCcBccPayload'
+            $ref: '#/definitions/UpdateCcBccPayload'
       responses:
         200:
-          description: Success Response
+          description: Returns true if changes are made and false if no changes made
           schema:
             allOf:
               - $ref: '#/definitions/Envelope'
               - properties:
                   data:
                     $ref: '#/definitions/BoolMessage'
+        x-400:
+          description: |
+            Invalid data supplied
         default:
           description: Error
           schema:
@@ -12747,7 +12754,7 @@ definitions:
         items:
           $ref: '#/definitions/keyValuePayload'
 
-  updateCcBccPayload:
+  UpdateCcBccPayload:
     properties:
       addCc:
         type: array
@@ -12758,6 +12765,7 @@ definitions:
         type: array
         items:
           type: string
+          description: Array of email addresses
       addBcc:
         type: array
         description: key = Email | value = Display Name
@@ -12767,7 +12775,9 @@ definitions:
         type: array
         items:
           type: string
+          description: Array of email addresses
       clearExistingCcBcc:
+        description: Set to ```true``` to remove all existing CC/BCC. Can be used with addCc/addBcc fields
         type: boolean
 
   TicketReplyPayload:
