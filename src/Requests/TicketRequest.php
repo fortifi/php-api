@@ -361,26 +361,22 @@ class TicketRequest
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return object
    */
-  public function getCc($default = null, $trim = true)
+  public function getCc($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'cc', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'cc', $default);
   }
 
   /**
    * @param mixed $default
-   * @param bool $trim Trim Value
    *
-   * @return string
+   * @return object
    */
-  public function getBcc($default = null, $trim = true)
+  public function getBcc($default = null)
   {
-    $value = Objects::property($this->_getResultJson(), 'bcc', $default);
-    return $trim ? Strings::ntrim($value) : $value;
+    return Objects::property($this->_getResultJson(), 'bcc', $default);
   }
 
   /**
