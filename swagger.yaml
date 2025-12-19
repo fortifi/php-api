@@ -11155,9 +11155,13 @@ definitions:
           restrictedAccess:
             type: boolean
           cc:
-            type: string
+            type: object
+            additionalProperties:
+              type: string
           bcc:
-            type: string
+            type: object
+            additionalProperties:
+              type: string
           language:
             type: string
           dateCreated:
