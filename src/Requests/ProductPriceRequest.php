@@ -26,6 +26,12 @@ class ProductPriceRequest
         "priceBandFid" => $this->getPriceBandFid(),
         "skuFid" => $this->getSkuFid(),
         "taxInclusive" => $this->isTaxInclusive(),
+        "suspendAfterDays" => $this->getSuspendAfterDays(),
+        "cancelDays" => $this->getCancelDays(),
+        "terminationFee" => $this->getTerminationFee(),
+        "terminationType" => $this->getTerminationType(),
+        "suspendStyle" => $this->getSuspendStyle(),
+        "visibility" => $this->getVisibility(),
       ]
     );
   }
@@ -160,5 +166,69 @@ class ProductPriceRequest
   public function isTaxInclusive($default = false)
   {
     return Objects::property($this->_getResultJson(), 'taxInclusive', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getSuspendAfterDays($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'suspendAfterDays', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getCancelDays($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'cancelDays', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return float
+   */
+  public function getTerminationFee($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'terminationFee', $default);
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTerminationType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'terminationType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getSuspendStyle($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'suspendStyle', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getVisibility($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'visibility', $default);
   }
 }

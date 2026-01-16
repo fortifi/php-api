@@ -2,6 +2,8 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\ProductsRequest;
+use Fortifi\Api\V1\Requests\ProductRequest;
+use Fortifi\Api\V1\Payloads\CreateProductPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
@@ -63,6 +65,28 @@ class ProductsEndpoint extends ApiEndpoint
     $detail->setRequireAuth(true);
     $detail->setUrl($this->_buildUrl('products'));
     $detail->setMethod('GET');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Create a new product
+   *
+   * @param CreateProductPayload $payload
+   *
+   * @return ProductRequest
+   */
+  public function create(CreateProductPayload $payload)
+  {
+    $request = new ProductRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl('products'));
+    $detail->setBody(json_encode($payload));
+    $detail->setMethod('POST');
     $request->setRequestDetail($detail);
     return $request;
   }

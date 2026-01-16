@@ -1,67 +1,27 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\ProductGroupRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\UpdateProductGroupPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
+class ProductsGroupsProductGroupFidProductsProductFidEndpoint extends ApiEndpoint
 {
-  protected $_path = 'products/groups/{productGroupFid}';
+  protected $_path = 'products/groups/{productGroupFid}/products/{productFid}';
   protected $_replacements = [];
 
-  public function __construct($productGroupFid)
+  public function __construct($productGroupFid, $productFid)
   {
     $this->_replacements['{productGroupFid}'] = $productGroupFid;
+    $this->_replacements['{productFid}'] = $productFid;
   }
 
   /**
-   * @return ProductsGroupsProductGroupFidProductsEndpoint
-   */
-  public function products()
-  {
-    $endpoint = new ProductsGroupsProductGroupFidProductsEndpoint(
-      $this->_replacements['{productGroupFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @summary Retrieve Product Group Details
-   *
-   * @return ProductGroupRequest
-   */
-  public function retrieve()
-  {
-    $request = new ProductGroupRequest();
-    $request->setConnection($this->_getConnection());
-    $request->setEndpoint($this);
-
-    $detail = new ApiRequestDetail();
-    $detail->setRequireAuth(true);
-    $detail->setUrl($this->_buildUrl(
-      str_replace(
-        array_keys($this->_replacements),
-        array_values($this->_replacements),
-        'products/groups/{productGroupFid}'
-      )
-    ));
-    $detail->setMethod('GET');
-    $request->setRequestDetail($detail);
-    return $request;
-  }
-
-  /**
-   * @summary Update Product Group Details
-   *
-   * @param UpdateProductGroupPayload $payload
+   * @summary Add a product to the group
    *
    * @return BoolMessageRequest
    */
-  public function update(UpdateProductGroupPayload $payload)
+  public function create()
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());
@@ -73,11 +33,35 @@ class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'products/groups/{productGroupFid}'
+        'products/groups/{productGroupFid}/products/{productFid}'
       )
     ));
-    $detail->setBody(json_encode($payload));
-    $detail->setMethod('PUT');
+    $detail->setMethod('POST');
+    $request->setRequestDetail($detail);
+    return $request;
+  }
+
+  /**
+   * @summary Remove a product from the group
+   *
+   * @return BoolMessageRequest
+   */
+  public function delete()
+  {
+    $request = new BoolMessageRequest();
+    $request->setConnection($this->_getConnection());
+    $request->setEndpoint($this);
+
+    $detail = new ApiRequestDetail();
+    $detail->setRequireAuth(true);
+    $detail->setUrl($this->_buildUrl(
+      str_replace(
+        array_keys($this->_replacements),
+        array_values($this->_replacements),
+        'products/groups/{productGroupFid}/products/{productFid}'
+      )
+    ));
+    $detail->setMethod('DELETE');
     $request->setRequestDetail($detail);
     return $request;
   }

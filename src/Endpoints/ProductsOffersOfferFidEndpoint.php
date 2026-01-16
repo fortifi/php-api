@@ -1,42 +1,30 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\ProductGroupRequest;
+use Fortifi\Api\V1\Requests\ProductOfferRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\UpdateProductGroupPayload;
+use Fortifi\Api\V1\Payloads\UpdateProductOfferPayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
+class ProductsOffersOfferFidEndpoint extends ApiEndpoint
 {
-  protected $_path = 'products/groups/{productGroupFid}';
+  protected $_path = 'products/offers/{offerFid}';
   protected $_replacements = [];
 
-  public function __construct($productGroupFid)
+  public function __construct($offerFid)
   {
-    $this->_replacements['{productGroupFid}'] = $productGroupFid;
+    $this->_replacements['{offerFid}'] = $offerFid;
   }
 
   /**
-   * @return ProductsGroupsProductGroupFidProductsEndpoint
-   */
-  public function products()
-  {
-    $endpoint = new ProductsGroupsProductGroupFidProductsEndpoint(
-      $this->_replacements['{productGroupFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @summary Retrieve Product Group Details
+   * @summary Retrieve Offer Details
    *
-   * @return ProductGroupRequest
+   * @return ProductOfferRequest
    */
   public function retrieve()
   {
-    $request = new ProductGroupRequest();
+    $request = new ProductOfferRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -46,7 +34,7 @@ class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'products/groups/{productGroupFid}'
+        'products/offers/{offerFid}'
       )
     ));
     $detail->setMethod('GET');
@@ -55,13 +43,13 @@ class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Update Product Group Details
+   * @summary Update Offer Details
    *
-   * @param UpdateProductGroupPayload $payload
+   * @param UpdateProductOfferPayload $payload
    *
    * @return BoolMessageRequest
    */
-  public function update(UpdateProductGroupPayload $payload)
+  public function update(UpdateProductOfferPayload $payload)
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());
@@ -73,7 +61,7 @@ class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'products/groups/{productGroupFid}'
+        'products/offers/{offerFid}'
       )
     ));
     $detail->setBody(json_encode($payload));

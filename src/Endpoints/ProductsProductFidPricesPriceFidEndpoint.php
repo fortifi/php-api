@@ -1,42 +1,31 @@
 <?php
 namespace Fortifi\Api\V1\Endpoints;
 
-use Fortifi\Api\V1\Requests\ProductGroupRequest;
+use Fortifi\Api\V1\Requests\ProductPriceRequest;
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\UpdateProductGroupPayload;
+use Fortifi\Api\V1\Payloads\UpdateProductPricePayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
+class ProductsProductFidPricesPriceFidEndpoint extends ApiEndpoint
 {
-  protected $_path = 'products/groups/{productGroupFid}';
+  protected $_path = 'products/{productFid}/prices/{priceFid}';
   protected $_replacements = [];
 
-  public function __construct($productGroupFid)
+  public function __construct($productFid, $priceFid)
   {
-    $this->_replacements['{productGroupFid}'] = $productGroupFid;
+    $this->_replacements['{productFid}'] = $productFid;
+    $this->_replacements['{priceFid}'] = $priceFid;
   }
 
   /**
-   * @return ProductsGroupsProductGroupFidProductsEndpoint
-   */
-  public function products()
-  {
-    $endpoint = new ProductsGroupsProductGroupFidProductsEndpoint(
-      $this->_replacements['{productGroupFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @summary Retrieve Product Group Details
+   * @summary Retrieve Product Price Details
    *
-   * @return ProductGroupRequest
+   * @return ProductPriceRequest
    */
   public function retrieve()
   {
-    $request = new ProductGroupRequest();
+    $request = new ProductPriceRequest();
     $request->setConnection($this->_getConnection());
     $request->setEndpoint($this);
 
@@ -46,7 +35,7 @@ class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'products/groups/{productGroupFid}'
+        'products/{productFid}/prices/{priceFid}'
       )
     ));
     $detail->setMethod('GET');
@@ -55,13 +44,13 @@ class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @summary Update Product Group Details
+   * @summary Update Product Price Details
    *
-   * @param UpdateProductGroupPayload $payload
+   * @param UpdateProductPricePayload $payload
    *
    * @return BoolMessageRequest
    */
-  public function update(UpdateProductGroupPayload $payload)
+  public function update(UpdateProductPricePayload $payload)
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());
@@ -73,7 +62,7 @@ class ProductsGroupsProductGroupFidEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'products/groups/{productGroupFid}'
+        'products/{productFid}/prices/{priceFid}'
       )
     ));
     $detail->setBody(json_encode($payload));

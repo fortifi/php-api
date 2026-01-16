@@ -16,6 +16,21 @@ class ProductsGroupsProductGroupFidProductsEndpoint extends ApiEndpoint
   }
 
   /**
+   * @param $productFid
+   *
+   * @return ProductsGroupsProductGroupFidProductsProductFidEndpoint
+   */
+  public function with($productFid)
+  {
+    $endpoint = new ProductsGroupsProductGroupFidProductsProductFidEndpoint(
+      $this->_replacements['{productGroupFid}'],
+      $productFid
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @summary Get a list of products belonging to the group
    *
    * @return ProductsRequest

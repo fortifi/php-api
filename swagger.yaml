@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.176.3'
+  version: '3.178.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -7087,6 +7087,35 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateProductPayload'
+      responses:
+        200:
+          description: Product created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Product'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/products/{productFid}':
     get:
@@ -7108,6 +7137,36 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/Product'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Product Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateProductPayload'
+      responses:
+        200:
+          description: Updated product details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
         x-404:
           description: Product not found
         default:
@@ -7209,6 +7268,95 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new Product Price
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateProductPricePayload'
+      responses:
+        200:
+          description: Price created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductPrice'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/{productFid}/prices/{priceFid}':
+    get:
+      summary: Retrieve Product Price Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - $ref: '#/parameters/priceFid'
+      responses:
+        200:
+          description: Price details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductPrice'
+        x-404:
+          description: Product or Price not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Product Price Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - $ref: '#/parameters/priceFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateProductPricePayload'
+      responses:
+        200:
+          description: Updated price details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Product or Price not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/products/{productFid}/pricebands':
     get:
@@ -7240,6 +7388,95 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new Product Price Band
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateProductPriceBandPayload'
+      responses:
+        200:
+          description: Price band created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductPriceBand'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/{productFid}/pricebands/{priceBandFid}':
+    get:
+      summary: Retrieve Product Price Band Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - $ref: '#/parameters/priceBandFid'
+      responses:
+        200:
+          description: Price band details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductPriceBand'
+        x-404:
+          description: Product or Price Band not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Product Price Band Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - $ref: '#/parameters/priceBandFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateProductPriceBandPayload'
+      responses:
+        200:
+          description: Updated price band details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Product or Price Band not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/products/{productFid}/skus':
     get:
@@ -7267,6 +7504,95 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new Product SKU
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateProductSkuPayload'
+      responses:
+        200:
+          description: SKU created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductSku'
+        x-404:
+          description: Product not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/{productFid}/skus/{skuFid}':
+    get:
+      summary: Retrieve Product SKU Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - $ref: '#/parameters/skuFid'
+      responses:
+        200:
+          description: SKU details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductSku'
+        x-404:
+          description: Product or SKU not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Product SKU Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productFid'
+        - $ref: '#/parameters/skuFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateProductSkuPayload'
+      responses:
+        200:
+          description: Updated SKU details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Product or SKU not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
 
   '/products/groups':
     get:
@@ -7286,6 +7612,92 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/ProductGroups'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new product group
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateProductGroupPayload'
+      responses:
+        200:
+          description: Product group created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductGroup'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/groups/{productGroupFid}':
+    get:
+      summary: Retrieve Product Group Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productGroupFid'
+      responses:
+        200:
+          description: Product group details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductGroup'
+        x-404:
+          description: Product group not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Product Group Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productGroupFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateProductGroupPayload'
+      responses:
+        200:
+          description: Updated product group details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Product group not found
         default:
           description: Error
           schema:
@@ -7316,6 +7728,60 @@ paths:
           schema:
             $ref: '#/definitions/Envelope'
 
+  '/products/groups/{productGroupFid}/products/{productFid}':
+    post:
+      summary: Add a product to the group
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productGroupFid'
+        - $ref: '#/parameters/productFid'
+      responses:
+        200:
+          description: Product added to group successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Product or Product Group not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    delete:
+      summary: Remove a product from the group
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/productGroupFid'
+        - $ref: '#/parameters/productFid'
+      responses:
+        200:
+          description: Product removed from group successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Product or Product Group not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/products/offers':
     get:
       summary: Retrieve all offers
@@ -7334,6 +7800,92 @@ paths:
               - properties:
                   data:
                     $ref: '#/definitions/ProductOffers'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new offer
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateProductOfferPayload'
+      responses:
+        200:
+          description: Offer created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductOffer'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/products/offers/{offerFid}':
+    get:
+      summary: Retrieve Offer Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product.readonly
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/offerFid'
+      responses:
+        200:
+          description: Offer details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ProductOffer'
+        x-404:
+          description: Offer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Offer Details
+      tags:
+        - Products
+      security:
+        - OAuth:
+            - product
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/offerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateProductOfferPayload'
+      responses:
+        200:
+          description: Updated offer details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Offer not found
         default:
           description: Error
           schema:
@@ -8765,6 +9317,21 @@ parameters:
     type: string
   productGroupFid:
     name: productGroupFid
+    in: path
+    required: true
+    type: string
+  priceFid:
+    name: priceFid
+    in: path
+    required: true
+    type: string
+  priceBandFid:
+    name: priceBandFid
+    in: path
+    required: true
+    type: string
+  skuFid:
+    name: skuFid
     in: path
     required: true
     type: string
@@ -10410,6 +10977,10 @@ definitions:
             format: int32
           managerType:
             type: string
+          canSuspend:
+            type: boolean
+          canModifySku:
+            type: boolean
 
   ProductGroups:
     description: Generic Response
@@ -10483,6 +11054,24 @@ definitions:
             type: string
           taxInclusive:
             type: boolean
+          suspendAfterDays:
+            type: integer
+            format: int32
+          cancelDays:
+            type: integer
+            format: int32
+          terminationFee:
+            type: number
+            format: float
+          terminationType:
+            type: string
+            maxLength: 15
+          suspendStyle:
+            type: string
+            maxLength: 20
+          visibility:
+            type: integer
+            format: int32
 
   ProductSkus:
     description: Product SKUs
@@ -10724,6 +11313,18 @@ definitions:
             type: boolean
           parentOrderFid:
             type: string
+          paymentMethodName:
+            type: string
+          paymentMethodType:
+            type: string
+          paymentMethodBin:
+            type: string
+          paymentMethodLast4:
+            type: string
+          orderDate:
+            description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+            type: string
+            format: date-time
 
   UpdateOrderItemPayload:
     properties:
@@ -11047,6 +11648,7 @@ definitions:
             description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
             type: string
             format: date-time
+            x-nullable: true
           discountAmount:
             type: number
             format: float
@@ -11069,6 +11671,8 @@ definitions:
             description: Interval in ISO 8601 standard
             type: string
           restrictive:
+            type: boolean
+          apiOnly:
             type: boolean
 
   Tickets:
@@ -12689,6 +13293,258 @@ definitions:
             type: string
           failUrl:
             type: string
+
+  CreateProductPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      productType:
+        type: integer
+        format: int32
+        maximum: 255
+      groupType:
+        type: string
+        maxLength: 5
+      canSuspend:
+        type: boolean
+      allowQuantity:
+        type: boolean
+
+
+  UpdateProductPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      productType:
+        type: integer
+        format: int32
+      groupType:
+        type: string
+        maxLength: 5
+      defaultPriceFid:
+        type: string
+      maxQuantity:
+        type: integer
+        format: int32
+      canSuspend:
+        type: boolean
+      canModifySku:
+        type: boolean
+      cancelReasonFid:
+        type: string
+        maxLength: 64
+      suspendReasonFid:
+        type: string
+        maxLength: 64
+      refundReasonFid:
+        type: string
+        maxLength: 64
+
+  CreateProductPricePayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      priceBandFid:
+        type: string
+        maxLength: 64
+      currency:
+        type: string
+        maxLength: 3
+      price:
+        type: number
+        format: float
+      setupFee:
+        type: number
+        format: float
+      cycleType:
+        type: integer
+        format: int32
+      cycleTerm:
+        type: integer
+        format: int32
+      cycleExact:
+        type: string
+        maxLength: 1
+      suspendAfterDays:
+        type: integer
+        format: int32
+      shouldSuspend:
+        type: boolean
+      cancelDays:
+        type: integer
+        format: int32
+      shouldCancel:
+        type: boolean
+      invoiceDays:
+        type: integer
+        format: int32
+      invoiceDueDelayDays:
+        type: integer
+        format: int32
+      terminationFee:
+        type: number
+        format: float
+      terminationType:
+        type: string
+        maxLength: 15
+      suspendStyle:
+        type: string
+        maxLength: 20
+      visibility:
+        type: integer
+        format: int32
+      taxInclusive:
+        type: boolean
+      country:
+        type: string
+        maxLength: 64
+
+  UpdateProductPricePayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      suspendAfterDays:
+        type: integer
+        format: int32
+      cancelDays:
+        type: integer
+        format: int32
+      suspendStyle:
+        type: string
+        maxLength: 20
+      visibility:
+        type: integer
+        format: int32
+
+  CreateProductPriceBandPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+
+  UpdateProductPriceBandPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+
+  CreateProductSkuPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      sku:
+        type: string
+        maxLength: 120
+      priceBandFid:
+        type: string
+        maxLength: 64
+
+  UpdateProductSkuPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      priceBandFid:
+        type: string
+        maxLength: 64
+
+  CreateProductGroupPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      groupType:
+        type: integer
+        format: int32
+        maximum: 255
+
+  UpdateProductGroupPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+
+  CreateProductOfferPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      couponCode:
+        type: string
+        maxLength: 255
+      discountAmount:
+        type: number
+        format: float
+      discountType:
+        type: integer
+        format: int32
+      setupDiscountAmount:
+        type: number
+        format: float
+      setupDiscountType:
+        type: integer
+        format: int32
+      apiOnly:
+        type: boolean
+
+  UpdateProductOfferPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      maxUsages:
+        type: integer
+        format: int32
+      term:
+        type: integer
+        format: int32
+      termType:
+        type: integer
+        format: int32
+      apiOnly:
+        type: boolean
+      applyFid:
+        type: string
+        maxLength: 64
+      expiryDate:
+        type: string
+        format: date-time
+        x-nullable: true
+      quantityLimit:
+        type: integer
+        format: int32
+      restrictive:
+        type: boolean
+        default: false
 
   CreateTicketPayload:
     properties:

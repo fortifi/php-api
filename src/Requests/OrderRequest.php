@@ -50,6 +50,11 @@ class OrderRequest
         "hasAddon" => $this->isHasAddon(),
         "hasModify" => $this->isHasModify(),
         "parentOrderFid" => $this->getParentOrderFid(),
+        "paymentMethodName" => $this->getPaymentMethodName(),
+        "paymentMethodType" => $this->getPaymentMethodType(),
+        "paymentMethodBin" => $this->getPaymentMethodBin(),
+        "paymentMethodLast4" => $this->getPaymentMethodLast4(),
+        "orderDate" => $this->getOrderDate(),
       ]
     );
   }
@@ -447,6 +452,68 @@ class OrderRequest
   public function getParentOrderFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'parentOrderFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentMethodName($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentMethodName', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentMethodType($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentMethodType', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentMethodBin($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentMethodBin', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPaymentMethodLast4($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'paymentMethodLast4', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getOrderDate($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'orderDate', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

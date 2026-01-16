@@ -28,6 +28,7 @@ class ProductOfferRequest
         "cycle" => $this->getCycle(),
         "period" => $this->getPeriod(),
         "restrictive" => $this->isRestrictive(),
+        "apiOnly" => $this->isApiOnly(),
       ]
     );
   }
@@ -188,5 +189,15 @@ class ProductOfferRequest
   public function isRestrictive($default = false)
   {
     return Objects::property($this->_getResultJson(), 'restrictive', $default);
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isApiOnly($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'apiOnly', $default);
   }
 }

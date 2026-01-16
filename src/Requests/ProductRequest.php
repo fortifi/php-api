@@ -26,6 +26,8 @@ class ProductRequest
         "maxQuantity" => $this->getMaxQuantity(),
         "allowQuantity" => $this->getAllowQuantity(),
         "managerType" => $this->getManagerType(),
+        "canSuspend" => $this->isCanSuspend(),
+        "canModifySku" => $this->isCanModifySku(),
       ]
     );
   }
@@ -148,6 +150,26 @@ class ProductRequest
   {
     $value = Objects::property($this->_getResultJson(), 'managerType', $default);
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isCanSuspend($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'canSuspend', $default);
+  }
+
+  /**
+   * @param bool $default
+   *
+   * @return boolean
+   */
+  public function isCanModifySku($default = false)
+  {
+    return Objects::property($this->_getResultJson(), 'canModifySku', $default);
   }
 
   protected function _prepareResult($result)
