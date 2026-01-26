@@ -26,6 +26,7 @@ class InvoiceRequest
         "discountAmount" => $this->getDiscountAmount(),
         "taxAmount" => $this->getTaxAmount(),
         "creditedAmount" => $this->getCreditedAmount(),
+        "creditNotes" => $this->getCreditNotes(),
         "totalAmount" => $this->getTotalAmount(),
         "outstandingAmount" => $this->getOutstandingAmount(),
         "refundAmount" => $this->getRefundAmount(),
@@ -166,6 +167,16 @@ class InvoiceRequest
   /**
    * @param mixed $default
    *
+   * @return CreditNoteRequest[]
+   */
+  public function getCreditNotes($default = [])
+  {
+    return Objects::property($this->_getResultJson(), 'creditNotes', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
    * @return float
    */
   public function getTotalAmount($default = null)
@@ -240,6 +251,15 @@ class InvoiceRequest
   protected function _prepareResult($result)
   {
     $return = parent::_prepareResult($result);
+
+    if(!empty($return->creditNotes))
+    {
+      foreach($return->creditNotes as $itmKey => $itm)
+      {
+        $return->creditNotes[$itmKey] = (new CreditNoteRequest())
+          ->hydrate($itm);
+      }
+    }
 
     if(!empty($return->invoiceItems))
     {

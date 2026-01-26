@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.178.0'
+  version: '3.179.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -10758,6 +10758,10 @@ definitions:
           creditedAmount:
             type: number
             format: float
+          creditNotes:
+            type: array
+            items:
+              $ref: '#/definitions/CreditNote'
           totalAmount:
             type: number
             format: float
@@ -10809,6 +10813,10 @@ definitions:
           creditedAmount:
             type: number
             format: float
+          creditNotes:
+            type: array
+            items:
+              $ref: '#/definitions/CreditNote'
           totalAmount:
             type: number
             format: float
@@ -10829,6 +10837,26 @@ definitions:
               $ref: '#/definitions/InvoiceItem'
           chargeId:
             type: string
+
+  CreditNote:
+    description: Credit note information
+    properties:
+      creditNoteFid:
+        type: string
+      creditNoteReason:
+        type: string
+      amount:
+        type: number
+        format: float
+      currency:
+        type: string
+      creditNoteType:
+        type: string
+      dateCreated:
+        description: Time in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z
+        type: string
+        format: date-time
+
 
   InvoiceDownloadResponse:
     description: Generic Response
