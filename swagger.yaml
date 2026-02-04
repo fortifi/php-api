@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.179.0'
+  version: '3.180.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -1577,7 +1577,11 @@ paths:
       responses:
         200:
           schema:
-            $ref: '#/definitions/Addresses'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Addresses'
           description: List of addresses
         default:
           description: Error
@@ -11276,18 +11280,33 @@ definitions:
           amount:
             type: number
             format: float
+          amountUnit:
+            type: integer
+            format: int64
           setupAmount:
             type: number
             format: float
+          setupAmountUnit:
+            type: integer
+            format: int64
           setupDiscountAmount:
             type: number
             format: float
+          setupDiscountAmountUnit:
+            type: integer
+            format: int64
           taxAmount:
             type: number
             format: float
+          taxAmountUnit:
+            type: integer
+            format: int64
           totalAmount:
             type: number
             format: float
+          totalAmountUnit:
+            type: integer
+            format: int64
           currency:
             type: string
           country:
@@ -11295,6 +11314,9 @@ definitions:
           discountAmount:
             type: number
             format: float
+          discountAmountUnit:
+            type: integer
+            format: int64
           discountType:
             type: string
           approvedByFid:
@@ -11320,6 +11342,9 @@ definitions:
           amountPaid:
             type: number
             format: float
+          amountPaidUnit:
+            type: integer
+            format: int64
           chargeId:
             type: string
           authorizeId:
@@ -11389,6 +11414,9 @@ definitions:
           price:
             type: number
             format: float
+          priceUnit:
+            type: integer
+            format: int64
           priceFid:
             type: string
           offerFid:
@@ -11411,18 +11439,33 @@ definitions:
           discountAmount:
             type: number
             format: float
+          discountAmountUnit:
+            type: integer
+            format: int64
           setupFee:
             type: number
             format: float
+          setupFeeUnit:
+            type: integer
+            format: int64
           setupDiscountAmount:
             type: number
             format: float
+          setupDiscountAmountUnit:
+            type: integer
+            format: int64
           taxAmount:
             type: number
             format: float
+          taxAmountUnit:
+            type: integer
+            format: int64
           totalAmount:
             type: number
             format: float
+          totalAmountUnit:
+            type: integer
+            format: int64
           cycleType:
             type: string
             $ref: '#/definitions/cycleTermType'

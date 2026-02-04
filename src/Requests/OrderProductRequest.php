@@ -16,6 +16,7 @@ class OrderProductRequest
       parent::jsonSerialize(),
       [
         "price" => $this->getPrice(),
+        "priceUnit" => $this->getPriceUnit(),
         "priceFid" => $this->getPriceFid(),
         "offerFid" => $this->getOfferFid(),
         "productFid" => $this->getProductFid(),
@@ -25,10 +26,15 @@ class OrderProductRequest
         "skuFid" => $this->getSkuFid(),
         "currency" => $this->getCurrency(),
         "discountAmount" => $this->getDiscountAmount(),
+        "discountAmountUnit" => $this->getDiscountAmountUnit(),
         "setupFee" => $this->getSetupFee(),
+        "setupFeeUnit" => $this->getSetupFeeUnit(),
         "setupDiscountAmount" => $this->getSetupDiscountAmount(),
+        "setupDiscountAmountUnit" => $this->getSetupDiscountAmountUnit(),
         "taxAmount" => $this->getTaxAmount(),
+        "taxAmountUnit" => $this->getTaxAmountUnit(),
         "totalAmount" => $this->getTotalAmount(),
+        "totalAmountUnit" => $this->getTotalAmountUnit(),
         "cycleType" => $this->getCycleType(),
         "cycleTerm" => $this->getCycleTerm(),
         "cycleExact" => $this->getCycleExact(),
@@ -49,6 +55,16 @@ class OrderProductRequest
   public function getPrice($default = null)
   {
     return Objects::property($this->_getResultJson(), 'price', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getPriceUnit($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'priceUnit', $default);
   }
 
   /**
@@ -160,11 +176,31 @@ class OrderProductRequest
   /**
    * @param mixed $default
    *
+   * @return integer
+   */
+  public function getDiscountAmountUnit($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'discountAmountUnit', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
    * @return float
    */
   public function getSetupFee($default = null)
   {
     return Objects::property($this->_getResultJson(), 'setupFee', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getSetupFeeUnit($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'setupFeeUnit', $default);
   }
 
   /**
@@ -180,6 +216,16 @@ class OrderProductRequest
   /**
    * @param mixed $default
    *
+   * @return integer
+   */
+  public function getSetupDiscountAmountUnit($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'setupDiscountAmountUnit', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
    * @return float
    */
   public function getTaxAmount($default = null)
@@ -190,11 +236,31 @@ class OrderProductRequest
   /**
    * @param mixed $default
    *
+   * @return integer
+   */
+  public function getTaxAmountUnit($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'taxAmountUnit', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
    * @return float
    */
   public function getTotalAmount($default = null)
   {
     return Objects::property($this->_getResultJson(), 'totalAmount', $default);
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getTotalAmountUnit($default = null)
+  {
+    return Objects::property($this->_getResultJson(), 'totalAmountUnit', $default);
   }
 
   /**
