@@ -5009,7 +5009,7 @@ paths:
       parameters:
         - $ref: '#/parameters/hardwareId'
         - name: entityFid
-          in: formData
+          in: query
           type: string
           description: Entity FID assigned to the device (CST or CONT)
           required: false
