@@ -37,7 +37,7 @@ class DeviceHardwareIdEndpoint extends ApiEndpoint
         'device/{hardwareId}'
       )
     ));
-    $detail->addPostField('entityFid', $entityFid);
+    $detail->addQueryField('entityFid', $entityFid);
     $detail->setMethod('DELETE');
     $request->setRequestDetail($detail);
     return $request;
