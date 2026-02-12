@@ -14,11 +14,11 @@ class AppstoreCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return AppstoreCustomerFidGoogleEndpoint
+   * @return AppstoreCustomerFidAppleEndpoint
    */
-  public function google()
+  public function apple()
   {
-    $endpoint = new AppstoreCustomerFidGoogleEndpoint(
+    $endpoint = new AppstoreCustomerFidAppleEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);
@@ -26,11 +26,11 @@ class AppstoreCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return AppstoreCustomerFidAppleEndpoint
+   * @return AppstoreCustomerFidGoogleEndpoint
    */
-  public function apple()
+  public function google()
   {
-    $endpoint = new AppstoreCustomerFidAppleEndpoint(
+    $endpoint = new AppstoreCustomerFidGoogleEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);

@@ -576,6 +576,36 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  /appstore/{customerFid}/apple/create:
+    post:
+      tags:
+        - Appstore
+      security:
+        - OAuth:
+            - basic
+        - accessToken: [ ]
+      summary: Create purchase from Apple App Store transaction data
+      description: |
+        Create a subscription or product purchase from Apple App Store transaction data.
+        The client has already verified the transaction with Apple and sends structured transaction details.
+        This endpoint creates purchases synchronously and returns the purchase FID immediately.
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAppleAppStorePurchasePayload'
+      responses:
+        200:
+          description: Bool Response
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
   '/attachment/{entityFid}':
     post:
       summary: Create An Attachment
@@ -14282,6 +14312,41 @@ definitions:
       - price
       - currencyCode
       - countryCode
+
+  CreateAppleAppStorePurchasePayload:
+    properties:
+      bundleId:
+        description: The package name of the application (Apple bundle ID)
+        type: string
+      productId:
+        description: The Apple product/subscription ID (SKU)
+        type: string
+      originalTransactionId:
+        description: The original transaction ID for linking renewals
+        type: string
+      transactionId:
+        description: The current transaction ID
+        type: string
+      storefront:
+        description: ISO 3166-1 Alpha-3 (e.g. USA)
+        type: string
+      quantity:
+        description: Purchase quantity
+        type: integer
+      expiresDate:
+        description: Subscription expiry date (timestamp, null for one-time products)
+        type: integer
+      purchaseDate:
+        description: Transaction date (timestamp)
+        type: integer
+    required:
+      - bundleId
+      - productId
+      - originalTransactionId
+      - transactionId
+      - storefront
+      - quantity
+      - purchaseDate
 
   PresetChatSessionLink:
     description: Preset Chat Session Link

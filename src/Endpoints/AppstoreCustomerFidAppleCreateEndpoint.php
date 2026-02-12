@@ -2,13 +2,13 @@
 namespace Fortifi\Api\V1\Endpoints;
 
 use Fortifi\Api\V1\Requests\BoolMessageRequest;
-use Fortifi\Api\V1\Payloads\CreateAppleNotificationPayload;
+use Fortifi\Api\V1\Payloads\CreateAppleAppStorePurchasePayload;
 use Fortifi\Api\Core\ApiRequestDetail;
 use Fortifi\Api\Core\ApiEndpoint;
 
-class AppstoreCustomerFidAppleEndpoint extends ApiEndpoint
+class AppstoreCustomerFidAppleCreateEndpoint extends ApiEndpoint
 {
-  protected $_path = 'appstore/{customerFid}/apple';
+  protected $_path = 'appstore/{customerFid}/apple/create';
   protected $_replacements = [];
 
   public function __construct($customerFid)
@@ -17,27 +17,20 @@ class AppstoreCustomerFidAppleEndpoint extends ApiEndpoint
   }
 
   /**
-   * @return AppstoreCustomerFidAppleCreateEndpoint
-   */
-  public function create()
-  {
-    $endpoint = new AppstoreCustomerFidAppleCreateEndpoint(
-      $this->_replacements['{customerFid}']
-    );
-    $endpoint->_buildFromEndpoint($this);
-    return $endpoint;
-  }
-
-  /**
-   * @summary Post a new Apple notification
+   * @summary Create purchase from Apple App Store transaction data
    *
-   * Post a new Apple notification.
+   * Create a subscription or product purchase from Apple App Store transaction
+   * data.
+   * The client has already verified the transaction with Apple and sends
+   * structured transaction details.
+   * This endpoint creates purchases synchronously and returns the purchase FID
+   * immediately.
    *
-   * @param CreateAppleNotificationPayload $payload
+   * @param CreateAppleAppStorePurchasePayload $payload
    *
    * @return BoolMessageRequest
    */
-  public function create(CreateAppleNotificationPayload $payload)
+  public function create(CreateAppleAppStorePurchasePayload $payload)
   {
     $request = new BoolMessageRequest();
     $request->setConnection($this->_getConnection());
@@ -49,7 +42,7 @@ class AppstoreCustomerFidAppleEndpoint extends ApiEndpoint
       str_replace(
         array_keys($this->_replacements),
         array_values($this->_replacements),
-        'appstore/{customerFid}/apple'
+        'appstore/{customerFid}/apple/create'
       )
     ));
     $detail->setBody(json_encode($payload));
