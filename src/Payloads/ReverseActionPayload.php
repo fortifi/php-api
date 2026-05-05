@@ -151,7 +151,7 @@ class ReverseActionPayload
    */
   public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -176,7 +176,7 @@ class ReverseActionPayload
    */
   public function getEncoding($default = null, $trim = true)
   {
-    $value = $this->_encoding ?: $default;
+    $value = $this->_encoding ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -201,7 +201,7 @@ class ReverseActionPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -226,7 +226,7 @@ class ReverseActionPayload
    */
   public function getClientIp($default = null, $trim = true)
   {
-    $value = $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -251,7 +251,7 @@ class ReverseActionPayload
    */
   public function getExternalReference($default = null, $trim = true)
   {
-    $value = $this->_externalReference ?: $default;
+    $value = $this->_externalReference ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -276,7 +276,7 @@ class ReverseActionPayload
    */
   public function getTime($default = null, $trim = true)
   {
-    $value = $this->_time ?: $default;
+    $value = $this->_time ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -309,7 +309,7 @@ class ReverseActionPayload
    */
   public function getMetaData($default = [])
   {
-    return $this->_metaData ?: $default;
+    return $this->_metaData ?? $default;
   }
 
   /**
@@ -333,7 +333,7 @@ class ReverseActionPayload
    */
   public function getSourceTransactionId($default = null, $trim = true)
   {
-    $value = $this->_sourceTransactionId ?: $default;
+    $value = $this->_sourceTransactionId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -362,7 +362,7 @@ class ReverseActionPayload
    */
   public function getReason($default = null, $trim = true)
   {
-    $value = $this->_reason ?: $default;
+    $value = $this->_reason ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -386,7 +386,7 @@ class ReverseActionPayload
    */
   public function getReversalAmount($default = null)
   {
-    return $this->_reversalAmount ?: $default;
+    return $this->_reversalAmount ?? $default;
   }
 
   /**
@@ -410,7 +410,7 @@ class ReverseActionPayload
    */
   public function getReversalId($default = null, $trim = true)
   {
-    $value = $this->_reversalId ?: $default;
+    $value = $this->_reversalId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -435,7 +435,7 @@ class ReverseActionPayload
    */
   public function getEventId($default = null, $trim = true)
   {
-    $value = $this->_eventId ?: $default;
+    $value = $this->_eventId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

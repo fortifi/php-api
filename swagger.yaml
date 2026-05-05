@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.181.0'
+  version: '3.191.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -885,8 +885,6 @@ paths:
         - OAuth:
             - customer
         - accessToken: [ ]
-      consumes:
-        - multipart/form-data
       parameters:
         - $ref: '#/parameters/contactFid'
         - name: payload
@@ -913,8 +911,6 @@ paths:
         - OAuth:
             - customer
         - accessToken: [ ]
-      consumes:
-        - multipart/form-data
       parameters:
         - $ref: '#/parameters/contactFid'
         - $ref: '#/parameters/addressFid'
@@ -1206,6 +1202,32 @@ paths:
                     type: array
                     items:
                       $ref: '#/definitions/ContactPeople'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/defaultAddress':
+    get:
+      summary: Get Default Address for a Customer
+      tags:
+        - Customers
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+      responses:
+        200:
+          description: Address Fid
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Fid'
+        x-400:
+          description: Invalid Payload
         default:
           description: Error
           schema:
@@ -1595,8 +1617,6 @@ paths:
         - OAuth:
             - customer
         - accessToken: [ ]
-      consumes:
-        - multipart/form-data
       parameters:
         - $ref: '#/parameters/customerFid'
         - name: payload
@@ -1791,6 +1811,39 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/customers/{customerFid}/finance/calculateTax':
+    post:
+      summary: Calculate tax for a given amount
+      tags:
+        - Customers
+        - Finance
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CalculateTaxPayload'
+      responses:
+        200:
+          description: Calculated tax amount
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/CalculateTaxResponse'
+        x-404:
+          description: Customer not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
   '/customers/{customerFid}/chatSessions':
     get:
       summary: Retrieve chat sessions for customer
@@ -2185,7 +2238,11 @@ paths:
         200:
           description: Download URL
           schema:
-            $ref: '#/definitions/InvoiceDownloadResponse'
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/InvoiceDownloadResponse'
         x-404:
           description: Invoice not found
         default:
@@ -4753,6 +4810,39 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/customers/{customerFid}/contactStatus':
+    get:
+      summary: List Contact Status for a given email address
+      tags:
+        - Customers
+        - Messenger
+      security:
+        - OAuth:
+            - customer
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/customerFid'
+        - name: emailAddress
+          in: query
+          type: string
+          description: Email Address to list contact status for
+          required: true
+      responses:
+        200:
+          description: List of Contact Status
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ContactStatusesResponse'
+        x-404:
+          description: No Contact Statuses found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   /customers:
     post:
       summary: Create a new customer
@@ -6250,7 +6340,7 @@ paths:
       security:
         - OAuth:
             - contact
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -6278,7 +6368,7 @@ paths:
       security:
         - OAuth:
             - contact
-        - accessToken: []
+        - accessToken: [ ]
       consumes:
         - multipart/form-data
       parameters:
@@ -6294,6 +6384,29 @@ paths:
           description: Email Address Subscribed
         x-404:
           description: Email Address not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/messenger/listMessageGroups':
+    get:
+      summary: List Message Groups
+      tags:
+        - Messenger
+      security:
+        - OAuth:
+            - contact
+        - accessToken: [ ]
+      responses:
+        200:
+          description: List of Message Groups
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/MessageGroups'
         default:
           description: Error
           schema:
@@ -9559,6 +9672,7 @@ definitions:
       - residential
       - enterprise
       - group
+      - anonymous
   customerAccountStatus:
     description: Account Status
     type: string
@@ -13498,6 +13612,10 @@ definitions:
       visibility:
         type: integer
         format: int32
+      priceBandFid:
+        type: string
+        maxLength: 64
+        x-omitempty: false
 
   CreateProductPriceBandPayload:
     properties:
@@ -13539,6 +13657,7 @@ definitions:
       priceBandFid:
         type: string
         maxLength: 64
+        x-omitempty: false
 
   CreateProductGroupPayload:
     properties:
@@ -13598,9 +13717,11 @@ definitions:
       term:
         type: integer
         format: int32
+        x-omitempty: false
       termType:
         type: integer
         format: int32
+        x-omitempty: false
       apiOnly:
         type: boolean
       applyFid:
@@ -14976,7 +15097,6 @@ definitions:
     required:
       - email
 
-
   EntityFeatureFlag:
     description: Entity Feature Flag
     properties:
@@ -14997,3 +15117,139 @@ definitions:
         items:
           $ref: '#/definitions/EntityFeatureFlag'
 
+  CalculateTaxPayload:
+    description: Calculate Tax Payload
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/TaxItemPayload'
+
+  TaxItemPayload:
+    description: Tax Item Payload
+    properties:
+      productFid:
+        type: string
+      priceFid:
+        type: string
+      offerFid:
+        type: string
+      chargeSetup:
+        type: boolean
+        default: true
+      taxCode:
+        type: string
+      unitPrice:
+        type: number
+        format: float
+      setupFee:
+        type: number
+        format: float
+      quantity:
+        type: integer
+        format: int32
+        default: 1
+      setupDiscount:
+        type: number
+        format: float
+      discount:
+        type: number
+        format: float
+      calculateInclusive:
+        type: boolean
+      calculateExclusive:
+        type: boolean
+
+  CalculateTaxResponse:
+    description: Calculate Tax Response
+    allOf:
+      - $ref: '#/definitions/TaxItemResponse'
+      - properties:
+          items:
+            type: array
+            items:
+              $ref: '#/definitions/TaxItemResponse'
+
+  TaxItemResponse:
+    description: Tax Item Response
+    properties:
+      productFid:
+        type: string
+      priceFid:
+        type: string
+      offerFid:
+        type: string
+      unitAmount:
+        type: number
+        format: float
+      unitTaxAmount:
+        type: number
+        format: float
+      setupAmount:
+        type: number
+        format: float
+      setupTaxAmount:
+        type: number
+        format: float
+      setupDiscount:
+        type: number
+        format: float
+      setupTotalWithoutTax:
+        type: number
+        format: float
+      setupTotalWithTax:
+        type: number
+        format: float
+      totalUnitsAmount:
+        type: number
+        format: float
+      totalUnitsTaxAmount:
+        type: number
+        format: float
+      totalUnitWithTax:
+        type: number
+        format: float
+      totalUnitDiscount:
+        type: number
+        format: float
+      totalTaxAmount:
+        type: number
+        format: float
+      totalAmountWithoutTax:
+        type: number
+        format: float
+      totalAmountWithTax:
+        type: number
+        format: float
+      isInclusive:
+        type: boolean
+      rateBreakdown:
+        type: array
+        items:
+          $ref: '#/definitions/TaxRateBreakdownResponse'
+
+  TaxRateBreakdownResponse:
+    description: Tax Rate Breakdown Response
+    properties:
+      percent:
+        type: number
+        format: float
+      amount:
+        type: number
+        format: float
+
+  ContactStatusResponse:
+    description: Contact Status Response
+    properties:
+      groupFid:
+        type: string
+      unsubscribed:
+        type: boolean
+
+  ContactStatusesResponse:
+    description: Contact Statuses Response
+    properties:
+      statuses:
+        type: array
+        items:
+          $ref: '#/definitions/ContactStatusResponse'

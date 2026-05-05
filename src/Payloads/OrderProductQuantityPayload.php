@@ -56,7 +56,7 @@ class OrderProductQuantityPayload
    */
   public function getPriceFid($default = null, $trim = true)
   {
-    $value = $this->_priceFid ?: $default;
+    $value = $this->_priceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -78,6 +78,6 @@ class OrderProductQuantityPayload
    */
   public function getQuantity($default = null)
   {
-    return $this->_quantity ?: $default;
+    return $this->_quantity ?? $default;
   }
 }

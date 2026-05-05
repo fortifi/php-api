@@ -203,7 +203,7 @@ class CreateOrderPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -228,7 +228,7 @@ class CreateOrderPayload
    */
   public function getPaymentAccountFid($default = null, $trim = true)
   {
-    $value = $this->_paymentAccountFid ?: $default;
+    $value = $this->_paymentAccountFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -253,7 +253,7 @@ class CreateOrderPayload
    */
   public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_brandFid ?: $default;
+    $value = $this->_brandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -278,7 +278,7 @@ class CreateOrderPayload
    */
   public function getCustomerFid($default = null, $trim = true)
   {
-    $value = $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -303,7 +303,7 @@ class CreateOrderPayload
    */
   public function getClientIp($default = null, $trim = true)
   {
-    $value = $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -328,7 +328,7 @@ class CreateOrderPayload
    */
   public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -356,7 +356,7 @@ class CreateOrderPayload
    */
   public function getType($default = null, $trim = true)
   {
-    $value = $this->_type ?: $default;
+    $value = $this->_type ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -391,7 +391,7 @@ class CreateOrderPayload
    */
   public function getProductPriceFids($default = [])
   {
-    return $this->_productPriceFids ?: $default;
+    return $this->_productPriceFids ?? $default;
   }
 
   /**
@@ -425,7 +425,7 @@ class CreateOrderPayload
    */
   public function getProducts($default = [])
   {
-    return $this->_products ?: $default;
+    return $this->_products ?? $default;
   }
 
   /**
@@ -459,7 +459,7 @@ class CreateOrderPayload
    */
   public function getModifySubscriptions($default = [])
   {
-    return $this->_modifySubscriptions ?: $default;
+    return $this->_modifySubscriptions ?? $default;
   }
 
   /**
@@ -493,7 +493,7 @@ class CreateOrderPayload
    */
   public function getOfferFids($default = [])
   {
-    return $this->_offerFids ?: $default;
+    return $this->_offerFids ?? $default;
   }
 
   /**
@@ -517,7 +517,7 @@ class CreateOrderPayload
    */
   public function getChargeId($default = null, $trim = true)
   {
-    $value = $this->_chargeId ?: $default;
+    $value = $this->_chargeId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -542,7 +542,7 @@ class CreateOrderPayload
    */
   public function getExternalReference($default = null, $trim = true)
   {
-    $value = $this->_externalReference ?: $default;
+    $value = $this->_externalReference ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -566,7 +566,7 @@ class CreateOrderPayload
    */
   public function isConfirm($default = false)
   {
-    return (bool)$this->_confirm ?: $default;
+    return (bool)$this->_confirm ?? $default;
   }
 
   /**
@@ -590,7 +590,7 @@ class CreateOrderPayload
    */
   public function getParentOrderFid($default = null, $trim = true)
   {
-    $value = $this->_parentOrderFid ?: $default;
+    $value = $this->_parentOrderFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -614,7 +614,7 @@ class CreateOrderPayload
    */
   public function isSetupPurchaseBeforePayment($default = false)
   {
-    return (bool)$this->_setupPurchaseBeforePayment ?: $default;
+    return (bool)$this->_setupPurchaseBeforePayment ?? $default;
   }
 
   /**
@@ -635,6 +635,6 @@ class CreateOrderPayload
    */
   public function getPublisher($default = null)
   {
-    return $this->_publisher ?: $default;
+    return $this->_publisher ?? $default;
   }
 }

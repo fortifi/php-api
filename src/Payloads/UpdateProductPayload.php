@@ -104,7 +104,7 @@ class UpdateProductPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -127,7 +127,7 @@ class UpdateProductPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -149,7 +149,7 @@ class UpdateProductPayload
    */
   public function getProductType($default = null)
   {
-    return $this->_productType ?: $default;
+    return $this->_productType ?? $default;
   }
 
   /**
@@ -171,7 +171,7 @@ class UpdateProductPayload
    */
   public function getGroupType($default = null, $trim = true)
   {
-    $value = $this->_groupType ?: $default;
+    $value = $this->_groupType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -194,7 +194,7 @@ class UpdateProductPayload
    */
   public function getDefaultPriceFid($default = null, $trim = true)
   {
-    $value = $this->_defaultPriceFid ?: $default;
+    $value = $this->_defaultPriceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -216,7 +216,7 @@ class UpdateProductPayload
    */
   public function getMaxQuantity($default = null)
   {
-    return $this->_maxQuantity ?: $default;
+    return $this->_maxQuantity ?? $default;
   }
 
   /**
@@ -237,7 +237,7 @@ class UpdateProductPayload
    */
   public function isCanSuspend($default = false)
   {
-    return (bool)$this->_canSuspend ?: $default;
+    return (bool)$this->_canSuspend ?? $default;
   }
 
   /**
@@ -258,7 +258,7 @@ class UpdateProductPayload
    */
   public function isCanModifySku($default = false)
   {
-    return (bool)$this->_canModifySku ?: $default;
+    return (bool)$this->_canModifySku ?? $default;
   }
 
   /**
@@ -280,7 +280,7 @@ class UpdateProductPayload
    */
   public function getCancelReasonFid($default = null, $trim = true)
   {
-    $value = $this->_cancelReasonFid ?: $default;
+    $value = $this->_cancelReasonFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -303,7 +303,7 @@ class UpdateProductPayload
    */
   public function getSuspendReasonFid($default = null, $trim = true)
   {
-    $value = $this->_suspendReasonFid ?: $default;
+    $value = $this->_suspendReasonFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -326,7 +326,7 @@ class UpdateProductPayload
    */
   public function getRefundReasonFid($default = null, $trim = true)
   {
-    $value = $this->_refundReasonFid ?: $default;
+    $value = $this->_refundReasonFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

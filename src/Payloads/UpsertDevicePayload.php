@@ -200,7 +200,7 @@ class UpsertDevicePayload
    */
   public function getPushSource($default = null, $trim = true)
   {
-    $value = $this->_pushSource ?: $default;
+    $value = $this->_pushSource ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -223,7 +223,7 @@ class UpsertDevicePayload
    */
   public function getPushAuth($default = null, $trim = true)
   {
-    $value = $this->_pushAuth ?: $default;
+    $value = $this->_pushAuth ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -248,7 +248,7 @@ class UpsertDevicePayload
    */
   public function getDeviceType($default = null, $trim = true)
   {
-    $value = $this->_deviceType ?: $default;
+    $value = $this->_deviceType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -273,7 +273,7 @@ class UpsertDevicePayload
    */
   public function getDeviceName($default = null, $trim = true)
   {
-    $value = $this->_deviceName ?: $default;
+    $value = $this->_deviceName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -298,7 +298,7 @@ class UpsertDevicePayload
    */
   public function getDeviceVersion($default = null, $trim = true)
   {
-    $value = $this->_deviceVersion ?: $default;
+    $value = $this->_deviceVersion ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -323,7 +323,7 @@ class UpsertDevicePayload
    */
   public function getManufacturer($default = null, $trim = true)
   {
-    $value = $this->_manufacturer ?: $default;
+    $value = $this->_manufacturer ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -348,7 +348,7 @@ class UpsertDevicePayload
    */
   public function getOs($default = null, $trim = true)
   {
-    $value = $this->_os ?: $default;
+    $value = $this->_os ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -373,7 +373,7 @@ class UpsertDevicePayload
    */
   public function getOsVersion($default = null, $trim = true)
   {
-    $value = $this->_osVersion ?: $default;
+    $value = $this->_osVersion ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -397,7 +397,7 @@ class UpsertDevicePayload
    */
   public function getScreenWidth($default = null)
   {
-    return $this->_screenWidth ?: $default;
+    return $this->_screenWidth ?? $default;
   }
 
   /**
@@ -420,7 +420,7 @@ class UpsertDevicePayload
    */
   public function getScreenHeight($default = null)
   {
-    return $this->_screenHeight ?: $default;
+    return $this->_screenHeight ?? $default;
   }
 
   /**
@@ -444,7 +444,7 @@ class UpsertDevicePayload
    */
   public function getApp($default = null, $trim = true)
   {
-    $value = $this->_app ?: $default;
+    $value = $this->_app ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -469,7 +469,7 @@ class UpsertDevicePayload
    */
   public function getAppVersion($default = null, $trim = true)
   {
-    $value = $this->_appVersion ?: $default;
+    $value = $this->_appVersion ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -494,7 +494,7 @@ class UpsertDevicePayload
    */
   public function getCustomerFid($default = null, $trim = true)
   {
-    $value = $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -519,7 +519,7 @@ class UpsertDevicePayload
    */
   public function getContactFid($default = null, $trim = true)
   {
-    $value = $this->_contactFid ?: $default;
+    $value = $this->_contactFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -544,7 +544,7 @@ class UpsertDevicePayload
    */
   public function getSubscriptionFid($default = null, $trim = true)
   {
-    $value = $this->_subscriptionFid ?: $default;
+    $value = $this->_subscriptionFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -569,7 +569,7 @@ class UpsertDevicePayload
    */
   public function getHardwareId($default = null, $trim = true)
   {
-    $value = $this->_hardwareId ?: $default;
+    $value = $this->_hardwareId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -594,7 +594,7 @@ class UpsertDevicePayload
    */
   public function getClientIp($default = null, $trim = true)
   {
-    $value = $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -622,7 +622,7 @@ class UpsertDevicePayload
    */
   public function getOptInStatus($default = null, $trim = true)
   {
-    $value = $this->_optInStatus ?: $default;
+    $value = $this->_optInStatus ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

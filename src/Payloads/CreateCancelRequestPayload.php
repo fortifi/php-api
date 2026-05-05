@@ -80,7 +80,7 @@ class CreateCancelRequestPayload
    */
   public function getUserIp($default = null, $trim = true)
   {
-    $value = $this->_userIp ?: $default;
+    $value = $this->_userIp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -103,7 +103,7 @@ class CreateCancelRequestPayload
    */
   public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -130,7 +130,7 @@ class CreateCancelRequestPayload
    */
   public function getCancelType($default = null, $trim = true)
   {
-    $value = $this->_cancelType ?: $default;
+    $value = $this->_cancelType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -153,7 +153,7 @@ class CreateCancelRequestPayload
    */
   public function getReason($default = null, $trim = true)
   {
-    $value = $this->_reason ?: $default;
+    $value = $this->_reason ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -175,7 +175,7 @@ class CreateCancelRequestPayload
    */
   public function isAuthed($default = false)
   {
-    return (bool)$this->_isAuthed ?: $default;
+    return (bool)$this->_isAuthed ?? $default;
   }
 
   /**
@@ -197,7 +197,7 @@ class CreateCancelRequestPayload
    */
   public function getAuthenticatedBy($default = null, $trim = true)
   {
-    $value = $this->_authenticatedBy ?: $default;
+    $value = $this->_authenticatedBy ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -220,7 +220,7 @@ class CreateCancelRequestPayload
    */
   public function getNote($default = null, $trim = true)
   {
-    $value = $this->_note ?: $default;
+    $value = $this->_note ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

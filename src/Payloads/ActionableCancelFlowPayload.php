@@ -71,7 +71,7 @@ class ActionableCancelFlowPayload
    */
   public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -94,7 +94,7 @@ class ActionableCancelFlowPayload
    */
   public function getIp($default = null, $trim = true)
   {
-    $value = $this->_ip ?: $default;
+    $value = $this->_ip ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -119,7 +119,7 @@ class ActionableCancelFlowPayload
    */
   public function getTime($default = null, $trim = true)
   {
-    $value = $this->_time ?: $default;
+    $value = $this->_time ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -142,7 +142,7 @@ class ActionableCancelFlowPayload
    */
   public function getUserFid($default = null, $trim = true)
   {
-    $value = $this->_userFid ?: $default;
+    $value = $this->_userFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -165,7 +165,7 @@ class ActionableCancelFlowPayload
    */
   public function getExistingFlowFid($default = null, $trim = true)
   {
-    $value = $this->_existingFlowFid ?: $default;
+    $value = $this->_existingFlowFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

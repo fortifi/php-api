@@ -127,7 +127,7 @@ class CreateInteractionInvitationPayload
    */
   public function getTopic($default = null, $trim = true)
   {
-    $value = $this->_topic ?: $default;
+    $value = $this->_topic ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -150,7 +150,7 @@ class CreateInteractionInvitationPayload
    */
   public function getEarliestStartTime($default = null, $trim = true)
   {
-    $value = $this->_earliestStartTime ?: $default;
+    $value = $this->_earliestStartTime ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -173,7 +173,7 @@ class CreateInteractionInvitationPayload
    */
   public function getExpiryTime($default = null, $trim = true)
   {
-    $value = $this->_expiryTime ?: $default;
+    $value = $this->_expiryTime ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -196,7 +196,7 @@ class CreateInteractionInvitationPayload
    */
   public function getJourneyTrackingFid($default = null, $trim = true)
   {
-    $value = $this->_journeyTrackingFid ?: $default;
+    $value = $this->_journeyTrackingFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -219,7 +219,7 @@ class CreateInteractionInvitationPayload
    */
   public function getEdges($default = null, $trim = true)
   {
-    $value = $this->_edges ?: $default;
+    $value = $this->_edges ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -242,7 +242,7 @@ class CreateInteractionInvitationPayload
    */
   public function getVerificationFid($default = null, $trim = true)
   {
-    $value = $this->_verificationFid ?: $default;
+    $value = $this->_verificationFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -265,7 +265,7 @@ class CreateInteractionInvitationPayload
    */
   public function getInitialMessage($default = null, $trim = true)
   {
-    $value = $this->_initialMessage ?: $default;
+    $value = $this->_initialMessage ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -288,7 +288,7 @@ class CreateInteractionInvitationPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -310,7 +310,7 @@ class CreateInteractionInvitationPayload
    */
   public function getContext($default = null)
   {
-    return $this->_context ?: $default;
+    return $this->_context ?? $default;
   }
 
   /**
@@ -331,7 +331,7 @@ class CreateInteractionInvitationPayload
    */
   public function getImpact($default = null)
   {
-    return $this->_impact ?: $default;
+    return $this->_impact ?? $default;
   }
 
   /**
@@ -352,7 +352,7 @@ class CreateInteractionInvitationPayload
    */
   public function getUrgency($default = null)
   {
-    return $this->_urgency ?: $default;
+    return $this->_urgency ?? $default;
   }
 
   /**
@@ -373,7 +373,7 @@ class CreateInteractionInvitationPayload
    */
   public function getPriority($default = null)
   {
-    return $this->_priority ?: $default;
+    return $this->_priority ?? $default;
   }
 
   /**
@@ -405,6 +405,6 @@ class CreateInteractionInvitationPayload
    */
   public function getNotes($default = [])
   {
-    return $this->_notes ?: $default;
+    return $this->_notes ?? $default;
   }
 }

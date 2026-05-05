@@ -77,7 +77,7 @@ class AvailabilityReservePayload
    */
   public function getProductSku($default = null, $trim = true)
   {
-    $value = $this->_productSku ?: $default;
+    $value = $this->_productSku ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -100,7 +100,7 @@ class AvailabilityReservePayload
    */
   public function getPriceFid($default = null, $trim = true)
   {
-    $value = $this->_priceFid ?: $default;
+    $value = $this->_priceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -123,7 +123,7 @@ class AvailabilityReservePayload
    */
   public function getReserveKey($default = null, $trim = true)
   {
-    $value = $this->_reserveKey ?: $default;
+    $value = $this->_reserveKey ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -145,7 +145,7 @@ class AvailabilityReservePayload
    */
   public function getReserveTtl($default = null)
   {
-    return $this->_reserveTtl ?: $default;
+    return $this->_reserveTtl ?? $default;
   }
 
   /**
@@ -179,6 +179,6 @@ class AvailabilityReservePayload
    */
   public function getProperties($default = [])
   {
-    return $this->_properties ?: $default;
+    return $this->_properties ?? $default;
   }
 }

@@ -94,7 +94,7 @@ class TriggerActionPayload
    */
   public function getMetaData($default = [])
   {
-    return $this->_metaData ?: $default;
+    return $this->_metaData ?? $default;
   }
 
   /**
@@ -118,7 +118,7 @@ class TriggerActionPayload
    */
   public function getTime($default = null, $trim = true)
   {
-    $value = $this->_time ?: $default;
+    $value = $this->_time ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -143,7 +143,7 @@ class TriggerActionPayload
    */
   public function getAlias($default = null, $trim = true)
   {
-    $value = $this->_alias ?: $default;
+    $value = $this->_alias ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -167,7 +167,7 @@ class TriggerActionPayload
    */
   public function isTriggerMessenger($default = false)
   {
-    return (bool)$this->_triggerMessenger ?: $default;
+    return (bool)$this->_triggerMessenger ?? $default;
   }
 
   /**
@@ -188,6 +188,6 @@ class TriggerActionPayload
    */
   public function getAction($default = null)
   {
-    return $this->_action ?: $default;
+    return $this->_action ?? $default;
   }
 }

@@ -209,7 +209,7 @@ class CreateCustomerPayload
    */
   public function getVisitorId($default = null, $trim = true)
   {
-    $value = $this->_visitorId ?: $default;
+    $value = $this->_visitorId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -234,7 +234,7 @@ class CreateCustomerPayload
    */
   public function getClientIp($default = null, $trim = true)
   {
-    $value = $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -259,7 +259,7 @@ class CreateCustomerPayload
    */
   public function getExternalReference($default = null, $trim = true)
   {
-    $value = $this->_externalReference ?: $default;
+    $value = $this->_externalReference ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -284,7 +284,7 @@ class CreateCustomerPayload
    */
   public function getTime($default = null, $trim = true)
   {
-    $value = $this->_time ?: $default;
+    $value = $this->_time ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -309,7 +309,7 @@ class CreateCustomerPayload
    */
   public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_brandFid ?: $default;
+    $value = $this->_brandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -334,7 +334,7 @@ class CreateCustomerPayload
    */
   public function getCurrency($default = null, $trim = true)
   {
-    $value = $this->_currency ?: $default;
+    $value = $this->_currency ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -359,7 +359,7 @@ class CreateCustomerPayload
    */
   public function getPhoneNumber($default = null, $trim = true)
   {
-    $value = $this->_phoneNumber ?: $default;
+    $value = $this->_phoneNumber ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -384,7 +384,7 @@ class CreateCustomerPayload
    */
   public function getEmail($default = null, $trim = true)
   {
-    $value = $this->_email ?: $default;
+    $value = $this->_email ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -409,7 +409,7 @@ class CreateCustomerPayload
    */
   public function getFirstName($default = null, $trim = true)
   {
-    $value = $this->_firstName ?: $default;
+    $value = $this->_firstName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -434,7 +434,7 @@ class CreateCustomerPayload
    */
   public function getLastName($default = null, $trim = true)
   {
-    $value = $this->_lastName ?: $default;
+    $value = $this->_lastName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -459,7 +459,7 @@ class CreateCustomerPayload
    */
   public function getAccountManagerFid($default = null, $trim = true)
   {
-    $value = $this->_accountManagerFid ?: $default;
+    $value = $this->_accountManagerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -484,7 +484,7 @@ class CreateCustomerPayload
    */
   public function getTaxNumber($default = null, $trim = true)
   {
-    $value = $this->_taxNumber ?: $default;
+    $value = $this->_taxNumber ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -509,7 +509,7 @@ class CreateCustomerPayload
    */
   public function getCompanyNumber($default = null, $trim = true)
   {
-    $value = $this->_companyNumber ?: $default;
+    $value = $this->_companyNumber ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -520,9 +520,10 @@ class CreateCustomerPayload
   const ACCOUNT_TYPE_RESIDENTIAL = 'residential';
   const ACCOUNT_TYPE_ENTERPRISE = 'enterprise';
   const ACCOUNT_TYPE_GROUP = 'group';
+  const ACCOUNT_TYPE_ANONYMOUS = 'anonymous';
 
   /**
-   * @param string $value unknown, student, charity, business, residential, enterprise, group
+   * @param string $value unknown, student, charity, business, residential, enterprise, group, anonymous
    *
    * @return $this
    */
@@ -542,7 +543,7 @@ class CreateCustomerPayload
    */
   public function getAccountType($default = null, $trim = true)
   {
-    $value = $this->_accountType ?: $default;
+    $value = $this->_accountType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -573,7 +574,7 @@ class CreateCustomerPayload
    */
   public function getAccountStatus($default = null, $trim = true)
   {
-    $value = $this->_accountStatus ?: $default;
+    $value = $this->_accountStatus ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -611,7 +612,7 @@ class CreateCustomerPayload
    */
   public function getLifecycle($default = null, $trim = true)
   {
-    $value = $this->_lifecycle ?: $default;
+    $value = $this->_lifecycle ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -641,7 +642,7 @@ class CreateCustomerPayload
    */
   public function getSubscriptionType($default = null, $trim = true)
   {
-    $value = $this->_subscriptionType ?: $default;
+    $value = $this->_subscriptionType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -666,7 +667,7 @@ class CreateCustomerPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -689,7 +690,7 @@ class CreateCustomerPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

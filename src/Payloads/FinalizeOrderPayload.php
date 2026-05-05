@@ -76,7 +76,7 @@ class FinalizeOrderPayload
    */
   public function getChargeId($default = null, $trim = true)
   {
-    $value = $this->_chargeId ?: $default;
+    $value = $this->_chargeId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -101,7 +101,7 @@ class FinalizeOrderPayload
    */
   public function getMethodId($default = null, $trim = true)
   {
-    $value = $this->_methodId ?: $default;
+    $value = $this->_methodId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -126,7 +126,7 @@ class FinalizeOrderPayload
    */
   public function getTransactionId($default = null, $trim = true)
   {
-    $value = $this->_transactionId ?: $default;
+    $value = $this->_transactionId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -150,6 +150,6 @@ class FinalizeOrderPayload
    */
   public function isSetupPurchaseBeforePayment($default = false)
   {
-    return (bool)$this->_setupPurchaseBeforePayment ?: $default;
+    return (bool)$this->_setupPurchaseBeforePayment ?? $default;
   }
 }

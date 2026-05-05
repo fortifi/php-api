@@ -56,7 +56,7 @@ class ServiceAccountCredentialsPayload
    */
   public function getId($default = null, $trim = true)
   {
-    $value = $this->_id ?: $default;
+    $value = $this->_id ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -79,7 +79,7 @@ class ServiceAccountCredentialsPayload
    */
   public function getKey($default = null, $trim = true)
   {
-    $value = $this->_key ?: $default;
+    $value = $this->_key ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

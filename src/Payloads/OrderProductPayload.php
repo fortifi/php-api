@@ -182,7 +182,7 @@ class OrderProductPayload
    */
   public function getParent($default = null, $trim = true)
   {
-    $value = $this->_parent ?: $default;
+    $value = $this->_parent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -207,7 +207,7 @@ class OrderProductPayload
    */
   public function getTransportReference($default = null, $trim = true)
   {
-    $value = $this->_transportReference ?: $default;
+    $value = $this->_transportReference ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -232,7 +232,7 @@ class OrderProductPayload
    */
   public function getPriceFid($default = null, $trim = true)
   {
-    $value = $this->_priceFid ?: $default;
+    $value = $this->_priceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -257,7 +257,7 @@ class OrderProductPayload
    */
   public function getOfferFid($default = null, $trim = true)
   {
-    $value = $this->_offerFid ?: $default;
+    $value = $this->_offerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -282,7 +282,7 @@ class OrderProductPayload
    */
   public function getSku($default = null, $trim = true)
   {
-    $value = $this->_sku ?: $default;
+    $value = $this->_sku ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -307,7 +307,7 @@ class OrderProductPayload
    */
   public function getProductFid($default = null, $trim = true)
   {
-    $value = $this->_productFid ?: $default;
+    $value = $this->_productFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -331,7 +331,7 @@ class OrderProductPayload
    */
   public function getCycleTerm($default = null)
   {
-    return $this->_cycleTerm ?: $default;
+    return $this->_cycleTerm ?? $default;
   }
 
   const CYCLE_TYPE_ONETIME = 'onetime';
@@ -362,7 +362,7 @@ class OrderProductPayload
    */
   public function getCycleType($default = null, $trim = true)
   {
-    $value = $this->_cycleType ?: $default;
+    $value = $this->_cycleType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -387,7 +387,7 @@ class OrderProductPayload
    */
   public function getCycle($default = null, $trim = true)
   {
-    $value = $this->_cycle ?: $default;
+    $value = $this->_cycle ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -412,7 +412,7 @@ class OrderProductPayload
    */
   public function getInitialTermStartDate($default = null, $trim = true)
   {
-    $value = $this->_initialTermStartDate ?: $default;
+    $value = $this->_initialTermStartDate ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -437,7 +437,7 @@ class OrderProductPayload
    */
   public function getInitialTermEndDate($default = null, $trim = true)
   {
-    $value = $this->_initialTermEndDate ?: $default;
+    $value = $this->_initialTermEndDate ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -459,7 +459,7 @@ class OrderProductPayload
    */
   public function getQuantity($default = null)
   {
-    return $this->_quantity ?: $default;
+    return $this->_quantity ?? $default;
   }
 
   /**
@@ -481,7 +481,7 @@ class OrderProductPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -504,7 +504,7 @@ class OrderProductPayload
    */
   public function getIdentity($default = null, $trim = true)
   {
-    $value = $this->_identity ?: $default;
+    $value = $this->_identity ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -527,7 +527,7 @@ class OrderProductPayload
    */
   public function getReservationApp($default = null, $trim = true)
   {
-    $value = $this->_reservationApp ?: $default;
+    $value = $this->_reservationApp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -550,7 +550,7 @@ class OrderProductPayload
    */
   public function getReservationKey($default = null, $trim = true)
   {
-    $value = $this->_reservationKey ?: $default;
+    $value = $this->_reservationKey ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -573,7 +573,7 @@ class OrderProductPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -595,6 +595,6 @@ class OrderProductPayload
    */
   public function getProperties($default = null)
   {
-    return $this->_properties ?: $default;
+    return $this->_properties ?? $default;
   }
 }

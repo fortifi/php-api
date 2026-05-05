@@ -55,7 +55,7 @@ class StartInteractionPayload
    */
   public function getContactFid($default = null, $trim = true)
   {
-    $value = $this->_contactFid ?: $default;
+    $value = $this->_contactFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -78,7 +78,7 @@ class StartInteractionPayload
    */
   public function getDataNodeFid($default = null, $trim = true)
   {
-    $value = $this->_dataNodeFid ?: $default;
+    $value = $this->_dataNodeFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

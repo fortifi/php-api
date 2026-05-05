@@ -98,7 +98,7 @@ class AddressPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -121,7 +121,7 @@ class AddressPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -144,7 +144,7 @@ class AddressPayload
    */
   public function getAddress1($default = null, $trim = true)
   {
-    $value = $this->_address1 ?: $default;
+    $value = $this->_address1 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -167,7 +167,7 @@ class AddressPayload
    */
   public function getAddress2($default = null, $trim = true)
   {
-    $value = $this->_address2 ?: $default;
+    $value = $this->_address2 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -190,7 +190,7 @@ class AddressPayload
    */
   public function getAddress3($default = null, $trim = true)
   {
-    $value = $this->_address3 ?: $default;
+    $value = $this->_address3 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -213,7 +213,7 @@ class AddressPayload
    */
   public function getTown($default = null, $trim = true)
   {
-    $value = $this->_town ?: $default;
+    $value = $this->_town ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -236,7 +236,7 @@ class AddressPayload
    */
   public function getCounty($default = null, $trim = true)
   {
-    $value = $this->_county ?: $default;
+    $value = $this->_county ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -259,7 +259,7 @@ class AddressPayload
    */
   public function getCountry($default = null, $trim = true)
   {
-    $value = $this->_country ?: $default;
+    $value = $this->_country ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -282,7 +282,7 @@ class AddressPayload
    */
   public function getPostalCode($default = null, $trim = true)
   {
-    $value = $this->_postalCode ?: $default;
+    $value = $this->_postalCode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -304,6 +304,6 @@ class AddressPayload
    */
   public function isSetAsDefault($default = false)
   {
-    return (bool)$this->_setAsDefault ?: $default;
+    return (bool)$this->_setAsDefault ?? $default;
   }
 }

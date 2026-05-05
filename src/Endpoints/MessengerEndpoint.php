@@ -21,4 +21,14 @@ class MessengerEndpoint extends ApiEndpoint
     $endpoint->_buildFromEndpoint($this);
     return $endpoint;
   }
+
+  /**
+   * @return MessengerListMessageGroupsEndpoint
+   */
+  public function listMessageGroups()
+  {
+    $endpoint = new MessengerListMessageGroupsEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
 }

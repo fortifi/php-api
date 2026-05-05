@@ -92,7 +92,7 @@ class FindTransactionsPayload
    */
   public function getPaymentMethod($default = null, $trim = true)
   {
-    $value = $this->_paymentMethod ?: $default;
+    $value = $this->_paymentMethod ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -115,7 +115,7 @@ class FindTransactionsPayload
    */
   public function getLast4($default = null, $trim = true)
   {
-    $value = $this->_last4 ?: $default;
+    $value = $this->_last4 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -138,7 +138,7 @@ class FindTransactionsPayload
    */
   public function getFirst6($default = null, $trim = true)
   {
-    $value = $this->_first6 ?: $default;
+    $value = $this->_first6 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -161,7 +161,7 @@ class FindTransactionsPayload
    */
   public function getNameOnCard($default = null, $trim = true)
   {
-    $value = $this->_nameOnCard ?: $default;
+    $value = $this->_nameOnCard ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -184,7 +184,7 @@ class FindTransactionsPayload
    */
   public function getAmount($default = null, $trim = true)
   {
-    $value = $this->_amount ?: $default;
+    $value = $this->_amount ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -207,7 +207,7 @@ class FindTransactionsPayload
    */
   public function getCurrency($default = null, $trim = true)
   {
-    $value = $this->_currency ?: $default;
+    $value = $this->_currency ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -230,7 +230,7 @@ class FindTransactionsPayload
    */
   public function getDate($default = null, $trim = true)
   {
-    $value = $this->_date ?: $default;
+    $value = $this->_date ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -253,7 +253,7 @@ class FindTransactionsPayload
    */
   public function getPaypalEmail($default = null, $trim = true)
   {
-    $value = $this->_paypalEmail ?: $default;
+    $value = $this->_paypalEmail ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -276,7 +276,7 @@ class FindTransactionsPayload
    */
   public function getCompanyFid($default = null, $trim = true)
   {
-    $value = $this->_companyFid ?: $default;
+    $value = $this->_companyFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

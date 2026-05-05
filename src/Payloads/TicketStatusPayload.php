@@ -58,7 +58,7 @@ class TicketStatusPayload
    */
   public function getTicketStatus($default = null, $trim = true)
   {
-    $value = $this->_ticketStatus ?: $default;
+    $value = $this->_ticketStatus ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -128,7 +128,7 @@ class CreateInteractionTicketPayload
    */
   public function getCustomerEmail($default = null, $trim = true)
   {
-    $value = $this->_customerEmail ?: $default;
+    $value = $this->_customerEmail ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -151,7 +151,7 @@ class CreateInteractionTicketPayload
    */
   public function getCustomerName($default = null, $trim = true)
   {
-    $value = $this->_customerName ?: $default;
+    $value = $this->_customerName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -174,7 +174,7 @@ class CreateInteractionTicketPayload
    */
   public function getCustomerFid($default = null, $trim = true)
   {
-    $value = $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -202,7 +202,7 @@ class CreateInteractionTicketPayload
    */
   public function getTicketType($default = null, $trim = true)
   {
-    $value = $this->_ticketType ?: $default;
+    $value = $this->_ticketType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -225,7 +225,7 @@ class CreateInteractionTicketPayload
    */
   public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_brandFid ?: $default;
+    $value = $this->_brandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -248,7 +248,7 @@ class CreateInteractionTicketPayload
    */
   public function getQueueFid($default = null, $trim = true)
   {
-    $value = $this->_queueFid ?: $default;
+    $value = $this->_queueFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -271,7 +271,7 @@ class CreateInteractionTicketPayload
    */
   public function getDepartmentFid($default = null, $trim = true)
   {
-    $value = $this->_departmentFid ?: $default;
+    $value = $this->_departmentFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -294,7 +294,7 @@ class CreateInteractionTicketPayload
    */
   public function getDepartmentEmail($default = null, $trim = true)
   {
-    $value = $this->_departmentEmail ?: $default;
+    $value = $this->_departmentEmail ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -317,7 +317,7 @@ class CreateInteractionTicketPayload
    */
   public function getDepartmentName($default = null, $trim = true)
   {
-    $value = $this->_departmentName ?: $default;
+    $value = $this->_departmentName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -340,7 +340,7 @@ class CreateInteractionTicketPayload
    */
   public function getSubject($default = null, $trim = true)
   {
-    $value = $this->_subject ?: $default;
+    $value = $this->_subject ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -363,7 +363,7 @@ class CreateInteractionTicketPayload
    */
   public function getTextBody($default = null, $trim = true)
   {
-    $value = $this->_textBody ?: $default;
+    $value = $this->_textBody ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -386,7 +386,7 @@ class CreateInteractionTicketPayload
    */
   public function getHtmlBody($default = null, $trim = true)
   {
-    $value = $this->_htmlBody ?: $default;
+    $value = $this->_htmlBody ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -415,7 +415,7 @@ class CreateInteractionTicketPayload
    */
   public function getImpact($default = null, $trim = true)
   {
-    $value = $this->_impact ?: $default;
+    $value = $this->_impact ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -446,7 +446,7 @@ class CreateInteractionTicketPayload
    */
   public function getUrgency($default = null, $trim = true)
   {
-    $value = $this->_urgency ?: $default;
+    $value = $this->_urgency ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -469,7 +469,7 @@ class CreateInteractionTicketPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -98,7 +98,7 @@ class UpdateProductOfferPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -121,7 +121,7 @@ class UpdateProductOfferPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -143,7 +143,7 @@ class UpdateProductOfferPayload
    */
   public function getMaxUsages($default = null)
   {
-    return $this->_maxUsages ?: $default;
+    return $this->_maxUsages ?? $default;
   }
 
   /**
@@ -164,7 +164,7 @@ class UpdateProductOfferPayload
    */
   public function getTerm($default = null)
   {
-    return $this->_term ?: $default;
+    return $this->_term ?? $default;
   }
 
   /**
@@ -185,7 +185,7 @@ class UpdateProductOfferPayload
    */
   public function getTermType($default = null)
   {
-    return $this->_termType ?: $default;
+    return $this->_termType ?? $default;
   }
 
   /**
@@ -206,7 +206,7 @@ class UpdateProductOfferPayload
    */
   public function isApiOnly($default = false)
   {
-    return (bool)$this->_apiOnly ?: $default;
+    return (bool)$this->_apiOnly ?? $default;
   }
 
   /**
@@ -228,7 +228,7 @@ class UpdateProductOfferPayload
    */
   public function getApplyFid($default = null, $trim = true)
   {
-    $value = $this->_applyFid ?: $default;
+    $value = $this->_applyFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -251,7 +251,7 @@ class UpdateProductOfferPayload
    */
   public function getExpiryDate($default = null, $trim = true)
   {
-    $value = $this->_expiryDate ?: $default;
+    $value = $this->_expiryDate ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -273,7 +273,7 @@ class UpdateProductOfferPayload
    */
   public function getQuantityLimit($default = null)
   {
-    return $this->_quantityLimit ?: $default;
+    return $this->_quantityLimit ?? $default;
   }
 
   /**
@@ -294,6 +294,6 @@ class UpdateProductOfferPayload
    */
   public function isRestrictive($default = false)
   {
-    return (bool)$this->_restrictive ?: $default;
+    return (bool)$this->_restrictive ?? $default;
   }
 }

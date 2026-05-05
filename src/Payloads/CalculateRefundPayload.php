@@ -74,7 +74,7 @@ class CalculateRefundPayload
    */
   public function getSubscriptionRefundType($default = null, $trim = true)
   {
-    $value = $this->_subscriptionRefundType ?: $default;
+    $value = $this->_subscriptionRefundType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -98,7 +98,7 @@ class CalculateRefundPayload
    */
   public function getRefundFromDate($default = null)
   {
-    return $this->_refundFromDate ?: $default;
+    return $this->_refundFromDate ?? $default;
   }
 
   /**
@@ -119,7 +119,7 @@ class CalculateRefundPayload
    */
   public function isIncludeDetails($default = false)
   {
-    return (bool)$this->_includeDetails ?: $default;
+    return (bool)$this->_includeDetails ?? $default;
   }
 
   /**
@@ -140,6 +140,6 @@ class CalculateRefundPayload
    */
   public function isWithTerminationFee($default = false)
   {
-    return (bool)$this->_withTerminationFee ?: $default;
+    return (bool)$this->_withTerminationFee ?? $default;
   }
 }

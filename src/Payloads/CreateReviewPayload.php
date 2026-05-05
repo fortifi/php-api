@@ -169,7 +169,7 @@ class CreateReviewPayload
    */
   public function getCustomerFid($default = null, $trim = true)
   {
-    $value = $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -194,7 +194,7 @@ class CreateReviewPayload
    */
   public function getSubject($default = null, $trim = true)
   {
-    $value = $this->_subject ?: $default;
+    $value = $this->_subject ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -218,7 +218,7 @@ class CreateReviewPayload
    */
   public function getRating($default = null)
   {
-    return $this->_rating ?: $default;
+    return $this->_rating ?? $default;
   }
 
   /**
@@ -241,7 +241,7 @@ class CreateReviewPayload
    */
   public function getRatingMax($default = null)
   {
-    return $this->_ratingMax ?: $default;
+    return $this->_ratingMax ?? $default;
   }
 
   /**
@@ -265,7 +265,7 @@ class CreateReviewPayload
    */
   public function getContent($default = null, $trim = true)
   {
-    $value = $this->_content ?: $default;
+    $value = $this->_content ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -290,7 +290,7 @@ class CreateReviewPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -315,7 +315,7 @@ class CreateReviewPayload
    */
   public function getPurchaseFid($default = null, $trim = true)
   {
-    $value = $this->_purchaseFid ?: $default;
+    $value = $this->_purchaseFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -340,7 +340,7 @@ class CreateReviewPayload
    */
   public function getAppLookupRef($default = null, $trim = true)
   {
-    $value = $this->_appLookupRef ?: $default;
+    $value = $this->_appLookupRef ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -365,7 +365,7 @@ class CreateReviewPayload
    */
   public function getAppVersion($default = null, $trim = true)
   {
-    $value = $this->_appVersion ?: $default;
+    $value = $this->_appVersion ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -390,7 +390,7 @@ class CreateReviewPayload
    */
   public function getAppSource($default = null, $trim = true)
   {
-    $value = $this->_appSource ?: $default;
+    $value = $this->_appSource ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -415,7 +415,7 @@ class CreateReviewPayload
    */
   public function getIpAddress($default = null, $trim = true)
   {
-    $value = $this->_ipAddress ?: $default;
+    $value = $this->_ipAddress ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -440,7 +440,7 @@ class CreateReviewPayload
    */
   public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -472,7 +472,7 @@ class CreateReviewPayload
    */
   public function getProvider($default = null, $trim = true)
   {
-    $value = $this->_provider ?: $default;
+    $value = $this->_provider ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -497,7 +497,7 @@ class CreateReviewPayload
    */
   public function getInstallSource($default = null, $trim = true)
   {
-    $value = $this->_installSource ?: $default;
+    $value = $this->_installSource ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

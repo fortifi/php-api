@@ -74,7 +74,7 @@ class CreatePendingPaymentMethodPayload
    */
   public function getName($default = null, $trim = true)
   {
-    $value = $this->_name ?: $default;
+    $value = $this->_name ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -97,7 +97,7 @@ class CreatePendingPaymentMethodPayload
    */
   public function getAccountHolder($default = null, $trim = true)
   {
-    $value = $this->_accountHolder ?: $default;
+    $value = $this->_accountHolder ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -120,7 +120,7 @@ class CreatePendingPaymentMethodPayload
    */
   public function getScheme($default = null, $trim = true)
   {
-    $value = $this->_scheme ?: $default;
+    $value = $this->_scheme ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -143,7 +143,7 @@ class CreatePendingPaymentMethodPayload
    */
   public function getToken($default = null, $trim = true)
   {
-    $value = $this->_token ?: $default;
+    $value = $this->_token ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -166,7 +166,7 @@ class CreatePendingPaymentMethodPayload
    */
   public function getExpiry($default = null, $trim = true)
   {
-    $value = $this->_expiry ?: $default;
+    $value = $this->_expiry ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -189,7 +189,7 @@ class CreatePendingPaymentMethodPayload
    */
   public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_brandFid ?: $default;
+    $value = $this->_brandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

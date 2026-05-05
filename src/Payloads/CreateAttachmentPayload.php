@@ -74,7 +74,7 @@ class CreateAttachmentPayload
    */
   public function getFilename($default = null, $trim = true)
   {
-    $value = $this->_filename ?: $default;
+    $value = $this->_filename ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -97,7 +97,7 @@ class CreateAttachmentPayload
    */
   public function getMimeType($default = null, $trim = true)
   {
-    $value = $this->_mimeType ?: $default;
+    $value = $this->_mimeType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -120,7 +120,7 @@ class CreateAttachmentPayload
    */
   public function getData($default = null, $trim = true)
   {
-    $value = $this->_data ?: $default;
+    $value = $this->_data ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -143,7 +143,7 @@ class CreateAttachmentPayload
    */
   public function getExternalDataURL($default = null, $trim = true)
   {
-    $value = $this->_externalDataURL ?: $default;
+    $value = $this->_externalDataURL ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -166,7 +166,7 @@ class CreateAttachmentPayload
    */
   public function getExternalDataUsername($default = null, $trim = true)
   {
-    $value = $this->_externalDataUsername ?: $default;
+    $value = $this->_externalDataUsername ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -189,7 +189,7 @@ class CreateAttachmentPayload
    */
   public function getExternalDataPassword($default = null, $trim = true)
   {
-    $value = $this->_externalDataPassword ?: $default;
+    $value = $this->_externalDataPassword ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

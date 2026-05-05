@@ -10,6 +10,7 @@ final class CustomerAccountType
   const RESIDENTIAL = 'residential';
   const ENTERPRISE = 'enterprise';
   const GROUP = 'group';
+  const ANONYMOUS = 'anonymous';
 
   public static function getDisplayValue($value)
   {
@@ -26,6 +27,7 @@ final class CustomerAccountType
       'residential',
       'enterprise',
       'group',
+      'anonymous',
     ];
   }
 

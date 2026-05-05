@@ -49,7 +49,7 @@ class PropertyValuePayload
    */
   public function getPropertyValue($default = null, $trim = true)
   {
-    $value = $this->_propertyValue ?: $default;
+    $value = $this->_propertyValue ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

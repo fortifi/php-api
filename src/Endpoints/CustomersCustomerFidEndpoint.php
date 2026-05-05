@@ -94,6 +94,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidFinanceEndpoint
+   */
+  public function finance()
+  {
+    $endpoint = new CustomersCustomerFidFinanceEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidInteractionsEndpoint
    */
   public function interactions()
@@ -190,6 +202,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return CustomersCustomerFidDefaultAddressEndpoint
+   */
+  public function defaultAddress()
+  {
+    $endpoint = new CustomersCustomerFidDefaultAddressEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return CustomersCustomerFidChatSessionsEndpoint
    */
   public function chatSessions()
@@ -279,6 +303,18 @@ class CustomersCustomerFidEndpoint extends ApiEndpoint
   public function notifications()
   {
     $endpoint = new CustomersCustomerFidNotificationsEndpoint(
+      $this->_replacements['{customerFid}']
+    );
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return CustomersCustomerFidContactStatusEndpoint
+   */
+  public function contactStatus()
+  {
+    $endpoint = new CustomersCustomerFidContactStatusEndpoint(
       $this->_replacements['{customerFid}']
     );
     $endpoint->_buildFromEndpoint($this);

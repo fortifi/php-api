@@ -116,7 +116,7 @@ class OrderPublisherPayload
    */
   public function getOnState($default = null, $trim = true)
   {
-    $value = $this->_onState ?: $default;
+    $value = $this->_onState ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -141,7 +141,7 @@ class OrderPublisherPayload
    */
   public function getVisitorId($default = null, $trim = true)
   {
-    $value = $this->_visitorId ?: $default;
+    $value = $this->_visitorId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -166,7 +166,7 @@ class OrderPublisherPayload
    */
   public function getUserReference($default = null, $trim = true)
   {
-    $value = $this->_userReference ?: $default;
+    $value = $this->_userReference ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -191,7 +191,7 @@ class OrderPublisherPayload
    */
   public function getActionKey($default = null, $trim = true)
   {
-    $value = $this->_actionKey ?: $default;
+    $value = $this->_actionKey ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -216,7 +216,7 @@ class OrderPublisherPayload
    */
   public function getCampaignHash($default = null, $trim = true)
   {
-    $value = $this->_campaignHash ?: $default;
+    $value = $this->_campaignHash ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -241,7 +241,7 @@ class OrderPublisherPayload
    */
   public function getSid1($default = null, $trim = true)
   {
-    $value = $this->_sid1 ?: $default;
+    $value = $this->_sid1 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -266,7 +266,7 @@ class OrderPublisherPayload
    */
   public function getSid2($default = null, $trim = true)
   {
-    $value = $this->_sid2 ?: $default;
+    $value = $this->_sid2 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -291,7 +291,7 @@ class OrderPublisherPayload
    */
   public function getSid3($default = null, $trim = true)
   {
-    $value = $this->_sid3 ?: $default;
+    $value = $this->_sid3 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

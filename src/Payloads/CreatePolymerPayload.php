@@ -79,7 +79,7 @@ class CreatePolymerPayload
    */
   public function getPolymerCode($default = null, $trim = true)
   {
-    $value = $this->_polymerCode ?: $default;
+    $value = $this->_polymerCode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -104,7 +104,7 @@ class CreatePolymerPayload
    */
   public function getName($default = null, $trim = true)
   {
-    $value = $this->_name ?: $default;
+    $value = $this->_name ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -129,7 +129,7 @@ class CreatePolymerPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -162,6 +162,6 @@ class CreatePolymerPayload
    */
   public function getData($default = [])
   {
-    return $this->_data ?: $default;
+    return $this->_data ?? $default;
   }
 }

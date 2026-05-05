@@ -185,7 +185,7 @@ class FlowLogMetricPayload
    */
   public function getActionTimestamp($default = null)
   {
-    return $this->_actionTimestamp ?: $default;
+    return $this->_actionTimestamp ?? $default;
   }
 
   /**
@@ -207,7 +207,7 @@ class FlowLogMetricPayload
    */
   public function getAction($default = null, $trim = true)
   {
-    $value = $this->_action ?: $default;
+    $value = $this->_action ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -230,7 +230,7 @@ class FlowLogMetricPayload
    */
   public function getSessionId($default = null, $trim = true)
   {
-    $value = $this->_sessionId ?: $default;
+    $value = $this->_sessionId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -255,7 +255,7 @@ class FlowLogMetricPayload
    */
   public function getCustomerFid($default = null, $trim = true)
   {
-    $value = $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -278,7 +278,7 @@ class FlowLogMetricPayload
    */
   public function getPurchaseFid($default = null, $trim = true)
   {
-    $value = $this->_purchaseFid ?: $default;
+    $value = $this->_purchaseFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -301,7 +301,7 @@ class FlowLogMetricPayload
    */
   public function getPurchaseSegment($default = null, $trim = true)
   {
-    $value = $this->_purchaseSegment ?: $default;
+    $value = $this->_purchaseSegment ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -326,7 +326,7 @@ class FlowLogMetricPayload
    */
   public function getSource($default = null, $trim = true)
   {
-    $value = $this->_source ?: $default;
+    $value = $this->_source ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -349,7 +349,7 @@ class FlowLogMetricPayload
    */
   public function getOfferFid($default = null, $trim = true)
   {
-    $value = $this->_offerFid ?: $default;
+    $value = $this->_offerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -372,7 +372,7 @@ class FlowLogMetricPayload
    */
   public function getAmount($default = null, $trim = true)
   {
-    $value = $this->_amount ?: $default;
+    $value = $this->_amount ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -397,7 +397,7 @@ class FlowLogMetricPayload
    */
   public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -422,7 +422,7 @@ class FlowLogMetricPayload
    */
   public function getEncoding($default = null, $trim = true)
   {
-    $value = $this->_encoding ?: $default;
+    $value = $this->_encoding ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -447,7 +447,7 @@ class FlowLogMetricPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -472,7 +472,7 @@ class FlowLogMetricPayload
    */
   public function getClientIp($default = null, $trim = true)
   {
-    $value = $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -497,7 +497,7 @@ class FlowLogMetricPayload
    */
   public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_brandFid ?: $default;
+    $value = $this->_brandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -522,7 +522,7 @@ class FlowLogMetricPayload
    */
   public function getCampaignHash($default = null, $trim = true)
   {
-    $value = $this->_campaignHash ?: $default;
+    $value = $this->_campaignHash ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -547,7 +547,7 @@ class FlowLogMetricPayload
    */
   public function getSid1($default = null, $trim = true)
   {
-    $value = $this->_sid1 ?: $default;
+    $value = $this->_sid1 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -572,7 +572,7 @@ class FlowLogMetricPayload
    */
   public function getSid2($default = null, $trim = true)
   {
-    $value = $this->_sid2 ?: $default;
+    $value = $this->_sid2 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -597,7 +597,7 @@ class FlowLogMetricPayload
    */
   public function getSid3($default = null, $trim = true)
   {
-    $value = $this->_sid3 ?: $default;
+    $value = $this->_sid3 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

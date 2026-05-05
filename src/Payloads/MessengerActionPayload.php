@@ -152,7 +152,7 @@ class MessengerActionPayload
    */
   public function getDeliveryFid($default = null, $trim = true)
   {
-    $value = $this->_deliveryFid ?: $default;
+    $value = $this->_deliveryFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -175,7 +175,7 @@ class MessengerActionPayload
    */
   public function getAction($default = null, $trim = true)
   {
-    $value = $this->_action ?: $default;
+    $value = $this->_action ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -198,7 +198,7 @@ class MessengerActionPayload
    */
   public function getUserAgent($default = null, $trim = true)
   {
-    $value = $this->_userAgent ?: $default;
+    $value = $this->_userAgent ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -221,7 +221,7 @@ class MessengerActionPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -244,7 +244,7 @@ class MessengerActionPayload
    */
   public function getEncoding($default = null, $trim = true)
   {
-    $value = $this->_encoding ?: $default;
+    $value = $this->_encoding ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -267,7 +267,7 @@ class MessengerActionPayload
    */
   public function getClientIp($default = null, $trim = true)
   {
-    $value = $this->_clientIp ?: $default;
+    $value = $this->_clientIp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -290,7 +290,7 @@ class MessengerActionPayload
    */
   public function getOs($default = null, $trim = true)
   {
-    $value = $this->_os ?: $default;
+    $value = $this->_os ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -313,7 +313,7 @@ class MessengerActionPayload
    */
   public function getOsVersion($default = null, $trim = true)
   {
-    $value = $this->_osVersion ?: $default;
+    $value = $this->_osVersion ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -336,7 +336,7 @@ class MessengerActionPayload
    */
   public function getOsBlended($default = null, $trim = true)
   {
-    $value = $this->_osBlended ?: $default;
+    $value = $this->_osBlended ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -359,7 +359,7 @@ class MessengerActionPayload
    */
   public function getPlatform($default = null, $trim = true)
   {
-    $value = $this->_platform ?: $default;
+    $value = $this->_platform ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -382,7 +382,7 @@ class MessengerActionPayload
    */
   public function getDevice($default = null, $trim = true)
   {
-    $value = $this->_device ?: $default;
+    $value = $this->_device ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -405,7 +405,7 @@ class MessengerActionPayload
    */
   public function getClient($default = null, $trim = true)
   {
-    $value = $this->_client ?: $default;
+    $value = $this->_client ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -428,7 +428,7 @@ class MessengerActionPayload
    */
   public function getClientVersion($default = null, $trim = true)
   {
-    $value = $this->_clientVersion ?: $default;
+    $value = $this->_clientVersion ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -451,7 +451,7 @@ class MessengerActionPayload
    */
   public function getClientBlended($default = null, $trim = true)
   {
-    $value = $this->_clientBlended ?: $default;
+    $value = $this->_clientBlended ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -474,7 +474,7 @@ class MessengerActionPayload
    */
   public function getReferrer($default = null, $trim = true)
   {
-    $value = $this->_referrer ?: $default;
+    $value = $this->_referrer ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -497,7 +497,7 @@ class MessengerActionPayload
    */
   public function getCompanyFid($default = null, $trim = true)
   {
-    $value = $this->_companyFid ?: $default;
+    $value = $this->_companyFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -520,7 +520,7 @@ class MessengerActionPayload
    */
   public function getVisitorId($default = null, $trim = true)
   {
-    $value = $this->_visitorId ?: $default;
+    $value = $this->_visitorId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -542,7 +542,7 @@ class MessengerActionPayload
    */
   public function getAmount($default = null)
   {
-    return $this->_amount ?: $default;
+    return $this->_amount ?? $default;
   }
 
   /**
@@ -564,7 +564,7 @@ class MessengerActionPayload
    */
   public function getSourceType($default = null, $trim = true)
   {
-    $value = $this->_sourceType ?: $default;
+    $value = $this->_sourceType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

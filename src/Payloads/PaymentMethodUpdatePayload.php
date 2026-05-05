@@ -103,7 +103,7 @@ class PaymentMethodUpdatePayload
    */
   public function getAccountHolder($default = null, $trim = true)
   {
-    $value = $this->_accountHolder ?: $default;
+    $value = $this->_accountHolder ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -127,7 +127,7 @@ class PaymentMethodUpdatePayload
    */
   public function getValidMonth($default = null)
   {
-    return $this->_validMonth ?: $default;
+    return $this->_validMonth ?? $default;
   }
 
   /**
@@ -150,7 +150,7 @@ class PaymentMethodUpdatePayload
    */
   public function getValidYear($default = null)
   {
-    return $this->_validYear ?: $default;
+    return $this->_validYear ?? $default;
   }
 
   /**
@@ -173,7 +173,7 @@ class PaymentMethodUpdatePayload
    */
   public function getExpiryMonth($default = null)
   {
-    return $this->_expiryMonth ?: $default;
+    return $this->_expiryMonth ?? $default;
   }
 
   /**
@@ -196,7 +196,7 @@ class PaymentMethodUpdatePayload
    */
   public function getExpiryYear($default = null)
   {
-    return $this->_expiryYear ?: $default;
+    return $this->_expiryYear ?? $default;
   }
 
   /**
@@ -219,7 +219,7 @@ class PaymentMethodUpdatePayload
    */
   public function getIssue($default = null)
   {
-    return $this->_issue ?: $default;
+    return $this->_issue ?? $default;
   }
 
   /**
@@ -242,6 +242,6 @@ class PaymentMethodUpdatePayload
    */
   public function isSetPrimary($default = false)
   {
-    return (bool)$this->_setPrimary ?: $default;
+    return (bool)$this->_setPrimary ?? $default;
   }
 }

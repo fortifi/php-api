@@ -11,6 +11,7 @@ class UpdateProductPricePayload
   protected $_cancelDays;
   protected $_suspendStyle;
   protected $_visibility;
+  protected $_priceBandFid;
 
   public function hydrate($data)
   {
@@ -39,6 +40,10 @@ class UpdateProductPricePayload
     {
       $this->_visibility = (int)$data["visibility"];
     }
+    if(isset($data["priceBandFid"]))
+    {
+      $this->_priceBandFid = (string)$data["priceBandFid"];
+    }
     return $this;
   }
 
@@ -52,6 +57,7 @@ class UpdateProductPricePayload
       "cancelDays"       => $this->_cancelDays,
       "suspendStyle"     => $this->_suspendStyle,
       "visibility"       => $this->_visibility,
+      "priceBandFid"     => $this->_priceBandFid,
     ];
   }
 
@@ -74,7 +80,7 @@ class UpdateProductPricePayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -97,7 +103,7 @@ class UpdateProductPricePayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -119,7 +125,7 @@ class UpdateProductPricePayload
    */
   public function getSuspendAfterDays($default = null)
   {
-    return $this->_suspendAfterDays ?: $default;
+    return $this->_suspendAfterDays ?? $default;
   }
 
   /**
@@ -140,7 +146,7 @@ class UpdateProductPricePayload
    */
   public function getCancelDays($default = null)
   {
-    return $this->_cancelDays ?: $default;
+    return $this->_cancelDays ?? $default;
   }
 
   /**
@@ -162,7 +168,7 @@ class UpdateProductPricePayload
    */
   public function getSuspendStyle($default = null, $trim = true)
   {
-    $value = $this->_suspendStyle ?: $default;
+    $value = $this->_suspendStyle ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -184,6 +190,29 @@ class UpdateProductPricePayload
    */
   public function getVisibility($default = null)
   {
-    return $this->_visibility ?: $default;
+    return $this->_visibility ?? $default;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setPriceBandFid(?string $value)
+  {
+    $this->_priceBandFid = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getPriceBandFid($default = null, $trim = true)
+  {
+    $value = $this->_priceBandFid ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
   }
 }

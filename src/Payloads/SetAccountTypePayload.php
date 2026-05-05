@@ -35,9 +35,10 @@ class SetAccountTypePayload
   const ACCOUNT_TYPE_RESIDENTIAL = 'residential';
   const ACCOUNT_TYPE_ENTERPRISE = 'enterprise';
   const ACCOUNT_TYPE_GROUP = 'group';
+  const ACCOUNT_TYPE_ANONYMOUS = 'anonymous';
 
   /**
-   * @param string $value unknown, student, charity, business, residential, enterprise, group
+   * @param string $value unknown, student, charity, business, residential, enterprise, group, anonymous
    *
    * @return $this
    */
@@ -57,7 +58,7 @@ class SetAccountTypePayload
    */
   public function getAccountType($default = null, $trim = true)
   {
-    $value = $this->_accountType ?: $default;
+    $value = $this->_accountType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

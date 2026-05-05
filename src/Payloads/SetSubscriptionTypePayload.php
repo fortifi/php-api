@@ -54,7 +54,7 @@ class SetSubscriptionTypePayload
    */
   public function getSubscriptionType($default = null, $trim = true)
   {
-    $value = $this->_subscriptionType ?: $default;
+    $value = $this->_subscriptionType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

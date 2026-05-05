@@ -62,7 +62,7 @@ class CreateProductSkuPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -85,7 +85,7 @@ class CreateProductSkuPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -108,7 +108,7 @@ class CreateProductSkuPayload
    */
   public function getSku($default = null, $trim = true)
   {
-    $value = $this->_sku ?: $default;
+    $value = $this->_sku ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -131,7 +131,7 @@ class CreateProductSkuPayload
    */
   public function getPriceBandFid($default = null, $trim = true)
   {
-    $value = $this->_priceBandFid ?: $default;
+    $value = $this->_priceBandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

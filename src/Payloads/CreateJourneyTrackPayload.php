@@ -50,7 +50,7 @@ class CreateJourneyTrackPayload
    */
   public function getDataNodeFid($default = null, $trim = true)
   {
-    $value = $this->_dataNodeFid ?: $default;
+    $value = $this->_dataNodeFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -83,6 +83,6 @@ class CreateJourneyTrackPayload
    */
   public function getData($default = [])
   {
-    return $this->_data ?: $default;
+    return $this->_data ?? $default;
   }
 }

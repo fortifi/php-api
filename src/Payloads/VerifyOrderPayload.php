@@ -61,7 +61,7 @@ class VerifyOrderPayload
    */
   public function getSuccessUrl($default = null, $trim = true)
   {
-    $value = $this->_successUrl ?: $default;
+    $value = $this->_successUrl ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -84,7 +84,7 @@ class VerifyOrderPayload
    */
   public function getCancelUrl($default = null, $trim = true)
   {
-    $value = $this->_cancelUrl ?: $default;
+    $value = $this->_cancelUrl ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -107,7 +107,7 @@ class VerifyOrderPayload
    */
   public function getFailUrl($default = null, $trim = true)
   {
-    $value = $this->_failUrl ?: $default;
+    $value = $this->_failUrl ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

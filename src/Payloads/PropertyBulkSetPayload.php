@@ -109,7 +109,7 @@ class PropertyBulkSetPayload
    */
   public function getValues($default = [])
   {
-    return $this->_values ?: $default;
+    return $this->_values ?? $default;
   }
 
   /**
@@ -143,7 +143,7 @@ class PropertyBulkSetPayload
    */
   public function getFlags($default = [])
   {
-    return $this->_flags ?: $default;
+    return $this->_flags ?? $default;
   }
 
   /**
@@ -177,7 +177,7 @@ class PropertyBulkSetPayload
    */
   public function getIncrementCounters($default = [])
   {
-    return $this->_incrementCounters ?: $default;
+    return $this->_incrementCounters ?? $default;
   }
 
   /**
@@ -211,6 +211,6 @@ class PropertyBulkSetPayload
    */
   public function getDecrementCounters($default = [])
   {
-    return $this->_decrementCounters ?: $default;
+    return $this->_decrementCounters ?? $default;
   }
 }

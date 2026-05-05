@@ -56,7 +56,7 @@ class ImportCostPayload
    */
   public function getFilename($default = null, $trim = true)
   {
-    $value = $this->_filename ?: $default;
+    $value = $this->_filename ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -79,7 +79,7 @@ class ImportCostPayload
    */
   public function getMimeType($default = null, $trim = true)
   {
-    $value = $this->_mimeType ?: $default;
+    $value = $this->_mimeType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -102,7 +102,7 @@ class ImportCostPayload
    */
   public function getData($default = null, $trim = true)
   {
-    $value = $this->_data ?: $default;
+    $value = $this->_data ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

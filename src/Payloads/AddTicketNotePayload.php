@@ -59,6 +59,6 @@ class AddTicketNotePayload
    */
   public function getNotes($default = [])
   {
-    return $this->_notes ?: $default;
+    return $this->_notes ?? $default;
   }
 }

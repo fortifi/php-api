@@ -65,7 +65,7 @@ class SubscriptionCancelPayload
    */
   public function getReasonFid($default = null, $trim = true)
   {
-    $value = $this->_reasonFid ?: $default;
+    $value = $this->_reasonFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -93,7 +93,7 @@ class SubscriptionCancelPayload
    */
   public function getSubscriptionRefundType($default = null, $trim = true)
   {
-    $value = $this->_subscriptionRefundType ?: $default;
+    $value = $this->_subscriptionRefundType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -115,6 +115,6 @@ class SubscriptionCancelPayload
    */
   public function isCancelAtNextRenewal($default = false)
   {
-    return (bool)$this->_cancelAtNextRenewal ?: $default;
+    return (bool)$this->_cancelAtNextRenewal ?? $default;
   }
 }

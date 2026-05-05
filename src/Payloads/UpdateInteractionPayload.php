@@ -62,7 +62,7 @@ class UpdateInteractionPayload
    */
   public function getCompanyFid($default = null, $trim = true)
   {
-    $value = $this->_companyFid ?: $default;
+    $value = $this->_companyFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -85,7 +85,7 @@ class UpdateInteractionPayload
    */
   public function getDepartmentFid($default = null, $trim = true)
   {
-    $value = $this->_departmentFid ?: $default;
+    $value = $this->_departmentFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -108,7 +108,7 @@ class UpdateInteractionPayload
    */
   public function getQueueFid($default = null, $trim = true)
   {
-    $value = $this->_queueFid ?: $default;
+    $value = $this->_queueFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -131,7 +131,7 @@ class UpdateInteractionPayload
    */
   public function getInteractionType($default = null, $trim = true)
   {
-    $value = $this->_interactionType ?: $default;
+    $value = $this->_interactionType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

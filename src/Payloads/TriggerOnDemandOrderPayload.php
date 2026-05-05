@@ -58,7 +58,7 @@ class TriggerOnDemandOrderPayload
    */
   public function getSchedulerId($default = null, $trim = true)
   {
-    $value = $this->_schedulerId ?: $default;
+    $value = $this->_schedulerId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -83,7 +83,7 @@ class TriggerOnDemandOrderPayload
    */
   public function getUpdateCharge($default = null, $trim = true)
   {
-    $value = $this->_updateCharge ?: $default;
+    $value = $this->_updateCharge ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

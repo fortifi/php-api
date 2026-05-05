@@ -74,7 +74,7 @@ class CreateProductPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -97,7 +97,7 @@ class CreateProductPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -119,7 +119,7 @@ class CreateProductPayload
    */
   public function getProductType($default = null)
   {
-    return $this->_productType ?: $default;
+    return $this->_productType ?? $default;
   }
 
   /**
@@ -141,7 +141,7 @@ class CreateProductPayload
    */
   public function getGroupType($default = null, $trim = true)
   {
-    $value = $this->_groupType ?: $default;
+    $value = $this->_groupType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -163,7 +163,7 @@ class CreateProductPayload
    */
   public function isCanSuspend($default = false)
   {
-    return (bool)$this->_canSuspend ?: $default;
+    return (bool)$this->_canSuspend ?? $default;
   }
 
   /**
@@ -184,6 +184,6 @@ class CreateProductPayload
    */
   public function isAllowQuantity($default = false)
   {
-    return (bool)$this->_allowQuantity ?: $default;
+    return (bool)$this->_allowQuantity ?? $default;
   }
 }

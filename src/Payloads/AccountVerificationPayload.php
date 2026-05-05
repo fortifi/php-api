@@ -68,7 +68,7 @@ class AccountVerificationPayload
    */
   public function getDataNodeFid($default = null, $trim = true)
   {
-    $value = $this->_dataNodeFid ?: $default;
+    $value = $this->_dataNodeFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -91,7 +91,7 @@ class AccountVerificationPayload
    */
   public function getVerificationFid($default = null, $trim = true)
   {
-    $value = $this->_verificationFid ?: $default;
+    $value = $this->_verificationFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -114,7 +114,7 @@ class AccountVerificationPayload
    */
   public function getAnswer($default = null, $trim = true)
   {
-    $value = $this->_answer ?: $default;
+    $value = $this->_answer ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -137,7 +137,7 @@ class AccountVerificationPayload
    */
   public function getQuestionKey($default = null, $trim = true)
   {
-    $value = $this->_questionKey ?: $default;
+    $value = $this->_questionKey ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -159,6 +159,6 @@ class AccountVerificationPayload
    */
   public function isLoggedIn($default = false)
   {
-    return (bool)$this->_isLoggedIn ?: $default;
+    return (bool)$this->_isLoggedIn ?? $default;
   }
 }

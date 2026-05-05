@@ -68,7 +68,7 @@ class CreateCommentPayload
    */
   public function getDataNodeFid($default = null, $trim = true)
   {
-    $value = $this->_dataNodeFid ?: $default;
+    $value = $this->_dataNodeFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -91,7 +91,7 @@ class CreateCommentPayload
    */
   public function getColour($default = null, $trim = true)
   {
-    $value = $this->_colour ?: $default;
+    $value = $this->_colour ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -114,7 +114,7 @@ class CreateCommentPayload
    */
   public function getAuthorFid($default = null, $trim = true)
   {
-    $value = $this->_authorFid ?: $default;
+    $value = $this->_authorFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -137,7 +137,7 @@ class CreateCommentPayload
    */
   public function getMessage($default = null, $trim = true)
   {
-    $value = $this->_message ?: $default;
+    $value = $this->_message ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -160,7 +160,7 @@ class CreateCommentPayload
    */
   public function getMicrotime($default = null, $trim = true)
   {
-    $value = $this->_microtime ?: $default;
+    $value = $this->_microtime ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

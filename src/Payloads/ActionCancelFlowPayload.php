@@ -49,7 +49,7 @@ class ActionCancelFlowPayload
    */
   public function getDecisionKey($default = null, $trim = true)
   {
-    $value = $this->_decisionKey ?: $default;
+    $value = $this->_decisionKey ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

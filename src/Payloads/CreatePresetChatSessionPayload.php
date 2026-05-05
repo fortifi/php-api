@@ -140,7 +140,7 @@ class CreatePresetChatSessionPayload
    */
   public function getTicketFid($default = null, $trim = true)
   {
-    $value = $this->_ticketFid ?: $default;
+    $value = $this->_ticketFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -163,7 +163,7 @@ class CreatePresetChatSessionPayload
    */
   public function getName($default = null, $trim = true)
   {
-    $value = $this->_name ?: $default;
+    $value = $this->_name ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -186,7 +186,7 @@ class CreatePresetChatSessionPayload
    */
   public function getEmail($default = null, $trim = true)
   {
-    $value = $this->_email ?: $default;
+    $value = $this->_email ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -209,7 +209,7 @@ class CreatePresetChatSessionPayload
    */
   public function getCompanyFid($default = null, $trim = true)
   {
-    $value = $this->_companyFid ?: $default;
+    $value = $this->_companyFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -232,7 +232,7 @@ class CreatePresetChatSessionPayload
    */
   public function getCustomerFid($default = null, $trim = true)
   {
-    $value = $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -255,7 +255,7 @@ class CreatePresetChatSessionPayload
    */
   public function getDepartmentFid($default = null, $trim = true)
   {
-    $value = $this->_departmentFid ?: $default;
+    $value = $this->_departmentFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -278,7 +278,7 @@ class CreatePresetChatSessionPayload
    */
   public function getQueueFid($default = null, $trim = true)
   {
-    $value = $this->_queueFid ?: $default;
+    $value = $this->_queueFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -301,7 +301,7 @@ class CreatePresetChatSessionPayload
    */
   public function getImpact($default = null, $trim = true)
   {
-    $value = $this->_impact ?: $default;
+    $value = $this->_impact ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -324,7 +324,7 @@ class CreatePresetChatSessionPayload
    */
   public function getUrgency($default = null, $trim = true)
   {
-    $value = $this->_urgency ?: $default;
+    $value = $this->_urgency ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -347,7 +347,7 @@ class CreatePresetChatSessionPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -370,7 +370,7 @@ class CreatePresetChatSessionPayload
    */
   public function getTopic($default = null, $trim = true)
   {
-    $value = $this->_topic ?: $default;
+    $value = $this->_topic ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -393,7 +393,7 @@ class CreatePresetChatSessionPayload
    */
   public function getDomain($default = null, $trim = true)
   {
-    $value = $this->_domain ?: $default;
+    $value = $this->_domain ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -416,7 +416,7 @@ class CreatePresetChatSessionPayload
    */
   public function getAccountVerificationFid($default = null, $trim = true)
   {
-    $value = $this->_accountVerificationFid ?: $default;
+    $value = $this->_accountVerificationFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -449,7 +449,7 @@ class CreatePresetChatSessionPayload
    */
   public function getLabels($default = [])
   {
-    return $this->_labels ?: $default;
+    return $this->_labels ?? $default;
   }
 
   /**
@@ -481,6 +481,6 @@ class CreatePresetChatSessionPayload
    */
   public function getNotes($default = [])
   {
-    return $this->_notes ?: $default;
+    return $this->_notes ?? $default;
   }
 }

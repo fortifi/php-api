@@ -47,6 +47,6 @@ class PropertyCounterPayload
    */
   public function getPropertyValue($default = null)
   {
-    return $this->_propertyValue ?: $default;
+    return $this->_propertyValue ?? $default;
   }
 }

@@ -100,7 +100,7 @@ class UpdateCcBccPayload
    */
   public function getAddCc($default = [])
   {
-    return $this->_addCc ?: $default;
+    return $this->_addCc ?? $default;
   }
 
   /**
@@ -132,7 +132,7 @@ class UpdateCcBccPayload
    */
   public function getRemoveCc($default = [])
   {
-    return $this->_removeCc ?: $default;
+    return $this->_removeCc ?? $default;
   }
 
   /**
@@ -166,7 +166,7 @@ class UpdateCcBccPayload
    */
   public function getAddBcc($default = [])
   {
-    return $this->_addBcc ?: $default;
+    return $this->_addBcc ?? $default;
   }
 
   /**
@@ -198,7 +198,7 @@ class UpdateCcBccPayload
    */
   public function getRemoveBcc($default = [])
   {
-    return $this->_removeBcc ?: $default;
+    return $this->_removeBcc ?? $default;
   }
 
   /**
@@ -221,6 +221,6 @@ class UpdateCcBccPayload
    */
   public function isClearExistingCcBcc($default = false)
   {
-    return (bool)$this->_clearExistingCcBcc ?: $default;
+    return (bool)$this->_clearExistingCcBcc ?? $default;
   }
 }

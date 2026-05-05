@@ -96,7 +96,7 @@ class InvoiceCreditNotePayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -119,7 +119,7 @@ class InvoiceCreditNotePayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -144,7 +144,7 @@ class InvoiceCreditNotePayload
    */
   public function getChargeRequestFid($default = null, $trim = true)
   {
-    $value = $this->_chargeRequestFid ?: $default;
+    $value = $this->_chargeRequestFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -173,7 +173,7 @@ class InvoiceCreditNotePayload
    */
   public function getCreditAmountType($default = null, $trim = true)
   {
-    $value = $this->_creditAmountType ?: $default;
+    $value = $this->_creditAmountType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -195,7 +195,7 @@ class InvoiceCreditNotePayload
    */
   public function getAmount($default = null)
   {
-    return $this->_amount ?: $default;
+    return $this->_amount ?? $default;
   }
 
   /**
@@ -219,7 +219,7 @@ class InvoiceCreditNotePayload
    */
   public function getReasonFid($default = null, $trim = true)
   {
-    $value = $this->_reasonFid ?: $default;
+    $value = $this->_reasonFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -244,7 +244,7 @@ class InvoiceCreditNotePayload
    */
   public function getCurrency($default = null, $trim = true)
   {
-    $value = $this->_currency ?: $default;
+    $value = $this->_currency ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

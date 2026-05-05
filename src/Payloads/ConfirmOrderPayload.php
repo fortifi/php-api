@@ -85,7 +85,7 @@ class ConfirmOrderPayload
    */
   public function getPaymentServiceFid($default = null, $trim = true)
   {
-    $value = $this->_paymentServiceFid ?: $default;
+    $value = $this->_paymentServiceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -110,7 +110,7 @@ class ConfirmOrderPayload
    */
   public function getPaymentAccountFid($default = null, $trim = true)
   {
-    $value = $this->_paymentAccountFid ?: $default;
+    $value = $this->_paymentAccountFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -142,7 +142,7 @@ class ConfirmOrderPayload
    */
   public function getPaymentServiceProcessor($default = null, $trim = true)
   {
-    $value = $this->_paymentServiceProcessor ?: $default;
+    $value = $this->_paymentServiceProcessor ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -166,7 +166,7 @@ class ConfirmOrderPayload
    */
   public function isSetupPurchaseBeforePayment($default = false)
   {
-    return (bool)$this->_setupPurchaseBeforePayment ?: $default;
+    return (bool)$this->_setupPurchaseBeforePayment ?? $default;
   }
 
   /**
@@ -189,6 +189,6 @@ class ConfirmOrderPayload
    */
   public function isNoPreAuth($default = false)
   {
-    return (bool)$this->_noPreAuth ?: $default;
+    return (bool)$this->_noPreAuth ?? $default;
   }
 }

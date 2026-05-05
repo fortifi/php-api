@@ -50,7 +50,7 @@ class RetentionFlowOptionPayload
    */
   public function getKey($default = null, $trim = true)
   {
-    $value = $this->_key ?: $default;
+    $value = $this->_key ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -73,7 +73,7 @@ class RetentionFlowOptionPayload
    */
   public function getValue($default = null, $trim = true)
   {
-    $value = $this->_value ?: $default;
+    $value = $this->_value ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

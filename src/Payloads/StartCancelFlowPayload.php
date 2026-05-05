@@ -67,7 +67,7 @@ class StartCancelFlowPayload
    */
   public function getSelectorFid($default = null, $trim = true)
   {
-    $value = $this->_selectorFid ?: $default;
+    $value = $this->_selectorFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -90,7 +90,7 @@ class StartCancelFlowPayload
    */
   public function getSelectorKey($default = null, $trim = true)
   {
-    $value = $this->_selectorKey ?: $default;
+    $value = $this->_selectorKey ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -113,7 +113,7 @@ class StartCancelFlowPayload
    */
   public function getCancelFunnelFid($default = null, $trim = true)
   {
-    $value = $this->_cancelFunnelFid ?: $default;
+    $value = $this->_cancelFunnelFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -136,7 +136,7 @@ class StartCancelFlowPayload
    */
   public function getInitiatedByFid($default = null, $trim = true)
   {
-    $value = $this->_initiatedByFid ?: $default;
+    $value = $this->_initiatedByFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -53,7 +53,7 @@ class RetryTransactionPayload
    */
   public function getTrigger($default = null, $trim = true)
   {
-    $value = $this->_trigger ?: $default;
+    $value = $this->_trigger ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -75,6 +75,6 @@ class RetryTransactionPayload
    */
   public function isUnlockPaymentMethods($default = false)
   {
-    return (bool)$this->_unlockPaymentMethods ?: $default;
+    return (bool)$this->_unlockPaymentMethods ?? $default;
   }
 }

@@ -49,7 +49,7 @@ class ConfirmCardOrderPayload
    */
   public function getCvv($default = null, $trim = true)
   {
-    $value = $this->_cvv ?: $default;
+    $value = $this->_cvv ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

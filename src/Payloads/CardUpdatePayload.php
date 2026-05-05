@@ -172,7 +172,7 @@ class CardUpdatePayload
    */
   public function getCardHolder($default = null, $trim = true)
   {
-    $value = $this->_cardHolder ?: $default;
+    $value = $this->_cardHolder ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -196,7 +196,7 @@ class CardUpdatePayload
    */
   public function getStartMonth($default = null)
   {
-    return $this->_startMonth ?: $default;
+    return $this->_startMonth ?? $default;
   }
 
   /**
@@ -219,7 +219,7 @@ class CardUpdatePayload
    */
   public function getStartYear($default = null)
   {
-    return $this->_startYear ?: $default;
+    return $this->_startYear ?? $default;
   }
 
   /**
@@ -242,7 +242,7 @@ class CardUpdatePayload
    */
   public function getExpiryMonth($default = null)
   {
-    return $this->_expiryMonth ?: $default;
+    return $this->_expiryMonth ?? $default;
   }
 
   /**
@@ -265,7 +265,7 @@ class CardUpdatePayload
    */
   public function getExpiryYear($default = null)
   {
-    return $this->_expiryYear ?: $default;
+    return $this->_expiryYear ?? $default;
   }
 
   /**
@@ -288,7 +288,7 @@ class CardUpdatePayload
    */
   public function getIssue($default = null)
   {
-    return $this->_issue ?: $default;
+    return $this->_issue ?? $default;
   }
 
   /**
@@ -312,7 +312,7 @@ class CardUpdatePayload
    */
   public function getAddressFid($default = null, $trim = true)
   {
-    $value = $this->_addressFid ?: $default;
+    $value = $this->_addressFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -337,7 +337,7 @@ class CardUpdatePayload
    */
   public function getAddressLine1($default = null, $trim = true)
   {
-    $value = $this->_addressLine1 ?: $default;
+    $value = $this->_addressLine1 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -362,7 +362,7 @@ class CardUpdatePayload
    */
   public function getAddressLine2($default = null, $trim = true)
   {
-    $value = $this->_addressLine2 ?: $default;
+    $value = $this->_addressLine2 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -387,7 +387,7 @@ class CardUpdatePayload
    */
   public function getAddressLine3($default = null, $trim = true)
   {
-    $value = $this->_addressLine3 ?: $default;
+    $value = $this->_addressLine3 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -412,7 +412,7 @@ class CardUpdatePayload
    */
   public function getAddressCity($default = null, $trim = true)
   {
-    $value = $this->_addressCity ?: $default;
+    $value = $this->_addressCity ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -437,7 +437,7 @@ class CardUpdatePayload
    */
   public function getAddressState($default = null, $trim = true)
   {
-    $value = $this->_addressState ?: $default;
+    $value = $this->_addressState ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -462,7 +462,7 @@ class CardUpdatePayload
    */
   public function getAddressCountry($default = null, $trim = true)
   {
-    $value = $this->_addressCountry ?: $default;
+    $value = $this->_addressCountry ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -487,7 +487,7 @@ class CardUpdatePayload
    */
   public function getAddressPostal($default = null, $trim = true)
   {
-    $value = $this->_addressPostal ?: $default;
+    $value = $this->_addressPostal ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -509,6 +509,6 @@ class CardUpdatePayload
    */
   public function isAsDefault($default = false)
   {
-    return (bool)$this->_asDefault ?: $default;
+    return (bool)$this->_asDefault ?? $default;
   }
 }

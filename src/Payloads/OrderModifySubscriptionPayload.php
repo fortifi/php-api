@@ -61,7 +61,7 @@ class OrderModifySubscriptionPayload
    */
   public function getSourceSubscriptionFid($default = null, $trim = true)
   {
-    $value = $this->_sourceSubscriptionFid ?: $default;
+    $value = $this->_sourceSubscriptionFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -83,6 +83,6 @@ class OrderModifySubscriptionPayload
    */
   public function getProperties($default = null)
   {
-    return $this->_properties ?: $default;
+    return $this->_properties ?? $default;
   }
 }

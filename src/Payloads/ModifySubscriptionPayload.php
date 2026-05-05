@@ -95,7 +95,7 @@ class ModifySubscriptionPayload
    */
   public function getChargeId($default = null, $trim = true)
   {
-    $value = $this->_chargeId ?: $default;
+    $value = $this->_chargeId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -120,7 +120,7 @@ class ModifySubscriptionPayload
    */
   public function getPriceFid($default = null, $trim = true)
   {
-    $value = $this->_priceFid ?: $default;
+    $value = $this->_priceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -145,7 +145,7 @@ class ModifySubscriptionPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -170,7 +170,7 @@ class ModifySubscriptionPayload
    */
   public function getOfferFid($default = null, $trim = true)
   {
-    $value = $this->_offerFid ?: $default;
+    $value = $this->_offerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -195,7 +195,7 @@ class ModifySubscriptionPayload
    */
   public function getSku($default = null, $trim = true)
   {
-    $value = $this->_sku ?: $default;
+    $value = $this->_sku ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -224,7 +224,7 @@ class ModifySubscriptionPayload
    */
   public function getMode($default = null, $trim = true)
   {
-    $value = $this->_mode ?: $default;
+    $value = $this->_mode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

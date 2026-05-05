@@ -118,7 +118,7 @@ class OrderProductsPayload
    */
   public function getProductPriceFids($default = [])
   {
-    return $this->_productPriceFids ?: $default;
+    return $this->_productPriceFids ?? $default;
   }
 
   /**
@@ -152,7 +152,7 @@ class OrderProductsPayload
    */
   public function getQuantityProductPriceFids($default = [])
   {
-    return $this->_quantityProductPriceFids ?: $default;
+    return $this->_quantityProductPriceFids ?? $default;
   }
 
   /**
@@ -186,7 +186,7 @@ class OrderProductsPayload
    */
   public function getNamesProductPriceFids($default = [])
   {
-    return $this->_namesProductPriceFids ?: $default;
+    return $this->_namesProductPriceFids ?? $default;
   }
 
   /**
@@ -220,7 +220,7 @@ class OrderProductsPayload
    */
   public function getProducts($default = [])
   {
-    return $this->_products ?: $default;
+    return $this->_products ?? $default;
   }
 
   /**
@@ -254,6 +254,6 @@ class OrderProductsPayload
    */
   public function getModifySubscriptions($default = [])
   {
-    return $this->_modifySubscriptions ?: $default;
+    return $this->_modifySubscriptions ?? $default;
   }
 }

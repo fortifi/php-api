@@ -76,7 +76,7 @@ class RequestUploadUrlPayload
    */
   public function getFilename($default = null, $trim = true)
   {
-    $value = $this->_filename ?: $default;
+    $value = $this->_filename ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -101,7 +101,7 @@ class RequestUploadUrlPayload
    */
   public function getFilesize($default = null, $trim = true)
   {
-    $value = $this->_filesize ?: $default;
+    $value = $this->_filesize ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -126,7 +126,7 @@ class RequestUploadUrlPayload
    */
   public function getMd5checksum($default = null, $trim = true)
   {
-    $value = $this->_md5checksum ?: $default;
+    $value = $this->_md5checksum ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -151,7 +151,7 @@ class RequestUploadUrlPayload
    */
   public function getMimeType($default = null, $trim = true)
   {
-    $value = $this->_mimeType ?: $default;
+    $value = $this->_mimeType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

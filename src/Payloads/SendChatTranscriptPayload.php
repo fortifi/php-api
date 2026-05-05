@@ -47,7 +47,7 @@ class SendChatTranscriptPayload
    */
   public function getEmail($default = null, $trim = true)
   {
-    $value = $this->_email ?: $default;
+    $value = $this->_email ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

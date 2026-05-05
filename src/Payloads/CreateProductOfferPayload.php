@@ -86,7 +86,7 @@ class CreateProductOfferPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -109,7 +109,7 @@ class CreateProductOfferPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -132,7 +132,7 @@ class CreateProductOfferPayload
    */
   public function getCouponCode($default = null, $trim = true)
   {
-    $value = $this->_couponCode ?: $default;
+    $value = $this->_couponCode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -154,7 +154,7 @@ class CreateProductOfferPayload
    */
   public function getDiscountAmount($default = null)
   {
-    return $this->_discountAmount ?: $default;
+    return $this->_discountAmount ?? $default;
   }
 
   /**
@@ -175,7 +175,7 @@ class CreateProductOfferPayload
    */
   public function getDiscountType($default = null)
   {
-    return $this->_discountType ?: $default;
+    return $this->_discountType ?? $default;
   }
 
   /**
@@ -196,7 +196,7 @@ class CreateProductOfferPayload
    */
   public function getSetupDiscountAmount($default = null)
   {
-    return $this->_setupDiscountAmount ?: $default;
+    return $this->_setupDiscountAmount ?? $default;
   }
 
   /**
@@ -217,7 +217,7 @@ class CreateProductOfferPayload
    */
   public function getSetupDiscountType($default = null)
   {
-    return $this->_setupDiscountType ?: $default;
+    return $this->_setupDiscountType ?? $default;
   }
 
   /**
@@ -238,6 +238,6 @@ class CreateProductOfferPayload
    */
   public function isApiOnly($default = false)
   {
-    return (bool)$this->_apiOnly ?: $default;
+    return (bool)$this->_apiOnly ?? $default;
   }
 }

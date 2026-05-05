@@ -56,7 +56,7 @@ class OrderProductDisplayNamePayload
    */
   public function getPriceFid($default = null, $trim = true)
   {
-    $value = $this->_priceFid ?: $default;
+    $value = $this->_priceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -79,7 +79,7 @@ class OrderProductDisplayNamePayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

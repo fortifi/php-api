@@ -164,7 +164,7 @@ class CreateProductPricePayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -187,7 +187,7 @@ class CreateProductPricePayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -210,7 +210,7 @@ class CreateProductPricePayload
    */
   public function getPriceBandFid($default = null, $trim = true)
   {
-    $value = $this->_priceBandFid ?: $default;
+    $value = $this->_priceBandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -233,7 +233,7 @@ class CreateProductPricePayload
    */
   public function getCurrency($default = null, $trim = true)
   {
-    $value = $this->_currency ?: $default;
+    $value = $this->_currency ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -255,7 +255,7 @@ class CreateProductPricePayload
    */
   public function getPrice($default = null)
   {
-    return $this->_price ?: $default;
+    return $this->_price ?? $default;
   }
 
   /**
@@ -276,7 +276,7 @@ class CreateProductPricePayload
    */
   public function getSetupFee($default = null)
   {
-    return $this->_setupFee ?: $default;
+    return $this->_setupFee ?? $default;
   }
 
   /**
@@ -297,7 +297,7 @@ class CreateProductPricePayload
    */
   public function getCycleType($default = null)
   {
-    return $this->_cycleType ?: $default;
+    return $this->_cycleType ?? $default;
   }
 
   /**
@@ -318,7 +318,7 @@ class CreateProductPricePayload
    */
   public function getCycleTerm($default = null)
   {
-    return $this->_cycleTerm ?: $default;
+    return $this->_cycleTerm ?? $default;
   }
 
   /**
@@ -340,7 +340,7 @@ class CreateProductPricePayload
    */
   public function getCycleExact($default = null, $trim = true)
   {
-    $value = $this->_cycleExact ?: $default;
+    $value = $this->_cycleExact ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -362,7 +362,7 @@ class CreateProductPricePayload
    */
   public function getSuspendAfterDays($default = null)
   {
-    return $this->_suspendAfterDays ?: $default;
+    return $this->_suspendAfterDays ?? $default;
   }
 
   /**
@@ -383,7 +383,7 @@ class CreateProductPricePayload
    */
   public function isShouldSuspend($default = false)
   {
-    return (bool)$this->_shouldSuspend ?: $default;
+    return (bool)$this->_shouldSuspend ?? $default;
   }
 
   /**
@@ -404,7 +404,7 @@ class CreateProductPricePayload
    */
   public function getCancelDays($default = null)
   {
-    return $this->_cancelDays ?: $default;
+    return $this->_cancelDays ?? $default;
   }
 
   /**
@@ -425,7 +425,7 @@ class CreateProductPricePayload
    */
   public function isShouldCancel($default = false)
   {
-    return (bool)$this->_shouldCancel ?: $default;
+    return (bool)$this->_shouldCancel ?? $default;
   }
 
   /**
@@ -446,7 +446,7 @@ class CreateProductPricePayload
    */
   public function getInvoiceDays($default = null)
   {
-    return $this->_invoiceDays ?: $default;
+    return $this->_invoiceDays ?? $default;
   }
 
   /**
@@ -467,7 +467,7 @@ class CreateProductPricePayload
    */
   public function getInvoiceDueDelayDays($default = null)
   {
-    return $this->_invoiceDueDelayDays ?: $default;
+    return $this->_invoiceDueDelayDays ?? $default;
   }
 
   /**
@@ -488,7 +488,7 @@ class CreateProductPricePayload
    */
   public function getTerminationFee($default = null)
   {
-    return $this->_terminationFee ?: $default;
+    return $this->_terminationFee ?? $default;
   }
 
   /**
@@ -510,7 +510,7 @@ class CreateProductPricePayload
    */
   public function getTerminationType($default = null, $trim = true)
   {
-    $value = $this->_terminationType ?: $default;
+    $value = $this->_terminationType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -533,7 +533,7 @@ class CreateProductPricePayload
    */
   public function getSuspendStyle($default = null, $trim = true)
   {
-    $value = $this->_suspendStyle ?: $default;
+    $value = $this->_suspendStyle ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -555,7 +555,7 @@ class CreateProductPricePayload
    */
   public function getVisibility($default = null)
   {
-    return $this->_visibility ?: $default;
+    return $this->_visibility ?? $default;
   }
 
   /**
@@ -576,7 +576,7 @@ class CreateProductPricePayload
    */
   public function isTaxInclusive($default = false)
   {
-    return (bool)$this->_taxInclusive ?: $default;
+    return (bool)$this->_taxInclusive ?? $default;
   }
 
   /**
@@ -598,7 +598,7 @@ class CreateProductPricePayload
    */
   public function getCountry($default = null, $trim = true)
   {
-    $value = $this->_country ?: $default;
+    $value = $this->_country ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -202,7 +202,7 @@ class CreateCustomerContactPayload
    */
   public function getEmail($default = null, $trim = true)
   {
-    $value = $this->_email ?: $default;
+    $value = $this->_email ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -227,7 +227,7 @@ class CreateCustomerContactPayload
    */
   public function getPhone($default = null, $trim = true)
   {
-    $value = $this->_phone ?: $default;
+    $value = $this->_phone ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -252,7 +252,7 @@ class CreateCustomerContactPayload
    */
   public function getPrefix($default = null, $trim = true)
   {
-    $value = $this->_prefix ?: $default;
+    $value = $this->_prefix ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -277,7 +277,7 @@ class CreateCustomerContactPayload
    */
   public function getFirstName($default = null, $trim = true)
   {
-    $value = $this->_firstName ?: $default;
+    $value = $this->_firstName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -302,7 +302,7 @@ class CreateCustomerContactPayload
    */
   public function getMiddleNames($default = null, $trim = true)
   {
-    $value = $this->_middleNames ?: $default;
+    $value = $this->_middleNames ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -327,7 +327,7 @@ class CreateCustomerContactPayload
    */
   public function getLastName($default = null, $trim = true)
   {
-    $value = $this->_lastName ?: $default;
+    $value = $this->_lastName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -352,7 +352,7 @@ class CreateCustomerContactPayload
    */
   public function getSuffix($default = null, $trim = true)
   {
-    $value = $this->_suffix ?: $default;
+    $value = $this->_suffix ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -377,7 +377,7 @@ class CreateCustomerContactPayload
    */
   public function getNickname($default = null, $trim = true)
   {
-    $value = $this->_nickname ?: $default;
+    $value = $this->_nickname ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -402,7 +402,7 @@ class CreateCustomerContactPayload
    */
   public function getBirthday($default = null, $trim = true)
   {
-    $value = $this->_birthday ?: $default;
+    $value = $this->_birthday ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -427,7 +427,7 @@ class CreateCustomerContactPayload
    */
   public function getJobTitle($default = null, $trim = true)
   {
-    $value = $this->_jobTitle ?: $default;
+    $value = $this->_jobTitle ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -452,7 +452,7 @@ class CreateCustomerContactPayload
    */
   public function getAddress1($default = null, $trim = true)
   {
-    $value = $this->_address1 ?: $default;
+    $value = $this->_address1 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -477,7 +477,7 @@ class CreateCustomerContactPayload
    */
   public function getAddress2($default = null, $trim = true)
   {
-    $value = $this->_address2 ?: $default;
+    $value = $this->_address2 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -502,7 +502,7 @@ class CreateCustomerContactPayload
    */
   public function getAddress3($default = null, $trim = true)
   {
-    $value = $this->_address3 ?: $default;
+    $value = $this->_address3 ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -527,7 +527,7 @@ class CreateCustomerContactPayload
    */
   public function getTown($default = null, $trim = true)
   {
-    $value = $this->_town ?: $default;
+    $value = $this->_town ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -552,7 +552,7 @@ class CreateCustomerContactPayload
    */
   public function getCounty($default = null, $trim = true)
   {
-    $value = $this->_county ?: $default;
+    $value = $this->_county ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -577,7 +577,7 @@ class CreateCustomerContactPayload
    */
   public function getCountry($default = null, $trim = true)
   {
-    $value = $this->_country ?: $default;
+    $value = $this->_country ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -602,7 +602,7 @@ class CreateCustomerContactPayload
    */
   public function getPostalCode($default = null, $trim = true)
   {
-    $value = $this->_postalCode ?: $default;
+    $value = $this->_postalCode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -627,7 +627,7 @@ class CreateCustomerContactPayload
    */
   public function getExternalReference($default = null, $trim = true)
   {
-    $value = $this->_externalReference ?: $default;
+    $value = $this->_externalReference ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

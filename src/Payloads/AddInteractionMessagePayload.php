@@ -65,7 +65,7 @@ class AddInteractionMessagePayload
    */
   public function getMessage($default = null, $trim = true)
   {
-    $value = $this->_message ?: $default;
+    $value = $this->_message ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -90,7 +90,7 @@ class AddInteractionMessagePayload
    */
   public function getSource($default = null, $trim = true)
   {
-    $value = $this->_source ?: $default;
+    $value = $this->_source ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -113,7 +113,7 @@ class AddInteractionMessagePayload
    */
   public function getActionType($default = null, $trim = true)
   {
-    $value = $this->_actionType ?: $default;
+    $value = $this->_actionType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -136,7 +136,7 @@ class AddInteractionMessagePayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

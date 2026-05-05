@@ -55,7 +55,7 @@ class SetAccountStatusPayload
    */
   public function getAccountStatus($default = null, $trim = true)
   {
-    $value = $this->_accountStatus ?: $default;
+    $value = $this->_accountStatus ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

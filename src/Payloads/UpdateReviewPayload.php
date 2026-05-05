@@ -58,7 +58,7 @@ class UpdateReviewPayload
    */
   public function getSubject($default = null, $trim = true)
   {
-    $value = $this->_subject ?: $default;
+    $value = $this->_subject ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -83,7 +83,7 @@ class UpdateReviewPayload
    */
   public function getContent($default = null, $trim = true)
   {
-    $value = $this->_content ?: $default;
+    $value = $this->_content ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

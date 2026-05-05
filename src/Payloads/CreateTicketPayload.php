@@ -170,7 +170,7 @@ class CreateTicketPayload
    */
   public function getCustomerEmail($default = null, $trim = true)
   {
-    $value = $this->_customerEmail ?: $default;
+    $value = $this->_customerEmail ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -193,7 +193,7 @@ class CreateTicketPayload
    */
   public function getCustomerName($default = null, $trim = true)
   {
-    $value = $this->_customerName ?: $default;
+    $value = $this->_customerName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -216,7 +216,7 @@ class CreateTicketPayload
    */
   public function getCustomerFid($default = null, $trim = true)
   {
-    $value = $this->_customerFid ?: $default;
+    $value = $this->_customerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -244,7 +244,7 @@ class CreateTicketPayload
    */
   public function getTicketType($default = null, $trim = true)
   {
-    $value = $this->_ticketType ?: $default;
+    $value = $this->_ticketType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -267,7 +267,7 @@ class CreateTicketPayload
    */
   public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_brandFid ?: $default;
+    $value = $this->_brandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -290,7 +290,7 @@ class CreateTicketPayload
    */
   public function getQueueFid($default = null, $trim = true)
   {
-    $value = $this->_queueFid ?: $default;
+    $value = $this->_queueFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -313,7 +313,7 @@ class CreateTicketPayload
    */
   public function getDepartmentFid($default = null, $trim = true)
   {
-    $value = $this->_departmentFid ?: $default;
+    $value = $this->_departmentFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -336,7 +336,7 @@ class CreateTicketPayload
    */
   public function getDepartmentEmail($default = null, $trim = true)
   {
-    $value = $this->_departmentEmail ?: $default;
+    $value = $this->_departmentEmail ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -359,7 +359,7 @@ class CreateTicketPayload
    */
   public function getDepartmentName($default = null, $trim = true)
   {
-    $value = $this->_departmentName ?: $default;
+    $value = $this->_departmentName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -382,7 +382,7 @@ class CreateTicketPayload
    */
   public function getSubject($default = null, $trim = true)
   {
-    $value = $this->_subject ?: $default;
+    $value = $this->_subject ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -405,7 +405,7 @@ class CreateTicketPayload
    */
   public function getTextBody($default = null, $trim = true)
   {
-    $value = $this->_textBody ?: $default;
+    $value = $this->_textBody ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -428,7 +428,7 @@ class CreateTicketPayload
    */
   public function getHtmlBody($default = null, $trim = true)
   {
-    $value = $this->_htmlBody ?: $default;
+    $value = $this->_htmlBody ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -457,7 +457,7 @@ class CreateTicketPayload
    */
   public function getImpact($default = null, $trim = true)
   {
-    $value = $this->_impact ?: $default;
+    $value = $this->_impact ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -488,7 +488,7 @@ class CreateTicketPayload
    */
   public function getUrgency($default = null, $trim = true)
   {
-    $value = $this->_urgency ?: $default;
+    $value = $this->_urgency ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -521,7 +521,7 @@ class CreateTicketPayload
    */
   public function getAttachments($default = [])
   {
-    return $this->_attachments ?: $default;
+    return $this->_attachments ?? $default;
   }
 
   /**
@@ -543,7 +543,7 @@ class CreateTicketPayload
    */
   public function getLanguage($default = null, $trim = true)
   {
-    $value = $this->_language ?: $default;
+    $value = $this->_language ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -566,7 +566,7 @@ class CreateTicketPayload
    */
   public function getAccountVerificationFid($default = null, $trim = true)
   {
-    $value = $this->_accountVerificationFid ?: $default;
+    $value = $this->_accountVerificationFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -601,7 +601,7 @@ class CreateTicketPayload
    */
   public function getCc($default = [])
   {
-    return $this->_cc ?: $default;
+    return $this->_cc ?? $default;
   }
 
   /**
@@ -635,6 +635,6 @@ class CreateTicketPayload
    */
   public function getBcc($default = [])
   {
-    return $this->_bcc ?: $default;
+    return $this->_bcc ?? $default;
   }
 }

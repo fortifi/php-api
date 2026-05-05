@@ -63,7 +63,7 @@ class UpdateOrderItemPayload
    */
   public function getParentFid($default = null, $trim = true)
   {
-    $value = $this->_parentFid ?: $default;
+    $value = $this->_parentFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -86,7 +86,7 @@ class UpdateOrderItemPayload
    */
   public function getIdentity($default = null, $trim = true)
   {
-    $value = $this->_identity ?: $default;
+    $value = $this->_identity ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -108,7 +108,7 @@ class UpdateOrderItemPayload
    */
   public function getSetProperties($default = null)
   {
-    return $this->_setProperties ?: $default;
+    return $this->_setProperties ?? $default;
   }
 
   /**
@@ -130,7 +130,7 @@ class UpdateOrderItemPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

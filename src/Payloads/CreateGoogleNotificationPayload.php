@@ -86,7 +86,7 @@ class CreateGoogleNotificationPayload
    */
   public function getSubscriptionId($default = null, $trim = true)
   {
-    $value = $this->_subscriptionId ?: $default;
+    $value = $this->_subscriptionId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -111,7 +111,7 @@ class CreateGoogleNotificationPayload
    */
   public function getPackageName($default = null, $trim = true)
   {
-    $value = $this->_packageName ?: $default;
+    $value = $this->_packageName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -136,7 +136,7 @@ class CreateGoogleNotificationPayload
    */
   public function getNotificationType($default = null, $trim = true)
   {
-    $value = $this->_notificationType ?: $default;
+    $value = $this->_notificationType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -161,7 +161,7 @@ class CreateGoogleNotificationPayload
    */
   public function getPurchaseToken($default = null, $trim = true)
   {
-    $value = $this->_purchaseToken ?: $default;
+    $value = $this->_purchaseToken ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -184,7 +184,7 @@ class CreateGoogleNotificationPayload
    */
   public function getRenewalDate($default = null, $trim = true)
   {
-    $value = $this->_renewalDate ?: $default;
+    $value = $this->_renewalDate ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

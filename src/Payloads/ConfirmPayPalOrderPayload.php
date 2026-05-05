@@ -49,7 +49,7 @@ class ConfirmPayPalOrderPayload
    */
   public function getToken($default = null, $trim = true)
   {
-    $value = $this->_token ?: $default;
+    $value = $this->_token ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

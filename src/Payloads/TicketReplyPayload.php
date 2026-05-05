@@ -71,7 +71,7 @@ class TicketReplyPayload
    */
   public function getTextBody($default = null, $trim = true)
   {
-    $value = $this->_textBody ?: $default;
+    $value = $this->_textBody ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -94,7 +94,7 @@ class TicketReplyPayload
    */
   public function getHtmlBody($default = null, $trim = true)
   {
-    $value = $this->_htmlBody ?: $default;
+    $value = $this->_htmlBody ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -128,7 +128,7 @@ class TicketReplyPayload
    */
   public function getStatus($default = null, $trim = true)
   {
-    $value = $this->_status ?: $default;
+    $value = $this->_status ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -161,7 +161,7 @@ class TicketReplyPayload
    */
   public function getAttachments($default = [])
   {
-    return $this->_attachments ?: $default;
+    return $this->_attachments ?? $default;
   }
 
   /**
@@ -183,7 +183,7 @@ class TicketReplyPayload
    */
   public function getContactFid($default = null, $trim = true)
   {
-    $value = $this->_contactFid ?: $default;
+    $value = $this->_contactFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

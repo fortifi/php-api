@@ -145,7 +145,7 @@ class CreateAppleNotificationPayload
    */
   public function getSubscriptionId($default = null, $trim = true)
   {
-    $value = $this->_subscriptionId ?: $default;
+    $value = $this->_subscriptionId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -170,7 +170,7 @@ class CreateAppleNotificationPayload
    */
   public function getPackageName($default = null, $trim = true)
   {
-    $value = $this->_packageName ?: $default;
+    $value = $this->_packageName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -195,7 +195,7 @@ class CreateAppleNotificationPayload
    */
   public function getNotificationType($default = null, $trim = true)
   {
-    $value = $this->_notificationType ?: $default;
+    $value = $this->_notificationType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -220,7 +220,7 @@ class CreateAppleNotificationPayload
    */
   public function getRawReceipt($default = null, $trim = true)
   {
-    $value = $this->_rawReceipt ?: $default;
+    $value = $this->_rawReceipt ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -245,7 +245,7 @@ class CreateAppleNotificationPayload
    */
   public function getData($default = null, $trim = true)
   {
-    $value = $this->_data ?: $default;
+    $value = $this->_data ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -270,7 +270,7 @@ class CreateAppleNotificationPayload
    */
   public function getPrice($default = null, $trim = true)
   {
-    $value = $this->_price ?: $default;
+    $value = $this->_price ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -295,7 +295,7 @@ class CreateAppleNotificationPayload
    */
   public function getCurrencyCode($default = null, $trim = true)
   {
-    $value = $this->_currencyCode ?: $default;
+    $value = $this->_currencyCode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -320,7 +320,7 @@ class CreateAppleNotificationPayload
    */
   public function getCountryCode($default = null, $trim = true)
   {
-    $value = $this->_countryCode ?: $default;
+    $value = $this->_countryCode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -345,7 +345,7 @@ class CreateAppleNotificationPayload
    */
   public function getNotificationUUID($default = null, $trim = true)
   {
-    $value = $this->_notificationUUID ?: $default;
+    $value = $this->_notificationUUID ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -370,7 +370,7 @@ class CreateAppleNotificationPayload
    */
   public function getOriginalTransactionId($default = null, $trim = true)
   {
-    $value = $this->_originalTransactionId ?: $default;
+    $value = $this->_originalTransactionId ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -393,7 +393,7 @@ class CreateAppleNotificationPayload
    */
   public function getRenewalDate($default = null, $trim = true)
   {
-    $value = $this->_renewalDate ?: $default;
+    $value = $this->_renewalDate ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

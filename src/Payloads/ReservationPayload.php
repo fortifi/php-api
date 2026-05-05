@@ -56,7 +56,7 @@ class ReservationPayload
    */
   public function getDuration($default = null)
   {
-    return $this->_duration ?: $default;
+    return $this->_duration ?? $default;
   }
 
   /**
@@ -90,6 +90,6 @@ class ReservationPayload
    */
   public function getRelatedFids($default = [])
   {
-    return $this->_relatedFids ?: $default;
+    return $this->_relatedFids ?? $default;
   }
 }

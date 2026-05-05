@@ -56,7 +56,7 @@ class CreateProductGroupPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -79,7 +79,7 @@ class CreateProductGroupPayload
    */
   public function getDescription($default = null, $trim = true)
   {
-    $value = $this->_description ?: $default;
+    $value = $this->_description ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -101,6 +101,6 @@ class CreateProductGroupPayload
    */
   public function getGroupType($default = null)
   {
-    return $this->_groupType ?: $default;
+    return $this->_groupType ?? $default;
   }
 }

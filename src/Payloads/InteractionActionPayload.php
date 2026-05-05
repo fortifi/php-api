@@ -62,7 +62,7 @@ class InteractionActionPayload
    */
   public function getProvider($default = null, $trim = true)
   {
-    $value = $this->_provider ?: $default;
+    $value = $this->_provider ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -85,7 +85,7 @@ class InteractionActionPayload
    */
   public function getProviderReference($default = null, $trim = true)
   {
-    $value = $this->_providerReference ?: $default;
+    $value = $this->_providerReference ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -108,7 +108,7 @@ class InteractionActionPayload
    */
   public function getTimestamp($default = null, $trim = true)
   {
-    $value = $this->_timestamp ?: $default;
+    $value = $this->_timestamp ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -130,6 +130,6 @@ class InteractionActionPayload
    */
   public function getData($default = null)
   {
-    return $this->_data ?: $default;
+    return $this->_data ?? $default;
   }
 }

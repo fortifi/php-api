@@ -59,6 +59,6 @@ class CancelFlowOptionsPayload
    */
   public function getOptions($default = [])
   {
-    return $this->_options ?: $default;
+    return $this->_options ?? $default;
   }
 }

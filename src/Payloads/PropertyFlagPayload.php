@@ -47,6 +47,6 @@ class PropertyFlagPayload
    */
   public function isPropertyValue($default = false)
   {
-    return (bool)$this->_propertyValue ?: $default;
+    return (bool)$this->_propertyValue ?? $default;
   }
 }

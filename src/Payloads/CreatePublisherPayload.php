@@ -152,7 +152,7 @@ class CreatePublisherPayload
    */
   public function getUsername($default = null, $trim = true)
   {
-    $value = $this->_username ?: $default;
+    $value = $this->_username ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -177,7 +177,7 @@ class CreatePublisherPayload
    */
   public function getEmail($default = null, $trim = true)
   {
-    $value = $this->_email ?: $default;
+    $value = $this->_email ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -202,7 +202,7 @@ class CreatePublisherPayload
    */
   public function getPassword($default = null, $trim = true)
   {
-    $value = $this->_password ?: $default;
+    $value = $this->_password ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -241,7 +241,7 @@ class CreatePublisherPayload
    */
   public function getType($default = null, $trim = true)
   {
-    $value = $this->_type ?: $default;
+    $value = $this->_type ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -266,7 +266,7 @@ class CreatePublisherPayload
    */
   public function getDisplayName($default = null, $trim = true)
   {
-    $value = $this->_displayName ?: $default;
+    $value = $this->_displayName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -291,7 +291,7 @@ class CreatePublisherPayload
    */
   public function getContactName($default = null, $trim = true)
   {
-    $value = $this->_contactName ?: $default;
+    $value = $this->_contactName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -316,7 +316,7 @@ class CreatePublisherPayload
    */
   public function getCompanyName($default = null, $trim = true)
   {
-    $value = $this->_companyName ?: $default;
+    $value = $this->_companyName ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -341,7 +341,7 @@ class CreatePublisherPayload
    */
   public function getPhone($default = null, $trim = true)
   {
-    $value = $this->_phone ?: $default;
+    $value = $this->_phone ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -366,7 +366,7 @@ class CreatePublisherPayload
    */
   public function getWebsite($default = null, $trim = true)
   {
-    $value = $this->_website ?: $default;
+    $value = $this->_website ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -391,7 +391,7 @@ class CreatePublisherPayload
    */
   public function getAccountManagerFid($default = null, $trim = true)
   {
-    $value = $this->_accountManagerFid ?: $default;
+    $value = $this->_accountManagerFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -416,7 +416,7 @@ class CreatePublisherPayload
    */
   public function getFoundationFid($default = null, $trim = true)
   {
-    $value = $this->_foundationFid ?: $default;
+    $value = $this->_foundationFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
@@ -441,7 +441,7 @@ class CreatePublisherPayload
    */
   public function getBrandFid($default = null, $trim = true)
   {
-    $value = $this->_brandFid ?: $default;
+    $value = $this->_brandFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }
