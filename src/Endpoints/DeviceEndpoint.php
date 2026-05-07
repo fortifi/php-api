@@ -27,6 +27,26 @@ class DeviceEndpoint extends ApiEndpoint
   }
 
   /**
+   * @return DeviceDevicesEndpoint
+   */
+  public function devices()
+  {
+    $endpoint = new DeviceDevicesEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
+   * @return DeviceStatusesEndpoint
+   */
+  public function statuses()
+  {
+    $endpoint = new DeviceStatusesEndpoint();
+    $endpoint->_buildFromEndpoint($this);
+    return $endpoint;
+  }
+
+  /**
    * @return DeviceUpsertEndpoint
    */
   public function upsert()
