@@ -5112,6 +5112,66 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+
+  '/device/devices/{hardwareId}':
+    get:
+      summary: Get devices by hardware ID
+      tags:
+        - Devices
+      security:
+        - OAuth:
+            - device
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/hardwareId'
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/DevicesResponse'
+          description: List of devices with matching hardware ID
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/device/statuses/{deviceFid}':
+    get:
+      summary: List contact status
+      tags:
+        - Devices
+      security:
+        - OAuth:
+            - device
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/deviceFid'
+        - name: brandFid
+          in: query
+          type: string
+          description: Brand FID
+          required: false
+        - name: groupFid
+          in: query
+          type: string
+          description: Group FID
+          required: false
+      responses:
+        200:
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/ContactStatusesResponse'
+          description: Contact statuses
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/entities/{entityFid}/config/{sectionName}':
     delete:
       summary: Remove a config section, or property from an entity
@@ -9379,6 +9439,12 @@ parameters:
     type: string
     required: true
     description: Hardware ID
+  deviceFid:
+    name: deviceFid
+    in: path
+    type: string
+    required: true
+    description: Device FID
   phoneNumber:
     name: phoneNumber
     in: path
@@ -15241,9 +15307,17 @@ definitions:
   ContactStatusResponse:
     description: Contact Status Response
     properties:
+      companyFid:
+        type: string
+      contactFid:
+        type: string
       groupFid:
         type: string
+      groupName:
+        type: string
       unsubscribed:
+        type: boolean
+      bounced:
         type: boolean
 
   ContactStatusesResponse:
@@ -15253,3 +15327,29 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ContactStatusResponse'
+
+  DeviceResponse:
+    description: Device Response
+    properties:
+      fid:
+        type: string
+      hardwareId:
+        type: string
+      customerFid:
+        type: string
+      displayName:
+        type: string
+      deviceType:
+        type: string
+      dateCreated:
+        type: integer
+        format: int64
+
+  DevicesResponse:
+    description: Devices Response
+    properties:
+      devices:
+        type: array
+        items:
+          $ref: '#/definitions/DeviceResponse'
+
