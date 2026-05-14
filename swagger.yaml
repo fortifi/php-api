@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.191.0'
+  version: '3.193.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -13769,7 +13769,15 @@ definitions:
         format: int32
       apiOnly:
         type: boolean
-
+      term:
+        type: integer
+        format: int32
+        x-omitempty: false
+      termType:
+        type: integer
+        format: int32
+        x-omitempty: false
+        
   UpdateProductOfferPayload:
     properties:
       displayName:
@@ -15200,31 +15208,6 @@ definitions:
         type: string
       offerFid:
         type: string
-      chargeSetup:
-        type: boolean
-        default: true
-      taxCode:
-        type: string
-      unitPrice:
-        type: number
-        format: float
-      setupFee:
-        type: number
-        format: float
-      quantity:
-        type: integer
-        format: int32
-        default: 1
-      setupDiscount:
-        type: number
-        format: float
-      discount:
-        type: number
-        format: float
-      calculateInclusive:
-        type: boolean
-      calculateExclusive:
-        type: boolean
 
   CalculateTaxResponse:
     description: Calculate Tax Response
@@ -15234,7 +15217,40 @@ definitions:
           items:
             type: array
             items:
-              $ref: '#/definitions/TaxItemResponse'
+              $ref: '#/definitions/TaxItemBreakdownResponse'
+          totalPrice:
+            $ref: '#/definitions/TotalPriceResponse'
+
+  TotalPriceResponse:
+    description: Cart-wide price totals — un-discounted, post-discount, and savings
+    properties:
+      baseNetAmount:
+        type: number
+        format: float
+      baseGrossAmount:
+        type: number
+        format: float
+      baseTaxAmount:
+        type: number
+        format: float
+      offerNetAmount:
+        type: number
+        format: float
+      offerGrossAmount:
+        type: number
+        format: float
+      offerTaxAmount:
+        type: number
+        format: float
+      discountNetAmount:
+        type: number
+        format: float
+      discountGrossAmount:
+        type: number
+        format: float
+      discountTaxAmount:
+        type: number
+        format: float
 
   TaxItemResponse:
     description: Tax Item Response
@@ -15293,6 +15309,78 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/TaxRateBreakdownResponse'
+
+  TaxItemBreakdownResponse:
+    description: Tax Item Response with per-item base/offer price breakdown
+    allOf:
+      - $ref: '#/definitions/TaxItemResponse'
+      - properties:
+          basePrice:
+            $ref: '#/definitions/BasePriceResponse'
+          offerPrice:
+            $ref: '#/definitions/OfferPriceResponse'
+
+  BasePriceResponse:
+    description: Base price breakdown (pre-offer)
+    properties:
+      unitNetAmount:
+        type: number
+        format: float
+      unitGrossAmount:
+        type: number
+        format: float
+      unitTaxAmount:
+        type: number
+        format: float
+      totalNetAmount:
+        type: number
+        format: float
+      totalGrossAmount:
+        type: number
+        format: float
+      totalTaxAmount:
+        type: number
+        format: float
+
+  OfferPriceResponse:
+    description: Offer price breakdown (post-discount)
+    properties:
+      unitNetAmount:
+        type: number
+        format: float
+      unitGrossAmount:
+        type: number
+        format: float
+      unitTaxAmount:
+        type: number
+        format: float
+      unitDiscountNetAmount:
+        type: number
+        format: float
+      unitDiscountGrossAmount:
+        type: number
+        format: float
+      unitDiscountTaxAmount:
+        type: number
+        format: float
+      totalNetAmount:
+        type: number
+        format: float
+      totalGrossAmount:
+        type: number
+        format: float
+      totalTaxAmount:
+        type: number
+        format: float
+      totalDiscountNetAmount:
+        type: number
+        format: float
+      totalDiscountGrossAmount:
+        type: number
+        format: float
+      totalDiscountTaxAmount:
+        type: number
+        format: float
 
   TaxRateBreakdownResponse:
     description: Tax Rate Breakdown Response

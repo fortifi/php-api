@@ -13,6 +13,8 @@ class CreateProductOfferPayload
   protected $_setupDiscountAmount;
   protected $_setupDiscountType;
   protected $_apiOnly;
+  protected $_term;
+  protected $_termType;
 
   public function hydrate($data)
   {
@@ -49,6 +51,14 @@ class CreateProductOfferPayload
     {
       $this->_apiOnly = $data["apiOnly"];
     }
+    if(isset($data["term"]))
+    {
+      $this->_term = (int)$data["term"];
+    }
+    if(isset($data["termType"]))
+    {
+      $this->_termType = (int)$data["termType"];
+    }
     return $this;
   }
 
@@ -64,6 +74,8 @@ class CreateProductOfferPayload
       "setupDiscountAmount" => $this->_setupDiscountAmount,
       "setupDiscountType"   => $this->_setupDiscountType,
       "apiOnly"             => $this->_apiOnly,
+      "term"                => $this->_term,
+      "termType"            => $this->_termType,
     ];
   }
 
@@ -239,5 +251,47 @@ class CreateProductOfferPayload
   public function isApiOnly($default = false)
   {
     return (bool)$this->_apiOnly ?? $default;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setTerm(?int $value)
+  {
+    $this->_term = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getTerm($default = null)
+  {
+    return $this->_term ?? $default;
+  }
+
+  /**
+   * @param int $value
+   *
+   * @return $this
+   */
+  public function setTermType(?int $value)
+  {
+    $this->_termType = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return integer
+   */
+  public function getTermType($default = null)
+  {
+    return $this->_termType ?? $default;
   }
 }
