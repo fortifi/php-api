@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.193.0'
+  version: '3.193.1'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -13613,6 +13613,7 @@ definitions:
       price:
         type: number
         format: float
+        x-omitempty: false
       setupFee:
         type: number
         format: float
