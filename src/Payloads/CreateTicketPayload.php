@@ -8,6 +8,11 @@ class CreateTicketPayload
   protected $_customerEmail;
   protected $_customerName;
   protected $_customerFid;
+  /**
+   * Creation time for backfilling historic tickets, in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z. Must not be in the future. Defaults to now.
+
+   */
+  protected $_time;
   protected $_ticketType;
   protected $_brandFid;
   protected $_queueFid;
@@ -45,6 +50,10 @@ class CreateTicketPayload
     if(isset($data["customerFid"]))
     {
       $this->_customerFid = (string)$data["customerFid"];
+    }
+    if(isset($data["time"]))
+    {
+      $this->_time = (string)$data["time"];
     }
     if(isset($data["ticketType"]))
     {
@@ -132,6 +141,7 @@ class CreateTicketPayload
       "customerEmail"          => $this->_customerEmail,
       "customerName"           => $this->_customerName,
       "customerFid"            => $this->_customerFid,
+      "time"                   => $this->_time,
       "ticketType"             => $this->_ticketType,
       "brandFid"               => $this->_brandFid,
       "queueFid"               => $this->_queueFid,
@@ -217,6 +227,31 @@ class CreateTicketPayload
   public function getCustomerFid($default = null, $trim = true)
   {
     $value = $this->_customerFid ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setTime(?string $value)
+  {
+    $this->_time = $value;
+    return $this;
+  }
+
+  /**
+   * Creation time for backfilling historic tickets, in ISO 8601 standard with optional fractions of a second e.g 2015-12-05T13:11:59.888Z. Must not be in the future. Defaults to now.
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTime($default = null, $trim = true)
+  {
+    $value = $this->_time ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

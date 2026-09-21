@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.193.0'
+  version: '3.194.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -225,6 +225,7 @@ tags:
   - name: Labels
   - name: Reservations
   - name: Finance
+  - name: Flow
 
 paths:
   '/account/verification':
@@ -5871,6 +5872,281 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Envelope'
+  '/flows':
+    get:
+      summary: List Retention Flows
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      responses:
+        200:
+          description: List of flows
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Flows'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new Retention Flow
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateFlowPayload'
+      responses:
+        200:
+          description: Flow created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Flow'
+        x-400:
+          description: Information provided is not valid
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/flows/{flowFid}':
+    get:
+      summary: Retrieve Retention Flow Details
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+      responses:
+        200:
+          description: Flow details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/Flow'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Retention Flow Details
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateFlowPayload'
+      responses:
+        200:
+          description: Updated flow details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    delete:
+      summary: Archive a Retention Flow
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+      responses:
+        200:
+          description: Flow archived successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/flows/{flowFid}/steps':
+    get:
+      summary: Retrieve Retention Flow Steps
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+      responses:
+        200:
+          description: List of flow steps
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/FlowSteps'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    post:
+      summary: Create a new Retention Flow Step
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateFlowStepPayload'
+      responses:
+        200:
+          description: Step created successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/FlowStep'
+        x-404:
+          description: Flow not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+
+  '/flows/{flowFid}/steps/{stepFid}':
+    get:
+      summary: Retrieve Retention Flow Step Details
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+        - $ref: '#/parameters/stepFid'
+      responses:
+        200:
+          description: Step details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/FlowStep'
+        x-404:
+          description: Flow or Step not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    put:
+      summary: Update Retention Flow Step Details
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+        - $ref: '#/parameters/stepFid'
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateFlowStepPayload'
+      responses:
+        200:
+          description: Updated step details
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Flow or Step not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
+    delete:
+      summary: Archive a Retention Flow Step
+      tags:
+        - Flow
+      security:
+        - OAuth:
+            - flow
+        - accessToken: [ ]
+      parameters:
+        - $ref: '#/parameters/flowFid'
+        - $ref: '#/parameters/stepFid'
+      responses:
+        200:
+          description: Step archived successfully
+          schema:
+            allOf:
+              - $ref: '#/definitions/Envelope'
+              - properties:
+                  data:
+                    $ref: '#/definitions/BoolMessage'
+        x-404:
+          description: Flow or Step not found
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Envelope'
   '/interactions/journey':
     post:
       summary: Create A Customer Journey
@@ -9355,6 +9631,12 @@ parameters:
     type: string
     required: true
     description: Flow FID to use
+  stepFid:
+    name: stepFid
+    in: path
+    type: string
+    required: true
+    description: Flow Step FID to use
   addressFid:
     name: addressFid
     in: path
@@ -9886,6 +10168,88 @@ definitions:
     required:
       - meta
       - data
+  CreateFlowPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      group:
+        type: string
+        maxLength: 50
+      order:
+        type: integer
+        format: int32
+
+  UpdateFlowPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      group:
+        type: string
+        maxLength: 50
+
+  Flow:
+    description: Retention Flow
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          group:
+            type: string
+          order:
+            type: integer
+            format: int32
+
+  Flows:
+    description: Retention Flows
+    properties:
+      flows:
+        type: array
+        items:
+          $ref: '#/definitions/Flow'
+
+  CreateFlowStepPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+      description:
+        type: string
+      key:
+        type: string
+        maxLength: 255
+        description: Stable caller-supplied identifier (app-retention step id)
+
+  UpdateFlowStepPayload:
+    properties:
+      displayName:
+        type: string
+        maxLength: 60
+
+  FlowStep:
+    description: Retention Flow Step
+    allOf:
+      - $ref: '#/definitions/Entity'
+      - properties:
+          flowFid:
+            type: string
+          key:
+            type: string
+          order:
+            type: integer
+            format: int32
+
+  FlowSteps:
+    description: Retention Flow Steps
+    properties:
+      flowFid:
+        type: string
+      steps:
+        type: array
+        items:
+          $ref: '#/definitions/FlowStep'
   Fid:
     description: Generic Response
     properties:
@@ -12497,6 +12861,15 @@ definitions:
         type: string
       mode:
         $ref: '#/definitions/ModifySubscriptionMode'
+      clientIp:
+        description: IP Address of the visitor
+        type: string
+      userAgent:
+        description: User Agent of the visitors browser 'HTTP_USER_AGENT'
+        type: string
+      publisher:
+        $ref: '#/definitions/OrderPublisherPayload'
+
     required:
       - priceFid
 
@@ -12655,11 +13028,14 @@ definitions:
         type: string
       scheme:
         type: string
+        x-omitempty: false
       token:
         type: string
       expiry:
         type: string
       brandFid:
+        type: string
+      methodType:
         type: string
 
   CreatePublisherPayload:
@@ -12873,6 +13249,12 @@ definitions:
         type: string
       currency:
         description: Currency
+        type: string
+      country:
+        description: >
+          ISO 3166-1 alpha-2 country code. Setting it here avoids a follow-up call
+          to the customer location endpoint, and skips the IP geolocation lookup
+          that runs when a customer is created without a country.
         type: string
       phoneNumber:
         description: Phone Number
@@ -13613,6 +13995,7 @@ definitions:
       price:
         type: number
         format: float
+        x-omitempty: false
       setupFee:
         type: number
         format: float
@@ -13777,7 +14160,7 @@ definitions:
         type: integer
         format: int32
         x-omitempty: false
-        
+
   UpdateProductOfferPayload:
     properties:
       displayName:
@@ -13820,6 +14203,13 @@ definitions:
         type: string
       customerFid:
         type: string
+      time:
+        description: >
+          Creation time for backfilling historic tickets, in ISO 8601 standard with
+          optional fractions of a second e.g 2015-12-05T13:11:59.888Z. Must not be in
+          the future. Defaults to now.
+        type: string
+        format: date-time
       ticketType:
         type: string
         enum:

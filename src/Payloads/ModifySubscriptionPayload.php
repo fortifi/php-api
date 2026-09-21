@@ -30,6 +30,15 @@ class ModifySubscriptionPayload
    * Mode to modify subscription with
    */
   protected $_mode;
+  /**
+   * IP Address of the visitor
+   */
+  protected $_clientIp;
+  /**
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
+   */
+  protected $_userAgent;
+  protected $_publisher;
 
   public function hydrate($data)
   {
@@ -58,6 +67,19 @@ class ModifySubscriptionPayload
     {
       $this->_mode = (string)$data["mode"];
     }
+    if(isset($data["clientIp"]))
+    {
+      $this->_clientIp = (string)$data["clientIp"];
+    }
+    if(isset($data["userAgent"]))
+    {
+      $this->_userAgent = (string)$data["userAgent"];
+    }
+    if(isset($data["publisher"]))
+    {
+      $this->_publisher = new OrderPublisherPayload();
+      $this->_publisher->hydrate($data["publisher"]);
+    }
     return $this;
   }
 
@@ -71,6 +93,9 @@ class ModifySubscriptionPayload
       "offerFid"    => $this->_offerFid,
       "sku"         => $this->_sku,
       "mode"        => $this->_mode,
+      "clientIp"    => $this->_clientIp,
+      "userAgent"   => $this->_userAgent,
+      "publisher"   => $this->_publisher,
     ];
   }
 
@@ -226,5 +251,76 @@ class ModifySubscriptionPayload
   {
     $value = $this->_mode ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setClientIp(?string $value)
+  {
+    $this->_clientIp = $value;
+    return $this;
+  }
+
+  /**
+   * IP Address of the visitor
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getClientIp($default = null, $trim = true)
+  {
+    $value = $this->_clientIp ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setUserAgent(?string $value)
+  {
+    $this->_userAgent = $value;
+    return $this;
+  }
+
+  /**
+   * User Agent of the visitors browser 'HTTP_USER_AGENT'
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getUserAgent($default = null, $trim = true)
+  {
+    $value = $this->_userAgent ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param OrderPublisherPayload $value
+   *
+   * @return $this
+   */
+  public function setPublisher(?OrderPublisherPayload $value)
+  {
+    $this->_publisher = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   *
+   * @return OrderPublisherPayload
+   */
+  public function getPublisher($default = null)
+  {
+    return $this->_publisher ?? $default;
   }
 }

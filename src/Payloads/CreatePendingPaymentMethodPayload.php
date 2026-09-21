@@ -11,6 +11,7 @@ class CreatePendingPaymentMethodPayload
   protected $_token;
   protected $_expiry;
   protected $_brandFid;
+  protected $_methodType;
 
   public function hydrate($data)
   {
@@ -39,6 +40,10 @@ class CreatePendingPaymentMethodPayload
     {
       $this->_brandFid = (string)$data["brandFid"];
     }
+    if(isset($data["methodType"]))
+    {
+      $this->_methodType = (string)$data["methodType"];
+    }
     return $this;
   }
 
@@ -52,6 +57,7 @@ class CreatePendingPaymentMethodPayload
       "token"         => $this->_token,
       "expiry"        => $this->_expiry,
       "brandFid"      => $this->_brandFid,
+      "methodType"    => $this->_methodType,
     ];
   }
 
@@ -190,6 +196,29 @@ class CreatePendingPaymentMethodPayload
   public function getBrandFid($default = null, $trim = true)
   {
     $value = $this->_brandFid ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setMethodType(?string $value)
+  {
+    $this->_methodType = $value;
+    return $this;
+  }
+
+  /**
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getMethodType($default = null, $trim = true)
+  {
+    $value = $this->_methodType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

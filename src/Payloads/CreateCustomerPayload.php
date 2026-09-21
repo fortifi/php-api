@@ -31,6 +31,11 @@ class CreateCustomerPayload
    */
   protected $_currency;
   /**
+   * ISO 3166-1 alpha-2 country code. Setting it here avoids a follow-up call to the customer location endpoint, and skips the IP geolocation lookup that runs when a customer is created without a country.
+
+   */
+  protected $_country;
+  /**
    * Phone Number
    */
   protected $_phoneNumber;
@@ -107,6 +112,10 @@ class CreateCustomerPayload
     {
       $this->_currency = (string)$data["currency"];
     }
+    if(isset($data["country"]))
+    {
+      $this->_country = (string)$data["country"];
+    }
     if(isset($data["phoneNumber"]))
     {
       $this->_phoneNumber = (string)$data["phoneNumber"];
@@ -172,6 +181,7 @@ class CreateCustomerPayload
       "time"              => $this->_time,
       "brandFid"          => $this->_brandFid,
       "currency"          => $this->_currency,
+      "country"           => $this->_country,
       "phoneNumber"       => $this->_phoneNumber,
       "email"             => $this->_email,
       "firstName"         => $this->_firstName,
@@ -335,6 +345,31 @@ class CreateCustomerPayload
   public function getCurrency($default = null, $trim = true)
   {
     $value = $this->_currency ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setCountry(?string $value)
+  {
+    $this->_country = $value;
+    return $this;
+  }
+
+  /**
+   * ISO 3166-1 alpha-2 country code. Setting it here avoids a follow-up call to the customer location endpoint, and skips the IP geolocation lookup that runs when a customer is created without a country.
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getCountry($default = null, $trim = true)
+  {
+    $value = $this->_country ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 
