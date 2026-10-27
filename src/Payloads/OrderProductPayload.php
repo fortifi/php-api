@@ -18,6 +18,10 @@ class OrderProductPayload
    */
   protected $_priceFid;
   /**
+   * Trial Price FID — the line is charged this price for its term, then the price
+   */
+  protected $_trialPriceFid;
+  /**
    * Offer FID to apply to product
    */
   protected $_offerFid;
@@ -71,6 +75,10 @@ class OrderProductPayload
     if(isset($data["priceFid"]))
     {
       $this->_priceFid = (string)$data["priceFid"];
+    }
+    if(isset($data["trialPriceFid"]))
+    {
+      $this->_trialPriceFid = (string)$data["trialPriceFid"];
     }
     if(isset($data["offerFid"]))
     {
@@ -143,6 +151,7 @@ class OrderProductPayload
       "parent"               => $this->_parent,
       "transportReference"   => $this->_transportReference,
       "priceFid"             => $this->_priceFid,
+      "trialPriceFid"        => $this->_trialPriceFid,
       "offerFid"             => $this->_offerFid,
       "sku"                  => $this->_sku,
       "productFid"           => $this->_productFid,
@@ -233,6 +242,31 @@ class OrderProductPayload
   public function getPriceFid($default = null, $trim = true)
   {
     $value = $this->_priceFid ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * @param string $value
+   *
+   * @return $this
+   */
+  public function setTrialPriceFid(?string $value)
+  {
+    $this->_trialPriceFid = $value;
+    return $this;
+  }
+
+  /**
+   * Trial Price FID — the line is charged this price for its term, then the price
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTrialPriceFid($default = null, $trim = true)
+  {
+    $value = $this->_trialPriceFid ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

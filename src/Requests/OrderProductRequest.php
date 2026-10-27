@@ -18,6 +18,7 @@ class OrderProductRequest
         "price" => $this->getPrice(),
         "priceUnit" => $this->getPriceUnit(),
         "priceFid" => $this->getPriceFid(),
+        "trialPriceFid" => $this->getTrialPriceFid(),
         "offerFid" => $this->getOfferFid(),
         "productFid" => $this->getProductFid(),
         "quantity" => $this->getQuantity(),
@@ -76,6 +77,20 @@ class OrderProductRequest
   public function getPriceFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'priceFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * Trial Price FID — the line is charged this price for its term, then the price
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getTrialPriceFid($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'trialPriceFid', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 

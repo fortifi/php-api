@@ -67,6 +67,7 @@ class SubscriptionRequest
         "externalReference" => $this->getExternalReference(),
         "sourceFid" => $this->getSourceFid(),
         "paymentMethodFid" => $this->getPaymentMethodFid(),
+        "renewalMode" => $this->getRenewalMode(),
       ]
     );
   }
@@ -708,6 +709,20 @@ class SubscriptionRequest
   public function getPaymentMethodFid($default = null, $trim = true)
   {
     $value = Objects::property($this->_getResultJson(), 'paymentMethodFid', $default);
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  /**
+   * How the subscription behaves at its next renewal: renew-and-charge, renew-and-do-not-charge or do-not-renew
+   * 
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getRenewalMode($default = null, $trim = true)
+  {
+    $value = Objects::property($this->_getResultJson(), 'renewalMode', $default);
     return $trim ? Strings::ntrim($value) : $value;
   }
 }

@@ -11,7 +11,7 @@ class FortifiApiDefinition  extends ApiDefinition
   public function __construct()
   {
     $this->setTitle('Fortifi API');
-    $this->setVersion('3.194.0');
+    $this->setVersion('3.196.0');
     $this->setDescription(<<<DESCRIPTION
 The second version of the Fortifi API is an exciting step forward towards
 making it easier for businesses to have open access to their data. We created it
@@ -38,12 +38,6 @@ For non-GET requests, you must pass your ACCESS_TOKEN in the Authorization heade
 ```
     Authorization: Bearer ACCESS_TOKEN
 ```
-
-## Limits
-Be nice. If you're sending too many requests too quickly, we'll send back a
-`503` error code (server unavailable).
-You are limited to 5000 requests per hour per `access_token`.
-
 
 ## Request Methods
 We do our best to have all URLs
