@@ -24,6 +24,10 @@ class FlowLogMetricPayload
    * Source of the action
    */
   protected $_source;
+  /**
+   * Retention flow type the action belongs to
+   */
+  protected $_retentionType;
   protected $_offerFid;
   protected $_amount;
   /**
@@ -95,6 +99,10 @@ class FlowLogMetricPayload
     {
       $this->_source = (string)$data["source"];
     }
+    if(isset($data["retentionType"]))
+    {
+      $this->_retentionType = (string)$data["retentionType"];
+    }
     if(isset($data["offerFid"]))
     {
       $this->_offerFid = (string)$data["offerFid"];
@@ -153,6 +161,7 @@ class FlowLogMetricPayload
       "purchaseFid"     => $this->_purchaseFid,
       "purchaseSegment" => $this->_purchaseSegment,
       "source"          => $this->_source,
+      "retentionType"   => $this->_retentionType,
       "offerFid"        => $this->_offerFid,
       "amount"          => $this->_amount,
       "userAgent"       => $this->_userAgent,
@@ -327,6 +336,35 @@ class FlowLogMetricPayload
   public function getSource($default = null, $trim = true)
   {
     $value = $this->_source ?? $default;
+    return $trim ? Strings::ntrim($value) : $value;
+  }
+
+  const RETENTION_TYPE_CANCEL = 'cancel';
+  const RETENTION_TYPE_PAUSE = 'pause';
+  const RETENTION_TYPE_MODIFY = 'modify';
+
+  /**
+   * @param string $value cancel, pause, modify
+   *
+   * @return $this
+   */
+  public function setRetentionType(?string $value)
+  {
+    $this->_retentionType = $value;
+    return $this;
+  }
+
+  /**
+   * Retention flow type the action belongs to
+   *
+   * @param mixed $default
+   * @param bool $trim Trim Value
+   *
+   * @return string
+   */
+  public function getRetentionType($default = null, $trim = true)
+  {
+    $value = $this->_retentionType ?? $default;
     return $trim ? Strings::ntrim($value) : $value;
   }
 

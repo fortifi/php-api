@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Fortifi API
-  version: '3.194.0'
+  version: '3.196.0'
   termsOfService: 'https://fortifi.io/legal/terms/api'
   description: >
     The second version of the Fortifi API is an exciting step forward towards
@@ -46,16 +46,6 @@ info:
         Authorization: Bearer ACCESS_TOKEN
 
     ```
-
-
-    ## Limits
-
-    Be nice. If you're sending too many requests too quickly, we'll send back a
-
-    `503` error code (server unavailable).
-
-    You are limited to 5000 requests per hour per `access_token`.
-
 
 
     ## Request Methods
@@ -3888,6 +3878,11 @@ paths:
       parameters:
         - $ref: '#/parameters/customerFid'
         - $ref: '#/parameters/subscriptionFid'
+        - name: payload
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/SubscriptionReactivatePayload'
       responses:
         200:
           description: Subscription reactivated
@@ -11216,6 +11211,9 @@ definitions:
           paymentMethodFid:
             description: The FID of the payment method used to pay for this subscription (Blank will use account methods)
             type: string
+          renewalMode:
+            description: "How the subscription behaves at its next renewal: renew-and-charge, renew-and-do-not-charge or do-not-renew"
+            type: string
 
   SubscriptionCancellation:
     description: Generic Response
@@ -11691,6 +11689,13 @@ definitions:
       source:
         description: Source of the action
         type: string
+      retentionType:
+        description: Retention flow type the action belongs to
+        type: string
+        enum:
+          - cancel
+          - pause
+          - modify
       offerFid:
         type: string
       amount:
@@ -12898,6 +12903,12 @@ definitions:
         type: boolean
     required:
       - subscriptionRefundType
+
+  SubscriptionReactivatePayload:
+    properties:
+      waiveUnpaid:
+        description: Reactivate without charging an unpaid period
+        type: boolean
 
   SubscriptionCancelPayload:
     properties:
@@ -14267,6 +14278,11 @@ definitions:
       bcc:
         type: array
         description: key = Email | value = Display Name
+        items:
+          $ref: '#/definitions/keyValuePayload'
+      labels:
+        type: array
+        description: key = Label | value = Label Value (optional)
         items:
           $ref: '#/definitions/keyValuePayload'
 

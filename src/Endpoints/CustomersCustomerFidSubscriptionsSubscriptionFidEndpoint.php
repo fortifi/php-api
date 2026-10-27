@@ -7,6 +7,7 @@ use Fortifi\Api\V1\Requests\OrderRequest;
 use Fortifi\Api\V1\Requests\FidRequest;
 use Fortifi\Api\V1\Requests\CalculatedSubscriptionModificationRequest;
 use Fortifi\Api\V1\Requests\CalculateSubscriptionRefundRequest;
+use Fortifi\Api\V1\Payloads\SubscriptionReactivatePayload;
 use Fortifi\Api\V1\Payloads\SubscriptionCancelPayload;
 use Fortifi\Api\V1\Payloads\ModifySubscriptionPayload;
 use Fortifi\Api\V1\Payloads\CalculateRefundPayload;
@@ -614,9 +615,11 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
   /**
    * @summary Reactivate a subscription. Returns subscription FID.
    *
+   * @param SubscriptionReactivatePayload $payload
+   *
    * @return ApiRequest
    */
-  public function setReactivate()
+  public function setReactivate(SubscriptionReactivatePayload $payload = null)
   {
     $request = new ApiRequest();
     $request->setConnection($this->_getConnection());
@@ -631,6 +634,7 @@ class CustomersCustomerFidSubscriptionsSubscriptionFidEndpoint extends ApiEndpoi
         'customers/{customerFid}/subscriptions/{subscriptionFid}/reactivate'
       )
     ));
+    $detail->setBody(json_encode($payload));
     $detail->setMethod('PUT');
     $request->setRequestDetail($detail);
     return $request;

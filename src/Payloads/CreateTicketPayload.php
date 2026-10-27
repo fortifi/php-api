@@ -35,6 +35,10 @@ class CreateTicketPayload
    * key = Email | value = Display Name
    */
   protected $_bcc;
+  /**
+   * key = Label | value = Label Value (optional)
+   */
+  protected $_labels;
 
   public function hydrate($data)
   {
@@ -131,6 +135,16 @@ class CreateTicketPayload
         $this->_bcc[] = $dObj;
       }
     }
+    if(isset($data["labels"]))
+    {
+      $this->_labels = [];
+      foreach($data["labels"] as $dItem)
+      {
+        $dObj = new KeyValuePayload();
+        $dObj->hydrate($dItem);
+        $this->_labels[] = $dObj;
+      }
+    }
     return $this;
   }
 
@@ -158,6 +172,7 @@ class CreateTicketPayload
       "accountVerificationFid" => $this->_accountVerificationFid,
       "cc"                     => $this->_cc,
       "bcc"                    => $this->_bcc,
+      "labels"                 => $this->_labels,
     ];
   }
 
@@ -671,5 +686,39 @@ class CreateTicketPayload
   public function getBcc($default = [])
   {
     return $this->_bcc ?? $default;
+  }
+
+  /**
+   * @param KeyValuePayload[] $value
+   *
+   * @return $this
+   */
+  public function setLabels(?array $value)
+  {
+    $this->_labels = $value;
+    return $this;
+  }
+
+  /**
+   * @param KeyValuePayload $item
+   *
+   * @return $this
+   */
+  public function addLabel(KeyValuePayload $item)
+  {
+    $this->_labels[] = $item;
+    return $this;
+  }
+
+  /**
+   * key = Label | value = Label Value (optional)
+   *
+   * @param mixed $default
+   *
+   * @return KeyValuePayload[]
+   */
+  public function getLabels($default = [])
+  {
+    return $this->_labels ?? $default;
   }
 }
